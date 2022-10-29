@@ -1,5 +1,5 @@
 #include <iostream>
-#include "client_thread.h"
+#include "common_thread.h"
 
 
 void Thread::runExpecting() {

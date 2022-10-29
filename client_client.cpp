@@ -1,6 +1,5 @@
 #include "client_client.h"
 #include "client_lobby.h"
-#include "client_thread.h"
 #include "client_threadlauncher.h"
 #include "client_renderer.h"    
 

@@ -1,4 +1,4 @@
-#include "client_thread.h"
+#include "common_thread.h"
 
 class ThreadCmdReader: public Thread {
 public:
