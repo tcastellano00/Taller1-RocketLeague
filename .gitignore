@@ -34,3 +34,4 @@
 #exclude propio
 .vscode/settings.json
 client
+server
