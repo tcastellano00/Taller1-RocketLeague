@@ -7,15 +7,14 @@
 //Esta clase se encarga de obtener toda la informacion
 //acerca de comando que mande el cliente, para despues
 //manejar dicha informacion con mas facilidad.
-class Comando {
-    std::string tipo_comando;
+class Command {
+    std::string type_command;
     //std::string informacion_comando;
 
     public:
-    Comando(const std::string &tipo_comando,
-    const std::string &informacion_comando);
+    Command(const std::string &type_command);
     
-    std::string obtener_tipo_comando();
+    std::string get_type_command();
     //std::string obtener_informacion_del_comando();
 };
 #endif

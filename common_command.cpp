@@ -1,14 +1,9 @@
-#include "common_comando.h"
+#include "common_command.h"
 
-Comando::Comando(const std::string &tipo_comando,
-const std::string &informacion_comando):
-    tipo_comando(tipo_comando){}
+Command::Command(const std::string &type_command):
+    type_command(type_command){}
 
 
-std::string Comando::obtener_tipo_comando(){
-    return tipo_comando;
+std::string Command::get_type_command(){
+    return type_command;
 }
-
-// std::string Comando::obtener_informacion_del_comando(){
-//     return informacion_comando;
-// }
