@@ -8,11 +8,11 @@
 //acerca de comando que mande el cliente, para despues
 //manejar dicha informacion con mas facilidad.
 class Command {
-    std::string type_command;
+    std::string type;
 
     public:
-    Command(const std::string &type_command);
+    Command(const std::string &type);
     
-    std::string get_type_command();
+    std::string getType();
 };
 #endif
