@@ -3,7 +3,7 @@
 
 Renderer::Renderer() {}
 
-void Renderer::render() {
+void Renderer::render(GameStatusMonitor& gameStatusMonitor) {
     std::cout << "Im rendering" << std::endl;
 
 }

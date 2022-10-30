@@ -1,3 +1,6 @@
+#ifndef COMMON_BLOCKINGQUEUE_H
+#define COMMON_BLOCKINGQUEUE_H
+
 #include <queue>
 #include <mutex>
 #include <condition_variable>
@@ -15,3 +18,5 @@ public:
     T pop();
 
 };
+
+#endif

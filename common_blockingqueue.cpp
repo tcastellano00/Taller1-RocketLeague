@@ -15,7 +15,7 @@ T BlockingQueue<T>::pop() {
     std::unique_lock<std::mutex> lock(mutex);
     
     while (internal.empty()) {
-        keep_popping.wait();
+        keep_popping.wait(lock);
     }
 
     T element = internal.front();

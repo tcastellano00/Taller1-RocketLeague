@@ -7,18 +7,20 @@ void ThreadSender::run() {
     Protocol protocol(connection);
 
     while (playing) {
-        Command command(queue.pop());
+        //Command command = queue.pop();
 
         if (protocol.isClosed()) {
             break;
         }
 
-        protocol.sendMessage(command.getType());
-        //playing = monitorGameStatus.stillPlaying();
+        //protocol.sendMessage(command.getType());
+
+        playing = gameStatusMonitor.gameIsClosed();
     }
 }
 
-ThreadSender::ThreadSender(BlockingQueue<Command>& newQueue, Socket& cnct): queue(newQueue), connection(cnct) {}
+ThreadSender::ThreadSender(BlockingQueue<Command>& newQueue, Socket& cnct,GameStatusMonitor& newGameStatusMonitor):
+    queue(newQueue),connection(cnct),gameStatusMonitor(newGameStatusMonitor) {}
 
 
 ThreadSender::~ThreadSender() {
