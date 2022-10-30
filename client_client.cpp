@@ -18,7 +18,7 @@ void Client::start() {
         }
 
         ThreadLauncher threadlauncher;
-        threadlauncher.start();
+        threadlauncher.start(conection);
         Renderer renderer;
         renderer.render();
 
