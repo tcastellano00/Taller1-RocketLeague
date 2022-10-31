@@ -6,7 +6,7 @@
 
 #include "../Common/common_thread.h"
 #include "../Common/common_socket.h"
-#include "server_thread_client.h"
+#include "ThreadClient.h"
 
 /*  Esta clase implementa la logica de un
     hilo que acepta clientes nuevos.

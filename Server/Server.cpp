@@ -6,8 +6,8 @@
 #include "../Common/common_socket.h"
 #include "../Common/common_protocol.h"
 
-#include "server_server.h"
-#include "server_thread_client_reciver.h"
+#include "Server.h"
+#include "ThreadClientReciver.h"
 
 Server::Server(
     const char *port) : socket(port) { }

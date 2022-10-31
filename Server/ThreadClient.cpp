@@ -6,7 +6,7 @@
 #include <memory>
 
 #include "../Common/common_liberror.h"
-#include "server_thread_client.h"
+#include "ThreadClient.h"
 
 ThreadClient::ThreadClient(Socket& socket) 
     :   protocol(socket), 

@@ -5,8 +5,8 @@
 #include "../Common/common_socket.h"
 #include "../Common/common_liberror.h"
 
-#include "server_thread_client.h"
-#include "server_thread_client_reciver.h"
+#include "ThreadClient.h"
+#include "ThreadClientReciver.h"
 
 ThreadClientReciver::ThreadClientReciver(Socket &accepter) 
     : accepter(std::move(accepter)) {
