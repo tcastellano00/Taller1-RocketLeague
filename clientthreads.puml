@@ -1,0 +1,51 @@
+@startuml
+
+
+class ThreadLauncher{
++start()
+}
+
+
+GameStatusMonitor --> GameStatus
+
+class ThreadCmdReader{
++start()
+}
+
+class ThreadReceiver{
++start()
++updateGameStatus()
+}
+
+class ThreadSender{
+bool playing
++start()
+}
+
+class Protocol{
++std::string receiveMessage()
++sendMessage(std::string)
++bool isClosed()
+}
+
+class BlockingQueue<Command>{
++push(Command cmd)
++Command pop()
+}
+
+
+
+ThreadLauncher --> ThreadCmdReader
+ThreadLauncher --> ThreadSender
+ThreadLauncher --> ThreadReceiver
+ThreadReceiver -.> GameStatusMonitor
+ThreadSender --> Protocol
+ThreadReceiver --> Protocol
+ThreadLauncher --> BlockingQueue
+ThreadSender -.> BlockingQueue
+ThreadCmdReader -.> BlockingQueue
+ThreadSender -.> GameStatusMonitor
+
+
+
+@enduml

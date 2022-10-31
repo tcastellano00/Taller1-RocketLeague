@@ -1,0 +1,49 @@
+@startuml
+
+class Client{
++start()
+}
+
+class Socket{}
+
+class Lobby{
++start()
+}
+
+class GameStatusMonitor{
+std::mutex mutex
++bool gameIsClosed()
++std::string gameStatus()
++void statusUpdate(std::string newState)
+}
+
+class GameStatus{
+bool closed
+std::string actualStatus
++bool isClosed()
++void statusUpdate(std::string newState)
++std::string status()
+}
+
+class ThreadLauncher{}
+
+class Renderer{
++void render(GameStatusMonitor& gameStatusMonitor)
+}
+
+
+
+
+
+Client --> Lobby
+Client --> GameStatusMonitor
+Client --> ThreadLauncher
+Client --> Renderer
+Client --> Socket
+Lobby .-> Socket
+ThreadLauncher .-> Socket
+GameStatusMonitor --> GameStatus
+Renderer .-> GameStatusMonitor
+ThreadLauncher .-> GameStatusMonitor
+
+@enduml
