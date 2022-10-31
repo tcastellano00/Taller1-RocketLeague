@@ -3,8 +3,8 @@
 #include "client_threadcmdreader.h"
 #include "client_threadreceiver.h"
 #include "client_threadsender.h"
-#include "common_blockingqueue.h"
-#include "common_command.h"
+#include "../Common/common_blockingqueue.h"
+#include "../Common/common_command.h"
 
 
 ThreadLauncher::ThreadLauncher() {}

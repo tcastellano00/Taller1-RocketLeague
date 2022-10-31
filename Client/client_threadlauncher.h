@@ -1,4 +1,4 @@
-#include "common_socket.h"
+#include "../Common/common_socket.h"
 #include "client_gamestatusmonitor.h"
 
 class ThreadLauncher {

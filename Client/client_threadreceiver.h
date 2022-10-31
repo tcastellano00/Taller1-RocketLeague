@@ -1,4 +1,4 @@
-#include "common_thread.h"
+#include "../Common/common_thread.h"
 #include "client_gamestatusmonitor.h"
 
 

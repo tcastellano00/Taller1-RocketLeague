@@ -1,6 +1,6 @@
 #include "client_threadsender.h"
 #include <iostream>
-#include "common_protocol.h"
+#include "../Common/common_protocol.h"
 
 void ThreadSender::run() {
     std::cout << "Im running sender thread" << std::endl;

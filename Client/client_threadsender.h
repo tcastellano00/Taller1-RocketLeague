@@ -1,7 +1,7 @@
-#include "common_thread.h"
-#include "common_blockingqueue.h"
-#include "common_command.h"
-#include "common_socket.h"
+#include "../Common/common_thread.h"
+#include "../Common/common_blockingqueue.h"
+#include "../Common/common_command.h"
+#include "../Common/common_socket.h"
 #include "client_gamestatusmonitor.h"
 
 class ThreadSender: public Thread {

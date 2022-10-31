@@ -4,8 +4,8 @@
 #include <atomic>
 #include <string>
 
-#include "common_thread.h"
-#include "common_protocol.h"
+#include "../Common/common_thread.h"
+#include "../Common/common_protocol.h"
 
 /*  Esta clase implementa la logica de un
     hilo que "conversa" con un cliente en
