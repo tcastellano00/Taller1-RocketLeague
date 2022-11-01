@@ -54,6 +54,8 @@ bool ThreadCmdReader::handleEvents() {
             }
             case SDL_QUIT: {
                 std::cout << "Quit :(" << std::endl;
+                Command cmd("close");
+                queue.push(cmd);
                 return false;
             }
             

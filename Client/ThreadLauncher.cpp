@@ -5,6 +5,8 @@
 #include "ThreadSender.h"
 #include "../Common/BlockingQueue.h"
 #include "../Common/Command.h"
+#include "Renderer.h"   
+
 
 
 ThreadLauncher::ThreadLauncher() {}
@@ -16,6 +18,8 @@ void ThreadLauncher::start(Socket& connection,GameStatusMonitor& gameStatusMonit
     cmdReader.start();
     ThreadSender sender(queue, connection,gameStatusMonitor);
     sender.start();
-    ThreadReceiver receiver(gameStatusMonitor);
+    ThreadReceiver receiver(connection, gameStatusMonitor);
     receiver.start();
+    Renderer renderer;
+    renderer.render(gameStatusMonitor);
 }

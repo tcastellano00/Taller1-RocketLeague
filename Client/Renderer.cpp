@@ -2,6 +2,7 @@
 #include <iostream>
 
 #include <SDL2/SDL.h>
+#include <string>
 
 Renderer::Renderer() {}
 
@@ -30,6 +31,18 @@ void Renderer::render(GameStatusMonitor& gameStatusMonitor) {
     }
 
     // The window is open: could enter program loop here (see SDL_PollEvent())
+    
+    std::string lastState("");
+
+    while (!gameStatusMonitor.gameIsClosed()) {
+        std::string actualStatus = gameStatusMonitor.gameStatus();
+        if (actualStatus == lastState) {
+            continue;
+        }
+        lastState = actualStatus;
+        std::cout<< actualStatus << std::endl;
+        SDL_Delay(1000);
+    }
 
     SDL_Delay(3000);  // Pause execution for 3000 milliseconds, for example
 }
