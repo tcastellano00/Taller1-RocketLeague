@@ -1,11 +1,10 @@
-function build() {
-    sudo rm -rf build
-    mkdir build
-    cd build
-    cmake ..
-}
+#!/bin/bash
 
 # exit when any command fails
 set -e
 
-build
+sudo rm -rf build
+mkdir build
+cd build
+cmake ..
+make
