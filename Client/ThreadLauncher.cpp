@@ -16,8 +16,9 @@ void ThreadLauncher::start(Socket& connection,GameStatusMonitor& gameStatusMonit
     ThreadCmdReader cmdReader(queue);
     cmdReader.start();
 
-    ThreadSender sender(queue, connection,gameStatusMonitor);
+    ThreadSender sender(queue, connection, gameStatusMonitor);
     sender.start();
-    ThreadReceiver receiver(gameStatusMonitor);
+    
+    ThreadReceiver receiver(connection, gameStatusMonitor);
     receiver.start();
 }
