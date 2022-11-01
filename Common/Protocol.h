@@ -9,7 +9,7 @@
 */
 class Protocol {
 private:
-    Socket socket;
+    Socket& socket;
     bool closedSocket;
     
     /*  Cierra el socket */

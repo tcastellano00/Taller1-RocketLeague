@@ -7,7 +7,7 @@
 #define END_OF_MESSAGE "\n\n"
 
 Protocol::Protocol(
-    Socket &socket) : socket(std::move(socket)) {
+    Socket &socket) : socket(socket) {
         this->closedSocket = false;
      }
 
