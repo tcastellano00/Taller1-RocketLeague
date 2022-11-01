@@ -41,25 +41,23 @@ bool ThreadCmdReader::handleEvents() {
                 SDL_KeyboardEvent& keyEvent = (SDL_KeyboardEvent&) event;
                 switch (keyEvent.keysym.sym) {
                     case SDLK_RIGHT: {
-                        std::cout << "stop" << std::endl;
                         Command cmd("stop accelerate right");
                         queue.push(cmd);
                         break;
                     }
                     case SDLK_LEFT: {
-                        std::cout << "stop" << std::endl;
                         Command cmd("stop accelerate left");
                         queue.push(cmd);
                         break;
                     }
                 }
             }
-            case SDL_QUIT: {
+            /* case SDL_QUIT: {
                 std::cout << "Quit :(" << std::endl;
                 Command cmd("close");
                 queue.push(cmd);
                 return false;
-            }
+            } */
             
         }
 

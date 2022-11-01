@@ -15,8 +15,10 @@ void ThreadSender::run() {
 
         protocol.sendMessage(command.getType());
 
-        playing = gameStatusMonitor.gameIsClosed();
+        playing = (not gameStatusMonitor.gameIsClosed());
     }
+
+    std::cout << "Cerramos sender" << std::endl;
 }
 
 ThreadSender::ThreadSender(BlockingQueue<Command>& newQueue, Socket& cnct,GameStatusMonitor& newGameStatusMonitor):
