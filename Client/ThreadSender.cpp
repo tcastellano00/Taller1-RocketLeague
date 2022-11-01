@@ -20,7 +20,9 @@ void ThreadSender::run() {
 }
 
 ThreadSender::ThreadSender(BlockingQueue<Command>& newQueue, Socket& cnct,GameStatusMonitor& newGameStatusMonitor):
-    queue(newQueue),connection(cnct),gameStatusMonitor(newGameStatusMonitor) {}
+    queue(newQueue),connection(cnct),gameStatusMonitor(newGameStatusMonitor) {
+        this->playing = true;
+    }
 
 
 ThreadSender::~ThreadSender() {
