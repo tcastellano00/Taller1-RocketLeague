@@ -18,7 +18,7 @@ void ThreadClient::run() {
         try {
             std::string message = protocol.reciveMessage();
 
-            if (not this->talkWithClient)
+            if (not protocol.isClosed())
                 break;
 
             std::cout << message << std::endl;
