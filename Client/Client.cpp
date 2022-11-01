@@ -21,8 +21,6 @@ void Client::start() {
 
         ThreadLauncher threadlauncher;
         threadlauncher.start(conection,gameStatusMonitor);
-        Renderer renderer;
-        renderer.render(gameStatusMonitor);
 
         close_game = true;
 

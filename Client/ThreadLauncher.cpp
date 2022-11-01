@@ -3,6 +3,7 @@
 #include "ThreadCmdReader.h"
 #include "ThreadReceiver.h"
 #include "ThreadSender.h"
+#include "Renderer.h"
 #include "../Common/BlockingQueue.h"
 #include "../Common/Command.h"
 
@@ -21,4 +22,7 @@ void ThreadLauncher::start(Socket& connection,GameStatusMonitor& gameStatusMonit
     
     ThreadReceiver receiver(connection, gameStatusMonitor);
     receiver.start();
+
+    Renderer renderer;
+    renderer.render(gameStatusMonitor);
 }

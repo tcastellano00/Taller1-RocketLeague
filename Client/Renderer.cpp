@@ -44,5 +44,9 @@ void Renderer::render(GameStatusMonitor& gameStatusMonitor) {
         SDL_Delay(1000);
     }
 
-    SDL_Delay(3000);  // Pause execution for 3000 milliseconds, for example
+    // Close and destroy the window
+    SDL_DestroyWindow(window);
+
+    // Clean up
+    SDL_Quit();
 }

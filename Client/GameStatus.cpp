@@ -6,8 +6,8 @@ GameStatus::GameStatus(){
 }
 
 bool GameStatus::isClosed(){
-    //return closed;
-    return true;
+    return closed;
+    //return false;
 }
 
 std::string GameStatus::status(){
