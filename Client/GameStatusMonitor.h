@@ -17,6 +17,7 @@ class GameStatusMonitor{
     std::string gameStatus();
 
     void statusUpdate(std::string newState);
+    void setClose();
 
 };
 

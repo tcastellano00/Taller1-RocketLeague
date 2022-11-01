@@ -17,3 +17,7 @@ std::string GameStatus::status(){
 void GameStatus::statusUpdate(std::string newState){
     actualStatus = newState;
 }
+
+void GameStatus::setClose() {
+    closed = true;
+}

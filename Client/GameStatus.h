@@ -16,5 +16,7 @@ class GameStatus{
     void statusUpdate(std::string newState);
 
     std::string status();
+
+    void setClose();
 };
 #endif

@@ -21,7 +21,7 @@ void ThreadClient::run() {
             if (not protocol.isClosed())
                 break;
 
-            std::cout << message << std::endl;
+            std::cout << "Llego y envio: " << message << std::endl;
 
             protocol.sendMessage(message);
         } catch(const LibError &e) {
