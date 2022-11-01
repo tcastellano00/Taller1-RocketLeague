@@ -1,4 +1,4 @@
-#include "common_command.h"
+#include "Command.h"
 
 Command::Command(const std::string &newType):
     type(newType){}

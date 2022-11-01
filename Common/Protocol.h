@@ -2,7 +2,7 @@
 #define COMMON_PROTOCOL_H
 
 #include <string>
-#include "common_socket.h"
+#include "Socket.h"
 
 /*  Esta clase implementa la funcionalidad
     base de un protocolo de comunicacion 

@@ -1,5 +1,5 @@
 #include <iostream>
-#include "common_thread.h"
+#include "Thread.h"
 
 
 void Thread::runExpecting() {

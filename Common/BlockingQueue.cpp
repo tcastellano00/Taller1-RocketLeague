@@ -1,7 +1,7 @@
 #include <queue>
 #include <mutex>
 #include <condition_variable>
-#include "common_blockingqueue.h"
+#include "BlockingQueue.h"
 
 template<typename T>
 void BlockingQueue<T>::push(T& element) {

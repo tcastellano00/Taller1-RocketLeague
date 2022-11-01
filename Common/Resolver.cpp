@@ -1,6 +1,6 @@
-#include "common_resolver.h"
-#include "common_resolvererror.h"
-#include "common_liberror.h"
+#include "Resolver.h"
+#include "ResolverError.h"
+#include "LibError.h"
 
 #include <stdio.h>
 #include <string.h>

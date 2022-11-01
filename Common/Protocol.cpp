@@ -1,7 +1,7 @@
 #include <vector>
 #include <utility>
 
-#include "common_protocol.h"
+#include "Protocol.h"
 
 #define BUFF_SIZE 11
 #define END_OF_MESSAGE "\n\n"
