@@ -9,9 +9,12 @@
 #include "ThreadClient.h"
 
 ThreadClient::ThreadClient(Socket& socket) 
-    :   protocol(socket), 
+    :   connection(std::move(socket)), 
+        protocol(connection),
         deathClient(false), 
-        talkWithClient(true) { }
+        talkWithClient(true) { 
+
+        }
 
 void ThreadClient::run() {
     while (this->talkWithClient) {

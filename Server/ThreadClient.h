@@ -13,6 +13,7 @@
 */
 class ThreadClient : public Thread {
 private:
+    Socket connection;
     Protocol protocol;
     
     std::atomic<bool> deathClient;
