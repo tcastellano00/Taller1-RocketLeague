@@ -1,6 +1,16 @@
 # Taller1-RocketLeagues
 TP Final de la materia Taller de programación 1
 
+## Compilar aplicación
+Para compilar la aplicacion, en una consola ejecutar estos comando
+```
+$ sudo rm -rf build
+$ mkdir build
+$ cd build
+$ cmake ..
+$ make
+```
+
 Diagramas:
 
 ![](http://www.plantuml.com/plantuml/png/bL7BQiCm4BplL-XKN4pw0JcKG0wba5wQzWDaQN54PQb8gpum_VVQicWsaI_rmR0pevbXTnT91ag31MLbZ69l3JeQeSruSmi_K9YZLsz8uzzyy5ttlIPya0CUILAAJzuPyc64I7gx7HBXbyX_Q3llhUWdvMFSMnzHJmvjbaKAnlKpLrncviCRBM8UNz-r96ourk7dBCNL4YFaB9LJW3-JYfAqYweqCgNDVp9vxQBdwtWv1PJw89DJ9mpd_JsZqnWcf2I5F3VLzcv4Vmrbz_bRhYKsc_lb71oeZ3XvMOepfHR7okaXHuYxCt3fmfag_AeIb9ZbKQLUSwv5kyaZ3VON)
