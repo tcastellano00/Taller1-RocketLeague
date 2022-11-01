@@ -1,5 +1,5 @@
 #include "../Common/common_socket.h"
-#include "client_gamestatusmonitor.h"
+#include "GameStatusMonitor.h"
 
 class ThreadLauncher {
 public:

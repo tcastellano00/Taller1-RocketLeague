@@ -1,4 +1,4 @@
-#include "client_gamestatusmonitor.h"
+#include "GameStatusMonitor.h"
 
 class Renderer {
 public:

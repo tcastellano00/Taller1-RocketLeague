@@ -1,4 +1,4 @@
-#include "client_threadcmdreader.h"
+#include "ThreadCmdReader.h"
 #include <iostream>
 
 void ThreadCmdReader::run() {

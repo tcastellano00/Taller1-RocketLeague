@@ -3,7 +3,7 @@
 
 #include <mutex>
 #include <string>
-#include "client_gamestatus.h"
+#include "GameStatus.h"
 
 class GameStatusMonitor{
     std::mutex gameMutex;

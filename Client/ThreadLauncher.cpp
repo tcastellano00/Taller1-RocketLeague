@@ -1,8 +1,8 @@
-#include "client_threadlauncher.h"
+#include "ThreadLauncher.h"
 #include <iostream>
-#include "client_threadcmdreader.h"
-#include "client_threadreceiver.h"
-#include "client_threadsender.h"
+#include "ThreadCmdreader.h"
+#include "ThreadReceiver.h"
+#include "ThreadSender.h"
 #include "../Common/common_blockingqueue.h"
 #include "../Common/common_command.h"
 

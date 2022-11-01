@@ -1,4 +1,4 @@
-#include "client_threadreceiver.h"
+#include "ThreadReceiver.h"
 #include <iostream>
 
 ThreadReceiver::ThreadReceiver(GameStatusMonitor& newGameStatusMonitor):gameStatusMonitor(newGameStatusMonitor){}

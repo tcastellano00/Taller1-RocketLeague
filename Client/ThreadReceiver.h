@@ -1,5 +1,5 @@
 #include "../Common/common_thread.h"
-#include "client_gamestatusmonitor.h"
+#include "GameStatusMonitor.h"
 
 
 class ThreadReceiver: public Thread {

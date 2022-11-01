@@ -1,5 +1,5 @@
 
-#include "client_gamestatusmonitor.h"
+#include "GameStatusMonitor.h"
 #include <iostream>
 
 GameStatusMonitor::GameStatusMonitor(){

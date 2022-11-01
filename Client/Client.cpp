@@ -1,8 +1,8 @@
-#include "client_client.h"
-#include "client_lobby.h"
-#include "client_threadlauncher.h"
-#include "client_renderer.h"   
-#include "client_gamestatusmonitor.h"
+#include "Client.h"
+#include "Lobby.h"
+#include "ThreadLauncher.h"
+#include "Renderer.h"   
+#include "GameStatusMonitor.h"
 
 Client::Client(char* service, char* port): conection(service, port){
 

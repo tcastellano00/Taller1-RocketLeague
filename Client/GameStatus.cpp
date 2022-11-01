@@ -1,5 +1,5 @@
 
-#include "client_gamestatus.h"
+#include "GameStatus.h"
 
 GameStatus::GameStatus(){}
 

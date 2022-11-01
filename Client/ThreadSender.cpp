@@ -1,4 +1,4 @@
-#include "client_threadsender.h"
+#include "ThreadSender.h"
 #include <iostream>
 #include "../Common/common_protocol.h"
 

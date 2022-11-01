@@ -1,4 +1,4 @@
-#include "client_lobby.h"
+#include "Lobby.h"
 #include <iostream>
 
 Lobby::Lobby(Socket& cnct): conection(cnct) {
