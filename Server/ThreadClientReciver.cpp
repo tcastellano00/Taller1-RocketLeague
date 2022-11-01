@@ -2,8 +2,8 @@
 #include <utility>
 #include <string>
 
-#include "../Common/common_socket.h"
-#include "../Common/common_liberror.h"
+#include "../Common/Socket.h"
+#include "../Common/LibError.h"
 
 #include "ThreadClient.h"
 #include "ThreadClientReciver.h"

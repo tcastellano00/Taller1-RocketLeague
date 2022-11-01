@@ -1,6 +1,6 @@
-#include "../Common/common_thread.h"
-#include "../Common/common_blockingqueue.h"
-#include "../Common/common_command.h"
+#include "../Common/Thread.h"
+#include "../Common/BlockingQueue.h"
+#include "../Common/Command.h"
 
 class ThreadCmdReader: public Thread {
 private:

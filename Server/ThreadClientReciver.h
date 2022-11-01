@@ -4,8 +4,8 @@
 #include <list>
 #include <atomic>
 
-#include "../Common/common_thread.h"
-#include "../Common/common_socket.h"
+#include "../Common/Thread.h"
+#include "../Common/Socket.h"
 #include "ThreadClient.h"
 
 /*  Esta clase implementa la logica de un

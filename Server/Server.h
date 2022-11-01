@@ -1,5 +1,5 @@
 
-#include "../Common/common_socket.h"
+#include "../Common/Socket.h"
 
 /*  Encapsula logica del servidor
 */

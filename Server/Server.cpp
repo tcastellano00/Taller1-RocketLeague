@@ -3,8 +3,8 @@
 #include <string>
 #include <list>
 
-#include "../Common/common_socket.h"
-#include "../Common/common_protocol.h"
+#include "../Common/Socket.h"
+#include "../Common/Protocol.h"
 
 #include "Server.h"
 #include "ThreadClientReciver.h"

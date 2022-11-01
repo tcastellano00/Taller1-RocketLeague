@@ -1,10 +1,10 @@
 #include "ThreadLauncher.h"
 #include <iostream>
-#include "ThreadCmdreader.h"
+#include "ThreadCmdReader.h"
 #include "ThreadReceiver.h"
 #include "ThreadSender.h"
-#include "../Common/common_blockingqueue.h"
-#include "../Common/common_command.h"
+#include "../Common/BlockingQueue.h"
+#include "../Common/Command.h"
 
 
 ThreadLauncher::ThreadLauncher() {}

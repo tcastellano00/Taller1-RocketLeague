@@ -5,7 +5,7 @@
 #include <list>
 #include <memory>
 
-#include "../Common/common_liberror.h"
+#include "../Common/LibError.h"
 #include "ThreadClient.h"
 
 ThreadClient::ThreadClient(Socket& socket) 

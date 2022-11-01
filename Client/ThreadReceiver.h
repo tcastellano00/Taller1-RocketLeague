@@ -1,4 +1,4 @@
-#include "../Common/common_thread.h"
+#include "../Common/Thread.h"
 #include "GameStatusMonitor.h"
 
 
