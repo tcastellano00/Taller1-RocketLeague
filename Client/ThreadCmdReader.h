@@ -5,6 +5,7 @@
 class ThreadCmdReader: public Thread {
 private:
     BlockingQueue<Command>& queue;
+    bool handleEvents();
 public:
     void run() override;
     ThreadCmdReader(BlockingQueue<Command>& newQueue);

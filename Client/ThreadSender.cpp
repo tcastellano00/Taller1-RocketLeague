@@ -7,13 +7,13 @@ void ThreadSender::run() {
     Protocol protocol(connection);
 
     while (playing) {
-        //Command command = queue.pop();
+        Command command = queue.pop();
 
         if (protocol.isClosed()) {
             break;
         }
 
-        //protocol.sendMessage(command.getType());
+        protocol.sendMessage(command.getType());
 
         playing = gameStatusMonitor.gameIsClosed();
     }

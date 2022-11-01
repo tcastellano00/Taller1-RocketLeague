@@ -1,5 +1,5 @@
-#ifndef COMMON_BLOCKINGQUEUE_H
-#define COMMON_BLOCKINGQUEUE_H
+#ifndef BLOCKINGQUEUE_H
+#define BLOCKINGQUEUE_H
 
 #include <queue>
 #include <mutex>
@@ -13,10 +13,25 @@ private:
     std::condition_variable keep_popping;
 
 public:
-    void push(T& element);
+    void push(T element) {
+        std::unique_lock<std::mutex> lock(mutex);
+        internal.push(element);
+        keep_popping.notify_all();
+    }
 
-    T pop();
+    T pop() {
+        std::unique_lock<std::mutex> lock(mutex);
+    
+        while (internal.empty()) {
+            keep_popping.wait(lock);
+        }
+
+        T element = internal.front();
+        internal.pop();
+        return element;
+    }
 
 };
 
 #endif
+

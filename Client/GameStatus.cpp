@@ -1,10 +1,13 @@
 
 #include "GameStatus.h"
 
-GameStatus::GameStatus(){}
+GameStatus::GameStatus(){
+    closed = false;
+}
 
 bool GameStatus::isClosed(){
-    return closed;
+    //return closed;
+    return true;
 }
 
 std::string GameStatus::status(){
