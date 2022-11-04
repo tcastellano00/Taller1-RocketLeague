@@ -15,7 +15,7 @@ public:
 
     /*  Comienza a recibir clientes.
     */
-    void reciveAndReturnMessage();
+    void run();
 
     /*
     * Libera los recursos.

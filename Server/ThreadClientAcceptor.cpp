@@ -6,14 +6,14 @@
 #include "../Common/LibError.h"
 
 #include "ThreadClient.h"
-#include "ThreadClientReciver.h"
+#include "ThreadClientAcceptor.h"
 
-ThreadClientReciver::ThreadClientReciver(Socket &accepter) 
+ThreadClientAcceptor::ThreadClientAcceptor(Socket &accepter) 
     : accepter(std::move(accepter)) {
         this->isRecibing = true;
     }
 
-void ThreadClientReciver::cleanDeathClients(
+void ThreadClientAcceptor::cleanDeathClients(
     std::list<ThreadClient>& clientThreads) {
     clientThreads.remove_if(
         [](ThreadClient& clientThread) {
@@ -25,7 +25,7 @@ void ThreadClientReciver::cleanDeathClients(
         });
 }
 
-void ThreadClientReciver::run() {
+void ThreadClientAcceptor::run() {
     std::list<ThreadClient> clientThreads;
 
     while (this->isRecibing)
@@ -52,14 +52,14 @@ void ThreadClientReciver::run() {
               }
 }
 
-void ThreadClientReciver::close_reception() {
+void ThreadClientAcceptor::close_reception() {
     this->isRecibing = false;
 
     this->accepter.shutdown(2);
     this->accepter.close();
 }
 
-ThreadClientReciver::~ThreadClientReciver() {
+ThreadClientAcceptor::~ThreadClientAcceptor() {
     this->close_reception();
     this->join();
 }

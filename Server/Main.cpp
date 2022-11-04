@@ -19,7 +19,7 @@ int main(int argc, char *argv[]) { try {
 
     Server server(port);
 
-    server.reciveAndReturnMessage();
+    server.run();
 
     ret = 0;
     return ret;

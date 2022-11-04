@@ -7,20 +7,21 @@
 #include "../Common/Protocol.h"
 
 #include "Server.h"
-#include "ThreadClientReciver.h"
+#include "ThreadClientAcceptor.h"
 
 Server::Server(
     const char *port) : socket(port) { }
 
-void Server::reciveAndReturnMessage() {
-    ThreadClientReciver clientReciver(this->socket);
-    clientReciver.start();
+void Server::run() {
+    ThreadClientAcceptor clientAcceptor(this->socket);
+    clientAcceptor.start();
 
     std::string key;
 
-    while (std::cin >> key)
+    while (std::cin >> key) {
         if (key == "q")
             break;
+    }
 }
 
 Server::~Server() { }

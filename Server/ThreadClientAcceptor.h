@@ -1,4 +1,4 @@
-#ifndef SERVER_THREAD_CLIENT_RECIVER_H
+#ifndef SERVER_THREAD_CLIENT_ACCEPTOR_H
 #define SERVER_THREAD_CLIENT_RECIVER_H
 
 #include <list>
@@ -11,7 +11,7 @@
 /*  Esta clase implementa la logica de un
     hilo que acepta clientes nuevos.
 */
-class ThreadClientReciver : public Thread {
+class ThreadClientAcceptor : public Thread {
 private:
     Socket accepter;
     std::atomic<bool> isRecibing;
@@ -26,15 +26,15 @@ protected:
     void run() override;
 
 public:
-    explicit ThreadClientReciver(Socket &accepter);
-    ~ThreadClientReciver();
+    explicit ThreadClientAcceptor(Socket &accepter);
+    ~ThreadClientAcceptor();
 
     /*  Deja de aceptar nuevos clientes.
     */
     void close_reception();
 
-    ThreadClientReciver(const ThreadClientReciver&) = delete;
-    ThreadClientReciver& operator=(const ThreadClientReciver&) = delete;
+    ThreadClientAcceptor(const ThreadClientAcceptor&) = delete;
+    ThreadClientAcceptor& operator=(const ThreadClientAcceptor&) = delete;
 };
 
 #endif
