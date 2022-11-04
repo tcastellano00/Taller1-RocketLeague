@@ -7,14 +7,17 @@
 
 #include "ThreadClient.h"
 #include "ThreadClientAcceptor.h"
+#include "ClientConnection.h"
+#include "ThreadClientLobby.h"
+#include "GameMonitor.h"
 
 ThreadClientAcceptor::ThreadClientAcceptor(Socket &accepter) 
     : accepter(std::move(accepter)) {
-        this->isRecibing = true;
+        this->isReceiving = true;
     }
 
 void ThreadClientAcceptor::cleanDeathClients(
-    std::list<ThreadClient>& clientThreads) {
+    std::list<ThreadClientLobby>& clientThreads) {
     clientThreads.remove_if(
         [](ThreadClient& clientThread) {
             if (not clientThread.isDeath())
@@ -26,22 +29,30 @@ void ThreadClientAcceptor::cleanDeathClients(
 }
 
 void ThreadClientAcceptor::run() {
-    std::list<ThreadClient> clientThreads;
+    std::list<ThreadClientLobby> clientThreads;
+    GameMonitor gameMonitor;
 
-    while (this->isRecibing)
+    while (this->isReceiving)
     {
         try {
             Socket clientConnection = this->accepter.accept();
 
-            if (not this->isRecibing)
+            if (not this->isReceiving)
                 break;
 
-            clientThreads.emplace_back(clientConnection);
+            //recievers
+            /*clientThreads.emplace_back(clientConnection);
+            clientThreads.back().start();*/
+
+            ClientConnection client(clientConnection, "nombrexd");
+            clientThreads.emplace_back(client, gameMonitor);
             clientThreads.back().start();
+
+            // al monitor hay que agregarle el clientConnection 
 
             this->cleanDeathClients(clientThreads);
         } catch(const LibError &e) {
-            this->isRecibing = false;
+            this->isReceiving = false;
         }
     }
 
@@ -53,7 +64,7 @@ void ThreadClientAcceptor::run() {
 }
 
 void ThreadClientAcceptor::close_reception() {
-    this->isRecibing = false;
+    this->isReceiving = false;
 
     this->accepter.shutdown(2);
     this->accepter.close();

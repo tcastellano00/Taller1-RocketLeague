@@ -1,4 +1,3 @@
-
 #include "../Common/Socket.h"
 
 /*  Encapsula logica del servidor

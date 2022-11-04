@@ -153,6 +153,9 @@ int close();
  * se llamara a `Socket::shutdown` y `Socket::close`
  * automáticamente.
  * */
+
+int getIdentifier();
+
 ~Socket();
 };
 #endif

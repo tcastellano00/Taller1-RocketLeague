@@ -6,7 +6,7 @@
 
 #include "../Common/Thread.h"
 #include "../Common/Socket.h"
-#include "ThreadClient.h"
+#include "ThreadClientLobby.h"
 
 /*  Esta clase implementa la logica de un
     hilo que acepta clientes nuevos.
@@ -14,13 +14,13 @@
 class ThreadClientAcceptor : public Thread {
 private:
     Socket accepter;
-    std::atomic<bool> isRecibing;
+    std::atomic<bool> isReceiving;
 
     /*  Borra y joinea todos los hilos "vivos"
         que tienen un cliente que cerro su socket
     */
     void cleanDeathClients(
-        std::list<ThreadClient>& clientThreads);
+        std::list<ThreadClientLobby>& clientThreads);
     
 protected:
     void run() override;
