@@ -13,7 +13,7 @@ public:
     * */
     explicit Server(const char *port);
 
-    /*  Comienza a recibir clientes.
+    /*  Corre el hilo. Lanza el hilo aceptador.
     */
     void run();
 
