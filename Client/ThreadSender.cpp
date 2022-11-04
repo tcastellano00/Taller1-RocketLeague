@@ -21,7 +21,7 @@ void ThreadSender::run() {
     std::cout << "Cerramos sender" << std::endl;
 }
 
-ThreadSender::ThreadSender(BlockingQueue<Command>& newQueue, Socket& cnct,GameStatusMonitor& newGameStatusMonitor):
+ThreadSender::ThreadSender(Queue<Command>& newQueue, Socket& cnct, GameStatusMonitor& newGameStatusMonitor):
     queue(newQueue),connection(cnct),gameStatusMonitor(newGameStatusMonitor) {
         this->playing = true;
     }

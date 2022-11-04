@@ -9,8 +9,6 @@ void ThreadCmdReader::run() {
     while (running) {
         running = handleEvents();
     }
-
-
 }
 
 bool ThreadCmdReader::handleEvents() {
@@ -67,7 +65,7 @@ bool ThreadCmdReader::handleEvents() {
 
 }
 
-ThreadCmdReader::ThreadCmdReader(BlockingQueue<Command>& newQueue): queue(newQueue) {}
+ThreadCmdReader::ThreadCmdReader(Queue<Command>& newQueue): queue(newQueue) {}
 
 ThreadCmdReader::~ThreadCmdReader() {
     this->join();
