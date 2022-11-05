@@ -37,6 +37,10 @@ public:
         internal.pop();
         return element;
     }
+    //le agrego un metodo para ver si esta vacia
+    bool empty(){
+        return internal.empty();
+    }
 };
 
 #endif

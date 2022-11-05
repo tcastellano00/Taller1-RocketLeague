@@ -11,7 +11,7 @@ class Gameloop : public Thread{
 
     // Queue <Command> recibingQueue;
     // Queue <Command> senderQueue;
-    std::list <Thread> clientThreadList;
+    std::list <ThreadClientReceiver> clientThreadList;
     std::list <ClientConnection> connectionList;
 
     public:
