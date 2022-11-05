@@ -20,7 +20,6 @@ ClientConnection::ClientConnection(ClientConnection&& other):
     this->clientName = other.getName();
 }
 
-/*
 ClientConnection& ClientConnection::operator=(ClientConnection&& other) {
     if (this == &other)
         return *this;
@@ -30,7 +29,6 @@ ClientConnection& ClientConnection::operator=(ClientConnection&& other) {
 
     return *this;
 }
-*/
 
 Socket& ClientConnection::getSocketReference() {
     return this->socket;

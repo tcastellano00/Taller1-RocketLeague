@@ -30,9 +30,9 @@ public:
     std::string getName();
 
     ClientConnection(const ClientConnection&) = delete;
-    //ClientConnection& operator=(const ClientConnection&) = delete;
+    ClientConnection& operator=(const ClientConnection&) = delete;
     ClientConnection(ClientConnection&&);
-    //ClientConnection& operator=(ClientConnection&&);
+    ClientConnection& operator=(ClientConnection&&);
 
     /*
     * Libera los recursos.
