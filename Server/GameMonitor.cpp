@@ -52,3 +52,7 @@ bool GameMonitor::startIfLastPlayer(
         para iniciar el gameLoop de esa partida.
     */
 }
+
+std::string GameMonitor::listGames() {
+    return "";
+}

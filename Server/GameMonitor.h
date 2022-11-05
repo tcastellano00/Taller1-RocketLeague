@@ -37,6 +37,8 @@ public:
     */
    bool startIfLastPlayer(
         const std::string gameName);
+    
+    std::string listGames();
 
     /*
     * Libera los recursos.

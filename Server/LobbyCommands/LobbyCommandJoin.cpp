@@ -11,14 +11,14 @@ CommandServerJoin::CommandServerJoin(
     }
 
 std::string CommandServerJoin::execute(
-    GameMonitor &game_monitor) {
+    GameMonitor &game_monitor, ClientConnection& client) {
         std::stringstream args(arguments);
 
         std::string game_name;
 
         args >> game_name;
 
-        //bool result = game_monitor.add_player_if_not_full(game_name);
+        bool result = game_monitor.addPlayerIfNotFull(game_name, client);
 
-        //return (result ? "OK" : "ERROR");
+        return (result ? "OK" : "ERROR");
     }

@@ -9,10 +9,10 @@ CommandServerList::CommandServerList(
     }
 
 std::string CommandServerList::execute(
-    GameMonitor &game_monitor) {
+    GameMonitor &game_monitor, ClientConnection& client) {
         std::string result = "OK";
 
-       // result += game_monitor.list_games();
+        result += game_monitor.listGames();
 
-       // return result;
+        return result;
     }

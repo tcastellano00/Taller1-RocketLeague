@@ -6,6 +6,7 @@
 #include <bits/unique_ptr.h>
 
 #include "../GameMonitor.h"
+#include "../ClientConnection.h"
 
 class CommandServer {
 protected:
@@ -16,7 +17,7 @@ public:
         const std::string &name,
         const std::string &arguments);
 
-    virtual std::string execute(GameMonitor &game_monitor) = 0;
+    virtual std::string execute(GameMonitor &game_monitor, ClientConnection& client) = 0;
 
     ~CommandServer() = default;
 };

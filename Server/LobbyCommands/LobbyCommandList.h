@@ -10,7 +10,7 @@ class CommandServerList : public CommandServer {
 public:
     explicit CommandServerList(const std::string &arguments);
 
-    std::string execute(GameMonitor &game_monitor) override;
+    std::string execute(GameMonitor &game_monitor, ClientConnection& client) override;
 
     ~CommandServerList() = default;
 };

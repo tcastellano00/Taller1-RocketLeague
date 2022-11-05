@@ -10,7 +10,7 @@ class CommandServerJoin : public CommandServer {
 public:
     explicit CommandServerJoin(const std::string &arguments);
 
-    std::string execute(GameMonitor &game_monitor) override;
+    std::string execute(GameMonitor &game_monitor, ClientConnection& client) override;
 
     ~CommandServerJoin() = default;
 };
