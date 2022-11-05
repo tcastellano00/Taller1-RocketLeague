@@ -12,11 +12,26 @@ project(rocket_league)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -pthread")
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
+if(APPLE)
+  message("Estoy en OSX")
+  set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -I/usr/local/include -L/usr/local/lib -lSDL2")
+endif()
+
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror -pedantic -pedantic-errors")
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -ggdb -DDEBUG -fno-inline")
+
+# Agrego la libreria SDL2pp habilitando manejo de imagenes y de letras
+SET(SDL2PP_WITH_IMAGE YES)
+SET(SDL2PP_WITH_TTF YES)
+add_subdirectory(libs/libSDL2pp)
+
+# Agrego la carpeta con los headers autogenerados a los includes
+message("Agregando '${PROJECT_SOURCE_DIR}/libs' como directorio de includes")
+include_directories(${PROJECT_SOURCE_DIR}/libs)
+include_directories(${SDL2PP_INCLUDE_DIRS})
 
 #------------------------------------------------------------------------------
 # ARCHIVOS FUENTE
@@ -31,7 +46,7 @@ add_library(rocket_league-common SHARED ${common_src})
 
 # Client
 add_executable(rocket_league ${client_src})
-target_link_libraries(rocket_league rocket_league-common SDL2 SDL2_image SDL2_ttf SDL2_mixer)
+target_link_libraries(rocket_league rocket_league-common SDL2 SDL2_image SDL2_ttf SDL2_mixer ${SDL2PP_LIBRARIES})
 
 # Server
 add_executable(rocket_league-server ${server_src})

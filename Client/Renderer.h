@@ -3,5 +3,8 @@
 class Renderer {
 public:
     Renderer();
-    void render(GameStatusMonitor& gameStatusMonitor);
+
+
+    //void render(GameStatusMonitor& gameStatusMonitor);
+    void launch();
 };

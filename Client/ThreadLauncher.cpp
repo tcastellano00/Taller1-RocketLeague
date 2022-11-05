@@ -24,5 +24,6 @@ void ThreadLauncher::start(Socket& connection,GameStatusMonitor& gameStatusMonit
     receiver.start();
 
     Renderer renderer;
-    renderer.render(gameStatusMonitor);
+    //renderer.render(gameStatusMonitor);
+    renderer.launch();
 }
