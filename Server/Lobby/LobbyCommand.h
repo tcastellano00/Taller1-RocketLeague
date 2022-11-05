@@ -8,18 +8,18 @@
 #include "../GameMonitor.h"
 #include "../ClientConnection.h"
 
-class CommandServer {
+class LobbyCommand {
 protected:
     std::string arguments;
    
 public:
-    static std::unique_ptr<CommandServer> get_command_ptr(
+    static std::unique_ptr<LobbyCommand> get_command_ptr(
         const std::string &name,
         const std::string &arguments);
 
     virtual std::string execute(GameMonitor &game_monitor, ClientConnection& client) = 0;
 
-    ~CommandServer() = default;
+    ~LobbyCommand() = default;
 };
 
 #endif

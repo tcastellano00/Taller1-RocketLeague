@@ -4,12 +4,12 @@
 #include "LobbyCommand.h"
 #include "LobbyCommandCreate.h"
 
-CommandServerCreate::CommandServerCreate(
+LobbyCommandCreate::LobbyCommandCreate(
     const std::string &arguments) {
         this->arguments = arguments;
     }
 
-std::string CommandServerCreate::execute(
+std::string LobbyCommandCreate::execute(
     GameMonitor &game_monitor, ClientConnection& client) {
         std::stringstream args(arguments);
 

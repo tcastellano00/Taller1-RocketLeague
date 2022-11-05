@@ -3,12 +3,12 @@
 #include "LobbyCommand.h"
 #include "LobbyCommandList.h"
 
-CommandServerList::CommandServerList(
+LobbyCommandList::LobbyCommandList(
     const std::string &arguments) {
         this->arguments = arguments;
     }
 
-std::string CommandServerList::execute(
+std::string LobbyCommandList::execute(
     GameMonitor &game_monitor, ClientConnection& client) {
         std::string result = "OK";
 

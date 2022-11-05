@@ -6,13 +6,13 @@
 #include "LobbyCommand.h"
 #include "../GameMonitor.h"
 
-class CommandServerJoin : public CommandServer {
+class LobbyCommandJoin : public LobbyCommand {
 public:
-    explicit CommandServerJoin(const std::string &arguments);
+    explicit LobbyCommandJoin(const std::string &arguments);
 
     std::string execute(GameMonitor &game_monitor, ClientConnection& client) override;
 
-    ~CommandServerJoin() = default;
+    ~LobbyCommandJoin() = default;
 };
 
 #endif

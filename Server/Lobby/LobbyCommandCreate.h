@@ -8,13 +8,13 @@
 
 
 
-class CommandServerCreate : public CommandServer {   
+class LobbyCommandCreate : public LobbyCommand {   
 public:
-    explicit CommandServerCreate(const std::string &arguments);
+    explicit LobbyCommandCreate(const std::string &arguments);
 
     std::string execute(GameMonitor &game_monitor, ClientConnection& client) override;
 
-    ~CommandServerCreate() = default;
+    ~LobbyCommandCreate() = default;
 };
 
 #endif

@@ -6,13 +6,13 @@
 #include "LobbyCommand.h"
 #include "../GameMonitor.h"
 
-class CommandServerList : public CommandServer {
+class LobbyCommandList : public LobbyCommand {
 public:
-    explicit CommandServerList(const std::string &arguments);
+    explicit LobbyCommandList(const std::string &arguments);
 
     std::string execute(GameMonitor &game_monitor, ClientConnection& client) override;
 
-    ~CommandServerList() = default;
+    ~LobbyCommandList() = default;
 };
 
 #endif
