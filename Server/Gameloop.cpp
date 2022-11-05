@@ -1,13 +1,10 @@
 #include "Gameloop.h"
-#include "ThreadClientReceiver.h"
 #include "ThreadClientBroadcaster.h"
 
 
-Gameloop::Gameloop(std::list <ClientConnection> newConnectionList) : connectionList(newConnectionList){
-}
+Gameloop::Gameloop() { }
 
-
-void Gameloop::run(){
+void Gameloop::run() {
     Queue <Command> recibingQueue(false);
     Queue <Command> senderQueue(true);
     
@@ -17,7 +14,7 @@ void Gameloop::run(){
         clientThreadList.back().start();
     }
 
-    Broadcaster broadcaster(connectionList,senderQueue);
+    Broadcaster broadcaster(connectionList, senderQueue);
     broadcaster.start();
 
 
@@ -28,4 +25,14 @@ void Gameloop::run(){
     // simularPasoDelTiempo (world.update())
     // enviar estado actal (broadcast)
     // sleep(delta - elapsed)
+}
+
+void Gameloop::init(std::list <ClientConnection>& connectionList) {
+    this->connectionList = std::move(connectionList);
+
+    this->start();
+}
+
+Gameloop::~Gameloop() {
+    this->join();
 }

@@ -20,17 +20,17 @@ ClientConnection::ClientConnection(ClientConnection&& other):
     this->clientName = other.getName();
 }
 
+/*
 ClientConnection& ClientConnection::operator=(ClientConnection&& other) {
-    /* Si el usuario hace algo como tratar de moverse
-     * a si mismo simplemente no hacemos
-     * nada.
-     * */
     if (this == &other)
         return *this;
 
     this->socket = std::move(other.socket);
     this->clientName = other.getName();
+
+    return *this;
 }
+*/
 
 Socket& ClientConnection::getSocketReference() {
     return this->socket;

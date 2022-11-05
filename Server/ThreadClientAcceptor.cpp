@@ -17,15 +17,16 @@ ThreadClientAcceptor::ThreadClientAcceptor(Socket &accepter)
     }
 
 void ThreadClientAcceptor::cleanDeathClients(
-    std::list<ThreadClientLobby>& clientThreads) {
+    std::list<ThreadClientLobby>& lobbyThreads) {
+    /*
     clientThreads.remove_if(
-        [](ThreadClient& clientThread) {
+        [](ThreadClientLobby& clientThread) {
             if (not clientThread.isDeath())
                 return false;
 
             clientThread.join();
             return true; 
-        });
+        }); */
 }
 
 void ThreadClientAcceptor::run() {

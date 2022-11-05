@@ -1,7 +1,7 @@
 #include "LobbyParser.h"
 #include <sstream>
 
-static std::unique_ptr<LobbyCommand> getCommand(std::string line) {
+std::unique_ptr<LobbyCommand> LobbyParser::getCommand(std::string line) {
     std::stringstream command_stream(line);
 
     std::string command_name;

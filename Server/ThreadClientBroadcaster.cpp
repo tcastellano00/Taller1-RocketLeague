@@ -2,7 +2,7 @@
 #include "ThreadClientSender.h"
 
 
-Broadcaster::Broadcaster(std::list<ClientConnection> newConnections, Queue<Command>& newSenderQueue)
+Broadcaster::Broadcaster(std::list<ClientConnection>& newConnections, Queue<Command>& newSenderQueue)
     :senderQueue(newSenderQueue),connections(newConnections){
 
 }
@@ -13,7 +13,7 @@ void Broadcaster::run(){
 
         //no son comando, es un estado del mundo
         Queue <Command> senderQueue(true);
-        ThreadClientSender sender(senderQueue,(*connection).getSocketReference());
+        ThreadClientSender sender(senderQueue, (*connection).getSocketReference());
         sender.start();
     }
 

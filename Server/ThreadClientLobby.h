@@ -1,3 +1,6 @@
+#ifndef SERVER_THREAD_CLIENT_LOBBY_H
+#define SERVER_THREAD_CLIENT_LOBBY_H
+
 #include "../Common/Thread.h"
 #include "../Common/Socket.h"
 #include "ClientConnection.h"
@@ -14,5 +17,7 @@ protected:
 public:
     ThreadClientLobby(ClientConnection& client, GameMonitor& gameMonitor);
     void stop();
-    ~ThreadClientLobby();
+    ~ThreadClientLobby() = default;
 };
+
+#endif

@@ -1,3 +1,6 @@
+#ifndef SERVER_THREAD_CLIENT_SENDER_H
+#define SERVER_THREAD_CLIENT_SENDER_H
+
 #include <list>
 #include <string>
 #include "../Common/Thread.h"
@@ -16,3 +19,5 @@ class ThreadClientSender : public Thread{
 
     ~ThreadClientSender();
 };
+
+#endif

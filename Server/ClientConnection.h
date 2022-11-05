@@ -1,3 +1,6 @@
+#ifndef SERVER_CLIENT_CONNECTION_H
+#define SERVER_CLIENT_CONNECTION_H
+
 #include <string>
 
 #include "../Common/Socket.h"
@@ -27,12 +30,14 @@ public:
     std::string getName();
 
     ClientConnection(const ClientConnection&) = delete;
-    ClientConnection& operator=(const ClientConnection&) = delete;
+    //ClientConnection& operator=(const ClientConnection&) = delete;
     ClientConnection(ClientConnection&&);
-    ClientConnection& operator=(ClientConnection&&);
+    //ClientConnection& operator=(ClientConnection&&);
 
     /*
     * Libera los recursos.
     * */
     ~ClientConnection() = default;
 };
+
+#endif

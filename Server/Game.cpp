@@ -1,5 +1,12 @@
 #include "iostream"
 #include "Game.h"
+#include "Gameloop.h"
+
+Game::Game() {
+    this->name = "";
+    this->maxClients = -1;
+}
+
 
 Game::Game(
     const std::string& name,
@@ -14,7 +21,7 @@ Game::Game(
     ClientConnection& firstConnection) {
         this->name = name;
         this->maxClients = maxClients;
-        this->connections.emplace_back(firstConnection);
+        //this->connections.push_back(firstConnection);
     }
 
 bool Game::addPlayer(ClientConnection& clientConnection) {
@@ -23,7 +30,7 @@ bool Game::addPlayer(ClientConnection& clientConnection) {
 
     try
     {
-        this->connections.emplace_back(clientConnection);
+        //this->connections.push_back(clientConnection);
     }
     catch(const std::exception& e)
     {
@@ -35,7 +42,7 @@ bool Game::addPlayer(ClientConnection& clientConnection) {
 }
 
 int Game::getNumberOfConnectedClients() {
-    return this->connections.size();
+    return 0; // this->connections.size();
 }
 
 bool Game::isFull() {
@@ -44,4 +51,9 @@ bool Game::isFull() {
 
 std::string Game::getName() {
     return this->name;
+}
+
+void Game::start() {
+    //this->gameLoop.init(this->connections);
+    this->started = true;
 }

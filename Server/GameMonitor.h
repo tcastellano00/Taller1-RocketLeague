@@ -1,3 +1,6 @@
+#ifndef GAME_MONITOR_H
+#define GAME_MONITOR_H
+
 #include <list>
 #include <string>
 #include <map>
@@ -45,3 +48,5 @@ public:
     * */
     ~GameMonitor() = default;
 };
+
+#endif

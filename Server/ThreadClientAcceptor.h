@@ -1,5 +1,5 @@
 #ifndef SERVER_THREAD_CLIENT_ACCEPTOR_H
-#define SERVER_THREAD_CLIENT_RECIVER_H
+#define SERVER_THREAD_CLIENT_ACCEPTOR_H
 
 #include <list>
 #include <atomic>
@@ -20,7 +20,7 @@ private:
         que tienen un cliente que cerro su socket
     */
     void cleanDeathClients(
-        std::list<ThreadClientLobby>& clientThreads);
+        std::list<ThreadClientLobby>& lobbyThreads);
     
 protected:
     void run() override;

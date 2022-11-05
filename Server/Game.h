@@ -1,3 +1,6 @@
+#ifndef GAME_H
+#define GAME_H
+
 #include <list>
 #include <string>
 
@@ -7,9 +10,16 @@ class Game {
 private:
     std::string name;
     int maxClients;
-    std::list<ClientConnection> connections;
+    //std::list<ClientConnection> connections;
+    bool started;
+    //Gameloop gameLoop;
 
 public:
+    /*
+    * Construye el juego
+    * */
+    Game();
+
     /*
     * Construye el juego
     * */
@@ -43,8 +53,12 @@ public:
 
     bool isFull();
 
+    void start();
+
     /*
     * Libera los recursos.
     * */
-    ~Game();
+    ~Game() = default;
 };
+
+#endif

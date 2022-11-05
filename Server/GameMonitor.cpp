@@ -42,15 +42,18 @@ bool GameMonitor::startIfLastPlayer(
     std::lock_guard<std::mutex> lock(mutex);
     
     //Esta llena?
-    if (this->games[gameName].isFull())
+    if (!this->games[gameName].isFull())
         return false;
 
+    this->games[gameName].start();
     /*
         Aca creo que lo mejor seria hacer un
         this->games[gameName].start() y que ese
         metodo adentro haga "GameLoop.start(this.clientConnections)"
         para iniciar el gameLoop de esa partida.
     */
+
+   return true;
 }
 
 std::string GameMonitor::listGames() {
