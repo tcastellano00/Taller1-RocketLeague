@@ -12,7 +12,7 @@ private:
     std::mutex mutex;
     std::condition_variable keep_popping;
     bool blocksPop;
-    int amount;
+    int amount = 0;
 
 public:
     Queue(bool blocksPop) {
