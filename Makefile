@@ -6,3 +6,6 @@ client:
 
 client_gdb:
 	gdb ./build/rocket_league
+
+server_gdb:
+	gdb ./build/rocket_league-server
