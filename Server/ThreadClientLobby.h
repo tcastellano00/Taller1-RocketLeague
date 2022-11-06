@@ -17,7 +17,7 @@ protected:
 public:
     ThreadClientLobby(ClientConnection& client, GameMonitor& gameMonitor);
     void stop();
-    ~ThreadClientLobby() = default;
+    ~ThreadClientLobby();
 };
 
 #endif
