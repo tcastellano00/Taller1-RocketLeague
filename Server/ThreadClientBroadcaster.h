@@ -13,8 +13,8 @@ class Broadcaster : public Thread{
 
     Queue <Command>& senderQueue;
     std::list<ClientConnection>& connections;
-    //crear lista de queues
-    
+    std::list<Queue<Command>> listSenderQueues;
+
     public:
     Broadcaster(std::list<ClientConnection>& newConnections, Queue<Command>& newSenderQueue);
 

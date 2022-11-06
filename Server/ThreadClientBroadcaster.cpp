@@ -9,17 +9,19 @@ Broadcaster::Broadcaster(std::list<ClientConnection>& newConnections, Queue<Comm
 
 void Broadcaster::run(){
     for (auto connection = connections.begin(); connection != connections.end(); ++connection) {
-        //creo la cola que va a tener el sender
+        //Queue<Command> newSenderQueue(true);
+        listSenderQueues.emplace_back(true);
 
-        //no son comando, es un estado del mundo
-        Queue <Command> senderQueue(true);
-        ThreadClientSender sender(senderQueue, (*connection).getSocketReference());
+        //no son comandos, es un estado del mundo
+        ThreadClientSender sender(listSenderQueues.back(), (*connection).getSocketReference());
         sender.start();
     }
 
-    while (senderQueue.empty()){
-        //pop comando
-        //protocolo.send(comand)
+    while (!senderQueue.empty()){
+        Command command = senderQueue.pop();
+        for (auto queue = listSenderQueues.begin(); queue != listSenderQueues.end(); ++queue) {
+            (*queue).push(command); //tiene que ser estado del mundo
+        }
     }
 }
 

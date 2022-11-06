@@ -2,12 +2,12 @@
 
 
 ThreadClientSender::ThreadClientSender(Queue <Command>& newSenderQueue,Socket& newSocketSender)
-    :senderQueue(newSenderQueue) , socketSender(newSocketSender){}
+    :senderQueue(newSenderQueue) , socketSender(newSocketSender), senderProtocol(socketSender){}
 
 void ThreadClientSender::run(){
     while (!senderQueue.empty()){
-        //pop estado del mundo
-        //protocolo enviar(estado del mundo)
+        Command gameStatus = senderQueue.pop();
+        //senderProtocol.sendMessage(gameStatus);
     }
 }
 

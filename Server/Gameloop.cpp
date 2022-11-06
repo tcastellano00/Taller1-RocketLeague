@@ -1,5 +1,6 @@
 #include "Gameloop.h"
 #include "ThreadClientBroadcaster.h"
+#define LIMITOFCOMANDS 10  //puse un numero cualquiera
 
 
 Gameloop::Gameloop() { }
@@ -18,10 +19,11 @@ void Gameloop::run() {
     broadcaster.start();
 
 
-    // while (queue.notEmpty() && not limiteDeCmds) {
-    //     queue.pop()
-    //     pegarle al estado del juego (intenciones)
-    // }
+    while (!recibingQueue.empty() &&  recibingQueue.amountELements() > LIMITOFCOMANDS) { //no deberia ser OR ?
+        Command command = recibingQueue.pop();
+        //     pegarle al estado del juego (intenciones)
+
+    }
     // simularPasoDelTiempo (world.update())
     // enviar estado actal (broadcast)
     // sleep(delta - elapsed)

@@ -7,11 +7,15 @@
 #include "../Common/Socket.h"
 #include "../Common/Queue.h"
 #include "../Common/Command.h"
+#include "../Common/Protocol.h"
 #include "ClientConnection.h"
+
 
 class ThreadClientSender : public Thread{
     Queue <Command>& senderQueue;
     Socket& socketSender;
+    Protocol senderProtocol;
+
     public:
     ThreadClientSender(Queue <Command>& newSenderQueue,Socket& newSocketSender);
 

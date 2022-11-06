@@ -12,6 +12,7 @@ private:
     std::mutex mutex;
     std::condition_variable keep_popping;
     bool blocksPop;
+    int amount;
 
 public:
     Queue(bool blocksPop) {
@@ -22,6 +23,7 @@ public:
         std::unique_lock<std::mutex> lock(mutex);
         internal.push(element);
         keep_popping.notify_all();
+        amount += 1;
     }
 
     T pop() {
@@ -35,11 +37,15 @@ public:
 
         T element = internal.front();
         internal.pop();
+        amount -= 1;
         return element;
     }
     //le agrego un metodo para ver si esta vacia
     bool empty(){
         return internal.empty();
+    }
+    int amountELements(){
+        return amount;
     }
 };
 

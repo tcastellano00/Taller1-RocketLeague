@@ -1,4 +1,5 @@
 #include "ThreadClientReceiver.h"
+#include "../Common/Queue.h"
 
 
 ThreadClientReceiver::ThreadClientReceiver(Socket& newSktConecction,Queue<Command>& newRecibingQueue)
@@ -6,8 +7,11 @@ ThreadClientReceiver::ThreadClientReceiver(Socket& newSktConecction,Queue<Comman
 }
 
 void ThreadClientReceiver::run(){
-    //protocolo.recibir() 
-    //pushear a la cola.
+    std::string message = receiverProtocol.reciveMessage();
+
+    //crear comando con el mensaje??
+    recibingQueue.push(message); //o el comando nuevo.
+
 }
 
 
