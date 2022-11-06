@@ -18,10 +18,13 @@ void Gameloop::run() {
     Broadcaster broadcaster(connectionList, senderQueue);
     broadcaster.start();
 
+    int commandsCounter = 0;
 
-    while (!recibingQueue.empty() &&  recibingQueue.amountELements() > LIMITOFCOMANDS) { //no deberia ser OR ?
+    while (!recibingQueue.empty() &&  commandsCounter > LIMITOFCOMANDS) {
         Command command = recibingQueue.pop();
         //     pegarle al estado del juego (intenciones)
+
+        commandsCounter += 1;
 
     }
     // simularPasoDelTiempo (world.update())
