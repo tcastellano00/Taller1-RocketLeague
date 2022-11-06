@@ -1,14 +1,14 @@
-#include "Renderer.h"
 #include <iostream>
-#include <SDL2/SDL.h>
 #include <string>
-#include "SDL/Player.h"
-#include "SDL/Animation.h" 
 #include <exception>
 #include <unistd.h>
 
+#include <SDL2pp/SDL2pp.hh>
 
-Renderer::Renderer() {}
+#include "SDL/Player.h"
+#include "WindowRenderer.h"
+
+WindowRenderer::WindowRenderer() {}
 
 // void Renderer::render(GameStatusMonitor& gameStatusMonitor) {
 //     std::cout << "Im rendering" << std::endl;
@@ -55,15 +55,14 @@ Renderer::Renderer() {}
 //     SDL_Quit();
 // }
 
-
-static bool handleEvents(Player &player);
 static void render(SDL2pp::Renderer &renderer, Player &player);
 static void update(Player &player, float dt);
 
-void Renderer::launch(){
+void WindowRenderer::launch(GameStatusMonitor& gameStatusMonitor) {
     try {
         // Inicializo biblioteca de SDL
         SDL2pp::SDL sdl(SDL_INIT_VIDEO);
+
         // Creo una ventana dinamica con titulo "Hello world"
         SDL2pp::Window window("Hello world", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
             800, 600, SDL_WINDOW_RESIZABLE);
@@ -76,68 +75,33 @@ void Renderer::launch(){
             SDL2pp::Surface("assets/autoderecha.png").SetColorKey(true, 0));
 
         Player player(im);
-        bool running = true;
+        std::string lastState("");
+        //bool running = true;
         // Gameloop, notar como tenemos desacoplado el procesamiento de los inputs (handleEvents)
         // del update del modelo.
-        while (running) {
-            running = handleEvents(player);
+
+        while (!gameStatusMonitor.gameIsClosed()) {
+            std::string actualStatus = gameStatusMonitor.gameStatus();
+            
+            //running = handleEvents(player);
             update(player, FRAME_RATE);
             render(renderer, player);
+
+            if (actualStatus == lastState)
+                continue;
+                
+            lastState = actualStatus;
+
+            std::cout << actualStatus << std::endl;
+
             // la cantidad de segundos que debo dormir se debe ajustar en función
             // de la cantidad de tiempo que demoró el handleEvents y el render
             usleep(FRAME_RATE);
         }
     } catch (std::exception& e) {
         std::cout << e.what() << std::endl;
-        //return 1;
     }
-    //return 0;
-}
-
-/**
- * Va a tomar un evento de teclado, y actualizará el modelo en función de los eventos que lleguen.
- * En un juego real no se tomará de a un evento por vuelta del gameloop, sino que se deberán tomar TODOS
- * o N eventos por vuelta
- */
-static bool handleEvents(Player &player) {
-    SDL_Event event;
-    // Para el alumno: Buscar diferencia entre waitEvent y pollEvent
-    while(SDL_PollEvent(&event)){
-        switch(event.type) {
-            case SDL_KEYDOWN: {
-                // ¿Qué pasa si mantengo presionada la tecla?    
-                SDL_KeyboardEvent& keyEvent = (SDL_KeyboardEvent&) event;
-                switch (keyEvent.keysym.sym) {
-                    case SDLK_LEFT:
-                        player.moveLeft();
-                        break;
-                    case SDLK_RIGHT:
-                        player.moveRigth();
-                        break;
-                    }
-                } // Fin KEY_DOWN
-                break;
-            case SDL_KEYUP: {
-                SDL_KeyboardEvent& keyEvent = (SDL_KeyboardEvent&) event;
-                switch (keyEvent.keysym.sym) {
-                    case SDLK_LEFT:
-                        player.stopMoving();
-                        break;
-                    case SDLK_RIGHT:
-                        player.stopMoving();
-                        break;
-                    } 
-                }// Fin KEY_UP
-                break;
-            case SDL_MOUSEMOTION:
-                std::cout << "Oh! Mouse" << std::endl;
-                break;
-            case SDL_QUIT:
-                std::cout << "Quit :(" << std::endl;
-                return false;
-        } // fin switch(event)
-    } // fin while(SDL_PollEvents)
-    return true;
+    
 }
 
 static void render(SDL2pp::Renderer &renderer, Player &player) {

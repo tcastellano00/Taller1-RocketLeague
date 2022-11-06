@@ -46,8 +46,10 @@ add_library(rocket_league-common SHARED ${common_src})
 
 # Client
 add_executable(rocket_league ${client_src})
-target_link_libraries(rocket_league rocket_league-common SDL2 SDL2_image SDL2_ttf SDL2_mixer ${SDL2PP_LIBRARIES})
+target_link_libraries(rocket_league rocket_league-common ${SDL2PP_LIBRARIES})
 
 # Server
 add_executable(rocket_league-server ${server_src})
 target_link_libraries(rocket_league-server rocket_league-common)
+
+file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})

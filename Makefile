@@ -3,3 +3,6 @@ server:
 
 client: 
 	./build/rocket_league localhost 8080
+
+client_gdb:
+	gdb ./build/rocket_league

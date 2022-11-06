@@ -4,11 +4,14 @@
 
 void ThreadCmdReader::run() {
     std::cout << "Im running cmd reader thread" << std::endl;
+    /*
     bool running = true;
 
+    
     while (running) {
         running = handleEvents();
     }
+    */
 }
 
 bool ThreadCmdReader::handleEvents() {

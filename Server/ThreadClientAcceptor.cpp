@@ -30,35 +30,31 @@ void ThreadClientAcceptor::cleanDeathClients(
 }
 
 void ThreadClientAcceptor::run() {
-    std::list<ThreadClientLobby> clientThreads;
+    std::list<ThreadClientLobby> clientLobbyThreads;
     GameMonitor gameMonitor;
 
     while (this->isReceiving)
     {
         try {
-            Socket clientConnection = this->accepter.accept();
+            Socket clientSocket = this->accepter.accept();
 
             if (not this->isReceiving)
                 break;
 
-            //recievers
-            /*clientThreads.emplace_back(clientConnection);
-            clientThreads.back().start();*/
-
-            ClientConnection client(clientConnection, "nombrexd");
-            clientThreads.emplace_back(client, gameMonitor);
-            clientThreads.back().start();
+            ClientConnection client(clientSocket, "nombrexd");
+            clientLobbyThreads.emplace_back(client, gameMonitor);
+            clientLobbyThreads.back().start();
 
             // al monitor hay que agregarle el clientConnection 
 
-            this->cleanDeathClients(clientThreads);
+            this->cleanDeathClients(clientLobbyThreads);
         } catch(const LibError &e) {
             this->isReceiving = false;
         }
     }
 
-    for (auto clientThread = clientThreads.begin(); 
-              clientThread != clientThreads.end(); 
+    for (auto clientThread = clientLobbyThreads.begin(); 
+              clientThread != clientLobbyThreads.end(); 
               ++clientThread) {
                 (*clientThread).stop();
               }

@@ -1,7 +1,6 @@
 #include "Client.h"
 #include "Lobby.h"
 #include "ThreadLauncher.h"
-#include "Renderer.h"   
 #include "GameStatusMonitor.h"
 
 Client::Client(char* service, char* port): conection(service, port){
