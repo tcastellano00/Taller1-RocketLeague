@@ -55,8 +55,8 @@ WindowRenderer::WindowRenderer() {}
 //     SDL_Quit();
 // }
 
-static void render(SDL2pp::Renderer &renderer, Player &player);
-static void update(Player &player, float dt);
+//static void render(SDL2pp::Renderer &renderer, Player &player);
+//static void update(Player &player, float dt);
 
 void WindowRenderer::launch(GameStatusMonitor& gameStatusMonitor) {
     try {
@@ -71,15 +71,29 @@ void WindowRenderer::launch(GameStatusMonitor& gameStatusMonitor) {
         SDL2pp::Renderer renderer(window, -1, SDL_RENDERER_ACCELERATED);
 
         // Usar factory
-        SDL2pp::Texture im(renderer, 
-            SDL2pp::Surface("assets/autoderecha.png").SetColorKey(true, 0));
+        //SDL2pp::Texture im(renderer, 
+        //    SDL2pp::Surface("assets/autoderecha.png").SetColorKey(true, 0));
 
-        Player player(im);
+        //Player player(im);
         std::string lastState("");
         //bool running = true;
         // Gameloop, notar como tenemos desacoplado el procesamiento de los inputs (handleEvents)
         // del update del modelo.
 
+        while (!gameStatusMonitor.gameIsClosed()) {
+            std::string actualStatus = gameStatusMonitor.gameStatus();
+            if (actualStatus == lastState)
+                continue;
+
+            lastState = actualStatus;
+            std::cout<< actualStatus << std::endl;
+            renderer.Clear();
+            renderer.Present();
+
+            SDL_Delay(1000);    
+        }
+
+        /*
         while (!gameStatusMonitor.gameIsClosed()) {
             std::string actualStatus = gameStatusMonitor.gameStatus();
             
@@ -98,12 +112,14 @@ void WindowRenderer::launch(GameStatusMonitor& gameStatusMonitor) {
             // de la cantidad de tiempo que demoró el handleEvents y el render
             usleep(FRAME_RATE);
         }
+        */
     } catch (std::exception& e) {
         std::cout << e.what() << std::endl;
     }
     
 }
 
+/*
 static void render(SDL2pp::Renderer &renderer, Player &player) {
     renderer.Clear();
     player.render(renderer);
@@ -113,3 +129,4 @@ static void render(SDL2pp::Renderer &renderer, Player &player) {
 static void update(Player &player, float dt) {
     player.update(dt);
 }
+*/
