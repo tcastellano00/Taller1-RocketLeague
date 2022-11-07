@@ -5,7 +5,6 @@ class PlayerModel {
 private:
     int x;
     int y;
-
 public:
     PlayerModel();
     void moveRight();

@@ -1,6 +1,6 @@
 #include "PlayerModel.h"
 
-PlayerModel::PlayerModel() : x(300), y(300) {}
+PlayerModel::PlayerModel() : x(100), y(400) {}
 
 void PlayerModel::moveRight() {
     x += 3;

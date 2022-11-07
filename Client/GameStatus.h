@@ -8,6 +8,7 @@
 class GameStatus{
     bool closed;
     std::string actualStatus;
+    //std::list <PlayerModel> players;
     PlayerModel player;
 
     public:

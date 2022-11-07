@@ -3,6 +3,7 @@
 
 GameStatus::GameStatus(){
     closed = false;
+    
 }
 
 bool GameStatus::isClosed(){

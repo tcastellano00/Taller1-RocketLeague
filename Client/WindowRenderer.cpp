@@ -2,6 +2,8 @@
 #include <string>
 #include <exception>
 #include <unistd.h>
+#include "SDL/Ball.h"
+#include "SDL/Bow.h"
 
 #include <SDL2pp/SDL2pp.hh>
 
@@ -70,24 +72,61 @@ void WindowRenderer::launch(GameStatusMonitor& gameStatusMonitor) {
         // Creo renderer
         SDL2pp::Renderer renderer(window, -1, SDL_RENDERER_ACCELERATED);
 
+        renderer.SetDrawColor(255,255,255,255);
+
         // Usar factory
         SDL2pp::Texture im(renderer, 
             SDL2pp::Surface("assets/autoderecha.png").SetColorKey(true, 0));
 
-        Player player(im);
+        SDL2pp::Texture ballTexture(renderer, 
+            SDL2pp::Surface("assets/ball.png").SetColorKey(true, 0));
+
+        SDL2pp::Texture bowTexture(renderer, 
+        SDL2pp::Surface("assets/bow.png").SetColorKey(true, 0));   //bow = arco
+
+        Bow bow1(bowTexture,0,false);
+        Bow bow2(bowTexture,700,true);
+
+        Ball ball(ballTexture);
+        Player player1(im);
+        //Player player2(im);
+
+        // {
+        //     1: PlayerA
+        //     2: PlayerB
+        // }
         
+        // for (playerModel in gameStatusMonitor.getlist())[
+        //     player = map.get(playerModel.getId())
+        //     player.update(playerModel, FRAME_RATE);
+        //     player.render(renderer);
+        // ]
         
         std::string lastState("");
         //bool running = true;
         
         while (!gameStatusMonitor.gameIsClosed()) {
+
             renderer.Clear();
-            player.update(gameStatusMonitor.getPlayerCoordX(), FRAME_RATE);
-            player.render(renderer);
+
+            bow1.render(renderer);
+            bow2.render(renderer);
+
+            ball.render(renderer);
+            //ball.update
+
+            player1.update(gameStatusMonitor.getPlayerCoordX(), FRAME_RATE);
+            player1.render(renderer);
+
+            // player.update(gameStatusMonitor.getPlayerCoordX() + 15, FRAME_RATE);
+            // player.render(renderer);
+
+
+            // player1.update(gameStatusMonitor.getPlayerCoordX(), FRAME_RATE);
+            // player2.render(renderer);
+
             renderer.Present();
 
-            
-            
             // la cantidad de segundos que debo dormir se debe ajustar en función
             // de la cantidad de tiempo que demoró el handleEvents y el render
             usleep(FRAME_RATE);
