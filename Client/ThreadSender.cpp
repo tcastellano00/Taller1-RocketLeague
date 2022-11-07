@@ -7,18 +7,26 @@ void ThreadSender::run() {
     Protocol protocol(connection);
 
     while (playing) {
+
         Command command = queue.pop();
 
+        /*
         if (protocol.isClosed()) {
             break;
         }
 
         protocol.sendMessage(command.getType());
+        */
+
+        if (command.getType() == "right")
+            gameStatusMonitor.movePlayerRight();
+        else if (command.getType() == "left")
+            gameStatusMonitor.movePlayerLeft();
+        else if (command.getType() == "close")
+            gameStatusMonitor.setClose();
 
         playing = (not gameStatusMonitor.gameIsClosed());
     }
-
-    std::cout << "Cerramos sender" << std::endl;
 }
 
 ThreadSender::ThreadSender(Queue<Command>& newQueue, Socket& cnct, GameStatusMonitor& newGameStatusMonitor):
@@ -28,5 +36,6 @@ ThreadSender::ThreadSender(Queue<Command>& newQueue, Socket& cnct, GameStatusMon
 
 
 ThreadSender::~ThreadSender() {
+    std::cout << "Cerramos sender" << std::endl;
     this->join();
 }

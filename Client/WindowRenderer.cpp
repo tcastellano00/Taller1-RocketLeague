@@ -71,16 +71,28 @@ void WindowRenderer::launch(GameStatusMonitor& gameStatusMonitor) {
         SDL2pp::Renderer renderer(window, -1, SDL_RENDERER_ACCELERATED);
 
         // Usar factory
-        //SDL2pp::Texture im(renderer, 
-        //    SDL2pp::Surface("assets/autoderecha.png").SetColorKey(true, 0));
+        SDL2pp::Texture im(renderer, 
+            SDL2pp::Surface("assets/autoderecha.png").SetColorKey(true, 0));
 
-        //Player player(im);
+        Player player(im);
+        
+        
         std::string lastState("");
         //bool running = true;
-        // Gameloop, notar como tenemos desacoplado el procesamiento de los inputs (handleEvents)
-        // del update del modelo.
-
+        
         while (!gameStatusMonitor.gameIsClosed()) {
+            renderer.Clear();
+            player.update(gameStatusMonitor.getPlayerCoordX(), FRAME_RATE);
+            player.render(renderer);
+            renderer.Present();
+
+            
+            
+            // la cantidad de segundos que debo dormir se debe ajustar en función
+            // de la cantidad de tiempo que demoró el handleEvents y el render
+            usleep(FRAME_RATE);
+
+            /*
             std::string actualStatus = gameStatusMonitor.gameStatus();
             if (actualStatus == lastState)
                 continue;
@@ -90,7 +102,8 @@ void WindowRenderer::launch(GameStatusMonitor& gameStatusMonitor) {
             renderer.Clear();
             renderer.Present();
 
-            SDL_Delay(1000);    
+            SDL_Delay(1000);
+            */
         }
 
         /*

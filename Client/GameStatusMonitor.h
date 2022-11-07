@@ -19,6 +19,11 @@ class GameStatusMonitor{
     void statusUpdate(std::string newState);
     void setClose();
 
+    void movePlayerRight();
+    void movePlayerLeft();
+
+    int getPlayerCoordX();
+    int getPlayerCoordY();
 };
 
 #endif

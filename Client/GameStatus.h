@@ -3,10 +3,12 @@
 
 #include <iostream>
 #include <string>
+#include "Model/PlayerModel.h"
 
 class GameStatus{
     bool closed;
     std::string actualStatus;
+    PlayerModel player;
 
     public:
     GameStatus();
@@ -17,6 +19,12 @@ class GameStatus{
 
     std::string status();
 
+    void movePlayerRight();
+
+    void movePlayerLeft();
+
     void setClose();
+    int getPlayerCoordX();
+    int getPlayerCoordY();
 };
 #endif

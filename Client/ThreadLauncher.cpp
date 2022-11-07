@@ -25,4 +25,6 @@ void ThreadLauncher::start(Socket& connection,GameStatusMonitor& gameStatusMonit
    
     WindowRenderer renderer;
     renderer.launch(gameStatusMonitor);
+    
+    std::cout << "Cerramos launcher" << std::endl;
 }

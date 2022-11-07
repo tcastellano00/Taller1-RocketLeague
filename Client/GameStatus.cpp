@@ -18,6 +18,21 @@ void GameStatus::statusUpdate(std::string newState){
     actualStatus = newState;
 }
 
+void GameStatus::movePlayerRight() {
+    this->player.moveRight();
+}
+
+void GameStatus::movePlayerLeft(){
+    this->player.moveLeft();
+}
+
 void GameStatus::setClose() {
     closed = true;
+}
+
+int GameStatus::getPlayerCoordX() {
+    return player.getCoordX();
+}
+int GameStatus::getPlayerCoordY() {
+    return player.getCoordY();
 }

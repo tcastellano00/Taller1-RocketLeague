@@ -1,17 +1,18 @@
 #include "ThreadCmdReader.h"
 #include <iostream>
+#include <unistd.h>
 #include <SDL2/SDL.h>
 
 void ThreadCmdReader::run() {
+    usleep(5000000); //reemplazar por una CV.
+
     std::cout << "Im running cmd reader thread" << std::endl;
-    /*
+
     bool running = true;
 
-    
     while (running) {
         running = handleEvents();
     }
-    */
 }
 
 bool ThreadCmdReader::handleEvents() {
@@ -22,12 +23,12 @@ bool ThreadCmdReader::handleEvents() {
                 SDL_KeyboardEvent& keyEvent = (SDL_KeyboardEvent&) event;
                 switch (keyEvent.keysym.sym) {
                     case SDLK_RIGHT: {
-                        Command cmd("accelerate right");
+                        Command cmd("right");
                         queue.push(cmd);
                         break;
                     }
                     case SDLK_LEFT: {
-                        Command cmd("accelerate left");
+                        Command cmd("left");
                         queue.push(cmd);
                         break;
                     }
@@ -37,28 +38,32 @@ bool ThreadCmdReader::handleEvents() {
                         break;
                     }
                 }
+                break;
             }
             case SDL_KEYUP: {
                 SDL_KeyboardEvent& keyEvent = (SDL_KeyboardEvent&) event;
                 switch (keyEvent.keysym.sym) {
                     case SDLK_RIGHT: {
-                        Command cmd("stop accelerate right");
+                        Command cmd("stop right");
                         queue.push(cmd);
                         break;
                     }
                     case SDLK_LEFT: {
-                        Command cmd("stop accelerate left");
+                        Command cmd("stop left");
                         queue.push(cmd);
                         break;
                     }
                 }
+                break;
             }
-            /* case SDL_QUIT: {
+            case SDL_QUIT: {
                 std::cout << "Quit :(" << std::endl;
                 Command cmd("close");
+                Command cmdQueue("close queue");
                 queue.push(cmd);
+                queue.push(cmdQueue);
                 return false;
-            } */
+            }
             
         }
 
@@ -71,5 +76,6 @@ bool ThreadCmdReader::handleEvents() {
 ThreadCmdReader::ThreadCmdReader(Queue<Command>& newQueue): queue(newQueue) {}
 
 ThreadCmdReader::~ThreadCmdReader() {
+    std::cout << "Cerramos cmd reader" << std::endl;
     this->join();
 }

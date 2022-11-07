@@ -3,6 +3,7 @@
 
 #include <queue>
 #include <mutex>
+#include <iostream>
 #include <condition_variable>
 
 template<typename T>
@@ -36,9 +37,18 @@ public:
         internal.pop();
         return element;
     }
+    
     //le agrego un metodo para ver si esta vacia
     bool empty(){
         return internal.empty();
+    }
+
+    void liberar() {
+        keep_popping.notify_all();
+    }
+    
+    ~Queue() {
+        std::cout << "Se destruye la cola" << std::endl;
     }
 };
 

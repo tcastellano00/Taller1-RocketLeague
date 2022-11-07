@@ -11,8 +11,6 @@ ThreadClientLobby::ThreadClientLobby(ClientConnection& clt, GameMonitor& gameMtr
     client(std::move(clt)), 
     gameMonitor(gameMtr) {}
 
-void ThreadClientLobby::stop() {}
-
 void ThreadClientLobby::run(){
     std::cout << "ThreadClientLobby: cliente conectado" << std::endl;
 
@@ -25,6 +23,9 @@ void ThreadClientLobby::run(){
         std::string response = command->execute(gameMonitor, client);
         protocol.sendMessage(response);
     }
+}
+
+void ThreadClientLobby::stop() {
 }
 
 ThreadClientLobby::~ThreadClientLobby() {
