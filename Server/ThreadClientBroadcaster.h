@@ -23,7 +23,7 @@ class Broadcaster : public Thread{
 
     void run() override;
 
-    ~Broadcaster() = default;
+    ~Broadcaster();
 };
 
 #endif

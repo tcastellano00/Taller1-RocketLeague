@@ -8,7 +8,7 @@
 
 
 Broadcaster::Broadcaster(ClientConnection& newConnection, Queue<Command>& newSenderQueue)
-    :senderQueue(newSenderQueue),connection(newConnection){
+    :senderQueue(newSenderQueue), connection(newConnection){
 }
 
 void Broadcaster::run(){
@@ -41,4 +41,6 @@ void Broadcaster::run(){
 
 }
 
-    
+Broadcaster::~Broadcaster() {
+    this->join();
+}
