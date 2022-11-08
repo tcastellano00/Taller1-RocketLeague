@@ -13,8 +13,9 @@
 
 class ThreadClientSender : public Thread{
     Queue <Command>& senderQueue;
-    Socket& socketSender;
+    //Socket& socketSender;
     Protocol senderProtocol;
+    bool senderOpen;
 
     public:
     ThreadClientSender(Queue <Command>& newSenderQueue,Socket& newSocketSender);

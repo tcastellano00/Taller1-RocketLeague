@@ -15,6 +15,7 @@ class Broadcaster : public Thread{
     //std::list<ClientConnection>& connections;
     ClientConnection& connection;
     std::list<Queue<Command>> listSenderQueues;
+    bool open;
 
     public:
     //Broadcaster(std::list<ClientConnection>& newConnections, Queue<Command>& newSenderQueue);

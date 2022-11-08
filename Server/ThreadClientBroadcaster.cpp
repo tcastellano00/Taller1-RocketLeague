@@ -8,7 +8,7 @@
 
 
 Broadcaster::Broadcaster(ClientConnection& newConnection, Queue<Command>& newSenderQueue)
-    :senderQueue(newSenderQueue), connection(newConnection){
+    :senderQueue(newSenderQueue), connection(newConnection) , open(true){
 }
 
 void Broadcaster::run(){
@@ -30,14 +30,20 @@ void Broadcaster::run(){
     // }
 
     Queue<Command> newSenderQueue(true);
-
+     
     ThreadClientSender sender(newSenderQueue, connection.getSocketReference());
     sender.start();
 
-    while (!senderQueue.empty()){
+    while(open){
         Command command = senderQueue.pop();
         newSenderQueue.push(command);
     }
+
+
+    // while (!senderQueue.empty()){
+    //     Command command = senderQueue.pop();
+    //     newSenderQueue.push(command);
+    // }
 
 }
 

@@ -17,6 +17,9 @@ void Gameloop::run() {
     //     clientThreadList.back().start();
     // }
 
+    ThreadClientReceiver clientThreadReceiver(connection.getSocketReference(),recibingQueue);
+    clientThreadReceiver.start();
+
     Broadcaster broadcaster(connection, senderQueue);
     broadcaster.start();
 
@@ -43,8 +46,10 @@ void Gameloop::run() {
 // }
 
 void Gameloop::init(ClientConnection& newConnection) {
-    this->connection = std::move(newConnection);
+    std::cout << "GameLoop::init" << std::endl;
 
+    this->connection = std::move(newConnection);
+    std::cout << "GameLoop::stdmove" << std::endl;
     this->start();
 }
 

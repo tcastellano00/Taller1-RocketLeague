@@ -50,7 +50,7 @@ bool GameMonitor::startIfLastPlayer(
     if (!this->games[gameName]->isFull())
         return false;
 
-    this->games[gameName]->start();
+    this->games[gameName]->launch();
 
    return true;
 }

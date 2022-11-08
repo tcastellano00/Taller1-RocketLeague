@@ -9,3 +9,9 @@ client_gdb:
 
 server_gdb:
 	gdb ./build/rocket_league-server
+
+pc:
+	gdb --tui ./build/rocket_league
+
+ps:
+	gdb --tui ./build/rocket_league-server

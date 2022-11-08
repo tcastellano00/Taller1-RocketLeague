@@ -2,13 +2,23 @@
 
 
 ThreadClientSender::ThreadClientSender(Queue <Command>& newSenderQueue,Socket& newSocketSender)
-    :senderQueue(newSenderQueue) , socketSender(newSocketSender), senderProtocol(socketSender){}
+    :senderQueue(newSenderQueue) , senderProtocol(newSocketSender),senderOpen(true){}
 
 void ThreadClientSender::run(){
-    while (!senderQueue.empty()){
+    std::cout << "ThreadClientSender::run" << std::endl;
+
+    while(senderOpen){
         Command gameStatus = senderQueue.pop();
         //senderProtocol.sendMessage(gameStatus);
     }
+
+
+    // while (!senderQueue.empty()){
+    //     Command gameStatus = senderQueue.pop();
+    //     //senderProtocol.sendMessage(gameStatus);
+    // }
 }
 
-ThreadClientSender::~ThreadClientSender(){}
+ThreadClientSender::~ThreadClientSender(){
+    this->join();
+}

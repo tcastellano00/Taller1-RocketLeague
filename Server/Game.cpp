@@ -57,12 +57,13 @@ std::string Game::getName() {
     return this->name;
 }
 
-void Game::start() {
+void Game::launch() {
     if (this->started)
         return;
 
     std::cout << "Game::start" << std::endl;
 
-    this->gameLoop.init(this->connections);
     this->started = true;
+    this->gameLoop.init(this->connections);
+    
 }

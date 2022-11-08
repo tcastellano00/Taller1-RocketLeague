@@ -51,7 +51,7 @@ public:
 
     bool isFull();
 
-    void start();
+    void launch();
 
     /*
     * Libera los recursos.
