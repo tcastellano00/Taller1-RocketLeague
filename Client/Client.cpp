@@ -17,7 +17,7 @@ void Client::start() {
             break;
         }
         GameStatusMonitor gameStatusMonitor;
-
+        
         ThreadLauncher threadlauncher;
         threadlauncher.start(conection,gameStatusMonitor);
 

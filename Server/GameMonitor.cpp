@@ -13,9 +13,12 @@ bool GameMonitor::createGame(
     if (this->games.find(gameName) != this->games.end())
         return false;
 
-    Game game(gameName, maxClient, clientConnection);
+    Game* game = new Game(gameName, maxClient, clientConnection);
 
     this->games[gameName] = game;
+
+    clientConnection.setGameName(gameName);
+    
     return true;
 }
 
@@ -29,29 +32,25 @@ bool GameMonitor::addPlayerIfNotFull(
         return false;
 
     //Esta llena?
-    if (this->games[gameName].isFull())
+    if (this->games[gameName]->isFull())
         return false;
 
-    this->games[gameName].addPlayer(clientConnection);
+    this->games[gameName]->addPlayer(clientConnection);
+
+    clientConnection.setGameName(gameName);
 
     return true;
 }
 
 bool GameMonitor::startIfLastPlayer(
-    const std::string gameName) {
+    const std::string& gameName) {
     std::lock_guard<std::mutex> lock(mutex);
     
     //Esta llena?
-    if (!this->games[gameName].isFull())
+    if (!this->games[gameName]->isFull())
         return false;
 
-    this->games[gameName].start();
-    /*
-        Aca creo que lo mejor seria hacer un
-        this->games[gameName].start() y que ese
-        metodo adentro haga "GameLoop.start(this.clientConnections)"
-        para iniciar el gameLoop de esa partida.
-    */
+    this->games[gameName]->start();
 
    return true;
 }

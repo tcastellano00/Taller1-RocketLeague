@@ -13,6 +13,11 @@
 #include "Resolver.h"
 #include "LibError.h"
 
+Socket::Socket() {
+    this->skt = -1;
+    this->closed = true;
+}
+
 Socket::Socket(
         const char *hostname,
         const char *servname) {

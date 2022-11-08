@@ -17,6 +17,8 @@ class Socket {
     explicit Socket(int skt);
 
     public:
+Socket();
+
 /*
  * Constructores para `Socket` tanto para conectarse a un servidor
  * (`Socket::Socket(const char*, const char*)`) como para ser usado

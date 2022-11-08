@@ -6,20 +6,24 @@
 Gameloop::Gameloop() { }
 
 void Gameloop::run() {
+    std::cout << "Gameloop::run" << std::endl;
+
     Queue <Command> recibingQueue(false);
     Queue <Command> senderQueue(true);
     
-    for (auto connection = connectionList.begin(); connection != connectionList.end(); ++connection) {
+    // for (auto connection = connectionList.begin(); connection != connectionList.end(); ++connection) {
         
-        clientThreadList.emplace_back((*connection).getSocketReference(),recibingQueue);
-        clientThreadList.back().start();
-    }
+    //     clientThreadList.emplace_back((*connection).getSocketReference(),recibingQueue);
+    //     clientThreadList.back().start();
+    // }
 
-    Broadcaster broadcaster(connectionList, senderQueue);
+    Broadcaster broadcaster(connection, senderQueue);
     broadcaster.start();
 
     int commandsCounter = 0;
 
+
+    std::cout << "Gameloop::while" << std::endl;
     while (!recibingQueue.empty() &&  commandsCounter > LIMITOFCOMANDS) {
         Command command = recibingQueue.pop();
         //     pegarle al estado del juego (intenciones)
@@ -32,8 +36,14 @@ void Gameloop::run() {
     // sleep(delta - elapsed)
 }
 
-void Gameloop::init(std::list <ClientConnection>& connectionList) {
-    this->connectionList = std::move(connectionList);
+// void Gameloop::init(std::list <ClientConnection>& connectionList) {
+//     this->connectionList = std::move(connectionList);
+
+//     this->start();
+// }
+
+void Gameloop::init(ClientConnection& newConnection) {
+    this->connection = std::move(newConnection);
 
     this->start();
 }

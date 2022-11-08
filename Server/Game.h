@@ -4,34 +4,32 @@
 #include <list>
 #include <string>
 
+#include "Gameloop.h"
 #include "ClientConnection.h"
 
 class Game {
 private:
     std::string name;
     int maxClients;
+    int clients;
     //std::list<ClientConnection> connections;
     bool started;
-    //Gameloop gameLoop;
+    Gameloop gameLoop;
+    ClientConnection& connections;
 
 public:
     /*
-    * Construye el juego
-    * */
     Game();
 
-    /*
-    * Construye el juego
-    * */
     Game(
         const std::string& name,
-        int maxClients);
+        int maxClients); */
 
     /*
     * Construye el juego con la conexion del
     * primer cliente.
     * */
-    Game(
+    explicit Game(
         const std::string& name,
         int maxClients,
         ClientConnection& firstConnection);

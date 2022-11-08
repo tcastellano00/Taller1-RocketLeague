@@ -11,7 +11,7 @@
 
 class GameMonitor {
 private:
-    std::map<std::string, Game> games;
+    std::map<std::string, Game*> games;
     std::mutex mutex;
 
 public:
@@ -34,13 +34,10 @@ public:
     bool addPlayerIfNotFull(
         const std::string& gameName, 
         ClientConnection& clientConnection);
-
-    /*
-    * Inicia la partida si ya esta llena.
-    */
-   bool startIfLastPlayer(
-        const std::string gameName);
     
+    bool startIfLastPlayer(
+        const std::string& gameName);
+
     std::string listGames();
 
     /*

@@ -9,8 +9,15 @@ class ClientConnection {
 private:
     Socket socket;
     std::string clientName;
+    std::string gameName;
+    bool inAGame;
 
 public:
+    /*
+    * Construye el ClientConnection.
+    * */
+    ClientConnection();
+
     /*
     * Construye el ClientConnection.
     * */
@@ -23,6 +30,12 @@ public:
     * */
     int getId();
     Socket& getSocketReference();
+
+    void setGameName(std::string newGameName);
+
+    std::string getGameName();
+
+    bool getInAGame();
 
     /*
     * Obtiene el nombre del cliente.
