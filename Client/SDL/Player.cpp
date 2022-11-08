@@ -4,9 +4,8 @@ Player::Player(SDL2pp::Texture &texture): an(texture), facingLeft(false), moving
 
 Player::~Player() {}
 
-//Aca deberiamos enviar PlayerModel
-void Player::update(int newXPos, int dt) {
-    //int newXPos = playerModel.getCoordX();
+void Player::update(PlayerModel playerModel, int dt) {
+    int newXPos = playerModel.getCoordX();
 
     if (this->x != newXPos) {
         if(newXPos < x){

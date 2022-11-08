@@ -4,6 +4,7 @@
 #include <mutex>
 #include <string>
 #include "GameStatus.h"
+#include "Model/PlayerModel.h"
 
 class GameStatusMonitor{
     std::mutex gameMutex;
@@ -22,8 +23,7 @@ class GameStatusMonitor{
     void movePlayerRight();
     void movePlayerLeft();
 
-    int getPlayerCoordX();
-    int getPlayerCoordY();
+    PlayerModel getPlayer();
 };
 
 #endif

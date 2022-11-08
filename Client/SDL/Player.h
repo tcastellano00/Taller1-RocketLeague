@@ -1,5 +1,5 @@
-#ifndef __WORM_H__
-#define __WORM_H__
+#ifndef CLIENT_SDL_PLAYER_H__
+#define CLIENT_SDL_PLAYER_H__
 
 #include <SDL2pp/SDL2pp.hh>
 #include "Animation.h"
@@ -9,9 +9,8 @@ class Player {
 public:
     Player(SDL2pp::Texture &texture);
     ~Player();
-    void update(int newXPos, int dt); //PlayerModel playerModel);
+    void update(PlayerModel playerModel, int dt);
     void render(SDL2pp::Renderer &renderer);
-    
 
 private:
     Animation an;

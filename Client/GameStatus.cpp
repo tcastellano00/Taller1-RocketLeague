@@ -31,9 +31,6 @@ void GameStatus::setClose() {
     closed = true;
 }
 
-int GameStatus::getPlayerCoordX() {
-    return player.getCoordX();
-}
-int GameStatus::getPlayerCoordY() {
-    return player.getCoordY();
+PlayerModel GameStatus::getPlayer() {
+    return player;
 }

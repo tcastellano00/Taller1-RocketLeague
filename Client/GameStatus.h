@@ -25,7 +25,7 @@ class GameStatus{
     void movePlayerLeft();
 
     void setClose();
-    int getPlayerCoordX();
-    int getPlayerCoordY();
+
+    PlayerModel getPlayer();
 };
 #endif

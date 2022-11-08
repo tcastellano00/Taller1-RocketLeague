@@ -31,12 +31,11 @@ void GameStatusMonitor::movePlayerLeft(){
 }
 
 void GameStatusMonitor::setClose() {
+    std::lock_guard<std::mutex> lock(gameMutex);
     gamestatus.setClose();
 }
 
-int GameStatusMonitor::getPlayerCoordX() {
-    return gamestatus.getPlayerCoordX();
-}
-int GameStatusMonitor::getPlayerCoordY() {
-    return gamestatus.getPlayerCoordY();
+PlayerModel GameStatusMonitor::getPlayer() {
+    std::lock_guard<std::mutex> lock(gameMutex);
+    return gamestatus.getPlayer();
 }

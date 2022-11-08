@@ -12,54 +12,6 @@
 
 WindowRenderer::WindowRenderer() {}
 
-// void Renderer::render(GameStatusMonitor& gameStatusMonitor) {
-//     std::cout << "Im rendering" << std::endl;
-
-//     SDL_Window *window;                    // Declare a pointer
-
-//     SDL_Init(SDL_INIT_VIDEO);              // Initialize SDL2
-
-//     // Create an application window with the following settings:
-//     window = SDL_CreateWindow(
-//         "An SDL2 window",                  // window title
-//         SDL_WINDOWPOS_UNDEFINED,           // initial x position
-//         SDL_WINDOWPOS_UNDEFINED,           // initial y position
-//         640,                               // width, in pixels
-//         480,                               // height, in pixels
-//         SDL_WINDOW_OPENGL                  // flags - see below
-//     );
-
-//     // Check that the window was successfully created
-//     if (window == NULL) {
-//         // In the case that the window could not be made...
-//         printf("Could not create window: %s\n", SDL_GetError());
-//         return;
-//     }
-
-//     // The window is open: could enter program loop here (see SDL_PollEvent())
-    
-//     std::string lastState("");
-
-//     while (!gameStatusMonitor.gameIsClosed()) {
-//         std::string actualStatus = gameStatusMonitor.gameStatus();
-//         if (actualStatus == lastState) {
-//             continue;
-//         }
-//         lastState = actualStatus;
-//         std::cout<< actualStatus << std::endl;
-//         SDL_Delay(1000);
-//     }
-
-//     // Close and destroy the window
-//     SDL_DestroyWindow(window);
-
-//     // Clean up
-//     SDL_Quit();
-// }
-
-//static void render(SDL2pp::Renderer &renderer, Player &player);
-//static void update(Player &player, float dt);
-
 void WindowRenderer::launch(GameStatusMonitor& gameStatusMonitor) {
     try {
         // Inicializo biblioteca de SDL
@@ -82,7 +34,7 @@ void WindowRenderer::launch(GameStatusMonitor& gameStatusMonitor) {
             SDL2pp::Surface("assets/ball.png").SetColorKey(true, 0));
 
         SDL2pp::Texture bowTexture(renderer, 
-        SDL2pp::Surface("assets/bow.png").SetColorKey(true, 0));   //bow = arco
+            SDL2pp::Surface("assets/bow.png").SetColorKey(true, 0));   //bow = arco
 
         Bow bow1(bowTexture,0,false);
         Bow bow2(bowTexture,700,true);
@@ -115,7 +67,7 @@ void WindowRenderer::launch(GameStatusMonitor& gameStatusMonitor) {
             ball.render(renderer);
             //ball.update
 
-            player1.update(gameStatusMonitor.getPlayerCoordX(), FRAME_RATE);
+            player1.update(gameStatusMonitor.getPlayer(), FRAME_RATE);
             player1.render(renderer);
 
             // player.update(gameStatusMonitor.getPlayerCoordX() + 15, FRAME_RATE);
@@ -169,6 +121,10 @@ void WindowRenderer::launch(GameStatusMonitor& gameStatusMonitor) {
         std::cout << e.what() << std::endl;
     }
     
+}
+
+void renderPlayers(GameStatusMonitor& gameStatusMonitor) {
+
 }
 
 /*
