@@ -10,9 +10,9 @@ bool GameStatusMonitor::gameIsClosed(){
     return gamestatus.isClosed();
 }
 
-std::string GameStatusMonitor::gameStatus(){
+GameStatus GameStatusMonitor::getGameStatus(){
     std::lock_guard<std::mutex> lock(gameMutex);
-    return gamestatus.status();
+    return gamestatus;
 }
 
 void GameStatusMonitor::statusUpdate(std::string newState){

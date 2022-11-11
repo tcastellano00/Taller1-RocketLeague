@@ -18,3 +18,7 @@ int PlayerModel::getCoordX() {
 int PlayerModel::getCoordY() {
     return this->y;
 }
+
+int PlayerModel::getAngle() {
+    return angle;
+}

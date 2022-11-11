@@ -6,6 +6,7 @@ class BallModel {
 private:
     int x;
     int y;
+    int angle;
 
 public:
     BallModel();
@@ -13,6 +14,7 @@ public:
     //void moveLeft();
     int getCoordX();
     int getCoordY();
+    int getAngle();
 
     ~BallModel();
 };

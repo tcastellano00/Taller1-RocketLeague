@@ -15,7 +15,7 @@ class GameStatusMonitor{
 
     bool gameIsClosed();
     
-    std::string gameStatus();
+    GameStatus getGameStatus();
 
     void statusUpdate(std::string newState);
     void setClose();

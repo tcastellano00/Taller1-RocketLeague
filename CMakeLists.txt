@@ -9,7 +9,7 @@ project(rocket_league)
 
 #------------------------------------------------------------------------------
 # FLAGS DE COMPILACION
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -pthread")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -pthread")
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 if(APPLE)

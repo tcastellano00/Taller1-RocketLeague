@@ -4,8 +4,13 @@
 #include <iostream>
 #include <string>
 #include "Model/PlayerModel.h"
+#include "Model/ScoreModel.h"
+#include "Model/BallModel.h"
+
 
 class GameStatus{
+    ScoreModel score;
+    BallModel ball;
     bool closed;
     std::string actualStatus;
     //std::list <PlayerModel> players;

@@ -10,3 +10,7 @@ int BallModel::getCoordX() {
 int BallModel::getCoordY() {
     return this->y;
 }
+
+int BallModel::getAngle() {
+    return angle;
+}
