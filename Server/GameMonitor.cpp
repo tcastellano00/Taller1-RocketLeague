@@ -47,10 +47,10 @@ bool GameMonitor::startIfLastPlayer(
     std::lock_guard<std::mutex> lock(mutex);
     
     //Esta llena?
-    if (!this->games[gameName].isFull())
+    if (!this->games.at(gameName).isFull())
         return false;
 
-    this->games[gameName].launch();
+    this->games.at(gameName).launch();
 
    return true;
 }

@@ -19,7 +19,6 @@ bool Lobby::start() {
         protocol.sendMessage(input);
         std::string reply = protocol.reciveMessage();
         std::cout << reply;
-        break;  //CAMBIAR ESTO, por ahora probamos con 1 solo jugador por lo que ya sabemos que deberia salir.
     } while (keepReading);
 
     return false;

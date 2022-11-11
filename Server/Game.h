@@ -12,10 +12,9 @@ private:
     std::string name;
     int maxClients;
     int clients;
-    std::list<ClientConnection&> connections;
+    std::list<ClientConnection> connections;
     bool started;
     Gameloop gameLoop;
-    ClientConnection& connection;
 
 public:
     /*
