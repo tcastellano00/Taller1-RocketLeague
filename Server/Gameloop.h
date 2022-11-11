@@ -13,17 +13,17 @@
 
 class Gameloop : public Thread{
 
-    //std::list <ThreadClientReceiver> clientThreadList;
-    //std::list <ClientConnection> connectionList;
-    ClientConnection connection;
+    std::list <ThreadClientReceiver> clientThreadList;
+    std::list <ClientConnection> connectionList;
+    //ClientConnection connection;
 
     public:
     Gameloop();
 
     void run() override;
 
-    //void init(std::list <ClientConnection>& connectionList);
-    void init(ClientConnection& connection);
+    void init(std::list <ClientConnection>& connectionList);
+    //void init(ClientConnection& connection);
     /*
     * Libera los recursos.
     * */

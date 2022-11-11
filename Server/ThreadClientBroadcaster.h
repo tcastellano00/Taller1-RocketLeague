@@ -12,15 +12,15 @@
 class Broadcaster : public Thread{
 
     Queue <Command>& senderQueue;
-    //std::list<ClientConnection>& connections;
-    ClientConnection& connection;
+    std::list<ClientConnection>& connections;
+    //ClientConnection& connection;
     std::list<Queue<Command>> listSenderQueues;
     bool open;
 
     public:
     //Broadcaster(std::list<ClientConnection>& newConnections, Queue<Command>& newSenderQueue);
 
-    Broadcaster(ClientConnection& newConnections, Queue<Command>& newSenderQueue);
+    Broadcaster(std::list<ClientConnection>& newConnections, Queue<Command>& newSenderQueue);
 
     void run() override;
 

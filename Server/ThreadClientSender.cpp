@@ -11,12 +11,6 @@ void ThreadClientSender::run(){
         Command gameStatus = senderQueue.pop();
         //senderProtocol.sendMessage(gameStatus);
     }
-
-
-    // while (!senderQueue.empty()){
-    //     Command gameStatus = senderQueue.pop();
-    //     //senderProtocol.sendMessage(gameStatus);
-    // }
 }
 
 ThreadClientSender::~ThreadClientSender(){

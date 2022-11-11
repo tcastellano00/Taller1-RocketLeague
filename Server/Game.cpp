@@ -19,12 +19,12 @@ Game::Game(
 Game::Game(
     const std::string& name,
     int maxClients,
-    ClientConnection& firstConnection) : connections(firstConnection) {
+    ClientConnection& firstConnection) : connection(firstConnection) {
         this->name = name;
         this->maxClients = maxClients;
         this->clients = 1;
         this->started = false;
-        //this->connections.push_back(firstConnection);
+        this->connections.push_back(firstConnection);
     }
 
 bool Game::addPlayer(ClientConnection& clientConnection) {
@@ -34,7 +34,7 @@ bool Game::addPlayer(ClientConnection& clientConnection) {
     try
     {
         this->clients += 1;
-        //this->connections.push_back(clientConnection);
+        this->connections.push_back(clientConnection);
     }
     catch(const std::exception& e)
     {
