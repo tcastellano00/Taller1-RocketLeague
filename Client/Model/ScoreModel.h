@@ -7,6 +7,8 @@ private:
     int goalsSecondTeam;
     
 public:
+    ScoreModel(int minutes, int seconds, int milisec, int goalsFirst, int goalsSecond);
+    ScoreModel();
     int getMinutesLeft();
     int getSecondsLeft();
     int getMiliSecondsLeft();

@@ -1,5 +1,15 @@
 #include "ScoreModel.h"
 
+ScoreModel::ScoreModel(int minutes, int seconds, int milisec, int goalsFirst, int goalsSecond) {
+    minutesLeft = minutes;
+    secondsLeft = seconds;
+    miliSecondsLeft = milisec;
+    goalsFirstTeam = goalsFirst;
+    goalsSecondTeam = goalsSecond;
+}
+
+ScoreModel::ScoreModel() {}
+
 int ScoreModel::getMinutesLeft() {
     return minutesLeft;
 }
