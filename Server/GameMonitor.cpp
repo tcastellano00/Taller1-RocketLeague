@@ -13,9 +13,9 @@ bool GameMonitor::createGame(
     if (this->games.find(gameName) != this->games.end())
         return false;
 
-    Game* game = new Game(gameName, maxClient, clientConnection);
+    //Game* game = new Game(gameName, maxClient, clientConnection);
 
-    this->games[gameName] = game;
+    this->games.try_emplace(gameName,gameName,maxClient,clientConnection);
 
     clientConnection.setGameName(gameName);
     
@@ -32,10 +32,10 @@ bool GameMonitor::addPlayerIfNotFull(
         return false;
 
     //Esta llena?
-    if (this->games[gameName]->isFull())
+    if (this->games.at(gameName).isFull())
         return false;
 
-    this->games[gameName]->addPlayer(clientConnection);
+    this->games.at(gameName).addPlayer(clientConnection);
 
     clientConnection.setGameName(gameName);
 
@@ -47,10 +47,10 @@ bool GameMonitor::startIfLastPlayer(
     std::lock_guard<std::mutex> lock(mutex);
     
     //Esta llena?
-    if (!this->games[gameName]->isFull())
+    if (!this->games.at(gameName).isFull())
         return false;
 
-    this->games[gameName]->launch();
+    this->games.at(gameName).launch();
 
    return true;
 }

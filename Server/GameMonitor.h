@@ -11,7 +11,7 @@
 
 class GameMonitor {
 private:
-    std::map<std::string, Game*> games;
+    std::map<std::string, Game> games;
     std::mutex mutex;
 
 public:
