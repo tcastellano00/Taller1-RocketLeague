@@ -1,0 +1,17 @@
+Ejemplo de string enviada desde el Server a cada uno de los Clientes:
+
+CantidadJugadores\n
+TiempoRestante\n
+GolesEquipo1\n
+GolesEquipo2\n
+XCoordPelota\n
+YCoordPelota\n
+AnglePelota\n
+XCoordPlayer1\n
+YCoordPlayer1\n
+AnglePlayer1\n
+IsDoingTurboPlayer1\n
+XCoordPlayer2\n
+YCoordPlayer2\n
+AnglePlayer2\n
+IsDoingTurboPlayer2\n\n
