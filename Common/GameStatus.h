@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include <list>
 #include "Model/PlayerModel.h"
 #include "Model/ScoreModel.h"
 #include "Model/BallModel.h"
@@ -13,7 +14,8 @@ class GameStatus{
     BallModel ball;
     bool closed;
     std::string actualStatus;
-    //std::list <PlayerModel> players;
+    std::list<PlayerModel> players;
+
     PlayerModel player;
 
     public:

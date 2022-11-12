@@ -33,16 +33,18 @@ void GameStatus::statusUpdate(std::string newState) {
     BallModel bm(xCoordBall, yCoordBall, angleBoard);
     this->ball = bm;
 
-    /*for (int i = 0; i < numPlayers; ++i) {
+
+    for (int i = 0; i < numPlayers; ++i) {
         int xCoordPlayer;
         int yCoordPlayer;
         int anglePlayer;
-        bool
-    }*/
-}
-
-bool GameStatus::isClosed(){
-    return closed;
+        bool turbo;
+        ss >> xCoordPlayer;
+        ss >> yCoordPlayer;
+        ss >> anglePlayer;
+        ss >> turbo;
+        this->players.emplace_back(xCoordPlayer, yCoordPlayer, anglePlayer, turbo);
+    }
     //return false;
 }
 

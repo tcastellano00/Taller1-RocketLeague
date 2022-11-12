@@ -18,6 +18,8 @@ bool Lobby::start() {
         if (input == "\n") {break;}
         protocol.sendMessage(input);
         std::string reply = protocol.reciveMessage();
+        if (reply == "start!")
+            keepReading = false;
         std::cout << reply;
     } while (keepReading);
 
