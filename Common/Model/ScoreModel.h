@@ -14,4 +14,5 @@ public:
     int getMiliSecondsLeft();
     int getGoalsFirstTeam();
     int getGoalsSecondTeam();
+    ~ScoreModel() = default;
 };

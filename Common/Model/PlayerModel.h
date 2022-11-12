@@ -6,8 +6,10 @@ private:
     int x;
     int y;
     int angle;
+    bool isDoingTurbo;
 public:
     PlayerModel();
+    PlayerModel(int xCoord, int yCoord, int ang, bool turbo);
     void moveRight();
     void moveLeft();
     int getCoordX();

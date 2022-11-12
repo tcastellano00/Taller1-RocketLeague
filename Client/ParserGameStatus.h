@@ -1,6 +1,6 @@
-#include "Model/BallModel.h"
-#include "Model/PlayerModel.h"
-#include "Model/ScoreModel.h"
+#include "../Common/Model/BallModel.h"
+#include "../Common/Model/PlayerModel.h"
+#include "../Common/Model/ScoreModel.h"
 #include <list>
 #include <string>
 

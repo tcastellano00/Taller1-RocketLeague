@@ -1,6 +1,5 @@
 #ifndef CLIENT_BALL_MODEL_H
 #define CLIENT_BALL_MODEL_H
-#include "../SDL/Animation.h"
 
 class BallModel {
 private:
@@ -10,6 +9,7 @@ private:
 
 public:
     BallModel();
+    BallModel(int xCoord, int yCoord, int ang);
     //void moveRight();
     //void moveLeft();
     int getCoordX();

@@ -11,6 +11,7 @@ void Gameloop::run() {
     Queue <Command> recibingQueue(false);
     Queue <Command> senderQueue(true);
     
+    //Instanciamos los receivers.
     for (auto connection = connectionList.begin(); connection != connectionList.end(); ++connection) {
         
         clientThreadList.emplace_back((*connection).getSocketReference(),recibingQueue);
@@ -20,8 +21,8 @@ void Gameloop::run() {
     // ThreadClientReceiver clientThreadReceiver(connection.getSocketReference(),recibingQueue);
     // clientThreadReceiver.start();
 
-    Broadcaster broadcaster(connectionList, senderQueue);
-    broadcaster.start();
+    ThreadClientBroadcaster broadcasterThread(connectionList, senderQueue);
+    broadcasterThread.start();
 
     int commandsCounter = 0;
 
@@ -29,13 +30,14 @@ void Gameloop::run() {
     std::cout << "Gameloop::while" << std::endl;
     while (!recibingQueue.empty() &&  commandsCounter > LIMITOFCOMANDS) {
         Command command = recibingQueue.pop();
+        //command.execute()
         //     pegarle al estado del juego (intenciones)
-
         commandsCounter += 1;
+
 
     }
     // simularPasoDelTiempo (world.update())
-    // enviar estado actal (broadcast)
+    // enviar estado actal (broadcaster)
     // sleep(delta - elapsed)
 }
 

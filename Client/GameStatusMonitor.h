@@ -3,8 +3,8 @@
 
 #include <mutex>
 #include <string>
-#include "GameStatus.h"
-#include "Model/PlayerModel.h"
+#include "../Common/GameStatus.h"
+#include "../Common/Model/PlayerModel.h"
 
 class GameStatusMonitor{
     std::mutex gameMutex;

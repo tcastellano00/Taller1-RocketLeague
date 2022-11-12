@@ -6,6 +6,7 @@
 #include "../Common/Queue.h"
 #include "../Common/Command.h"
 #include "../Common/Protocol.h"
+#include "../Common/GameStatus.h"
 
 class ThreadClientReceiver : public Thread{
 

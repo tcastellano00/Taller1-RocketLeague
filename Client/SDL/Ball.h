@@ -2,7 +2,7 @@
 #define BALL_H
 #include <SDL2pp/SDL2pp.hh>
 #include "Animation.h"
-#include "../Model/PlayerModel.h"
+#include "../../Common/Model/PlayerModel.h"
 
 class Ball{
     Animation an;

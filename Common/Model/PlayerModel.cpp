@@ -2,6 +2,13 @@
 
 PlayerModel::PlayerModel() : x(100), y(400) {}
 
+PlayerModel::PlayerModel(int xCoord, int yCoord, int ang, bool turbo) {
+    x = xCoord;
+    y = yCoord;
+    angle = ang;
+    isDoingTurbo = turbo;
+}
+
 void PlayerModel::moveRight() {
     x += 3;
 }

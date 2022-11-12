@@ -1,6 +1,12 @@
 #include "BallModel.h"
 
-BallModel::BallModel() : x(370), y(400) {}
+BallModel::BallModel() : x(370), y(400), angle(0) {}
+
+BallModel::BallModel(int xCoord, int yCoord, int ang) {
+    x = xCoord;
+    y = yCoord;
+    angle = ang;
+}
 
 BallModel::~BallModel(){}
 

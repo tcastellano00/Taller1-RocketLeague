@@ -9,8 +9,7 @@ ThreadClientReceiver::ThreadClientReceiver(Socket& newSktConecction,Queue<Comman
 void ThreadClientReceiver::run(){
     std::cout << "ThreadClientReceiver::run" << std::endl;
     std::string message = receiverProtocol.reciveMessage();
-
-    //crear comando con el mensaje??
+    
     recibingQueue.push(message); //o el comando nuevo.
 
 }

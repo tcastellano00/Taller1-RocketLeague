@@ -21,13 +21,13 @@ void ThreadClientLobby::run(){
         std::string message = protocol.reciveMessage();
         std::unique_ptr<LobbyCommand> command = LobbyParser::getCommand(message);
         std::string response = command->execute(gameMonitor, client);
-        protocol.sendMessage(response);
-
         inAGame = client.getInAGame();
-
+        
         if (inAGame) {
             std::string gameName = client.getGameName();
             gameMonitor.startIfLastPlayer(gameName);
+        } else {
+            protocol.sendMessage(response);
         }
     }
     /*std::string gameName = client.getGameName();

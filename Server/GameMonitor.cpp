@@ -27,6 +27,8 @@ bool GameMonitor::addPlayerIfNotFull(
     ClientConnection& clientConnection) {
     std::lock_guard<std::mutex> lock(mutex);
 
+    std::cout << "Se union el jugador " << clientConnection.getName() << std::endl;
+
     //Veo si la partida no existe
     if (this->games.find(gameName) == this->games.end())
         return false;

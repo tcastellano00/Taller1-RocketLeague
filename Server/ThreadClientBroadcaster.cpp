@@ -1,40 +1,35 @@
 #include "ThreadClientBroadcaster.h"
 #include "ThreadClientSender.h"
+#include "../Common/Queue.h"
 
 
-Broadcaster::Broadcaster(std::list<ClientConnection>& newConnections, Queue<Command>& newSenderQueue)
+ThreadClientBroadcaster::ThreadClientBroadcaster(std::list<ClientConnection>& newConnections, Queue<Command>& newSenderQueue)
     :senderQueue(newSenderQueue), connections(newConnections) , open(true){
 }
 
-void Broadcaster::run(){
+void ThreadClientBroadcaster::run(){
     std::cout << "Broadcaster::run" << std::endl;
+    std::list<ThreadClientSender> clientSenderThreads;
+    
+    //Instanciamos todos los hilos sender.
     for (auto connection = connections.begin(); connection != connections.end(); ++connection) {
-        //Queue<Command> newSenderQueue(true);
-        listSenderQueues.emplace_back(true);
-
-        //no son comandos, es un estado del mundo
-        ThreadClientSender sender(listSenderQueues.back(), (*connection).getSocketReference());
-        sender.start();
+        std::cout << "ThreadClientSender::run in for" << std::endl;
+        clientSenderThreads.emplace_back((*connection).getSocketReference());
+        clientSenderThreads.back().start();
     }
 
-    while (open){
+    //Enviamos el estado del mundo a todos los clientes conectados.
+    while (open) {
         Command command = senderQueue.pop();
-        for (auto queue = listSenderQueues.begin(); queue != listSenderQueues.end(); ++queue) {
-            (*queue).push(command); //tiene que ser estado del mundo
+        
+        for (auto sender = clientSenderThreads.begin(); 
+                  sender != clientSenderThreads.end(); 
+                  ++sender) {
+            (*sender).push(command);
         }
     }
-
-    //Queue<Command> newSenderQueue(true);
-     
-    // ThreadClientSender sender(newSenderQueue, connection.getSocketReference());
-    // sender.start();
-
-    // while(open){
-    //     Command command = senderQueue.pop();
-    //     newSenderQueue.push(command);
-    // }
 }
 
-Broadcaster::~Broadcaster() {
+ThreadClientBroadcaster::~ThreadClientBroadcaster() {
     this->join();
 }

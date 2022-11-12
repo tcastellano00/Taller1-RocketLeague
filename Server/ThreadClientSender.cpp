@@ -1,16 +1,23 @@
 #include "ThreadClientSender.h"
 
-
-ThreadClientSender::ThreadClientSender(Queue <Command>& newSenderQueue,Socket& newSocketSender)
-    :senderQueue(newSenderQueue) , senderProtocol(newSocketSender),senderOpen(true){}
+ThreadClientSender::ThreadClientSender(Socket& socket)
+    : queue(true), protocol(socket), open(true){}
 
 void ThreadClientSender::run(){
     std::cout << "ThreadClientSender::run" << std::endl;
 
-    while(senderOpen){
-        Command gameStatus = senderQueue.pop();
-        //senderProtocol.sendMessage(gameStatus);
+    //Avisa que tiene que arrancar.
+    if (open)
+        protocol.sendMessage("start!");
+
+    while (open) {
+        Command gameStatus = queue.pop();
+        //senderProtocol.sendMessage(gameStatus.getMessage());
     }
+}
+
+void ThreadClientSender::push(Command command) {
+    this->queue.push(command);
 }
 
 ThreadClientSender::~ThreadClientSender(){

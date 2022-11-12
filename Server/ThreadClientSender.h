@@ -9,18 +9,20 @@
 #include "../Common/Command.h"
 #include "../Common/Protocol.h"
 #include "ClientConnection.h"
+#include "../Common/GameStatus.h"
 
 
 class ThreadClientSender : public Thread{
-    Queue <Command>& senderQueue;
-    //Socket& socketSender;
-    Protocol senderProtocol;
-    bool senderOpen;
+    Queue<Command> queue;
+    Protocol protocol;
+    bool open;
 
     public:
-    ThreadClientSender(Queue <Command>& newSenderQueue,Socket& newSocketSender);
+    ThreadClientSender(Socket& socket);
 
     void run() override;
+
+    void push(Command command);
 
     ~ThreadClientSender();
 };

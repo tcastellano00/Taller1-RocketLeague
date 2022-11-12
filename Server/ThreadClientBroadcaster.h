@@ -9,22 +9,18 @@
 #include "../Common/Command.h"
 #include "ClientConnection.h"
 
-class Broadcaster : public Thread{
+class ThreadClientBroadcaster : public Thread{
 
     Queue <Command>& senderQueue;
     std::list<ClientConnection>& connections;
-    //ClientConnection& connection;
-    std::list<Queue<Command>> listSenderQueues;
     bool open;
 
     public:
-    //Broadcaster(std::list<ClientConnection>& newConnections, Queue<Command>& newSenderQueue);
-
-    Broadcaster(std::list<ClientConnection>& newConnections, Queue<Command>& newSenderQueue);
+    ThreadClientBroadcaster(std::list<ClientConnection>& newConnections, Queue<Command>& newSenderQueue);
 
     void run() override;
 
-    ~Broadcaster();
+    ~ThreadClientBroadcaster();
 };
 
 #endif
