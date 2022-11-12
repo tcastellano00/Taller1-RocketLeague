@@ -1,3 +1,6 @@
+#ifndef ACTIONSCLIENT_H
+#define ACTIONSCLIENT_H
+
 #include <string>
 #include <memory>
 #include <bits/unique_ptr.h>
@@ -14,3 +17,4 @@ public:
 
     ~ActionsClient() = default;
 };
+#endif

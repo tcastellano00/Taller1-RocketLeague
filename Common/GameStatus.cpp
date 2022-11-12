@@ -67,3 +67,7 @@ void GameStatus::setClose() {
 PlayerModel GameStatus::getPlayer() {
     return player;
 }
+
+bool GameStatus::isClosed(){
+    return closed;
+}
