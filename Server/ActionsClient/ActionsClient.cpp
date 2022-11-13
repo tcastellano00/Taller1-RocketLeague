@@ -2,6 +2,7 @@
 #include "ActionClientJump.h"
 #include "ActionClientLeft.h"
 #include "ActionClientRight.h"
+#include "ActionClientTurbo.h"
 
 
 
@@ -14,7 +15,9 @@ if (name == "left")
 else if (name == "right")
     return std::unique_ptr<ActionsClient>(
         new ActionClientRight());
-else //(name == "jump")
+else if(name == "jump")
     return std::unique_ptr<ActionsClient>(
         new ActionClientJump());
+else return std::unique_ptr<ActionsClient>(
+        new ActionClientTurbo());
 }

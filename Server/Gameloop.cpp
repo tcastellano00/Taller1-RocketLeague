@@ -1,5 +1,6 @@
 #include "Gameloop.h"
 #include "ThreadClientBroadcaster.h"
+//#include "Physics/Physics.h"
 #define LIMITOFCOMANDS 10  //puse un numero cualquiera
 
 
@@ -8,6 +9,8 @@ Gameloop::Gameloop() { }
 void Gameloop::run() {
     std::cout << "Gameloop::run" << std::endl;
 
+    
+    //Physics gamePhysics();
     Queue <Command> recibingQueue(false);
     Queue <Command> senderQueue(true);
     

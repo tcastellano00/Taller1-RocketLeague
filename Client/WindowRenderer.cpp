@@ -36,6 +36,8 @@ void WindowRenderer::launch(GameStatusMonitor& gameStatusMonitor) {
         SDL2pp::Texture bowTexture(renderer, 
             SDL2pp::Surface("assets/bow.png").SetColorKey(true, 0));   //bow = arco
 
+        //im.SetBlendMode(SDL_BLENDMODE_NONE); //ver lo del fondo de la imagena
+
         Bow bow1(bowTexture,0,false);
         Bow bow2(bowTexture,700,true);
 
