@@ -2,7 +2,7 @@
 
 BallModel::BallModel() : x(370), y(400), angle(0) {}
 
-BallModel::BallModel(int xCoord, int yCoord, int ang) {
+BallModel::BallModel(float xCoord, float yCoord, float ang) {
     x = xCoord;
     y = yCoord;
     angle = ang;
@@ -10,13 +10,13 @@ BallModel::BallModel(int xCoord, int yCoord, int ang) {
 
 BallModel::~BallModel(){}
 
-int BallModel::getCoordX() {
+float BallModel::getCoordX() {
     return this->x;
 }
-int BallModel::getCoordY() {
+float BallModel::getCoordY() {
     return this->y;
 }
 
-int BallModel::getAngle() {
+float BallModel::getAngle() {
     return angle;
 }

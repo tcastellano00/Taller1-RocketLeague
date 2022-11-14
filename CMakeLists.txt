@@ -23,15 +23,23 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O3")
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -ggdb -DDEBUG -fno-inline")
 
+
+# Including Box2D
+include_directories(./libs/Box2D)
+file(GLOB_RECURSE BOX2D_SRCS ./libs/Box2D/*.cpp)
+add_library(libbox2d STATIC ${BOX2D_SRCS})
+
 # Agrego la libreria SDL2pp habilitando manejo de imagenes y de letras
 SET(SDL2PP_WITH_IMAGE YES)
 SET(SDL2PP_WITH_TTF YES)
 add_subdirectory(libs/libSDL2pp)
 
+
 # Agrego la carpeta con los headers autogenerados a los includes
 message("Agregando '${PROJECT_SOURCE_DIR}/libs' como directorio de includes")
 include_directories(${PROJECT_SOURCE_DIR}/libs)
 include_directories(${SDL2PP_INCLUDE_DIRS})
+
 
 #------------------------------------------------------------------------------
 # ARCHIVOS FUENTE
@@ -50,6 +58,6 @@ target_link_libraries(rocket_league rocket_league-common ${SDL2PP_LIBRARIES})
 
 # Server
 add_executable(rocket_league-server ${server_src})
-target_link_libraries(rocket_league-server rocket_league-common)
+target_link_libraries(rocket_league-server rocket_league-common libbox2d)
 
 file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})

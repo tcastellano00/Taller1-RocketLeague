@@ -4,15 +4,12 @@
 #include <string>
 
 #include "ActionsClient.h"
-#include "../GameMonitor.h"
-
-
 
 class ActionClientTurbo : public ActionsClient {   
 public:
     explicit ActionClientTurbo();
 
-    //std::string execute(GameMonitor &game_monitor, ClientConnection& client) override;
+    std::string execute(Physics &physics) override;
 
     ~ActionClientTurbo() = default;
 };

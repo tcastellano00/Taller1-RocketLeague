@@ -1,3 +1,6 @@
+#ifndef CLIENT_SCORE_MODEL_H
+#define CLIENT_SCORE_MODEL_H
+
 class ScoreModel {
 private:
     int minutesLeft;
@@ -16,3 +19,4 @@ public:
     int getGoalsSecondTeam();
     ~ScoreModel() = default;
 };
+#endif

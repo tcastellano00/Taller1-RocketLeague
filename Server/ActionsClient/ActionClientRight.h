@@ -3,15 +3,12 @@
 #include <string>
 
 #include "ActionsClient.h"
-#include "../GameMonitor.h"
-
-
 
 class ActionClientRight : public ActionsClient {   
 public:
     explicit ActionClientRight();
 
-    //std::string execute(GameMonitor &game_monitor, ClientConnection& client) override;
+    std::string execute(Physics &physics) override;
 
     ~ActionClientRight() = default;
 };

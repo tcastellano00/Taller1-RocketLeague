@@ -3,18 +3,18 @@
 
 class BallModel {
 private:
-    int x;
-    int y;
-    int angle;
+    float x;
+    float y;
+    float angle;
 
 public:
     BallModel();
-    BallModel(int xCoord, int yCoord, int ang);
+    BallModel(float xCoord, float yCoord, float ang);
     //void moveRight();
     //void moveLeft();
-    int getCoordX();
-    int getCoordY();
-    int getAngle();
+    float getCoordX();
+    float getCoordY();
+    float getAngle();
 
     ~BallModel();
 };

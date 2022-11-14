@@ -3,18 +3,21 @@
 
 class PlayerModel {
 private:
-    int x;
-    int y;
-    int angle;
+    float x;
+    float y;
+    float angle;
     bool isDoingTurbo;
 public:
     PlayerModel();
-    PlayerModel(int xCoord, int yCoord, int ang, bool turbo);
+    PlayerModel(float xCoord, float yCoord, float ang, bool turbo);
     void moveRight();
     void moveLeft();
-    int getCoordX();
-    int getCoordY();
-    int getAngle();
+
+    //void setCoordX();
+
+    float getCoordX();
+    float getCoordY();
+    float getAngle();
 
     ~PlayerModel();
 };

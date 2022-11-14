@@ -20,6 +20,21 @@ class GameStatus{
 
     public:
     GameStatus();
+    GameStatus(
+        BallModel& ball,
+        ScoreModel& score,
+        std::list<PlayerModel>& players
+    );
+
+    BallModel getBallModel();
+    void setBallModel(BallModel ballModel);
+
+    ScoreModel getScoreModel();
+    void setScoreModel(ScoreModel scoreModel);
+
+    std::list<PlayerModel> getPlayersModels();
+    void setPlayersModels(std::list<PlayerModel> lstPlayersModels);
+
 
     bool isClosed();
 
@@ -32,6 +47,8 @@ class GameStatus{
     void movePlayerLeft();
 
     void setClose();
+
+    void setPlayerModel(PlayerModel pm);
 
     PlayerModel getPlayer();
 };

@@ -3,17 +3,19 @@
 
 #include <string>
 #include <memory>
-#include <bits/unique_ptr.h>
+#include <bits/shared_ptr.h>
+
+#include "../Physics/Physics.h"
 
 class ActionsClient {
 protected:
     std::string arguments;
    
 public:
-    static std::unique_ptr<ActionsClient> get_command_ptr(
+    static std::shared_ptr<ActionsClient> get_command_ptr(
         const std::string &name);
 
-    //virtual std::string execute(GameMonitor &game_monitor, ClientConnection& client) = 0;
+    virtual std::string execute(Physics &physics) = 0;
 
     ~ActionsClient() = default;
 };

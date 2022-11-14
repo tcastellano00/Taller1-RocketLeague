@@ -2,7 +2,7 @@
 
 PlayerModel::PlayerModel() : x(100), y(400) {}
 
-PlayerModel::PlayerModel(int xCoord, int yCoord, int ang, bool turbo) {
+PlayerModel::PlayerModel(float xCoord, float yCoord, float ang, bool turbo) {
     x = xCoord;
     y = yCoord;
     angle = ang;
@@ -19,13 +19,13 @@ void PlayerModel::moveLeft() {
 
 PlayerModel::~PlayerModel(){}
 
-int PlayerModel::getCoordX() {
+float PlayerModel::getCoordX() {
     return this->x;
 }
-int PlayerModel::getCoordY() {
+float PlayerModel::getCoordY() {
     return this->y;
 }
 
-int PlayerModel::getAngle() {
+float PlayerModel::getAngle() {
     return angle;
 }

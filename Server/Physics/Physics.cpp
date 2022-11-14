@@ -1,9 +1,130 @@
-// #include "Physics.h"
-// #include "Car.h"
+#include "Physics.h"
+#include "Car.h"
 
-// Physics::Physics(int numberOfPlayers){
+#include "../../libs/Box2D/Box2D.h"
 
-//     CarPhisics car(b2World);
+Physics::Physics(int numPlayers): world(b2Vec2(0.0f, -10.0f)){
+
+    numberOfPlayers = numPlayers;
+    timeStep = 1.0f / 60.0f;
+    velocityIterations = 6;
+    positionIterations = 2;
+
+    this->createGround();
+    this->createCars();
+
+
+    
+
+    //CarPhisics car(b2World);
+
+
+    //Simulado del tiempo:
+
+    //float timeStep = 1.0f / 60.0f;
+    //int32 velocityIterations = 6;
+    //int32 positionIterations = 2;
+    //b2World::Step 
+    //Abajo como esta definido 
+    // void b2World::Step 	( 	float  	timeStep,
+	// 	int32  	velocityIterations,
+	// 	int32  	positionIterations 
+	// ) 	
+
+
+}
+
+void Physics::simulateTimeStep(){
+    world.Step(this->timeStep,this->velocityIterations,this->positionIterations);
+}
+
+void Physics::createCars() {
+    b2BodyDef carBodyDef;
+    carBodyDef.type = b2_dynamicBody;
+    carBodyDef.position.Set(0.0f, 4.0f);
+    this->car = world.CreateBody(&carBodyDef);
+    
+    //Textures
+    b2PolygonShape dynamicBox;
+    dynamicBox.SetAsBox(1.0f, 1.0f);
+    b2FixtureDef fixtureDef;
+    fixtureDef.shape = &dynamicBox;
+    fixtureDef.density = 1.0f;
+    fixtureDef.friction = 0.3f;
+    this->car->CreateFixture(&fixtureDef);
+}
+
+void Physics::createGround() {
+    b2BodyDef groundBodyDef;
+    groundBodyDef.position.Set(0.0f, -10.0f);
+    this->ground = world.CreateBody(&groundBodyDef);
+    b2PolygonShape groundBox;
+    groundBox.SetAsBox(50.0f, 10.0f);
+    //No importa la densidad porque es un cuerpo estatico el piso
+    this->ground->CreateFixture(&groundBox, 0.0f);
+}
+
+void Physics::moveCarRight() { 
+
+
+}
+
+void Physics::moveCarLeft() {
+    
+}
+
+GameStatus Physics::getGameStus(){
+    GameStatus newGameStatus;
+
+    b2Vec2 carCoord = car->GetPosition();
+    float xCar = carCoord.x;
+    float yCar = carCoord.y;
+
+
+    PlayerModel pm(xCar, yCar, car->GetAngle(), false);
+    newGameStatus.setPlayerModel(pm);
+
+    return newGameStatus;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //     // iterar hasta el numero de jugadores e instanciar X jugadores?

@@ -7,18 +7,20 @@
 #include "../Common/Command.h"
 #include "../Common/Protocol.h"
 #include "../Common/GameStatus.h"
+#include "ActionsClient/ActionsClient.h"
 
 class ThreadClientReceiver : public Thread{
 
     Socket& sktConecction;
-    Queue <Command>& recibingQueue;
+    Queue<std::shared_ptr<ActionsClient>>& recibingQueue;
     Protocol receiverProtocol;
 
-    
     public:
     void run() override;
 
-    ThreadClientReceiver(Socket& newSktConecction,Queue<Command>& newRecibingQueue);
+    ThreadClientReceiver(
+        Socket& newSktConecction, 
+        Queue<std::shared_ptr<ActionsClient>>& newRecibingQueue);
     
     ~ThreadClientReceiver();
 };

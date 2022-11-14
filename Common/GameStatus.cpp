@@ -3,7 +3,16 @@
 
 GameStatus::GameStatus(){
     closed = false;
-    
+}
+
+GameStatus::GameStatus(
+    BallModel& ball,
+    ScoreModel& score,
+    std::list<PlayerModel>& players
+) {
+    this->ball = std::move(ball);
+    this->score = std::move(score);
+    this->players = std::move(players);
 }
 
 void GameStatus::statusUpdate(std::string newState) {
@@ -24,9 +33,9 @@ void GameStatus::statusUpdate(std::string newState) {
     ScoreModel sc(min, sec, milisec, goalsFirst, goalsSecond);
     this->score = sc;
 
-    int xCoordBall;
-    int yCoordBall;
-    int angleBoard;
+    float xCoordBall;
+    float yCoordBall;
+    float angleBoard;
     ss >> xCoordBall;
     ss >> yCoordBall;
     ss >> angleBoard;
@@ -35,9 +44,9 @@ void GameStatus::statusUpdate(std::string newState) {
 
 
     for (int i = 0; i < numPlayers; ++i) {
-        int xCoordPlayer;
-        int yCoordPlayer;
-        int anglePlayer;
+        float xCoordPlayer;
+        float yCoordPlayer;
+        float anglePlayer;
         bool turbo;
         ss >> xCoordPlayer;
         ss >> yCoordPlayer;
@@ -47,6 +56,21 @@ void GameStatus::statusUpdate(std::string newState) {
     }
     //return false;
 }
+
+BallModel GameStatus::getBallModel() {
+    return this->ball;
+}
+void GameStatus::setBallModel(BallModel ballModel) { }
+
+ScoreModel GameStatus::getScoreModel(){
+    return this->score;
+}
+void GameStatus::setScoreModel(ScoreModel scoreModel) { }
+
+std::list<PlayerModel> GameStatus::getPlayersModels() {
+    return this->players;
+}
+void GameStatus::setPlayersModels(std::list<PlayerModel> lstPlayersModels) { }
 
 std::string GameStatus::status(){
     return actualStatus;
@@ -70,4 +94,8 @@ PlayerModel GameStatus::getPlayer() {
 
 bool GameStatus::isClosed(){
     return closed;
+}
+
+void GameStatus::setPlayerModel(PlayerModel pm){
+    this->player = pm;
 }
