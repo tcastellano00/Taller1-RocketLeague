@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "CoordsTransformator.h"
 
 Player::Player(SDL2pp::Texture &texture): an(texture), facingLeft(false), moving(false), x(100), y(400) {}
 
@@ -16,8 +17,8 @@ void Player::update(PlayerModel playerModel, int dt) {
             facingLeft = false;
         }
         an.update(dt);
-        this->x = newXPos;
-        this->y = newYpos;
+        this->x = CoordsTransformator::transformX(newXPos);
+        this->y = CoordsTransformator::transformY(newYpos);
 
     }
 }

@@ -70,7 +70,9 @@ void GameStatus::setScoreModel(ScoreModel scoreModel) { }
 std::list<PlayerModel> GameStatus::getPlayersModels() {
     return this->players;
 }
-void GameStatus::setPlayersModels(std::list<PlayerModel> lstPlayersModels) { }
+void GameStatus::setPlayersModels(std::list<PlayerModel> lstPlayersModels) {
+    this->players = lstPlayersModels;
+}
 
 std::string GameStatus::status(){
     return actualStatus;

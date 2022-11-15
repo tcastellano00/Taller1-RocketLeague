@@ -10,7 +10,7 @@ ActionClientRight::ActionClientRight(int sktId) {
 std::string ActionClientRight::execute(
     Physics &physics) {
 
-    physics.moveCarRight();
+    physics.moveCarRight(socketId);
 
     return "OK";
 }

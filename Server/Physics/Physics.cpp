@@ -5,15 +5,24 @@
 
 #include "../../libs/Box2D/Box2D.h"
 
-Physics::Physics(int numPlayers): world(b2Vec2(0.0f, -10.0f)){
+Physics::Physics(std::list<ClientConnection>& connections): world(b2Vec2(0.0f, -10.0f)){
 
-    numberOfPlayers = numPlayers;
+    numberOfPlayers = connections.size();
     timeStep = 1.0f / 60.0f;
     velocityIterations = 6;
     positionIterations = 2;
 
+    int numberOfCar = 0;
+    for (auto connection = connections.begin(); connection != connections.end(); ++connection) {
+        int sktId = (*connection).getId();
+        cars[sktId] = createCar(numberOfCar);
+        numberOfCar++;
+    }
+
+
+
     this->createGround();
-    this->createCars();
+    //this->createCars();
 
 
     
@@ -40,11 +49,12 @@ void Physics::simulateTimeStep(){
     world.Step(this->timeStep,this->velocityIterations,this->positionIterations);
 }
 
-void Physics::createCars() {
+b2Body* Physics::createCar(int numberOfCar) {
     b2BodyDef carBodyDef;
     carBodyDef.type = b2_dynamicBody;
-    carBodyDef.position.Set(0.0f, 4.0f);
-    this->car = world.CreateBody(&carBodyDef);
+    if (numberOfCar == 0) {carBodyDef.position.Set(0.0f, 4.0f);}
+    if (numberOfCar == 1) {carBodyDef.position.Set(40.0f, 4.0f);}
+    b2Body* car = world.CreateBody(&carBodyDef);
     
     //Textures
     b2PolygonShape dynamicBox;
@@ -53,7 +63,8 @@ void Physics::createCars() {
     fixtureDef.shape = &dynamicBox;
     fixtureDef.density = 1.0f;
     fixtureDef.friction = 0.3f;
-    this->car->CreateFixture(&fixtureDef);
+    car->CreateFixture(&fixtureDef);
+    return car;
 }
 
 void Physics::createGround() {
@@ -66,10 +77,11 @@ void Physics::createGround() {
     this->ground->CreateFixture(&groundBox, 0.0f);
 }
 
-void Physics::moveCarRight() {
+void Physics::moveCarRight(int socketId) {
     //std::cout << "Physics::moveRight" << std::endl;
     //std::cout << "x: " << std::to_string(car->GetPosition().x) << " y: " << std::to_string(car->GetPosition().y)  << std::endl;
 
+    b2Body* car = (this->cars[socketId]);
     car->SetTransform(
         b2Vec2(car->GetPosition().x + 1, car->GetPosition().y), car->GetAngle()
     );
@@ -83,7 +95,8 @@ void Physics::moveCarRight() {
     //std::cout << "x: " << std::to_string(car->GetPosition().x) << " y: " << std::to_string(car->GetPosition().y)  << std::endl; 
 }
 
-void Physics::moveCarLeft() {
+void Physics::moveCarLeft(int socketId) {
+    b2Body* car = (this->cars[socketId]);
     car->SetTransform(
         b2Vec2(car->GetPosition().x - 1, car->GetPosition().y), car->GetAngle()
     );
@@ -94,17 +107,29 @@ GameStatus Physics::getGameStus(){
 
     //std::cout << "Physics: getNameStatus" <<std::endl;
 
-    b2Vec2 carCoord = car->GetPosition();
+    /*b2Vec2 carCoord = car->GetPosition();
     float xCar = carCoord.x;
     float yCar = carCoord.y;
 
     PlayerModel pm(xCar, yCar, car->GetAngle(), false);
     newGameStatus.setPlayerModel(pm);
+    */
+
+    std::list<PlayerModel> playerModels;
+    for (std::map<int, b2Body*>::iterator it = this->cars.begin(); it != this->cars.end(); ++it) {
+        b2Vec2 carCoord = it->second->GetPosition();
+        float xCar = carCoord.x;
+        float yCar = carCoord.y;
+        PlayerModel pm(xCar, yCar, it->second->GetAngle(), false);
+        playerModels.push_back(pm);
+    }
+    newGameStatus.setPlayersModels(playerModels);
+
 
     //std::cout << "GetGameStatus x:" << std::to_string(newGameStatus.getPlayer().getCoordX()) << std::endl;
     //std::cout << "GetGameStatus y:"  << std::to_string(newGameStatus.getPlayer().getCoordY()) << std::endl;
 
-    newGameStatus.identificador = "NASHEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE";
+    //newGameStatus.identificador = "NASHEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE";
     
     return newGameStatus;
 }

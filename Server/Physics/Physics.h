@@ -3,6 +3,9 @@
 
 #include "../../libs/Box2D/Box2D.h"
 #include "../../Common/GameStatus.h"
+#include <map>
+#include <list>
+#include "../ClientConnection.h"
 
 class Physics{
     private:
@@ -11,10 +14,12 @@ class Physics{
     int32 velocityIterations = 6;
     int32 positionIterations = 2;
 
-    b2Body* car;
+    
+    std::map<int, b2Body*> cars;
+    //b2Body* car;
     b2Body* ground;
 
-    void createCars();
+    b2Body* createCar(int numberOfCar);
     void createGround();
     
     
@@ -24,11 +29,11 @@ class Physics{
     //b2Body * m_groundBody ;
 
     public:
-    Physics(int numberOfPlayers);
+    Physics(std::list<ClientConnection>& connections);
 
-    void moveCarRight();
+    void moveCarRight(int socketId);
 
-    void moveCarLeft();
+    void moveCarLeft(int socketId);
 
     GameStatus getGameStus();
 

@@ -9,6 +9,7 @@
 
 #include "SDL/Player.h"
 #include "WindowRenderer.h"
+#include <list>
 
 WindowRenderer::WindowRenderer() {}
 
@@ -42,8 +43,12 @@ void WindowRenderer::launch(GameStatusMonitor& gameStatusMonitor) {
         Bow bow2(bowTexture,700,true);
 
         Ball ball(ballTexture);
+
+        
+
+
         Player player1(im);
-        //Player player2(im);
+        Player player2(im);
 
         // {
         //     1: PlayerA
@@ -72,8 +77,10 @@ void WindowRenderer::launch(GameStatusMonitor& gameStatusMonitor) {
             ball.render(renderer);
             //ball.update
 
-            player1.update(gameStatusSnapshot.getPlayer(), FRAME_RATE);
+            player1.update(gameStatusSnapshot.getPlayersModels().front(), FRAME_RATE);
+            player2.update(gameStatusSnapshot.getPlayersModels().back(), FRAME_RATE);
             player1.render(renderer);
+            player2.render(renderer);
 
             // player.update(gameStatusMonitor.getPlayerCoordX() + 15, FRAME_RATE);
             // player.render(renderer);

@@ -17,7 +17,7 @@ void Gameloop::run() {
     std::cout << "Gameloop::run" << std::endl;
 
     //Inicia el mundo del game.
-    Physics gamePhysics(this->connectionList.size());
+    Physics gamePhysics(this->connectionList);
 
     //Instancia las colas de envio y recepcion.
     Queue<GameStatus> senderQueue(true);
