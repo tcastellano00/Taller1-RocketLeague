@@ -3,7 +3,9 @@
 
 #include "ActionClientRight.h"
 
-ActionClientRight::ActionClientRight() {}
+ActionClientRight::ActionClientRight(int sktId) {
+    this->socketId = sktId;
+}
 
 std::string ActionClientRight::execute(
     Physics &physics) {

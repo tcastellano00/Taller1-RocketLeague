@@ -3,7 +3,9 @@
 
 #include "ActionClientJump.h"
 
-ActionClientJump::ActionClientJump() {}
+ActionClientJump::ActionClientJump(int sktId) {
+    this->socketId = sktId;
+}
 
 std::string ActionClientJump::execute(
     Physics &physics) {

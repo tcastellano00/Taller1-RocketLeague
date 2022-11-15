@@ -5,8 +5,10 @@
 #include "ActionsClient.h"
 
 class ActionClientRight : public ActionsClient {   
+private:
+    int socketId;
 public:
-    explicit ActionClientRight();
+    explicit ActionClientRight(int sktId);
 
     std::string execute(Physics &physics) override;
 

@@ -4,7 +4,9 @@
 #include "ActionsClient.h"
 #include "ActionClientTurbo.h"
 
-ActionClientTurbo::ActionClientTurbo() {}
+ActionClientTurbo::ActionClientTurbo(int sktId) {
+    this->socketId = sktId;
+}
 
 std::string ActionClientTurbo::execute(
     Physics &physics) {

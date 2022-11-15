@@ -5,9 +5,11 @@
 
 #include "ActionsClient.h"
 
-class ActionClientTurbo : public ActionsClient {   
+class ActionClientTurbo : public ActionsClient {
+private:
+    int socketId;
 public:
-    explicit ActionClientTurbo();
+    explicit ActionClientTurbo(int sktId);
 
     std::string execute(Physics &physics) override;
 

@@ -21,7 +21,7 @@ void ThreadClientReceiver::run(){
         //std::cout << "ThreadClientReceiver::message" << std::endl;
         //std::cout << message << std::endl;
 
-        std::shared_ptr<ActionsClient> actionClient = ActionsClient::get_command_ptr(message);
+        std::shared_ptr<ActionsClient> actionClient = ActionsClient::get_command_ptr(message, sktConecction.getIdentifier());
         recibingQueue.push(actionClient);
     }
 }

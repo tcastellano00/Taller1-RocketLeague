@@ -5,16 +5,16 @@
 #include "ActionClientTurbo.h"
 
 std::shared_ptr<ActionsClient> ActionsClient::get_command_ptr(
-const std::string &name){
+const std::string &name, int sktId){
     if (name == "left")
         return std::shared_ptr<ActionsClient>(
-            new ActionClientLeft());
+            new ActionClientLeft(sktId));
     else if (name == "right")
         return std::shared_ptr<ActionsClient>(
-            new ActionClientRight());
+            new ActionClientRight(sktId));
     else if(name == "jump")
         return std::shared_ptr<ActionsClient>(
-            new ActionClientJump());
+            new ActionClientJump(sktId));
     else return std::shared_ptr<ActionsClient>(
-            new ActionClientTurbo());
+            new ActionClientTurbo(sktId));
 }
