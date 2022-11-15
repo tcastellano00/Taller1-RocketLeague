@@ -10,22 +10,24 @@ void ThreadSender::run() {
 
         Command command = queue.pop();
 
-        /*
+        
         if (protocol.isClosed()) {
             break;
         }
 
+        //std::cout << command.getType() << std::endl;
         protocol.sendMessage(command.getType());
-        */
-
+        
+        /*
         if (command.getType() == "right")
             gameStatusMonitor.movePlayerRight();
         else if (command.getType() == "left")
             gameStatusMonitor.movePlayerLeft();
         else if (command.getType() == "close")
             gameStatusMonitor.setClose();
-
-        playing = (not gameStatusMonitor.gameIsClosed());
+        */
+        playing = (!gameStatusMonitor.gameIsClosed());
+        
     }
 }
 

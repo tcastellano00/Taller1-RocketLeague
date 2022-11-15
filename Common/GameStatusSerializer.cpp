@@ -9,23 +9,38 @@
 GameStatusSerializer::GameStatusSerializer() { }
 
 std::string GameStatusSerializer::serialize(GameStatus gameStatus) {
-    //std::stringstream ss;
+    std::stringstream ss;
 
     BallModel ballModel = gameStatus.getBallModel();
     ScoreModel scoreModel = gameStatus.getScoreModel();
     std::list<PlayerModel> playersModels = gameStatus.getPlayersModels();
+    PlayerModel playerModel = gameStatus.getPlayer();
 
-    /*
-    ss << playersModels.size();
+    ss << playersModels.size() << " ";
 
-    ss >> scoreModel.get
-    ss >> sec; 
-    ss >> milisec;
-    ss >> goalsFirst;
-    ss >> goalsSecond;
-    */
+    ss << scoreModel.getMinutesLeft() << " ";
+    ss << scoreModel.getSecondsLeft() << " ";
+    ss << scoreModel.getMiliSecondsLeft() << " ";
+    ss << scoreModel.getGoalsFirstTeam() << " ";
+    ss << scoreModel.getGoalsSecondTeam() << " ";
 
-    return "";
+    ss << ballModel.getCoordX() << " ";
+    ss << ballModel.getCoordY() << " ";
+    ss << ballModel.getAngle() << " ";
+
+    /*for (auto playerModel = playersModels.begin(); 
+              playerModel != playersModels.end(); 
+              ++playerModel) {
+                ss << (*playerModel).getCoordX() << " ";
+                ss << (*playerModel).getCoordY() << " ";
+                ss << (*playerModel).getAngle() << " ";
+              }*/
+
+    ss << playerModel.getCoordX() << " ";
+    ss << playerModel.getCoordY() << " ";
+    ss << playerModel.getAngle() << " ";
+
+    return ss.str();
 }
 
 GameStatus GameStatusSerializer::deserialize(std::string gameStatusString) {
@@ -54,22 +69,32 @@ GameStatus GameStatusSerializer::deserialize(std::string gameStatusString) {
     ss >> yCoordBall;
     ss >> angleBoard;
     BallModel ballModel(xCoordBall, yCoordBall, angleBoard);
-
+    
+    /*
     for (int i = 0; i < numPlayers; ++i) {
         float xCoordPlayer;
         float yCoordPlayer;
         float anglePlayer;
-        bool turbo;
+        bool turbo = false;
         ss >> xCoordPlayer;
         ss >> yCoordPlayer;
         ss >> anglePlayer;
-        ss >> turbo;
+        //ss >> turbo;
         playersModels.emplace_back(xCoordPlayer, yCoordPlayer, anglePlayer, turbo);
-    }
+    }*/
 
-    return GameStatus(
-        ballModel,
-        scoreModel,
-        playersModels
-    );
+    float xCoordPlayer;
+    float yCoordPlayer;
+    float anglePlayer;
+    bool turbo = false;
+    ss >> xCoordPlayer;
+    ss >> yCoordPlayer;
+    ss >> anglePlayer;
+    //ss >> turbo;
+    
+    PlayerModel pm(xCoordPlayer, yCoordPlayer, anglePlayer, turbo);
+    GameStatus gm(ballModel, scoreModel, playersModels);
+    gm.setPlayerModel(pm);
+
+    return gm;
 }

@@ -2,6 +2,8 @@
 #include <iostream>
 #include "../Common/Protocol.h"
 #include "../Common/LibError.h"
+#include "../Common/GameStatusSerializer.h"
+
 
 ThreadReceiver::ThreadReceiver(Socket& cnct, GameStatusMonitor& newGameStatusMonitor) :
     gameStatusMonitor(newGameStatusMonitor), 
@@ -12,12 +14,18 @@ void ThreadReceiver::run() {
 
     try
     {
-        while (!gameStatusMonitor.gameIsClosed()) {    
+        while (!gameStatusMonitor.gameIsClosed()) {
             std::string response = protocol.reciveMessage();
-            gameStatusMonitor.statusUpdate(response);
+            //std::cout << response << std::endl;
             if (response == "close") {
                 gameStatusMonitor.setClose();
+                break;
             }
+            GameStatusSerializer serializer;
+            GameStatus newGameStatus = serializer.deserialize(response);
+
+            gameStatusMonitor.statusUpdate(newGameStatus);
+            
         }
     }
     catch(const LibError& e)

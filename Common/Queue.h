@@ -47,6 +47,10 @@ public:
         keep_popping.notify_all();
     }
     
+    int longitud(){
+        return internal.size();
+    }
+    
     ~Queue() {
         std::cout << "Se destruye la cola" << std::endl;
     }

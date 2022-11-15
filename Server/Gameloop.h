@@ -13,7 +13,7 @@
 
 class Gameloop : public Thread{
 
-    std::list <ThreadClientReceiver> clientThreadList;
+    std::list <ThreadClientReceiver> clientThreadReceiver;
     std::list <ClientConnection> connectionList;
     //ClientConnection connection;
 

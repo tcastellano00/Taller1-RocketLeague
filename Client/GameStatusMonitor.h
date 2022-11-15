@@ -17,7 +17,7 @@ class GameStatusMonitor{
     
     GameStatus getGameStatus();
 
-    void statusUpdate(std::string newState);
+    void statusUpdate(GameStatus newGameStatus);
     void setClose();
 
     void movePlayerRight();

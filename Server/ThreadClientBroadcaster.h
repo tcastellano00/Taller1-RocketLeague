@@ -6,17 +6,20 @@
 #include "../Common/Thread.h"
 #include "../Common/Socket.h"
 #include "../Common/Queue.h"
-#include "../Common/Command.h"
+#include "../Common/GameStatus.h"
 #include "ClientConnection.h"
 
 class ThreadClientBroadcaster : public Thread{
 
-    Queue <Command>& senderQueue;
+    Queue<GameStatus>& senderQueue;
     std::list<ClientConnection>& connections;
     bool open;
 
     public:
-    ThreadClientBroadcaster(std::list<ClientConnection>& newConnections, Queue<Command>& newSenderQueue);
+    ThreadClientBroadcaster(
+        Queue<GameStatus>& newSenderQueue,
+        std::list<ClientConnection>& newConnections
+    );
 
     void run() override;
 

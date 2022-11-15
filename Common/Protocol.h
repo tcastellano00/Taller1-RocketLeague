@@ -14,6 +14,7 @@ private:
     
     /*  Cierra el socket */
     void closeSocket();
+    std::string previousHalfMessage;
 
 public:
     /*  Construye el protocolo 

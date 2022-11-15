@@ -6,6 +6,7 @@ Player::~Player() {}
 
 void Player::update(PlayerModel playerModel, int dt) {
     int newXPos = playerModel.getCoordX();
+    int newYpos = playerModel.getCoordY();
 
     if (this->x != newXPos) {
         if(newXPos < x){
@@ -16,6 +17,7 @@ void Player::update(PlayerModel playerModel, int dt) {
         }
         an.update(dt);
         this->x = newXPos;
+        this->y = newYpos;
 
     }
 }

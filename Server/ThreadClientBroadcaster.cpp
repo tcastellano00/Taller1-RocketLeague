@@ -2,10 +2,14 @@
 #include "ThreadClientSender.h"
 #include "../Common/Queue.h"
 
+ThreadClientBroadcaster::ThreadClientBroadcaster(
+    Queue<GameStatus>& newSenderQueue,
+    std::list<ClientConnection>& newConnections)
+    : senderQueue(newSenderQueue), 
+      connections(newConnections), 
+      open(true) { 
 
-ThreadClientBroadcaster::ThreadClientBroadcaster(std::list<ClientConnection>& newConnections, Queue<Command>& newSenderQueue)
-    :senderQueue(newSenderQueue), connections(newConnections) , open(true){
-}
+    }
 
 void ThreadClientBroadcaster::run(){
     std::cout << "Broadcaster::run" << std::endl;
@@ -20,12 +24,15 @@ void ThreadClientBroadcaster::run(){
 
     //Enviamos el estado del mundo a todos los clientes conectados.
     while (open) {
-        Command command = senderQueue.pop();
+        GameStatus gameStatus = senderQueue.pop();
         
+        //std::cout << "Broadcaster x:" << std::to_string(gameStatus.getPlayer().getCoordX()) << std::endl;
+        //std::cout << "Broadcaster y:"  << std::to_string(gameStatus.getPlayer().getCoordY()) << std::endl;
+
         for (auto sender = clientSenderThreads.begin(); 
                   sender != clientSenderThreads.end(); 
                   ++sender) {
-            (*sender).push(command);
+            (*sender).push(gameStatus);
         }
     }
 }

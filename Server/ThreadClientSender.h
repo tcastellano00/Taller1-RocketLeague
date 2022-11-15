@@ -6,14 +6,13 @@
 #include "../Common/Thread.h"
 #include "../Common/Socket.h"
 #include "../Common/Queue.h"
-#include "../Common/Command.h"
 #include "../Common/Protocol.h"
-#include "ClientConnection.h"
 #include "../Common/GameStatus.h"
+#include "ClientConnection.h"
 
 
 class ThreadClientSender : public Thread{
-    Queue<Command> queue;
+    Queue<GameStatus> queue;
     Protocol protocol;
     bool open;
 
@@ -22,7 +21,7 @@ class ThreadClientSender : public Thread{
 
     void run() override;
 
-    void push(Command command);
+    void push(GameStatus gameStatus);
 
     ~ThreadClientSender();
 };

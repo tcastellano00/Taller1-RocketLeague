@@ -16,9 +16,15 @@ class GameStatus{
     std::string actualStatus;
     std::list<PlayerModel> players;
 
+
+
     PlayerModel player;
 
     public:
+
+    std::string identificador;
+
+    
     GameStatus();
     GameStatus(
         BallModel& ball,
@@ -38,7 +44,7 @@ class GameStatus{
 
     bool isClosed();
 
-    void statusUpdate(std::string newState);
+    //void statusUpdate(GameStatus& newGameStatus);
 
     std::string status();
 

@@ -66,10 +66,13 @@ void WindowRenderer::launch(GameStatusMonitor& gameStatusMonitor) {
             bow1.render(renderer);
             bow2.render(renderer);
 
+            GameStatus gameStatusSnapshot = gameStatusMonitor.getGameStatus();
+
+
             ball.render(renderer);
             //ball.update
 
-            player1.update(gameStatusMonitor.getPlayer(), FRAME_RATE);
+            player1.update(gameStatusSnapshot.getPlayer(), FRAME_RATE);
             player1.render(renderer);
 
             // player.update(gameStatusMonitor.getPlayerCoordX() + 15, FRAME_RATE);

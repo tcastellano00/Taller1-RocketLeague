@@ -1,6 +1,7 @@
 
 #include "GameStatusMonitor.h"
 #include <iostream>
+#include <utility>
 
 GameStatusMonitor::GameStatusMonitor(){
 }
@@ -15,9 +16,9 @@ GameStatus GameStatusMonitor::getGameStatus(){
     return gamestatus;
 }
 
-void GameStatusMonitor::statusUpdate(std::string newState){
+void GameStatusMonitor::statusUpdate(GameStatus newGameStatus){
     std::lock_guard<std::mutex> lock(gameMutex);
-    gamestatus.statusUpdate(newState);
+    gamestatus = newGameStatus;
 }
 
 void GameStatusMonitor::movePlayerRight() {

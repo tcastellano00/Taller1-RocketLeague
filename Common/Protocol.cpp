@@ -9,12 +9,13 @@
 Protocol::Protocol(
     Socket &socket) : socket(socket) {
         this->closedSocket = false;
+        this->previousHalfMessage = "";
      }
 
 std::string Protocol::reciveMessage() {
     bool wasClosed = this->closedSocket;
     
-    std::string message;
+    std::string message = this->previousHalfMessage;
     while (message.find(END_OF_MESSAGE) == std::string::npos){
         char buf[BUFF_SIZE];
         int recived = this->socket.recvsome(
@@ -30,6 +31,7 @@ std::string Protocol::reciveMessage() {
 
     this->closedSocket = wasClosed;
 
+    this->previousHalfMessage = message.substr(message.find(END_OF_MESSAGE) + std::string(END_OF_MESSAGE).length());
     return message.substr(0, message.find(END_OF_MESSAGE));
 }
 

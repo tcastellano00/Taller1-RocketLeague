@@ -1,5 +1,7 @@
 #include "Physics.h"
 #include "Car.h"
+#include <iostream>
+#include <string>
 
 #include "../../libs/Box2D/Box2D.h"
 
@@ -64,121 +66,45 @@ void Physics::createGround() {
     this->ground->CreateFixture(&groundBox, 0.0f);
 }
 
-void Physics::moveCarRight() { 
+void Physics::moveCarRight() {
+    //std::cout << "Physics::moveRight" << std::endl;
+    //std::cout << "x: " << std::to_string(car->GetPosition().x) << " y: " << std::to_string(car->GetPosition().y)  << std::endl;
 
+    car->SetTransform(
+        b2Vec2(car->GetPosition().x + 1, car->GetPosition().y), car->GetAngle()
+    );
+    
+    //b2Vec2 vel = car->GetLinearVelocity();
+    //float force = 0;
+    //if ( vel.x <  5 ) force =  50;
+    //car->ApplyForce(b2Vec2(force,0), car->GetWorldCenter(), false);
 
+    
+    //std::cout << "x: " << std::to_string(car->GetPosition().x) << " y: " << std::to_string(car->GetPosition().y)  << std::endl; 
 }
 
 void Physics::moveCarLeft() {
-    
+    car->SetTransform(
+        b2Vec2(car->GetPosition().x - 1, car->GetPosition().y), car->GetAngle()
+    );
 }
 
 GameStatus Physics::getGameStus(){
     GameStatus newGameStatus;
 
+    //std::cout << "Physics: getNameStatus" <<std::endl;
+
     b2Vec2 carCoord = car->GetPosition();
     float xCar = carCoord.x;
     float yCar = carCoord.y;
 
-
     PlayerModel pm(xCar, yCar, car->GetAngle(), false);
     newGameStatus.setPlayerModel(pm);
 
+    //std::cout << "GetGameStatus x:" << std::to_string(newGameStatus.getPlayer().getCoordX()) << std::endl;
+    //std::cout << "GetGameStatus y:"  << std::to_string(newGameStatus.getPlayer().getCoordY()) << std::endl;
+
+    newGameStatus.identificador = "NASHEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE";
+    
     return newGameStatus;
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//     // iterar hasta el numero de jugadores e instanciar X jugadores?
-//     b2BodyDef player1;
-//     player1.type = b2_dynamicBody; //this will be a dynamic body
-//     player1.position.Set(0, 20); //set the starting position
-//     player1.angle = 0; //set the starting angle
-
-
-//     b2BodyDef player2;
-//     player2.type = b2_dynamicBody; //this will be a dynamic body
-//     player2.position.Set(0, 20); //set the starting position
-//     player2.angle = 0; //set the starting angle
-
-
-//     b2BodyDef bow1;
-//     bow1.type = b2_staticBody; //this will be a dynamic body
-//     bow1.position.Set(0, 20); //set the starting position
-//     bow1.angle = 0; //set the starting angle
-
-
-//     b2BodyDef bow2;
-//     bow2.type = b2_staticBody; //this will be a dynamic body
-//     bow2.position.Set(0, 20); //set the starting position
-//     bow2.angle = 0; //set the starting angle
-
-//     b2Body* bodyPlayer1 = m_world->CreateBody(&player1);
-//     b2Body* bodyPlayer2 = m_world->CreateBody(&player2);
-//     b2Body* bodyBow1 = m_world->CreateBody(&bow1);
-//     b2Body* bodyBow2 = m_world->CreateBody(&bow2);
-
-
-//     b2PolygonShape boxShape;
-//     boxShape.SetAsBox(1,1);
-
-//     b2FixtureDef boxFixtureDef;                     //La forma que tiene cada objeto
-//     boxFixtureDef.shape = &boxShape;
-//     boxFixtureDef.density = 1;
-//     bodyPlayer1->CreateFixture(&boxFixtureDef);
-
-
-//     //Piso donde se appoyan los jugadores
-
-//     b2PolygonShape polygonShape;
-//     b2FixtureDef myFixtureDef;
-//     b2BodyDef myBodyDef;
-//     myBodyDef.type = b2_staticBody;
-//     myBodyDef.position.Set(0,0);
-
-//     b2EdgeShape edgeShape;
-//     edgeShape.Set( b2Vec2(-15,0), b2Vec2(15,0) );
-//     myFixtureDef.shape = &edgeShape;
-
-//     b2Body* staticBody = m_world->CreateBody(&myBodyDef);
-//     staticBody->CreateFixture(&myFixtureDef);
-
-// }
