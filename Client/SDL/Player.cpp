@@ -9,16 +9,20 @@ void Player::update(PlayerModel playerModel, int dt) {
     int newXPos = playerModel.getCoordX();
     int newYpos = playerModel.getCoordY();
 
-    if (this->x != newXPos) {
-        if(newXPos < x){
+    int newXPosTransformed = CoordsTransformator::transformX(newXPos);
+    int newYPosTransformed = CoordsTransformator::transformY(newYpos);
+
+
+    if (this->x != newXPosTransformed) {
+        if(newXPosTransformed < x){
             facingLeft = true;
         }
         else{
             facingLeft = false;
         }
         an.update(dt);
-        this->x = CoordsTransformator::transformX(newXPos);
-        this->y = CoordsTransformator::transformY(newYpos);
+        this->x = newXPosTransformed;
+        this->y = newYPosTransformed;
 
     }
 }

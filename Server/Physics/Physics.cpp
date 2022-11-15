@@ -22,6 +22,7 @@ Physics::Physics(std::list<ClientConnection>& connections): world(b2Vec2(0.0f, -
 
 
     this->createGround();
+    //this->createBox();
     //this->createCars();
 
 
@@ -45,6 +46,29 @@ Physics::Physics(std::list<ClientConnection>& connections): world(b2Vec2(0.0f, -
 
 }
 
+void Physics::createBox(){
+    b2BodyDef boxBodyDef;
+
+    b2PolygonShape polygonShape;
+    b2FixtureDef myFixtureDef;
+    myFixtureDef.shape = &polygonShape;
+    myFixtureDef.density = 1;
+
+    boxBodyDef.type = b2_staticBody;
+    boxBodyDef.position.Set(25, 25);
+    this->box = world.CreateBody(&boxBodyDef);
+    
+    //add four walls to the static body
+    polygonShape.SetAsBox( 25, 1, b2Vec2(25, 50), 0);//ground
+    this->box->CreateFixture(&myFixtureDef);
+    polygonShape.SetAsBox( 25, 1, b2Vec2(0, 50), 0);//ceiling
+    this->box->CreateFixture(&myFixtureDef);
+    polygonShape.SetAsBox( 1, 25, b2Vec2(0, 25), 0);//left wall
+    this->box->CreateFixture(&myFixtureDef);
+    polygonShape.SetAsBox( 1, 25, b2Vec2(50, 25), 0);//right wall
+    this->box->CreateFixture(&myFixtureDef);
+}
+
 void Physics::simulateTimeStep(){
     world.Step(this->timeStep,this->velocityIterations,this->positionIterations);
 }
@@ -52,8 +76,8 @@ void Physics::simulateTimeStep(){
 b2Body* Physics::createCar(int numberOfCar) {
     b2BodyDef carBodyDef;
     carBodyDef.type = b2_dynamicBody;
-    if (numberOfCar == 0) {carBodyDef.position.Set(0.0f, 4.0f);}
-    if (numberOfCar == 1) {carBodyDef.position.Set(40.0f, 4.0f);}
+    if (numberOfCar == 0) {carBodyDef.position.Set(2.0f, 4.0f);}
+    if (numberOfCar == 1) {carBodyDef.position.Set(48.0f, 4.0f);}
     b2Body* car = world.CreateBody(&carBodyDef);
     
     //Textures

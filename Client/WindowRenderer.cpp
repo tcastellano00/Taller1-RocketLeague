@@ -45,10 +45,12 @@ void WindowRenderer::launch(GameStatusMonitor& gameStatusMonitor) {
         Ball ball(ballTexture);
 
         
+        //Instanciamos a priori cuatro jugadores.
+        std::list<Player> players;
+        for (int i = 0; i < 4; i++) {
+            players.emplace_back(im);
+        }
 
-
-        Player player1(im);
-        Player player2(im);
 
         // {
         //     1: PlayerA
@@ -77,10 +79,17 @@ void WindowRenderer::launch(GameStatusMonitor& gameStatusMonitor) {
             ball.render(renderer);
             //ball.update
 
-            player1.update(gameStatusSnapshot.getPlayersModels().front(), FRAME_RATE);
+            auto playerIter = players.begin();
+            std::list<PlayerModel> playerModels = gameStatusSnapshot.getPlayersModels();
+            for (auto playerModel = playerModels.begin(); playerModel != playerModels.end(); ++playerModel) {
+                playerIter->update(*playerModel, FRAME_RATE);
+                playerIter->render(renderer);
+                ++playerIter;
+            }
+            /*player1.update(gameStatusSnapshot.getPlayersModels().front(), FRAME_RATE);
             player2.update(gameStatusSnapshot.getPlayersModels().back(), FRAME_RATE);
             player1.render(renderer);
-            player2.render(renderer);
+            player2.render(renderer);*/
 
             // player.update(gameStatusMonitor.getPlayerCoordX() + 15, FRAME_RATE);
             // player.render(renderer);
