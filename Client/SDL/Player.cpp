@@ -6,11 +6,11 @@ Player::Player(SDL2pp::Texture &texture): an(texture), facingLeft(false), moving
 Player::~Player() {}
 
 void Player::update(PlayerModel playerModel, int dt) {
-    int newXPos = playerModel.getCoordX();
-    int newYpos = playerModel.getCoordY();
+    float newXPos = playerModel.getCoordX();
+    float newYpos = playerModel.getCoordY();
 
-    int newXPosTransformed = CoordsTransformator::transformX(newXPos);
-    int newYPosTransformed = CoordsTransformator::transformY(newYpos);
+    float newXPosTransformed = CoordsTransformator::transformX(newXPos);
+    float newYPosTransformed = CoordsTransformator::transformY(newYpos);
 
 
     if (this->x != newXPosTransformed) {

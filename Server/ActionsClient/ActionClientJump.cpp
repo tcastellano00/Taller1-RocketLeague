@@ -9,5 +9,6 @@ ActionClientJump::ActionClientJump(int sktId) {
 
 std::string ActionClientJump::execute(
     Physics &physics) {
+    physics.carJump(socketId);
     return "";
 }

@@ -4,8 +4,13 @@
 #include <string>
 
 #include "../../libs/Box2D/Box2D.h"
+#define MOVEMENTFORCE 500
+#define CARFRICTION 1.5
+#define GROUNDFRICTION 1.0
+#define JUMPIMPULSE 20
+#define GRAVITY -20
 
-Physics::Physics(std::list<ClientConnection>& connections): world(b2Vec2(0.0f, -10.0f)){
+Physics::Physics(std::list<ClientConnection>& connections): world(b2Vec2(0.0f, GRAVITY)){
 
     numberOfPlayers = connections.size();
     timeStep = 1.0f / 60.0f;
@@ -21,27 +26,11 @@ Physics::Physics(std::list<ClientConnection>& connections): world(b2Vec2(0.0f, -
 
 
 
-    this->createGround();
-    //this->createBox();
+    //this->createGround();
+    this->createBox();
     //this->createCars();
 
-
-    
-
     //CarPhisics car(b2World);
-
-
-    //Simulado del tiempo:
-
-    //float timeStep = 1.0f / 60.0f;
-    //int32 velocityIterations = 6;
-    //int32 positionIterations = 2;
-    //b2World::Step 
-    //Abajo como esta definido 
-    // void b2World::Step 	( 	float  	timeStep,
-	// 	int32  	velocityIterations,
-	// 	int32  	positionIterations 
-	// ) 	
 
 
 }
@@ -53,19 +42,20 @@ void Physics::createBox(){
     b2FixtureDef myFixtureDef;
     myFixtureDef.shape = &polygonShape;
     myFixtureDef.density = 1;
+    myFixtureDef.friction = GROUNDFRICTION;
 
     boxBodyDef.type = b2_staticBody;
-    boxBodyDef.position.Set(25, 25);
+    boxBodyDef.position.Set(25, 0);
     this->box = world.CreateBody(&boxBodyDef);
     
     //add four walls to the static body
-    polygonShape.SetAsBox( 25, 1, b2Vec2(25, 50), 0);//ground
+    polygonShape.SetAsBox( 35, 1, b2Vec2(0, 0), 0);//ground
     this->box->CreateFixture(&myFixtureDef);
-    polygonShape.SetAsBox( 25, 1, b2Vec2(0, 50), 0);//ceiling
+    polygonShape.SetAsBox( 35, 1, b2Vec2(0, 70), 0);//ceiling
     this->box->CreateFixture(&myFixtureDef);
-    polygonShape.SetAsBox( 1, 25, b2Vec2(0, 25), 0);//left wall
+    polygonShape.SetAsBox( 1, 35, b2Vec2(-35, 35), 0);//left wall
     this->box->CreateFixture(&myFixtureDef);
-    polygonShape.SetAsBox( 1, 25, b2Vec2(50, 25), 0);//right wall
+    polygonShape.SetAsBox( 1, 35, b2Vec2(35, 35), 0);//right wall
     this->box->CreateFixture(&myFixtureDef);
 }
 
@@ -82,11 +72,11 @@ b2Body* Physics::createCar(int numberOfCar) {
     
     //Textures
     b2PolygonShape dynamicBox;
-    dynamicBox.SetAsBox(1.0f, 1.0f);
+    dynamicBox.SetAsBox(4.0f, 1.0f);
     b2FixtureDef fixtureDef;
     fixtureDef.shape = &dynamicBox;
     fixtureDef.density = 1.0f;
-    fixtureDef.friction = 0.3f;
+    fixtureDef.friction = CARFRICTION;
     car->CreateFixture(&fixtureDef);
     return car;
 }
@@ -102,29 +92,39 @@ void Physics::createGround() {
 }
 
 void Physics::moveCarRight(int socketId) {
-    //std::cout << "Physics::moveRight" << std::endl;
-    //std::cout << "x: " << std::to_string(car->GetPosition().x) << " y: " << std::to_string(car->GetPosition().y)  << std::endl;
 
     b2Body* car = (this->cars[socketId]);
-    car->SetTransform(
-        b2Vec2(car->GetPosition().x + 1, car->GetPosition().y), car->GetAngle()
-    );
-    
+    // car->SetTransform(
+    //     b2Vec2(car->GetPosition().x + 1, car->GetPosition().y), car->GetAngle()
+    // );
     //b2Vec2 vel = car->GetLinearVelocity();
-    //float force = 0;
+    float force = MOVEMENTFORCE;
     //if ( vel.x <  5 ) force =  50;
-    //car->ApplyForce(b2Vec2(force,0), car->GetWorldCenter(), false);
+    car->ApplyForceToCenter(b2Vec2(force,0), true);
 
     
-    //std::cout << "x: " << std::to_string(car->GetPosition().x) << " y: " << std::to_string(car->GetPosition().y)  << std::endl; 
 }
 
 void Physics::moveCarLeft(int socketId) {
     b2Body* car = (this->cars[socketId]);
-    car->SetTransform(
+
+    /*car->SetTransform(
         b2Vec2(car->GetPosition().x - 1, car->GetPosition().y), car->GetAngle()
-    );
+    );*/
+    float force = MOVEMENTFORCE*(-1);
+    car->ApplyForceToCenter(b2Vec2(force,0), true);
 }
+
+void Physics::carJump(int socketId) {
+    b2Body* car = (this->cars[socketId]);
+
+    b2Vec2 vel = car->GetLinearVelocity();
+    float desiredVel = JUMPIMPULSE;
+    float velChange = desiredVel - vel.y;
+    float impulse = car->GetMass() * velChange; //disregard time factor
+    car->ApplyLinearImpulse( b2Vec2(0, impulse), car->GetWorldCenter(), true);
+}
+
 
 GameStatus Physics::getGameStus(){
     GameStatus newGameStatus;

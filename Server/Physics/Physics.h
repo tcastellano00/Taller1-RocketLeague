@@ -36,6 +36,8 @@ class Physics{
 
     void moveCarLeft(int socketId);
 
+    void carJump(int socketId);
+
     GameStatus getGameStus();
 
     void simulateTimeStep();
