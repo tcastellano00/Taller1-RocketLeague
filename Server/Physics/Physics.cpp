@@ -9,11 +9,12 @@
 #define GROUNDFRICTION 1.0
 #define JUMPIMPULSE 20
 #define GRAVITY -20
+#define TORQUE 500
 
 Physics::Physics(std::list<ClientConnection>& connections): world(b2Vec2(0.0f, GRAVITY)){
 
     numberOfPlayers = connections.size();
-    timeStep = 1.0f / 60.0f;
+    timeStep = 1.0f / 25.0f;
     velocityIterations = 6;
     positionIterations = 2;
 
@@ -123,6 +124,16 @@ void Physics::carJump(int socketId) {
     float velChange = desiredVel - vel.y;
     float impulse = car->GetMass() * velChange; //disregard time factor
     car->ApplyLinearImpulse( b2Vec2(0, impulse), car->GetWorldCenter(), true);
+}
+
+void Physics::flipCarRight(int socketId) {
+    b2Body* car = (this->cars[socketId]);
+    car->ApplyTorque(TORQUE, true);
+}
+
+void Physics::flipCarLeft(int socketId) {
+    b2Body* car = (this->cars[socketId]);
+    car->ApplyTorque(TORQUE*(-1), true);
 }
 
 

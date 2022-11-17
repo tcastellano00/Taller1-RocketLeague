@@ -36,6 +36,10 @@ class Physics{
 
     void moveCarLeft(int socketId);
 
+    void flipCarRight(int socketId);
+
+    void flipCarLeft(int socketId);
+
     void carJump(int socketId);
 
     GameStatus getGameStus();

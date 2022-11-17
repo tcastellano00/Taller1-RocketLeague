@@ -22,18 +22,28 @@ bool ThreadCmdReader::handleEvents() {
             case SDL_KEYDOWN: {
                 SDL_KeyboardEvent& keyEvent = (SDL_KeyboardEvent&) event;
                 switch (keyEvent.keysym.sym) {
-                    case SDLK_RIGHT: {
+                    case SDLK_UP: {
                         Command cmd("right");
                         queue.push(cmd);
                         break;
                     }
-                    case SDLK_LEFT: {
+                    case SDLK_DOWN: {
                         Command cmd("left");
                         queue.push(cmd);
                         break;
                     }
                     case SDLK_SPACE: {
                         Command cmd("jump");
+                        queue.push(cmd);
+                        break;
+                    }
+                    case SDLK_RIGHT: {
+                        Command cmd("flip right");
+                        queue.push(cmd);
+                        break;
+                    }
+                    case SDLK_LEFT: {
+                        Command cmd("flip left");
                         queue.push(cmd);
                         break;
                     }

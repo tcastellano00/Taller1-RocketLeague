@@ -16,8 +16,10 @@ private:
     Animation an;
     bool facingLeft;
     bool moving;
-    int x;
-    int y;
+    float x;
+    float y;
+    float angle;
+
 };
 
 #endif // __WORM_H__

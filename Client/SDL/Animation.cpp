@@ -36,12 +36,12 @@ void Animation::update(float dt) {
  * @param x X coordinate.
  * @param y Y corrdinate.
  */
-void Animation::render(SDL2pp::Renderer &renderer, const SDL2pp::Rect dst, SDL_RendererFlip &flipType) {
+void Animation::render(SDL2pp::Renderer &renderer, const SDL2pp::Rect dst, SDL_RendererFlip &flipType, float angle) {
     renderer.Copy(
             texture,
             SDL2pp::Rect(1 + (1 + this->size) * this->currentFrame, 0, this->size, this->size),
             dst,
-            0.0,                // don't rotate
+            angle,                // don't rotate
             SDL2pp::NullOpt,    // rotation center - not needed
             flipType
         );
