@@ -23,10 +23,12 @@ Animation::~Animation() {}
 void Animation::update(float dt) {
     this->elapsed += dt;
     /* checks if the frame should be updated based on the time elapsed since the last update */
-    while (this->elapsed > FRAME_RATE) {
-        this->advanceFrame();
-        this->elapsed -= FRAME_RATE;
-    }
+    // while (this->elapsed > FRAME_RATE) {
+    //     this->advanceFrame();
+    //     this->elapsed -= FRAME_RATE;
+    // }
+    this->advanceFrame();
+    this->elapsed -= FRAME_RATE;
 }
 
 /**
@@ -41,7 +43,7 @@ void Animation::render(SDL2pp::Renderer &renderer, const SDL2pp::Rect dst, SDL_R
             texture,
             SDL2pp::Rect(1 + (1 + this->size) * this->currentFrame, 0, this->size, this->size),
             dst,
-            angle,                // don't rotate
+            angle,
             SDL2pp::NullOpt,    // rotation center - not needed
             flipType
         );

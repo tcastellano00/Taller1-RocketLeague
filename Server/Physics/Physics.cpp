@@ -7,14 +7,14 @@
 #define MOVEMENTFORCE 500
 #define CARFRICTION 1.5
 #define GROUNDFRICTION 1.0
-#define JUMPIMPULSE 20
+#define JUMPIMPULSE 40
 #define GRAVITY -20
 #define TORQUE 500
 
 Physics::Physics(std::list<ClientConnection>& connections): world(b2Vec2(0.0f, GRAVITY)){
 
     numberOfPlayers = connections.size();
-    timeStep = 1.0f / 25.0f;
+    timeStep = 1.0f / 10.0f;
     velocityIterations = 6;
     positionIterations = 2;
 
@@ -98,9 +98,12 @@ void Physics::moveCarRight(int socketId) {
     // car->SetTransform(
     //     b2Vec2(car->GetPosition().x + 1, car->GetPosition().y), car->GetAngle()
     // );
-    //b2Vec2 vel = car->GetLinearVelocity();
+    b2Vec2 vel = car->GetLinearVelocity();
     float force = MOVEMENTFORCE;
-    //if ( vel.x <  5 ) force =  50;
+    if ( vel.x ==  0 ) {
+        car->ApplyLinearImpulse(b2Vec2(60, 0), car->GetWorldCenter(), true);
+    }
+    
     car->ApplyForceToCenter(b2Vec2(force,0), true);
 
     
@@ -113,6 +116,10 @@ void Physics::moveCarLeft(int socketId) {
         b2Vec2(car->GetPosition().x - 1, car->GetPosition().y), car->GetAngle()
     );*/
     float force = MOVEMENTFORCE*(-1);
+    b2Vec2 vel = car->GetLinearVelocity();
+    if ( vel.x ==  0 ) {
+        car->ApplyLinearImpulse(b2Vec2(-60, 0), car->GetWorldCenter(), true);
+    }
     car->ApplyForceToCenter(b2Vec2(force,0), true);
 }
 
@@ -128,11 +135,19 @@ void Physics::carJump(int socketId) {
 
 void Physics::flipCarRight(int socketId) {
     b2Body* car = (this->cars[socketId]);
+    float omega = car->GetAngularVelocity();
+    if (omega == 0) {
+        car->ApplyAngularImpulse(500, true);
+    }
     car->ApplyTorque(TORQUE, true);
 }
 
 void Physics::flipCarLeft(int socketId) {
     b2Body* car = (this->cars[socketId]);
+    float omega = car->GetAngularVelocity();
+    if (omega == 0) {
+        car->ApplyAngularImpulse(-500, true);
+    }
     car->ApplyTorque(TORQUE*(-1), true);
 }
 
