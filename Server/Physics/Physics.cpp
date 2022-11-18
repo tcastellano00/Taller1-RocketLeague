@@ -25,6 +25,8 @@ Physics::Physics(std::list<ClientConnection>& connections): world(b2Vec2(0.0f, G
         numberOfCar++;
     }
 
+    this->createBall();
+
 
 
     //this->createGround();
@@ -48,7 +50,7 @@ void Physics::createBox(){
     boxBodyDef.type = b2_staticBody;
     boxBodyDef.position.Set(25, 0);
     this->box = world.CreateBody(&boxBodyDef);
-    
+
     //add four walls to the static body
     polygonShape.SetAsBox( 35, 1, b2Vec2(0, 0), 0);//ground
     this->box->CreateFixture(&myFixtureDef);
@@ -70,7 +72,7 @@ b2Body* Physics::createCar(int numberOfCar) {
     if (numberOfCar == 0) {carBodyDef.position.Set(2.0f, 4.0f);}
     if (numberOfCar == 1) {carBodyDef.position.Set(48.0f, 4.0f);}
     b2Body* car = world.CreateBody(&carBodyDef);
-    
+
     //Textures
     b2PolygonShape dynamicBox;
     dynamicBox.SetAsBox(4.0f, 1.0f);
@@ -103,10 +105,10 @@ void Physics::moveCarRight(int socketId) {
     if ( vel.x ==  0 ) {
         car->ApplyLinearImpulse(b2Vec2(60, 0), car->GetWorldCenter(), true);
     }
-    
+
     car->ApplyForceToCenter(b2Vec2(force,0), true);
 
-    
+
 }
 
 void Physics::moveCarLeft(int socketId) {
@@ -137,7 +139,7 @@ void Physics::flipCarRight(int socketId) {
     b2Body* car = (this->cars[socketId]);
     float omega = car->GetAngularVelocity();
     if (omega == 0) {
-        car->ApplyAngularImpulse(500, true);
+        car->ApplyAngularImpulse(1000, true);
     }
     car->ApplyTorque(TORQUE, true);
 }
@@ -146,7 +148,7 @@ void Physics::flipCarLeft(int socketId) {
     b2Body* car = (this->cars[socketId]);
     float omega = car->GetAngularVelocity();
     if (omega == 0) {
-        car->ApplyAngularImpulse(-500, true);
+        car->ApplyAngularImpulse(-1000, true);
     }
     car->ApplyTorque(TORQUE*(-1), true);
 }
@@ -155,31 +157,44 @@ void Physics::flipCarLeft(int socketId) {
 GameStatus Physics::getGameStus(){
     GameStatus newGameStatus;
 
-    //std::cout << "Physics: getNameStatus" <<std::endl;
 
-    /*b2Vec2 carCoord = car->GetPosition();
-    float xCar = carCoord.x;
-    float yCar = carCoord.y;
-
-    PlayerModel pm(xCar, yCar, car->GetAngle(), false);
-    newGameStatus.setPlayerModel(pm);
-    */
 
     std::list<PlayerModel> playerModels;
     for (std::map<int, b2Body*>::iterator it = this->cars.begin(); it != this->cars.end(); ++it) {
         b2Vec2 carCoord = it->second->GetPosition();
-        float xCar = carCoord.x;
-        float yCar = carCoord.y;
+        float xCar = carCoord.x - 4.0;
+        float yCar = carCoord.y + 1.0;
         PlayerModel pm(xCar, yCar, it->second->GetAngle(), false);
         playerModels.push_back(pm);
     }
     newGameStatus.setPlayersModels(playerModels);
+    b2Vec2 ballCoord = this->ball->GetPosition();
+    float ballCoordX = ballCoord.x - 4.0;
+    float ballCoordY = ballCoord.y + 4.0;
+    BallModel bm(ballCoordX, ballCoordY, ball->GetAngle());
+    newGameStatus.setBallModel(bm);
 
-
-    //std::cout << "GetGameStatus x:" << std::to_string(newGameStatus.getPlayer().getCoordX()) << std::endl;
-    //std::cout << "GetGameStatus y:"  << std::to_string(newGameStatus.getPlayer().getCoordY()) << std::endl;
-
-    //newGameStatus.identificador = "NASHEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE";
     
+
+
     return newGameStatus;
+}
+
+void Physics::createBall(){
+    b2BodyDef ballBodyDef;
+    ballBodyDef.type = b2_dynamicBody;
+    ballBodyDef.position.Set(23.0f, 4.0f);
+    this->ball = world.CreateBody(&ballBodyDef);
+
+
+    //Textures
+    b2CircleShape circleBall;
+    circleBall.m_radius = 1.0f;
+    b2FixtureDef fixtureDef;
+    fixtureDef.shape = &circleBall;
+    fixtureDef.density = 1.0f;
+    //fixtureDef.isSensor = true;
+    fixtureDef.friction = CARFRICTION;
+    this->ball->CreateFixture(&fixtureDef);
+    //return ball;
 }

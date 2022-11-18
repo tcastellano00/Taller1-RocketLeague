@@ -60,7 +60,9 @@ GameStatus::GameStatus(
 BallModel GameStatus::getBallModel() {
     return this->ball;
 }
-void GameStatus::setBallModel(BallModel ballModel) { }
+void GameStatus::setBallModel(BallModel ballModel) {
+    this->ball = ballModel;
+}
 
 ScoreModel GameStatus::getScoreModel(){
     return this->score;

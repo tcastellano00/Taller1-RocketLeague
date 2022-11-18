@@ -17,6 +17,7 @@ class Physics{
     
     std::map<int, b2Body*> cars;
     //b2Body* car;
+    b2Body* ball;
     b2Body* ground;
     b2Body* box;
 
@@ -47,6 +48,8 @@ class Physics{
     void simulateTimeStep();
 
     void createBox();
+
+    void createBall();
 
     ~Physics() = default;
 };

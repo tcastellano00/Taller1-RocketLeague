@@ -13,19 +13,17 @@ void Player::update(PlayerModel playerModel, int dt) {
     float newYPosTransformed = CoordsTransformator::transformY(newYpos);
 
 
-    if (this->x != newXPosTransformed) {
-        if(newXPosTransformed < x){
-            facingLeft = true;
-        }
-        else{
-            facingLeft = false;
-        }
-        an.update(dt);
-        this->x = newXPosTransformed;
-        this->y = newYPosTransformed;
-        this->angle = CoordsTransformator::radianToDegree(playerModel.getAngle());
-
+    if(newXPosTransformed < x){
+        facingLeft = true;
     }
+    else{
+        facingLeft = false;
+    }
+    an.update(dt);
+    this->x = newXPosTransformed;
+    this->y = newYPosTransformed;
+    this->angle = CoordsTransformator::radianToDegree(playerModel.getAngle());
+
 }
 
 void Player::render(SDL2pp::Renderer &renderer) {

@@ -75,9 +75,9 @@ void WindowRenderer::launch(GameStatusMonitor& gameStatusMonitor) {
 
             GameStatus gameStatusSnapshot = gameStatusMonitor.getGameStatus();
 
-
+            ball.update(gameStatusSnapshot.getBallModel(), FRAME_RATE);
             ball.render(renderer);
-            //ball.update
+            
 
             auto playerIter = players.begin();
             std::list<PlayerModel> playerModels = gameStatusSnapshot.getPlayersModels();
