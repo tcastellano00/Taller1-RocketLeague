@@ -10,6 +10,12 @@
 #define JUMPIMPULSE 40
 #define GRAVITY -20
 #define TORQUE 5000
+#define FIELDHALFWIDTH 90
+#define FIELDHEIGTH 60
+#define WALLWIDTH 1
+#define CARHALFWIDTH 10
+#define CARHALFHEIGHT 2
+#define BALLRADIUS 4
 
 Physics::Physics(std::list<ClientConnection>& connections): world(b2Vec2(0.0f, GRAVITY)){
 
@@ -48,17 +54,17 @@ void Physics::createBox(){
     myFixtureDef.friction = GROUNDFRICTION;
 
     boxBodyDef.type = b2_staticBody;
-    boxBodyDef.position.Set(90, 0);
+    boxBodyDef.position.Set(FIELDHALFWIDTH, 0);
     this->box = world.CreateBody(&boxBodyDef);
 
     //add four walls to the static body
-    polygonShape.SetAsBox( 90, 1, b2Vec2(0, -1), 0);//ground
+    polygonShape.SetAsBox( FIELDHALFWIDTH, WALLWIDTH, b2Vec2(0, WALLWIDTH*(-1)), 0);//ground
     this->box->CreateFixture(&myFixtureDef);
-    polygonShape.SetAsBox( 90, 1, b2Vec2(0, 61), 0);//ceiling
+    polygonShape.SetAsBox( FIELDHALFWIDTH, WALLWIDTH, b2Vec2(0, FIELDHEIGTH + WALLWIDTH), 0);//ceiling
     this->box->CreateFixture(&myFixtureDef);
-    polygonShape.SetAsBox( 1, 90, b2Vec2(-91, 30), 0);//left wall
+    polygonShape.SetAsBox( WALLWIDTH, FIELDHALFWIDTH, b2Vec2((FIELDHALFWIDTH + WALLWIDTH)*(-1), FIELDHEIGTH/2), 0);//left wall
     this->box->CreateFixture(&myFixtureDef);
-    polygonShape.SetAsBox( 1, 90, b2Vec2(91, 30), 0);//right wall
+    polygonShape.SetAsBox( WALLWIDTH, FIELDHALFWIDTH, b2Vec2(FIELDHALFWIDTH + WALLWIDTH, FIELDHEIGTH/2), 0);//right wall
     this->box->CreateFixture(&myFixtureDef);
 }
 
@@ -69,13 +75,13 @@ void Physics::simulateTimeStep(){
 b2Body* Physics::createCar(int numberOfCar) {
     b2BodyDef carBodyDef;
     carBodyDef.type = b2_dynamicBody;
-    if (numberOfCar == 0) {carBodyDef.position.Set(20.0f, 10.0f);}
-    if (numberOfCar == 1) {carBodyDef.position.Set(48.0f, 4.0f);}
+    if (numberOfCar == 0) {carBodyDef.position.Set(FIELDHALFWIDTH/2, FIELDHEIGTH/2);}
+    if (numberOfCar == 1) {carBodyDef.position.Set(3*FIELDHALFWIDTH/2, FIELDHEIGTH/2);}
     b2Body* car = world.CreateBody(&carBodyDef);
 
     //Textures
     b2PolygonShape dynamicBox;
-    dynamicBox.SetAsBox(10.0f, 2.0f);
+    dynamicBox.SetAsBox(CARHALFWIDTH, CARHALFHEIGHT);
     b2FixtureDef fixtureDef;
     fixtureDef.shape = &dynamicBox;
     fixtureDef.density = 0.15f;
@@ -162,16 +168,16 @@ GameStatus Physics::getGameStus(){
     std::list<PlayerModel> playerModels;
     for (std::map<int, b2Body*>::iterator it = this->cars.begin(); it != this->cars.end(); ++it) {
         b2Vec2 carCoord = it->second->GetPosition();
-        float xCar = carCoord.x -10.0f;
-        float yCar = carCoord.y + 2.0f;
+        float xCar = carCoord.x - CARHALFWIDTH;
+        float yCar = carCoord.y + CARHALFHEIGHT;
         PlayerModel pm(xCar, yCar, it->second->GetAngle(), false);
         playerModels.push_back(pm);
 
     }
     newGameStatus.setPlayersModels(playerModels);
     b2Vec2 ballCoord = this->ball->GetPosition();
-    float ballCoordX = ballCoord.x - 4.0f;
-    float ballCoordY = ballCoord.y + 4.0f;
+    float ballCoordX = ballCoord.x - BALLRADIUS;
+    float ballCoordY = ballCoord.y + BALLRADIUS;
     BallModel bm(ballCoordX, ballCoordY, ball->GetAngle());
     newGameStatus.setBallModel(bm);
 
@@ -184,13 +190,13 @@ GameStatus Physics::getGameStus(){
 void Physics::createBall(){
     b2BodyDef ballBodyDef;
     ballBodyDef.type = b2_dynamicBody;
-    ballBodyDef.position.Set(50.0f, 10.0f);
+    ballBodyDef.position.Set(FIELDHALFWIDTH, FIELDHEIGTH/2);
     this->ball = world.CreateBody(&ballBodyDef);
 
 
     //Textures
     b2CircleShape circleBall;
-    circleBall.m_radius = 4.0f;
+    circleBall.m_radius = BALLRADIUS;
     b2FixtureDef fixtureDef;
     fixtureDef.shape = &circleBall;
     fixtureDef.density = 0.05f;
