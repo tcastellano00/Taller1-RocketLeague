@@ -48,17 +48,17 @@ void Physics::createBox(){
     myFixtureDef.friction = GROUNDFRICTION;
 
     boxBodyDef.type = b2_staticBody;
-    boxBodyDef.position.Set(25, 0);
+    boxBodyDef.position.Set(35, 0);
     this->box = world.CreateBody(&boxBodyDef);
 
     //add four walls to the static body
-    polygonShape.SetAsBox( 35, 1, b2Vec2(0, 0), 0);//ground
+    polygonShape.SetAsBox( 35, 1, b2Vec2(0, -1), 0);//ground
     this->box->CreateFixture(&myFixtureDef);
-    polygonShape.SetAsBox( 35, 1, b2Vec2(0, 70), 0);//ceiling
+    polygonShape.SetAsBox( 35, 1, b2Vec2(0, 50), 0);//ceiling
     this->box->CreateFixture(&myFixtureDef);
-    polygonShape.SetAsBox( 1, 35, b2Vec2(-35, 35), 0);//left wall
+    polygonShape.SetAsBox( 1, 35, b2Vec2(-36, 35), 0);//left wall
     this->box->CreateFixture(&myFixtureDef);
-    polygonShape.SetAsBox( 1, 35, b2Vec2(35, 35), 0);//right wall
+    polygonShape.SetAsBox( 1, 35, b2Vec2(36, 35), 0);//right wall
     this->box->CreateFixture(&myFixtureDef);
 }
 
