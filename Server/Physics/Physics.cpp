@@ -9,7 +9,7 @@
 #define GROUNDFRICTION 1.0
 #define JUMPIMPULSE 40
 #define GRAVITY -20
-#define TORQUE 500
+#define TORQUE 5000
 
 Physics::Physics(std::list<ClientConnection>& connections): world(b2Vec2(0.0f, GRAVITY)){
 
@@ -48,17 +48,17 @@ void Physics::createBox(){
     myFixtureDef.friction = GROUNDFRICTION;
 
     boxBodyDef.type = b2_staticBody;
-    boxBodyDef.position.Set(35, 0);
+    boxBodyDef.position.Set(90, 0);
     this->box = world.CreateBody(&boxBodyDef);
 
     //add four walls to the static body
-    polygonShape.SetAsBox( 35, 1, b2Vec2(0, -1), 0);//ground
+    polygonShape.SetAsBox( 90, 1, b2Vec2(0, -1), 0);//ground
     this->box->CreateFixture(&myFixtureDef);
-    polygonShape.SetAsBox( 35, 1, b2Vec2(0, 50), 0);//ceiling
+    polygonShape.SetAsBox( 90, 1, b2Vec2(0, 61), 0);//ceiling
     this->box->CreateFixture(&myFixtureDef);
-    polygonShape.SetAsBox( 1, 35, b2Vec2(-36, 35), 0);//left wall
+    polygonShape.SetAsBox( 1, 90, b2Vec2(-91, 30), 0);//left wall
     this->box->CreateFixture(&myFixtureDef);
-    polygonShape.SetAsBox( 1, 35, b2Vec2(36, 35), 0);//right wall
+    polygonShape.SetAsBox( 1, 90, b2Vec2(91, 30), 0);//right wall
     this->box->CreateFixture(&myFixtureDef);
 }
 
@@ -69,16 +69,16 @@ void Physics::simulateTimeStep(){
 b2Body* Physics::createCar(int numberOfCar) {
     b2BodyDef carBodyDef;
     carBodyDef.type = b2_dynamicBody;
-    if (numberOfCar == 0) {carBodyDef.position.Set(2.0f, 4.0f);}
+    if (numberOfCar == 0) {carBodyDef.position.Set(20.0f, 10.0f);}
     if (numberOfCar == 1) {carBodyDef.position.Set(48.0f, 4.0f);}
     b2Body* car = world.CreateBody(&carBodyDef);
 
     //Textures
     b2PolygonShape dynamicBox;
-    dynamicBox.SetAsBox(4.0f, 1.0f);
+    dynamicBox.SetAsBox(10.0f, 2.0f);
     b2FixtureDef fixtureDef;
     fixtureDef.shape = &dynamicBox;
-    fixtureDef.density = 1.0f;
+    fixtureDef.density = 0.15f;
     fixtureDef.friction = CARFRICTION;
     car->CreateFixture(&fixtureDef);
     return car;
@@ -162,15 +162,16 @@ GameStatus Physics::getGameStus(){
     std::list<PlayerModel> playerModels;
     for (std::map<int, b2Body*>::iterator it = this->cars.begin(); it != this->cars.end(); ++it) {
         b2Vec2 carCoord = it->second->GetPosition();
-        float xCar = carCoord.x - 4.0;
-        float yCar = carCoord.y + 1.0;
+        float xCar = carCoord.x -10.0f;
+        float yCar = carCoord.y + 2.0f;
         PlayerModel pm(xCar, yCar, it->second->GetAngle(), false);
         playerModels.push_back(pm);
+
     }
     newGameStatus.setPlayersModels(playerModels);
     b2Vec2 ballCoord = this->ball->GetPosition();
-    float ballCoordX = ballCoord.x - 4.0;
-    float ballCoordY = ballCoord.y + 4.0;
+    float ballCoordX = ballCoord.x - 4.0f;
+    float ballCoordY = ballCoord.y + 4.0f;
     BallModel bm(ballCoordX, ballCoordY, ball->GetAngle());
     newGameStatus.setBallModel(bm);
 
@@ -183,16 +184,16 @@ GameStatus Physics::getGameStus(){
 void Physics::createBall(){
     b2BodyDef ballBodyDef;
     ballBodyDef.type = b2_dynamicBody;
-    ballBodyDef.position.Set(23.0f, 4.0f);
+    ballBodyDef.position.Set(50.0f, 10.0f);
     this->ball = world.CreateBody(&ballBodyDef);
 
 
     //Textures
     b2CircleShape circleBall;
-    circleBall.m_radius = 1.0f;
+    circleBall.m_radius = 4.0f;
     b2FixtureDef fixtureDef;
     fixtureDef.shape = &circleBall;
-    fixtureDef.density = 1.0f;
+    fixtureDef.density = 0.05f;
     //fixtureDef.isSensor = true;
     fixtureDef.friction = CARFRICTION;
     this->ball->CreateFixture(&fixtureDef);

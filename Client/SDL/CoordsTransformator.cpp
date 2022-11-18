@@ -1,6 +1,6 @@
 #include "CoordsTransformator.h"
 #define METERTOPIXEL 10
-#define GROUNDFROMCEILING 400
+#define GROUNDFROMCEILING 600
 #include <math.h>
 
 

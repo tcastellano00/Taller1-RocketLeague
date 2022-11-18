@@ -8,8 +8,10 @@
 #include <SDL2pp/SDL2pp.hh>
 
 #include "SDL/Player.h"
+#include "SDL/Scene.h"
 #include "WindowRenderer.h"
 #include <list>
+
 
 WindowRenderer::WindowRenderer() {}
 
@@ -20,7 +22,7 @@ void WindowRenderer::launch(GameStatusMonitor& gameStatusMonitor) {
 
         // Creo una ventana dinamica con titulo "Hello world"
         SDL2pp::Window window("Hello world", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-            800, 600, SDL_WINDOW_RESIZABLE);
+            SCREENWIDTH, SCREENHEIGHT, SDL_WINDOW_RESIZABLE);
 
         // Creo renderer
         SDL2pp::Renderer renderer(window, -1, SDL_RENDERER_ACCELERATED);
@@ -28,6 +30,18 @@ void WindowRenderer::launch(GameStatusMonitor& gameStatusMonitor) {
         renderer.SetDrawColor(255,255,255,255);
 
         // Usar factory
+
+        
+
+        SDL2pp::Texture wallsAndScore(renderer, 
+            SDL2pp::Surface("assets/wallsAndScore.png").SetColorKey(true, 0));
+
+        SDL2pp::Texture backgroud(renderer, 
+            SDL2pp::Surface("assets/background.png").SetColorKey(true, 0));
+            
+
+        
+        
         SDL2pp::Texture im(renderer, 
             SDL2pp::Surface("assets/autoderecha.png").SetColorKey(true, 0));
 
@@ -38,6 +52,8 @@ void WindowRenderer::launch(GameStatusMonitor& gameStatusMonitor) {
             SDL2pp::Surface("assets/bow.png").SetColorKey(true, 0));   //bow = arco
 
         //im.SetBlendMode(SDL_BLENDMODE_NONE); //ver lo del fondo de la imagena
+
+        Scene scene(backgroud,wallsAndScore);
 
         Bow bow1(bowTexture,0,false);
         Bow bow2(bowTexture,700,true);
@@ -70,8 +86,11 @@ void WindowRenderer::launch(GameStatusMonitor& gameStatusMonitor) {
 
             renderer.Clear();
 
-            bow1.render(renderer);
-            bow2.render(renderer);
+            scene.render(renderer);
+
+
+            //bow1.render(renderer);
+            //bow2.render(renderer);
 
             GameStatus gameStatusSnapshot = gameStatusMonitor.getGameStatus();
 
