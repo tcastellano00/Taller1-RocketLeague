@@ -11,6 +11,7 @@ enum _entityCategory {
     BOUNDARY = 0x0001,
     CAR  = 0x0002,
     BALL = 0x0004,
+    GOALSENSOR = 0x0008,
   };
 
 class Physics{
@@ -19,6 +20,8 @@ class Physics{
     float timeStep;
     int32 velocityIterations = 6;
     int32 positionIterations = 2;
+    int goalsFirstTeam;
+    int goalsSecondTeam;
 
     
     std::map<int, b2Body*> cars;

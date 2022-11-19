@@ -28,6 +28,8 @@ Physics::Physics(std::list<ClientConnection>& connections): world(b2Vec2(0.0f, G
     timeStep = 1.0f / 10.0f;
     velocityIterations = 6;
     positionIterations = 2;
+    goalsFirstTeam = 0;
+    goalsSecondTeam = 0;
 
     int numberOfCar = 0;
     for (auto connection = connections.begin(); connection != connections.end(); ++connection) {
@@ -77,6 +79,23 @@ void Physics::createBox(){
     this->box->CreateFixture(&myFixtureDef);
     polygonShape.SetAsBox( GOALTOPHALFWIDTH, GOALTOPHALFHEIGHT, b2Vec2(FIELDHALFWIDTH - GOALTOPHALFWIDTH, FIELDHEIGTH - GOALTOPHALFHEIGHT), 0);//right goal
     this->box->CreateFixture(&myFixtureDef);
+
+    //add gol-sensor that register goals
+    b2FixtureDef sensorFixture;
+    b2PolygonShape polygonShapeSensor;
+    sensorFixture.shape = &polygonShapeSensor;
+    sensorFixture.isSensor = true;
+    sensorFixture.filter.categoryBits = GOALSENSOR;
+    sensorFixture.filter.maskBits = BALL;
+    float sensorHalfWidht = GOALTOPHALFWIDTH - BALLRADIUS;
+    float sensorHalfHeight = (FIELDHEIGTH - GOALTOPHALFHEIGHT*2)/2;
+    polygonShapeSensor.SetAsBox(sensorHalfWidht, sensorHalfHeight, b2Vec2(-FIELDHALFWIDTH + sensorHalfWidht, sensorHalfHeight), 0);
+    this->box->CreateFixture(&sensorFixture);
+    polygonShapeSensor.SetAsBox(sensorHalfWidht, sensorHalfHeight, b2Vec2(FIELDHALFWIDTH - sensorHalfWidht, sensorHalfHeight), 0);
+    this->box->staticBody->CreateFixture(&sensorFixture);
+
+
+
 }
 
 void Physics::simulateTimeStep(){
@@ -216,7 +235,7 @@ void Physics::createBall(){
     circleBall.m_radius = BALLRADIUS;
     b2FixtureDef fixtureDef;
     fixtureDef.filter.categoryBits = BALL;
-    fixtureDef.filter.maskBits = BOUNDARY | CAR;
+    fixtureDef.filter.maskBits = BOUNDARY | CAR | GOALSENSOR;
     fixtureDef.shape = &circleBall;
     fixtureDef.density = 0.001f;
     fixtureDef.restitution = 0.9f;
