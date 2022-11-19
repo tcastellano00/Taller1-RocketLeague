@@ -12,7 +12,6 @@ class Ball{
     float x;
     float y;
     float angle;
-    int cont;
 
     public:
     Ball(SDL2pp::Texture &texture);

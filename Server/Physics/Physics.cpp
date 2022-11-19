@@ -9,13 +9,16 @@
 #define GROUNDFRICTION 1.0
 #define JUMPIMPULSE 40
 #define GRAVITY -20
-#define TORQUE 5000
+#define TORQUEFORCE 5000
+#define TORQUEIMPULSE 200
 #define FIELDHALFWIDTH 90
 #define FIELDHEIGTH 60
 #define WALLWIDTH 1
 #define CARHALFWIDTH 10
 #define CARHALFHEIGHT 2
 #define BALLRADIUS 4
+#define GOALTOPHALFWIDTH 10
+#define GOALTOPHALFHEIGHT 22
 
 Physics::Physics(std::list<ClientConnection>& connections): world(b2Vec2(0.0f, GRAVITY)){
 
@@ -65,6 +68,10 @@ void Physics::createBox(){
     polygonShape.SetAsBox( WALLWIDTH, FIELDHALFWIDTH, b2Vec2((FIELDHALFWIDTH + WALLWIDTH)*(-1), FIELDHEIGTH/2), 0);//left wall
     this->box->CreateFixture(&myFixtureDef);
     polygonShape.SetAsBox( WALLWIDTH, FIELDHALFWIDTH, b2Vec2(FIELDHALFWIDTH + WALLWIDTH, FIELDHEIGTH/2), 0);//right wall
+    this->box->CreateFixture(&myFixtureDef);
+    polygonShape.SetAsBox( GOALTOPHALFWIDTH, GOALTOPHALFHEIGHT, b2Vec2(GOALTOPHALFWIDTH - FIELDHALFWIDTH, FIELDHEIGTH - GOALTOPHALFHEIGHT), 0);//left goal
+    this->box->CreateFixture(&myFixtureDef);
+    polygonShape.SetAsBox( GOALTOPHALFWIDTH, GOALTOPHALFHEIGHT, b2Vec2(FIELDHALFWIDTH - GOALTOPHALFWIDTH, FIELDHEIGTH - GOALTOPHALFHEIGHT), 0);//right goal
     this->box->CreateFixture(&myFixtureDef);
 }
 
@@ -143,20 +150,14 @@ void Physics::carJump(int socketId) {
 
 void Physics::flipCarRight(int socketId) {
     b2Body* car = (this->cars[socketId]);
-    float omega = car->GetAngularVelocity();
-    if (omega == 0) {
-        car->ApplyAngularImpulse(1000, true);
-    }
-    car->ApplyTorque(TORQUE, true);
+    car->ApplyAngularImpulse(TORQUEIMPULSE, true);
+    //car->ApplyTorque(TORQUEFORCE, true);
 }
 
 void Physics::flipCarLeft(int socketId) {
     b2Body* car = (this->cars[socketId]);
-    float omega = car->GetAngularVelocity();
-    if (omega == 0) {
-        car->ApplyAngularImpulse(-1000, true);
-    }
-    car->ApplyTorque(TORQUE*(-1), true);
+    car->ApplyAngularImpulse(TORQUEIMPULSE*(-1), true);
+    //car->ApplyTorque(TORQUEFORCE*(-1), true);
 }
 
 
