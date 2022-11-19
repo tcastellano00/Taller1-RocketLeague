@@ -208,7 +208,12 @@ GameStatus Physics::getGameStus(){
     BallModel bm(ballCoordX, ballCoordY, ball->GetAngle());
     newGameStatus.setBallModel(bm);
 
-    std::cout << this->leftGoal->getGoals() << "    " << this->rightGoal->getGoals() << std::endl;
+    //The goals of the left team are the ones scored in the right goal, and viceversa
+    int goalsLeft = this->rightGoal->getGoals();
+    int goalsRight = this->leftGoal->getGoals();
+    ScoreModel scm(0, 0, 0, goalsLeft, goalsRight);
+    newGameStatus.setScoreModel(scm);
+
 
     
 

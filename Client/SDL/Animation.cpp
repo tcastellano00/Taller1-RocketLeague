@@ -18,6 +18,7 @@ Animation::Animation(SDL2pp::Texture &texture) : texture(texture), currentFrame(
     assert(this->size > 0);
 }
 
+
 Animation::~Animation() {}
 
 void Animation::update(float dt) {

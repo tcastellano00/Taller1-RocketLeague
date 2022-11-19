@@ -24,10 +24,8 @@ bool ContactListener::getGoal(b2Contact* contact, GoalSensor*& goal) {
     GoalSensor* goalEntity;
 
     if (sensorA) {//fixtureA is the goal
-        std::cout << "arco izq" << std::endl;
         goalEntity = static_cast<GoalSensor*>(fixtureA->GetBody()->GetUserData());
     } else {//fixtureB is the goal
-    std::cout << "arco der" << std::endl;
         goalEntity = static_cast<GoalSensor*>(fixtureB->GetBody()->GetUserData());
     }
 
@@ -39,7 +37,6 @@ bool ContactListener::getGoal(b2Contact* contact, GoalSensor*& goal) {
 void ContactListener::BeginContact(b2Contact* contact) {
     GoalSensor* goal;
     if ( this->getGoal(contact, goal) ) {
-        std::cout << "detecte contacto" << std::endl;
         goal->scoreGoal();
     }
 }

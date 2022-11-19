@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include "SDL/Ball.h"
 #include "SDL/Bow.h"
+#include "SDL/Score.h"
 
 #include <SDL2pp/SDL2pp.hh>
 
@@ -51,6 +52,41 @@ void WindowRenderer::launch(GameStatusMonitor& gameStatusMonitor) {
         SDL2pp::Texture bowTexture(renderer, 
             SDL2pp::Surface("assets/bow.png").SetColorKey(true, 0));   //bow = arco
 
+        
+        SDL2pp::Texture zeroTexture(renderer, 
+            SDL2pp::Surface("assets/Numbers/zero.png").SetColorKey(true, 0));
+        SDL2pp::Texture oneTexture(renderer, 
+            SDL2pp::Surface("assets/Numbers/one.png").SetColorKey(true, 0));
+        SDL2pp::Texture twoTexture(renderer, 
+            SDL2pp::Surface("assets/Numbers/two.png").SetColorKey(true, 0));
+        SDL2pp::Texture threeTexture(renderer, 
+            SDL2pp::Surface("assets/Numbers/three.png").SetColorKey(true, 0));
+        SDL2pp::Texture fourTexture(renderer, 
+            SDL2pp::Surface("assets/Numbers/four.png").SetColorKey(true, 0));
+        SDL2pp::Texture fiveTexture(renderer, 
+            SDL2pp::Surface("assets/Numbers/five.png").SetColorKey(true, 0));
+        SDL2pp::Texture sixTexture(renderer, 
+            SDL2pp::Surface("assets/Numbers/six.png").SetColorKey(true, 0));
+        SDL2pp::Texture sevenTexture(renderer, 
+            SDL2pp::Surface("assets/Numbers/seven.png").SetColorKey(true, 0));
+        SDL2pp::Texture eightTexture(renderer, 
+            SDL2pp::Surface("assets/Numbers/eight.png").SetColorKey(true, 0));
+        SDL2pp::Texture nineTexture(renderer, 
+            SDL2pp::Surface("assets/Numbers/nine.png").SetColorKey(true, 0));
+        
+        Score score(
+            zeroTexture,
+            oneTexture,
+            twoTexture,
+            threeTexture,
+            fourTexture,
+            fiveTexture,
+            sixTexture,
+            sevenTexture,
+            eightTexture,
+            nineTexture
+        );
+
         //im.SetBlendMode(SDL_BLENDMODE_NONE); //ver lo del fondo de la imagena
 
         Scene scene(backgroud,wallsAndScore);
@@ -94,8 +130,14 @@ void WindowRenderer::launch(GameStatusMonitor& gameStatusMonitor) {
 
             GameStatus gameStatusSnapshot = gameStatusMonitor.getGameStatus();
 
+
             ball.update(gameStatusSnapshot.getBallModel(), FRAME_RATE);
             ball.render(renderer);
+
+            score.update(gameStatusSnapshot.getScoreModel(), FRAME_RATE);
+            score.render(renderer);
+
+            std::cout << gameStatusSnapshot.getScoreModel().getGoalsFirstTeam() << "   " << gameStatusSnapshot.getScoreModel().getGoalsSecondTeam() << std::endl;
             
 
             auto playerIter = players.begin();

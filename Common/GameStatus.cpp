@@ -67,7 +67,9 @@ void GameStatus::setBallModel(BallModel ballModel) {
 ScoreModel GameStatus::getScoreModel(){
     return this->score;
 }
-void GameStatus::setScoreModel(ScoreModel scoreModel) { }
+void GameStatus::setScoreModel(ScoreModel scoreModel) {
+    this->score = scoreModel;
+}
 
 std::list<PlayerModel> GameStatus::getPlayersModels() {
     return this->players;
