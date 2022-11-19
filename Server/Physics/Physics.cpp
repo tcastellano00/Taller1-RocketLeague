@@ -4,6 +4,7 @@
 #include <string>
 
 #include "../../libs/Box2D/Box2D.h"
+
 #define MOVEMENTFORCE 500
 #define CARFRICTION 1.5
 #define GROUNDFRICTION 1.0
@@ -28,8 +29,6 @@ Physics::Physics(std::list<ClientConnection>& connections): world(b2Vec2(0.0f, G
     timeStep = 1.0f / 10.0f;
     velocityIterations = 6;
     positionIterations = 2;
-    goalsFirstTeam = 0;
-    goalsSecondTeam = 0;
 
     int numberOfCar = 0;
     for (auto connection = connections.begin(); connection != connections.end(); ++connection) {
@@ -47,6 +46,12 @@ Physics::Physics(std::list<ClientConnection>& connections): world(b2Vec2(0.0f, G
     //this->createCars();
 
     //CarPhisics car(b2World);
+    this->leftGoal = this->createGoal(LEFT);
+    this->rightGoal = this->createGoal(RIGHT);
+
+    this->world.SetContactListener(&(this->contactListener));
+
+
 
 
 }
@@ -79,20 +84,6 @@ void Physics::createBox(){
     this->box->CreateFixture(&myFixtureDef);
     polygonShape.SetAsBox( GOALTOPHALFWIDTH, GOALTOPHALFHEIGHT, b2Vec2(FIELDHALFWIDTH - GOALTOPHALFWIDTH, FIELDHEIGTH - GOALTOPHALFHEIGHT), 0);//right goal
     this->box->CreateFixture(&myFixtureDef);
-
-    //add gol-sensor that register goals
-    b2FixtureDef sensorFixture;
-    b2PolygonShape polygonShapeSensor;
-    sensorFixture.shape = &polygonShapeSensor;
-    sensorFixture.isSensor = true;
-    sensorFixture.filter.categoryBits = GOALSENSOR;
-    sensorFixture.filter.maskBits = BALL;
-    float sensorHalfWidht = GOALTOPHALFWIDTH - BALLRADIUS;
-    float sensorHalfHeight = (FIELDHEIGTH - GOALTOPHALFHEIGHT*2)/2;
-    polygonShapeSensor.SetAsBox(sensorHalfWidht, sensorHalfHeight, b2Vec2(-FIELDHALFWIDTH + sensorHalfWidht, sensorHalfHeight), 0);
-    this->box->CreateFixture(&sensorFixture);
-    polygonShapeSensor.SetAsBox(sensorHalfWidht, sensorHalfHeight, b2Vec2(FIELDHALFWIDTH - sensorHalfWidht, sensorHalfHeight), 0);
-    this->box->CreateFixture(&sensorFixture);
 
 
 
@@ -217,6 +208,8 @@ GameStatus Physics::getGameStus(){
     BallModel bm(ballCoordX, ballCoordY, ball->GetAngle());
     newGameStatus.setBallModel(bm);
 
+    std::cout << this->leftGoal->getGoals() << "    " << this->rightGoal->getGoals() << std::endl;
+
     
 
 
@@ -243,4 +236,33 @@ void Physics::createBall(){
     fixtureDef.friction = CARFRICTION;
     this->ball->CreateFixture(&fixtureDef);
     //return ball;
+}
+
+GoalSensor* Physics::createGoal(SideOfGoal side) {
+    b2BodyDef goalBodyDef;
+    goalBodyDef.type = b2_staticBody;
+    goalBodyDef.position.Set(FIELDHALFWIDTH, 0);
+    b2Body* body = world.CreateBody(&goalBodyDef);
+    b2FixtureDef sensorFixture;
+    b2PolygonShape polygonShapeSensor;
+    sensorFixture.shape = &polygonShapeSensor;
+    sensorFixture.isSensor = true;
+    sensorFixture.filter.categoryBits = GOALSENSOR;
+    sensorFixture.filter.maskBits = BALL;
+    float sensorHalfWidht = GOALTOPHALFWIDTH - BALLRADIUS;
+    float sensorHalfHeight = (FIELDHEIGTH - GOALTOPHALFHEIGHT*2)/2;
+    if (side == LEFT) {
+        polygonShapeSensor.SetAsBox(sensorHalfWidht, sensorHalfHeight, b2Vec2(-FIELDHALFWIDTH + sensorHalfWidht, sensorHalfHeight), 0);
+    } else if (side == RIGHT) {
+        polygonShapeSensor.SetAsBox(sensorHalfWidht, sensorHalfHeight, b2Vec2(FIELDHALFWIDTH - sensorHalfWidht, sensorHalfHeight), 0);
+    }
+    body->CreateFixture(&sensorFixture);
+    GoalSensor* goal = new GoalSensor(side, body);
+    return goal;
+}
+
+
+Physics::~Physics() {
+    delete leftGoal;
+    delete rightGoal;
 }

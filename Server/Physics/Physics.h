@@ -6,6 +6,8 @@
 #include <map>
 #include <list>
 #include "../ClientConnection.h"
+#include "GoalSensor.h"
+#include "ContactListener.h"
 
 enum _entityCategory {
     BOUNDARY = 0x0001,
@@ -20,8 +22,10 @@ class Physics{
     float timeStep;
     int32 velocityIterations = 6;
     int32 positionIterations = 2;
-    int goalsFirstTeam;
-    int goalsSecondTeam;
+    GoalSensor* leftGoal;
+    GoalSensor* rightGoal;
+    ContactListener contactListener;
+
 
     
     std::map<int, b2Body*> cars;
@@ -32,6 +36,7 @@ class Physics{
 
     b2Body* createCar(int numberOfCar);
     void createGround();
+   GoalSensor* createGoal(SideOfGoal side);
     
     
 
@@ -60,6 +65,6 @@ class Physics{
 
     void createBall();
 
-    ~Physics() = default;
+    ~Physics();
 };
 #endif
