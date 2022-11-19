@@ -92,7 +92,7 @@ void Physics::createBox(){
     polygonShapeSensor.SetAsBox(sensorHalfWidht, sensorHalfHeight, b2Vec2(-FIELDHALFWIDTH + sensorHalfWidht, sensorHalfHeight), 0);
     this->box->CreateFixture(&sensorFixture);
     polygonShapeSensor.SetAsBox(sensorHalfWidht, sensorHalfHeight, b2Vec2(FIELDHALFWIDTH - sensorHalfWidht, sensorHalfHeight), 0);
-    this->box->staticBody->CreateFixture(&sensorFixture);
+    this->box->CreateFixture(&sensorFixture);
 
 
 
