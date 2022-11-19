@@ -14,11 +14,13 @@
 #define FIELDHALFWIDTH 90
 #define FIELDHEIGTH 60
 #define WALLWIDTH 1
-#define CARHALFWIDTH 10
+#define CARHALFWIDTH 7.5
 #define CARHALFHEIGHT 2
-#define BALLRADIUS 4
+#define BALLRADIUS 5
 #define GOALTOPHALFWIDTH 10
 #define GOALTOPHALFHEIGHT 22
+
+
 
 Physics::Physics(std::list<ClientConnection>& connections): world(b2Vec2(0.0f, GRAVITY)){
 
@@ -55,6 +57,8 @@ void Physics::createBox(){
     myFixtureDef.shape = &polygonShape;
     myFixtureDef.density = 1;
     myFixtureDef.friction = GROUNDFRICTION;
+    myFixtureDef.filter.categoryBits = BOUNDARY;
+    myFixtureDef.filter.maskBits = CAR | BALL;
 
     boxBodyDef.type = b2_staticBody;
     boxBodyDef.position.Set(FIELDHALFWIDTH, 0);
@@ -90,6 +94,8 @@ b2Body* Physics::createCar(int numberOfCar) {
     b2PolygonShape dynamicBox;
     dynamicBox.SetAsBox(CARHALFWIDTH, CARHALFHEIGHT);
     b2FixtureDef fixtureDef;
+    fixtureDef.filter.categoryBits = CAR;
+    fixtureDef.filter.maskBits = BOUNDARY | BALL;
     fixtureDef.shape = &dynamicBox;
     fixtureDef.density = 0.15f;
     fixtureDef.friction = CARFRICTION;
@@ -169,9 +175,19 @@ GameStatus Physics::getGameStus(){
     std::list<PlayerModel> playerModels;
     for (std::map<int, b2Body*>::iterator it = this->cars.begin(); it != this->cars.end(); ++it) {
         b2Vec2 carCoord = it->second->GetPosition();
-        float xCar = carCoord.x - CARHALFWIDTH;
-        float yCar = carCoord.y + CARHALFHEIGHT;
-        PlayerModel pm(xCar, yCar, it->second->GetAngle(), false);
+        float angle = it->second->GetAngle();
+        
+        float xOriginal = -CARHALFWIDTH;
+        float yOriginal = CARHALFHEIGHT;
+
+
+        // float xPrime = xOriginal * std::cos(angle) - yOriginal * std::sin(angle);
+        // float yPrime = xOriginal * std::sin(angle) + yOriginal * std::cos(angle);
+
+
+        float xCar = carCoord.x + xOriginal;
+        float yCar = carCoord.y + yOriginal;
+        PlayerModel pm(xCar, yCar, angle, false);
         playerModels.push_back(pm);
 
     }
@@ -199,8 +215,11 @@ void Physics::createBall(){
     b2CircleShape circleBall;
     circleBall.m_radius = BALLRADIUS;
     b2FixtureDef fixtureDef;
+    fixtureDef.filter.categoryBits = BALL;
+    fixtureDef.filter.maskBits = BOUNDARY | CAR;
     fixtureDef.shape = &circleBall;
-    fixtureDef.density = 0.05f;
+    fixtureDef.density = 0.001f;
+    fixtureDef.restitution = 0.9f;
     //fixtureDef.isSensor = true;
     fixtureDef.friction = CARFRICTION;
     this->ball->CreateFixture(&fixtureDef);

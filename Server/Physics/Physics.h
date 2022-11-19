@@ -7,6 +7,12 @@
 #include <list>
 #include "../ClientConnection.h"
 
+enum _entityCategory {
+    BOUNDARY = 0x0001,
+    CAR  = 0x0002,
+    BALL = 0x0004,
+  };
+
 class Physics{
     private:
     int numberOfPlayers;
