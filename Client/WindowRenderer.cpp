@@ -30,8 +30,11 @@ void WindowRenderer::launch(GameStatusMonitor& gameStatusMonitor) {
         renderer.SetDrawColor(255,255,255,255);
 
         // Usar factory
+
         SDL2pp::Texture wallsAndScore(renderer, 
             SDL2pp::Surface("assets/wallsAndScore.png").SetColorKey(true, 0));
+
+        //wallsAndScore.SetBlendMode(SDL_BLENDMODE_NONE);
 
         SDL2pp::Texture backgroud(renderer, 
             SDL2pp::Surface("assets/background.png").SetColorKey(true, 0));
@@ -104,9 +107,6 @@ void WindowRenderer::launch(GameStatusMonitor& gameStatusMonitor) {
             scene.render(renderer);
 
             GameStatus gameStatusSnapshot = gameStatusMonitor.getGameStatus();
-
-            //currentTime = SDL_GetTicks();
-
 
             ball.update(gameStatusSnapshot.getBallModel(), FRAME_RATE);
             ball.render(renderer);

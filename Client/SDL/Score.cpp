@@ -64,5 +64,7 @@ void Score::render(SDL2pp::Renderer &renderer){
     vectorNumberAnimations[this->numberOfGoalsLeft].render(renderer, SDL2pp::Rect(810, 30, 40, 60),flip, 0);
     vectorNumberAnimations[this->numberOfGoalsRight].render(renderer, SDL2pp::Rect(960, 30, 40, 60),flip, 0);
 
+    
+
 
 }
