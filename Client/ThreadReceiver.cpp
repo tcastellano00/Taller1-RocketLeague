@@ -16,16 +16,16 @@ void ThreadReceiver::run() {
     {
         while (!gameStatusMonitor.gameIsClosed()) {
             std::string response = protocol.reciveMessage();
-            //std::cout << response << std::endl;
+            
             if (response == "close") {
                 gameStatusMonitor.setClose();
                 break;
             }
+
             GameStatusSerializer serializer;
             GameStatus newGameStatus = serializer.deserialize(response);
 
             gameStatusMonitor.statusUpdate(newGameStatus);
-            
         }
     }
     catch(const LibError& e)

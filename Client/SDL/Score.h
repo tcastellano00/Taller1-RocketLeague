@@ -5,12 +5,14 @@
 #include "Animation.h"
 #include <list>
 #include "../../Common/Model/ScoreModel.h"
+#include <vector>
 
 class Score {
 private:
     std::list<Animation> numbersAnimation;
     int numberOfGoalsLeft;
     int numberOfGoalsRight;
+    std::vector<Animation> vectorNumberAnimations;
     
 public:
     Score(

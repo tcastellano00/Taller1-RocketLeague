@@ -31,7 +31,10 @@ std::string Protocol::reciveMessage() {
 
     this->closedSocket = wasClosed;
 
-    this->previousHalfMessage = message.substr(message.find(END_OF_MESSAGE) + std::string(END_OF_MESSAGE).length());
+    if (message.length() > 0) {
+        this->previousHalfMessage = message.substr(message.find(END_OF_MESSAGE) + std::string(END_OF_MESSAGE).length());
+    }
+    
     return message.substr(0, message.find(END_OF_MESSAGE));
 }
 

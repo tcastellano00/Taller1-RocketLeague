@@ -1,7 +1,7 @@
 #include "GameStatus.h"
 #include <sstream>
 
-GameStatus::GameStatus(){
+GameStatus::GameStatus() {
     closed = false;
 }
 
@@ -13,53 +13,13 @@ GameStatus::GameStatus(
     this->ball = std::move(ball);
     this->score = std::move(score);
     this->players = std::move(players);
+    this->closed = false;
 }
-
-// void GameStatus::statusUpdate(GameStatus newGameStatus) {
-//     std::stringstream ss(newState);
-//     int numPlayers;
-//     ss >> numPlayers;
-
-//     int min;
-//     int sec;
-//     int milisec;
-//     int goalsFirst;
-//     int goalsSecond;
-//     ss >> min;
-//     ss >> sec; 
-//     ss >> milisec;
-//     ss >> goalsFirst;
-//     ss >> goalsSecond;
-//     ScoreModel sc(min, sec, milisec, goalsFirst, goalsSecond);
-//     this->score = sc;
-
-//     float xCoordBall;
-//     float yCoordBall;
-//     float angleBoard;
-//     ss >> xCoordBall;
-//     ss >> yCoordBall;
-//     ss >> angleBoard;
-//     BallModel bm(xCoordBall, yCoordBall, angleBoard);
-//     this->ball = bm;
-
-
-//     for (int i = 0; i < numPlayers; ++i) {
-//         float xCoordPlayer;
-//         float yCoordPlayer;
-//         float anglePlayer;
-//         bool turbo;
-//         ss >> xCoordPlayer;
-//         ss >> yCoordPlayer;
-//         ss >> anglePlayer;
-//         ss >> turbo;
-//         this->players.emplace_back(xCoordPlayer, yCoordPlayer, anglePlayer, turbo);
-//     }
-//     //return false;
-// }
 
 BallModel GameStatus::getBallModel() {
     return this->ball;
 }
+
 void GameStatus::setBallModel(BallModel ballModel) {
     this->ball = ballModel;
 }
@@ -67,6 +27,7 @@ void GameStatus::setBallModel(BallModel ballModel) {
 ScoreModel GameStatus::getScoreModel(){
     return this->score;
 }
+
 void GameStatus::setScoreModel(ScoreModel scoreModel) {
     this->score = scoreModel;
 }
@@ -74,6 +35,7 @@ void GameStatus::setScoreModel(ScoreModel scoreModel) {
 std::list<PlayerModel> GameStatus::getPlayersModels() {
     return this->players;
 }
+
 void GameStatus::setPlayersModels(std::list<PlayerModel> lstPlayersModels) {
     this->players = lstPlayersModels;
 }

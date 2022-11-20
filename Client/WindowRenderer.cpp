@@ -13,7 +13,6 @@
 #include "WindowRenderer.h"
 #include <list>
 
-
 WindowRenderer::WindowRenderer() {}
 
 void WindowRenderer::launch(GameStatusMonitor& gameStatusMonitor) {
@@ -31,18 +30,12 @@ void WindowRenderer::launch(GameStatusMonitor& gameStatusMonitor) {
         renderer.SetDrawColor(255,255,255,255);
 
         // Usar factory
-
-        
-
         SDL2pp::Texture wallsAndScore(renderer, 
             SDL2pp::Surface("assets/wallsAndScore.png").SetColorKey(true, 0));
 
         SDL2pp::Texture backgroud(renderer, 
             SDL2pp::Surface("assets/background.png").SetColorKey(true, 0));
             
-
-        
-        
         SDL2pp::Texture im(renderer, 
             SDL2pp::Surface("assets/autoderecha.png").SetColorKey(true, 0));
 
@@ -87,8 +80,6 @@ void WindowRenderer::launch(GameStatusMonitor& gameStatusMonitor) {
             nineTexture
         );
 
-        //im.SetBlendMode(SDL_BLENDMODE_NONE); //ver lo del fondo de la imagena
-
         Scene scene(backgroud,wallsAndScore);
 
         Bow bow1(bowTexture,0,false);
@@ -102,18 +93,6 @@ void WindowRenderer::launch(GameStatusMonitor& gameStatusMonitor) {
         for (int i = 0; i < 4; i++) {
             players.emplace_back(im);
         }
-
-
-        // {
-        //     1: PlayerA
-        //     2: PlayerB
-        // }
-        
-        // for (playerModel in gameStatusMonitor.getlist())[
-        //     player = map.get(playerModel.getId())
-        //     player.update(playerModel, FRAME_RATE);
-        //     player.render(renderer);
-        // ]
         
         std::string lastState("");
         //bool running = true;
@@ -124,11 +103,9 @@ void WindowRenderer::launch(GameStatusMonitor& gameStatusMonitor) {
 
             scene.render(renderer);
 
-
-            //bow1.render(renderer);
-            //bow2.render(renderer);
-
             GameStatus gameStatusSnapshot = gameStatusMonitor.getGameStatus();
+
+            //currentTime = SDL_GetTicks();
 
 
             ball.update(gameStatusSnapshot.getBallModel(), FRAME_RATE);
@@ -137,9 +114,6 @@ void WindowRenderer::launch(GameStatusMonitor& gameStatusMonitor) {
             score.update(gameStatusSnapshot.getScoreModel(), FRAME_RATE);
             score.render(renderer);
 
-            std::cout << gameStatusSnapshot.getScoreModel().getGoalsFirstTeam() << "   " << gameStatusSnapshot.getScoreModel().getGoalsSecondTeam() << std::endl;
-            
-
             auto playerIter = players.begin();
             std::list<PlayerModel> playerModels = gameStatusSnapshot.getPlayersModels();
             for (auto playerModel = playerModels.begin(); playerModel != playerModels.end(); ++playerModel) {
@@ -147,58 +121,13 @@ void WindowRenderer::launch(GameStatusMonitor& gameStatusMonitor) {
                 playerIter->render(renderer);
                 ++playerIter;
             }
-            /*player1.update(gameStatusSnapshot.getPlayersModels().front(), FRAME_RATE);
-            player2.update(gameStatusSnapshot.getPlayersModels().back(), FRAME_RATE);
-            player1.render(renderer);
-            player2.render(renderer);*/
-
-            // player.update(gameStatusMonitor.getPlayerCoordX() + 15, FRAME_RATE);
-            // player.render(renderer);
-
-
-            // player1.update(gameStatusMonitor.getPlayerCoordX(), FRAME_RATE);
-            // player2.render(renderer);
-
             renderer.Present();
 
             // la cantidad de segundos que debo dormir se debe ajustar en función
             // de la cantidad de tiempo que demoró el handleEvents y el render
             usleep(FRAME_RATE);
 
-            /*
-            std::string actualStatus = gameStatusMonitor.gameStatus();
-            if (actualStatus == lastState)
-                continue;
-
-            lastState = actualStatus;
-            std::cout<< actualStatus << std::endl;
-            renderer.Clear();
-            renderer.Present();
-
-            SDL_Delay(1000);
-            */
         }
-
-        /*
-        while (!gameStatusMonitor.gameIsClosed()) {
-            std::string actualStatus = gameStatusMonitor.gameStatus();
-            
-            //running = handleEvents(player);
-            update(player, FRAME_RATE);
-            render(renderer, player);
-
-            if (actualStatus == lastState)
-                continue;
-                
-            lastState = actualStatus;
-
-            std::cout << actualStatus << std::endl;
-
-            // la cantidad de segundos que debo dormir se debe ajustar en función
-            // de la cantidad de tiempo que demoró el handleEvents y el render
-            usleep(FRAME_RATE);
-        }
-        */
     } catch (std::exception& e) {
         std::cout << e.what() << std::endl;
     }
@@ -208,15 +137,3 @@ void WindowRenderer::launch(GameStatusMonitor& gameStatusMonitor) {
 void renderPlayers(GameStatusMonitor& gameStatusMonitor) {
 
 }
-
-/*
-static void render(SDL2pp::Renderer &renderer, Player &player) {
-    renderer.Clear();
-    player.render(renderer);
-    renderer.Present();
-}
-
-static void update(Player &player, float dt) {
-    player.update(dt);
-}
-*/
