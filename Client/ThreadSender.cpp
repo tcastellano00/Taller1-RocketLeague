@@ -9,9 +9,14 @@ void ThreadSender::run() {
     while (playing) {
 
         Command command = queue.pop();
+        if (command.getType() == "close") {
+            gameStatusMonitor.gameIsClosed();
+            break;
+        }
 
         
         if (protocol.isClosed()) {
+            gameStatusMonitor.gameIsClosed();
             break;
         }
 

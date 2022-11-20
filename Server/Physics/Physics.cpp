@@ -9,7 +9,7 @@
 #define CARFRICTION 1.5
 #define GROUNDFRICTION 1.0
 #define JUMPIMPULSE 40
-#define GRAVITY -20
+#define GRAVITY -10
 #define TORQUEFORCE 5000
 #define TORQUEIMPULSE 200
 #define FIELDHALFWIDTH 90
@@ -20,6 +20,7 @@
 #define BALLRADIUS 5
 #define GOALTOPHALFWIDTH 10
 #define GOALTOPHALFHEIGHT 22
+#define TURBOFORCE MOVEMENTFORCE*4
 
 
 
@@ -176,6 +177,21 @@ void Physics::flipCarLeft(int socketId) {
     b2Body* car = (this->cars[socketId]);
     car->ApplyAngularImpulse(TORQUEIMPULSE*(-1), true);
     //car->ApplyTorque(TORQUEFORCE*(-1), true);
+}
+
+void Physics::carTurbo(int socketId){
+    // if(this->liquidNitrogen != 0){
+
+    // }
+
+    b2Body* car = (this->cars[socketId]);
+    float angle = car->GetAngle()*(-1); //Multiplicamos por -1 para tenerlo en antihorario.
+    float x = std::cos(angle)*TURBOFORCE;
+    float y = std::sin(angle)*TURBOFORCE;
+    std::cout << angle << "    " << x << "     " << y << std::endl;
+    car->ApplyForceToCenter(b2Vec2(x, y),true);
+    //this->liquidNitrogen -= 1;
+    
 }
 
 

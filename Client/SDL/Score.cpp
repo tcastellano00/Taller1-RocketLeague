@@ -52,6 +52,7 @@ void Score::update(ScoreModel scoreModel, int dt) {
     for (int i = 0; i < 10; i++) {
         vectorNumberAnimations[i].update(dt);
     }
+    colon.update(dt);
 
 }
 

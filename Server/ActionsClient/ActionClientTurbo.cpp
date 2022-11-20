@@ -3,6 +3,7 @@
 
 #include "ActionsClient.h"
 #include "ActionClientTurbo.h"
+#include <iostream>
 
 ActionClientTurbo::ActionClientTurbo(int sktId) {
     this->socketId = sktId;
@@ -10,6 +11,6 @@ ActionClientTurbo::ActionClientTurbo(int sktId) {
 
 std::string ActionClientTurbo::execute(
     Physics &physics) {
-    
-    return "";
+        physics.carTurbo(socketId);
+        return "";
 }

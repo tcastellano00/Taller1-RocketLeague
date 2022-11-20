@@ -23,6 +23,8 @@ const std::string &name, int sktId){
     else if(name == "flip left")
         return std::shared_ptr<ActionsClient>(
             new ActionClientFlipLeft(sktId));
-    else return std::shared_ptr<ActionsClient>(
+    else if(name == "turbo")
+        return std::shared_ptr<ActionsClient>(
             new ActionClientTurbo(sktId));
+    else return NULL;
 }

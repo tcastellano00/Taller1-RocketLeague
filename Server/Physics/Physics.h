@@ -25,7 +25,7 @@ class Physics{
     GoalSensor* leftGoal;
     GoalSensor* rightGoal;
     b2Timer timer;
-    //int l
+    int liquidNitrogen = 50; //Cantidad de combustible para el Turbo
     int gameTime = 180000; //milisegundos
     ContactListener contactListener;
 
@@ -59,6 +59,8 @@ class Physics{
     void flipCarLeft(int socketId);
 
     void carJump(int socketId);
+
+    void carTurbo(int socketId);
 
     GameStatus getGameStus();
 
