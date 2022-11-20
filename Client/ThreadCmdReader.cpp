@@ -1,18 +1,26 @@
-#include "ThreadCmdReader.h"
 #include <iostream>
 #include <unistd.h>
 #include <SDL2/SDL.h>
+
+#include "ThreadCmdReader.h"
+
+ThreadCmdReader::ThreadCmdReader(
+    Queue<Command>& newQueue, 
+    GameStatusMonitor& newGameStatusMonitor) : 
+    queue(newQueue), gameStatusMonitor(newGameStatusMonitor) {}
 
 void ThreadCmdReader::run() {
     usleep(5000000); //reemplazar por una CV.
 
     std::cout << "Im running cmd reader thread" << std::endl;
 
-    bool running = true;
+    bool running = (not gameStatusMonitor.gameIsClosed());
 
     while (running) {
         running = handleEvents();
     }
+
+    gameStatusMonitor.setClose();
 }
 
 bool ThreadCmdReader::handleEvents() {
@@ -23,12 +31,12 @@ bool ThreadCmdReader::handleEvents() {
                 SDL_KeyboardEvent& keyEvent = (SDL_KeyboardEvent&) event;
                 switch (keyEvent.keysym.sym) {
                     case SDLK_UP: {
-                        Command cmd("right");
+                        Command cmd("flip right");
                         queue.push(cmd);
                         break;
                     }
                     case SDLK_DOWN: {
-                        Command cmd("left");
+                        Command cmd("flip left");
                         queue.push(cmd);
                         break;
                     }
@@ -38,12 +46,12 @@ bool ThreadCmdReader::handleEvents() {
                         break;
                     }
                     case SDLK_RIGHT: {
-                        Command cmd("flip right");
+                        Command cmd("right");
                         queue.push(cmd);
                         break;
                     }
                     case SDLK_LEFT: {
-                        Command cmd("flip left");
+                        Command cmd("left");
                         queue.push(cmd);
                         break;
                     }
@@ -72,6 +80,7 @@ bool ThreadCmdReader::handleEvents() {
                 Command cmdQueue("close queue");
                 queue.push(cmd);
                 queue.push(cmdQueue);
+                gameStatusMonitor.setClose();
                 return false;
             }
             
@@ -82,8 +91,6 @@ bool ThreadCmdReader::handleEvents() {
     return true;
 
 }
-
-ThreadCmdReader::ThreadCmdReader(Queue<Command>& newQueue): queue(newQueue) {}
 
 ThreadCmdReader::~ThreadCmdReader() {
     std::cout << "Cerramos cmd reader" << std::endl;

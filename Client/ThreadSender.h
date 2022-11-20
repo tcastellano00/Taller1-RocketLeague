@@ -12,6 +12,6 @@ private:
     GameStatusMonitor& gameStatusMonitor;
 public:
     void run() override;
-    ThreadSender(Queue<Command>& newQueue, Socket& cnct,GameStatusMonitor& gameStatusMonitor);
+    ThreadSender(Queue<Command>& newQueue, Socket& cnct, GameStatusMonitor& gameStatusMonitor);
     ~ThreadSender();
 };

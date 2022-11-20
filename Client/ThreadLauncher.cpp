@@ -14,7 +14,7 @@ void ThreadLauncher::start(Socket& connection,GameStatusMonitor& gameStatusMonit
     std::cout << "Im launching the threads" << std::endl;
     Queue<Command> queue(true);
 
-    ThreadCmdReader cmdReader(queue);
+    ThreadCmdReader cmdReader(queue, gameStatusMonitor);
     cmdReader.start();
 
     ThreadSender sender(queue, connection, gameStatusMonitor);
