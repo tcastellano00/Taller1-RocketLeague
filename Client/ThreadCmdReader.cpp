@@ -76,11 +76,15 @@ bool ThreadCmdReader::handleEvents() {
             }
             case SDL_QUIT: {
                 std::cout << "Quit :(" << std::endl;
-                Command cmd("close");
-                Command cmdQueue("close queue");
-                queue.push(cmd);
-                queue.push(cmdQueue);
+                //Command cmd("close");
+                //Command cmdQueue("close queue");
+                //queue.push(cmd);
+                //queue.push(cmdQueue);
+
                 gameStatusMonitor.setClose();
+                Command cmd("close");
+                queue.push(cmd);
+                
                 return false;
             }
             

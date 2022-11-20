@@ -10,6 +10,7 @@ class ThreadClientLobby: public Thread {
 private:
     ClientConnection client;
     GameMonitor& gameMonitor;
+    Protocol protocol;
 
 protected:
     void run() override;

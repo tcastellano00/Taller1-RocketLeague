@@ -13,11 +13,20 @@ bool Lobby::start() {
     std::string input;
     bool keepReading;
     do {
+
         keepReading = (bool) getline(std::cin, input);
         if (!keepReading) {break;}
         if (input == "\n") {break;}
         protocol.sendMessage(input);
+        
+        if (protocol.isClosed())
+            return true;
+        
         std::string reply = protocol.reciveMessage();
+
+        if (protocol.isClosed())
+            return true;
+
         if (reply == "start!")
             keepReading = false;
         std::cout << reply;
