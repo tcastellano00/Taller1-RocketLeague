@@ -9,10 +9,14 @@
 
 class Score {
 private:
-    std::list<Animation> numbersAnimation;
     int numberOfGoalsLeft;
     int numberOfGoalsRight;
+    int minutesLeft;
+    int secondsLeft;
+    int milisecondsLeft;
+    //Almacena las animacionesd e los numeros del 0 al 9, no acceder mas alla del 9 al vector porque da segfault
     std::vector<Animation> vectorNumberAnimations;
+    Animation colon;
     
 public:
     Score(
@@ -25,7 +29,8 @@ public:
         SDL2pp::Texture &sixTexture,
         SDL2pp::Texture &sevenTexture,
         SDL2pp::Texture &eightTexture,
-        SDL2pp::Texture &nineTexture
+        SDL2pp::Texture &nineTexture,
+        SDL2pp::Texture &colon
     );
 
     void update(ScoreModel scoreModel, int dt);

@@ -24,6 +24,9 @@ class Physics{
     int32 positionIterations = 2;
     GoalSensor* leftGoal;
     GoalSensor* rightGoal;
+    b2Timer timer;
+    //int l
+    int gameTime = 180000; //milisegundos
     ContactListener contactListener;
 
 

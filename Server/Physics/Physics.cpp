@@ -51,7 +51,9 @@ Physics::Physics(std::list<ClientConnection>& connections): world(b2Vec2(0.0f, G
 
     this->world.SetContactListener(&(this->contactListener));
 
-
+    //int gameTime = 180000; //milisegundos
+    //b2Timer timer;
+    //timer.GetMilliseconds();
 
 
 }
@@ -211,8 +213,18 @@ GameStatus Physics::getGameStus(){
     //The goals of the left team are the ones scored in the right goal, and viceversa
     int goalsLeft = this->rightGoal->getGoals();
     int goalsRight = this->leftGoal->getGoals();
-    ScoreModel scm(0, 0, 0, goalsLeft, goalsRight);
+
+
+
+    //float segGame = (gameTime - timer.GetMilliseconds()) / 1000 ;  No funciona el getMIllisenconds()
+    gameTime -= 40; 
+    int segGame = (gameTime) / 1000 ; //Restamos a mano el tiempo correspondiente a un frame.
+    int minGame = segGame / 60;
+    segGame = segGame - minGame*60;
+
+    ScoreModel scm(minGame, segGame, 0, goalsLeft, goalsRight);
     newGameStatus.setScoreModel(scm);
+
 
 
     

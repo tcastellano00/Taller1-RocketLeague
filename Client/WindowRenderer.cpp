@@ -69,6 +69,9 @@ void WindowRenderer::launch(GameStatusMonitor& gameStatusMonitor) {
             SDL2pp::Surface("assets/Numbers/eight.png").SetColorKey(true, 0));
         SDL2pp::Texture nineTexture(renderer, 
             SDL2pp::Surface("assets/Numbers/nine.png").SetColorKey(true, 0));
+        SDL2pp::Texture colon(renderer, 
+            SDL2pp::Surface("assets/Numbers/colon.png").SetColorKey(true, 0));
+        
         
         Score score(
             zeroTexture,
@@ -80,7 +83,8 @@ void WindowRenderer::launch(GameStatusMonitor& gameStatusMonitor) {
             sixTexture,
             sevenTexture,
             eightTexture,
-            nineTexture
+            nineTexture,
+            colon
         );
 
         Scene scene(backgroud,wallsAndScore);
