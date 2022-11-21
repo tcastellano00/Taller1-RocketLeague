@@ -68,6 +68,8 @@ class Physics{
 
     void createBall();
 
+    void carStopTurbo(int socketId);
+
     ~Physics();
 };
 #endif
