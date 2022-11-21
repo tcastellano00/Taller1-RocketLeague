@@ -11,6 +11,7 @@ private:
     ClientConnection client;
     GameMonitor& gameMonitor;
     Protocol protocol;
+    bool inLobby;
 
 protected:
     void run() override;

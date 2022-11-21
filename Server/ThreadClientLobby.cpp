@@ -13,7 +13,7 @@ ThreadClientLobby::ThreadClientLobby(ClientConnection& clt, GameMonitor& gameMtr
     client(std::move(clt)), 
     gameMonitor(gameMtr),
     protocol(client.getSocketReference()) {
-
+        inLobby = true;
     }
 
 void ThreadClientLobby::run(){
@@ -37,10 +37,12 @@ void ThreadClientLobby::run(){
         }
     } catch(const LibError &e) { }
 
+    this->inLobby = false;
 }
 
 void ThreadClientLobby::stop() {
-    protocol.close();
+    if (this->inLobby)
+        protocol.close();
 }
 
 ThreadClientLobby::~ThreadClientLobby() {
