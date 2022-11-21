@@ -44,14 +44,6 @@ std::string GameStatus::status(){
     return actualStatus;
 }
 
-void GameStatus::movePlayerRight() {
-    this->player.moveRight();
-}
-
-void GameStatus::movePlayerLeft(){
-    this->player.moveLeft();
-}
-
 void GameStatus::setClose() {
     closed = true;
 }
@@ -62,11 +54,4 @@ PlayerModel GameStatus::getPlayer() {
 
 bool GameStatus::isClosed(){
     return closed;
-}
-
-void GameStatus::setPlayerModel(PlayerModel pm){
-    this->player.x = pm.x;
-    this->player.y = pm.y;
-    this->player.angle = pm.angle;
-    this->player.isDoingTurbo = pm.isDoingTurbo;
 }

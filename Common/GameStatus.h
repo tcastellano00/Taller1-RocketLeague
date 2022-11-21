@@ -41,21 +41,10 @@ class GameStatus{
     std::list<PlayerModel> getPlayersModels();
     void setPlayersModels(std::list<PlayerModel> lstPlayersModels);
 
-
     bool isClosed();
-
-    //void statusUpdate(GameStatus& newGameStatus);
 
     std::string status();
 
-    void movePlayerRight();
-
-    void movePlayerLeft();
-
     void setClose();
-
-    void setPlayerModel(PlayerModel pm);
-
-    PlayerModel getPlayer();
 };
 #endif
