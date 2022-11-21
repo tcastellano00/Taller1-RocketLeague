@@ -14,7 +14,6 @@ std::string GameStatusSerializer::serialize(GameStatus gameStatus) {
     BallModel ballModel = gameStatus.getBallModel();
     ScoreModel scoreModel = gameStatus.getScoreModel();
     std::list<PlayerModel> playersModels = gameStatus.getPlayersModels();
-    PlayerModel playerModel = gameStatus.getPlayer();
 
     ss << playersModels.size() << " ";
 

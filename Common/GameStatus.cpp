@@ -48,10 +48,6 @@ void GameStatus::setClose() {
     closed = true;
 }
 
-PlayerModel GameStatus::getPlayer() {
-    return player;
-}
-
 bool GameStatus::isClosed(){
     return closed;
 }

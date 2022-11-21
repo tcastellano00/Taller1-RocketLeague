@@ -2,12 +2,13 @@
 #define CLIENT_PLAYER_MODEL_H
 
 class PlayerModel {
-public:
+private:
     float x;
     float y;
     float angle;
     bool turbo;
 
+public:
     PlayerModel();
     PlayerModel(float xCoord, float yCoord, float ang, bool turbo);
 
