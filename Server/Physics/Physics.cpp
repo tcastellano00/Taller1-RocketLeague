@@ -21,6 +21,8 @@
 #define GOALTOPHALFWIDTH 10
 #define GOALTOPHALFHEIGHT 22
 #define TURBOFORCE MOVEMENTFORCE*4
+#define FRONTSENSORHALFWIDTH 0.25
+#define BOTTOMSENSORHALFHEIGTH 0.25
 
 
 
@@ -88,8 +90,6 @@ void Physics::createBox(){
     polygonShape.SetAsBox( GOALTOPHALFWIDTH, GOALTOPHALFHEIGHT, b2Vec2(FIELDHALFWIDTH - GOALTOPHALFWIDTH, FIELDHEIGTH - GOALTOPHALFHEIGHT), 0);//right goal
     this->box->CreateFixture(&myFixtureDef);
 
-
-
 }
 
 void Physics::simulateTimeStep(){
@@ -113,21 +113,70 @@ CarPhysics* Physics::createCar(int numberOfCar) {
     fixtureDef.density = 0.15f;
     fixtureDef.friction = CARFRICTION;
     car->CreateFixture(&fixtureDef);
+    
+    
+    //Sensor de la trompa del auto
+    b2FixtureDef sensorCarFront;
+    b2PolygonShape polygonShapeSensor;
+    sensorCarFront.shape = &polygonShapeSensor;
+    sensorCarFront.isSensor = true;
+    sensorCarFront.filter.categoryBits = CAR_FRONT_SENSOR;
+    sensorCarFront.filter.maskBits = BALL;
+    float frontSensorHalfHeight = CARHALFHEIGHT;
+    float frontSensorHalfWidth = FRONTSENSORHALFWIDTH;
+
+    polygonShapeSensor.SetAsBox(frontSensorHalfWidth, frontSensorHalfHeight, b2Vec2(CARHALFWIDTH + frontSensorHalfWidth, 0), 0);
+
+    car->CreateFixture(&sensorCarFront);
+
+
+    //Sensor de la parte de abajo del auto
+    b2FixtureDef sensorBottomFront;
+    b2PolygonShape polygonShapeSensor1;
+    sensorBottomFront.shape = &polygonShapeSensor1;
+    sensorBottomFront.isSensor = true;
+    sensorBottomFront.filter.categoryBits = CAR_BOTTOM_SENSOR;
+    sensorBottomFront.filter.maskBits = BALL;
+    float bottomsensorHalfWidht = CARHALFWIDTH;
+    float bottomsensorHalfHeight = BOTTOMSENSORHALFHEIGTH;
+
+    polygonShapeSensor1.SetAsBox(bottomsensorHalfWidht, bottomsensorHalfHeight, b2Vec2(0,-CARHALFHEIGHT - bottomsensorHalfHeight), 0);
+
+    car->CreateFixture(&sensorBottomFront);
+
+
+    
+//      b2FixtureDef sensorFixture;
+//     b2PolygonShape polygonShapeSensor;
+//     sensorFixture.shape = &polygonShapeSensor;
+//     sensorFixture.isSensor = true;
+//     sensorFixture.filter.categoryBits = GOALSENSOR;
+//     sensorFixture.filter.maskBits = BALL;
+//     float sensorHalfWidht = GOALTOPHALFWIDTH - BALLRADIUS;
+//     float sensorHalfHeight = (FIELDHEIGTH - GOALTOPHALFHEIGHT*2)/2;
+//     if (side == LEFT) {
+//         polygonShapeSensor.SetAsBox(sensorHalfWidht, sensorHalfHeight, b2Vec2(-FIELDHALFWIDTH + sensorHalfWidht, sensorHalfHeight), 0);
+//     } else if (side == RIGHT) {
+//         polygonShapeSensor.SetAsBox(sensorHalfWidht, sensorHalfHeight, b2Vec2(FIELDHALFWIDTH - sensorHalfWidht, sensorHalfHeight), 0);
+//     }
+//     body->CreateFixture(&sensorFixture);
+
+
     CarPhysics* carPhysics = new CarPhysics(car, FACINGRIGHT);
     return carPhysics;
 
 
 }
 
-void Physics::createGround() {
-    b2BodyDef groundBodyDef;
-    groundBodyDef.position.Set(0.0f, -10.0f);
-    this->ground = world.CreateBody(&groundBodyDef);
-    b2PolygonShape groundBox;
-    groundBox.SetAsBox(50.0f, 10.0f);
-    //No importa la densidad porque es un cuerpo estatico el piso
-    this->ground->CreateFixture(&groundBox, 0.0f);
-}
+// void Physics::createGround() {
+//     b2BodyDef groundBodyDef;
+//     groundBodyDef.position.Set(0.0f, -10.0f);
+//     this->ground = world.CreateBody(&groundBodyDef);
+//     b2PolygonShape groundBox;
+//     groundBox.SetAsBox(50.0f, 10.0f);
+//     //No importa la densidad porque es un cuerpo estatico el piso
+//     this->ground->CreateFixture(&groundBox, 0.0f);
+// }
 
 void Physics::moveCarRight(int socketId) {
 
@@ -197,7 +246,7 @@ void Physics::carTurbo(int socketId){
 }
 
 
-GameStatus Physics::getGameStus(){
+GameStatus Physics::getGameStatus(){
     GameStatus newGameStatus;
 
 

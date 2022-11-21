@@ -12,41 +12,40 @@
 #include "BallPhysics.h"
 
 enum _entityCategory {
-    BOUNDARY = 0x0001,
-    CAR  = 0x0002,
-    BALL = 0x0004,
-    GOALSENSOR = 0x0008,
-  };
+  BOUNDARY = 0x0001,
+  CAR  = 0x0002,
+  BALL = 0x0004,
+  GOALSENSOR = 0x0008,
+  CAR_FRONT_SENSOR = 0x0010,
+  CAR_BOTTOM_SENSOR = 0x0020,
+};
 
 class Physics{
 	private:
-	int numberOfPlayers;
-	float timeStep;
-	int32 velocityIterations = 6;
-	int32 positionIterations = 2;
-	GoalSensor* leftGoal;
-	GoalSensor* rightGoal;
-	b2Timer timer;
-	int liquidNitrogen = 50; //Cantidad de combustible para el Turbo
-	int gameTime = 180000; //milisegundos
-	ContactListener contactListener;
-	std::map<int, CarPhysics*> cars;
-	//b2Body* car;
-	BallPhysics* ball;
-	b2Body* ground;
-	b2Body* box;
+    int numberOfPlayers;
+    float timeStep;
+    int32 velocityIterations = 6;
+    int32 positionIterations = 2;
+    GoalSensor* leftGoal;
+    GoalSensor* rightGoal;
+    b2Timer timer;
+    int liquidNitrogen = 50; //Cantidad de combustible para el Turbo
+    int gameTime = 180000; //milisegundos
+    ContactListener contactListener;
+    std::map<int, CarPhysics*> cars;
+    //b2Body* car;
+    BallPhysics* ball;
+    b2Body* ground;
+    b2Body* box;
+    CarPhysics* createCar(int numberOfCar);
+    void createGround();
+    GoalSensor* createGoal(SideOfGoal side);
 
-	CarPhysics* createCar(int numberOfCar);
-	void createGround();
-	GoalSensor* createGoal(SideOfGoal side);
-    
-    
-
-    protected:
+  protected:
     b2World world;
-    //b2Body * m_groundBody ;
+    //b2Body * m_groundBody;
 
-    public:
+  public:
     Physics(std::list<ClientConnection>& connections);
 
     void moveCarRight(int socketId);
@@ -61,7 +60,7 @@ class Physics{
 
     void carTurbo(int socketId);
 
-    GameStatus getGameStus();
+    GameStatus getGameStatus();
 
     void simulateTimeStep();
 
