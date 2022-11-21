@@ -25,7 +25,11 @@ void ThreadClientLobby::run(){
         while (!inAGame && not protocol.isClosed()){
             std::string message = protocol.reciveMessage();
             std::unique_ptr<LobbyCommand> command = LobbyParser::getCommand(message);
-            std::string response = command->execute(gameMonitor, client);
+
+            std::string response;
+            if (command != NULL)
+                response = command->execute(gameMonitor, client);
+                
             inAGame = client.getInAGame();
             
             if (inAGame) {

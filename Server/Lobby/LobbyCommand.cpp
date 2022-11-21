@@ -12,7 +12,8 @@ std::unique_ptr<LobbyCommand> LobbyCommand::get_command_ptr(
     else if (name == "LISTAR")
         return std::unique_ptr<LobbyCommandList>(
             new LobbyCommandList(arguments));
-    else
+    else if (name == "CREAR")
         return std::unique_ptr<LobbyCommandCreate>(
             new LobbyCommandCreate(arguments));
+    else return NULL;
 }
