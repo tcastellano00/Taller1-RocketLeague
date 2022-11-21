@@ -34,6 +34,8 @@ void WindowRenderer::launch(GameStatusMonitor& gameStatusMonitor) {
         SDL2pp::Texture wallsAndScore(renderer, 
             SDL2pp::Surface("assets/wallsAndScore.png").SetColorKey(true, 0));
 
+
+        //wallsAndScore.SetColorMod(255,255,128);
         //wallsAndScore.SetBlendMode(SDL_BLENDMODE_NONE);
 
         SDL2pp::Texture backgroud(renderer, 

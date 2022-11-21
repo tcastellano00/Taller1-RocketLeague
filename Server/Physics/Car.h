@@ -10,6 +10,13 @@
 //     CarPhisics(b2World * &m_world);
 // };
 
+enum SensorStatus {   
+    BALLINFRONTSENSOR,
+    BALLINBOTTOMSENSOR,
+    BALLINBACKSENSOR,
+    NOTSENSOR,
+};
+
 enum FacingStatus {
     FACINGFRONT,
     FACINGBACK,
@@ -26,6 +33,12 @@ enum PlayerSide {
     RIGHTPLAYER,
 };
 
+enum AcceleratingStatus {
+    ACCELERATINGLEFT,
+    ACCELERATINGRIGHT,
+    NOTACCELERATING,
+};
+
 
 class CarPhysics {
 private:
@@ -33,10 +46,12 @@ private:
     FacingStatus facingStatus;
     PlayerSide side;
     AirStatus airStatus;
-    bool ballInFrontSensor;
-    bool ballInBackSensor;
-    bool ballInBottomSensor;
+    AcceleratingStatus acceleratingStatus;
+    SensorStatus sensorStatus;
+    bool isFliping;
+    float flipStartAngle;
     bool isDoingTurbo;
+
 
 public:
     CarPhysics(b2Body* body, PlayerSide side);
@@ -49,18 +64,24 @@ public:
     void setAirStatus(AirStatus status);
     FacingStatus getFacingStatus();
 
-    void setBallInFrontSensor(bool cond);
-    void setBallInBackSensor(bool cond);
-    void setBallInBottomSensor(bool cond);
+    void setSensorStatus(SensorStatus status);
 
-    bool getBallInFrontSensor();
-    bool getBallInBackSensor();
-    bool getBallInBottomSensor();
+    SensorStatus getSensorStatus();
 
     PlayerSide getSide();
     void setFacingStatus(FacingStatus status);
     void setDoingTurbo(bool doing);
     bool getDoingTurbo();
+
+    void setAcceleratingStatus(AcceleratingStatus status);
+    AcceleratingStatus getAcceleratingStatus();
+
+    void flipJump();
+
+    void swapFrontBackSensor();
+
+    void updateFlipStatus();
+
 };
 
 #endif

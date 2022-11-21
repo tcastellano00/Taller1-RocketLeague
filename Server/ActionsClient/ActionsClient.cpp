@@ -6,6 +6,8 @@
 #include "ActionClientFlipLeft.h"
 #include "ActionClientTurbo.h"
 #include "ActionClientStopTurbo.h"
+#include "ActionClientStopAccelerating.h"
+#include "ActionClientStopFlip.h"
 
 std::shared_ptr<ActionsClient> ActionsClient::get_command_ptr(
 const std::string &name, int sktId){
@@ -30,5 +32,11 @@ const std::string &name, int sktId){
     else if(name == "stop turbo")
         return std::shared_ptr<ActionsClient>(
             new ActionClientStopTurbo(sktId));
+    else if(name == "stop accelerating")
+        return std::shared_ptr<ActionsClient>(
+            new ActionClientStopAccelerating(sktId));
+    else if (name == "stop flip")
+        return std::shared_ptr<ActionsClient>(
+            new ActionClientStopFlip(sktId));
     else return NULL;
 }

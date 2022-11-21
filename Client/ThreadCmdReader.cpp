@@ -67,17 +67,27 @@ bool ThreadCmdReader::handleEvents() {
                 SDL_KeyboardEvent& keyEvent = (SDL_KeyboardEvent&) event;
                 switch (keyEvent.keysym.sym) {
                     case SDLK_RIGHT: {
-                        Command cmd("stop right");
+                        Command cmd("stop accelerating");
                         queue.push(cmd);
                         break;
                     }
                     case SDLK_LEFT: {
-                        Command cmd("stop left");
+                        Command cmd("stop accelerating");
                         queue.push(cmd);
                         break;
                     }
                     case SDLK_t: {
                         Command cmd("stop turbo");
+                        queue.push(cmd);
+                        break;
+                    }
+                    case SDLK_UP: {
+                        Command cmd("stop flip");
+                        queue.push(cmd);
+                        break;
+                    }
+                    case SDLK_DOWN: {
+                        Command cmd("stop flip");
                         queue.push(cmd);
                         break;
                     }

@@ -70,6 +70,10 @@ class Physics{
 
     void carStopTurbo(int socketId);
 
+    void carStopAccelerating(int socketId);
+
+    void carStopFlip(int socketId);
+
     ~Physics();
 };
 #endif

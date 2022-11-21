@@ -107,13 +107,13 @@ void ContactListener::BeginContact(b2Contact* contact) {
     if (this->getCarSensorContactWithBall(contact, car, isFrontSensor)) {
         if (isFrontSensor){
             if (car->getFacingStatus() == FACINGFRONT) {
-                car->setBallInFrontSensor(true);
+                car->setSensorStatus(BALLINFRONTSENSOR);
             } else {
-                car->setBallInBackSensor(true);
+                car->setSensorStatus(BALLINBACKSENSOR);
             }
             
         } else {
-        car->setBallInBottomSensor(true);
+        car->setSensorStatus(BALLINBOTTOMSENSOR);
         }
         return;
     }
@@ -134,18 +134,7 @@ void ContactListener::EndContact(b2Contact* contact) {
 
     bool isFrontSensor = false;
     if (this->getCarSensorContactWithBall(contact, car, isFrontSensor)) {
-        if (isFrontSensor){
-            if (car->getFacingStatus() == FACINGFRONT) {
-                car->setBallInFrontSensor(false);
-            } else {
-                car->setBallInBackSensor(false);
-            }
-            
-        } else {
-        car->setBallInBottomSensor(false);
-        }
+        car->setSensorStatus(NOTSENSOR);
         return;
     }
-
-    
     }
