@@ -19,6 +19,7 @@ ThreadClientLobby::ThreadClientLobby(ClientConnection& clt, GameMonitor& gameMtr
 void ThreadClientLobby::run(){
     std::cout << "ThreadClientLobby: cliente conectado" << std::endl;
     
+    client.setGameName("");
     bool clientJoinedGame = false;
     
     try {
@@ -31,23 +32,21 @@ void ThreadClientLobby::run(){
                 response = command->execute(gameMonitor, client);
                 
             clientJoinedGame = client.getInAGame();
-
-            protocol.sendMessage(response);
             
             /*
-            if (inAGame) {
+             Cuando el client se une al juego, la conexion
+             pasa a estar en el juego y deja de estar en el
+             lobby
+            */
+            if (clientJoinedGame) {
                 std::string gameName = client.getGameName();
                 gameMonitor.startIfLastPlayer(gameName);
             } else {
                 protocol.sendMessage(response);
             }
-            */
         }
-    } catch(const LibError &e) { }
-
-    if (clientJoinedGame) {
-        std::string gameName = client.getGameName();
-        gameMonitor.startIfLastPlayer(gameName);
+    } catch(const LibError &e) { 
+        clientJoinedGame = false;
     }
     
     this->inLobby = false;

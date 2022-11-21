@@ -10,6 +10,7 @@ ClientConnection::ClientConnection() :
 ClientConnection::ClientConnection(
     Socket& socket) :
     socket(std::move(socket)) {
+        this->gameName = "";
         this->clientName = "";
         this->clientName = clientName;
     }
@@ -46,6 +47,8 @@ bool ClientConnection::getInAGame() {
 ClientConnection::ClientConnection(ClientConnection&& other): 
     socket(std::move(other.socket)) {
     this->clientName = other.getName();
+    this->gameName = other.getGameName();
+    this->inAGame = other.getInAGame();
 }
 
 ClientConnection& ClientConnection::operator=(ClientConnection&& other) {
@@ -54,6 +57,8 @@ ClientConnection& ClientConnection::operator=(ClientConnection&& other) {
 
     this->socket = std::move(other.socket);
     this->clientName = other.getName();
+    this->gameName = other.getGameName();
+    this->inAGame = other.getInAGame();
 
     return *this;
 }

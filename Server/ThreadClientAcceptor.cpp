@@ -44,7 +44,7 @@ void ThreadClientAcceptor::run() {
             clientLobbyThreads.emplace_back(client, gameMonitor);
             clientLobbyThreads.back().start();
 
-            this->cleanDeathClients(clientLobbyThreads);
+            //this->cleanDeathClients(clientLobbyThreads);
         } catch(const LibError &e) {
             this->isReceiving = false;
         }
@@ -55,8 +55,7 @@ void ThreadClientAcceptor::run() {
 }
 
 void ThreadClientAcceptor::stopClientLobbyThreads(
-        std::list<ThreadClientLobby>& lobbyThreads) {
-    std::cout << "stopClientLobbyThreads" << std::endl;
+    std::list<ThreadClientLobby>& lobbyThreads) {
     for (auto lobbyThread = lobbyThreads.begin(); 
               lobbyThread != lobbyThreads.end(); 
               ++lobbyThread) {
@@ -66,7 +65,6 @@ void ThreadClientAcceptor::stopClientLobbyThreads(
 
 void ThreadClientAcceptor::stopGames(
     GameMonitor& gameMonitor) {
-    std::cout << "stopGames" << std::endl;
     gameMonitor.finishGames();
 }
 
