@@ -4,23 +4,19 @@
 #include "ActionsClient/ActionsClient.h"
 #include "../Common/GameStatus.h"
 
-#include <chrono>
-#include <unistd.h>
-#define LIMITOFCOMANDS 10  //puse un numero cualquiera
-#define DELTA 1000000.0f/25.0f
-typedef std::chrono::high_resolution_clock Clock;
 
-Gameloop::Gameloop() { }
+
+Gameloop::Gameloop() 
+    : senderQueue(true), 
+      recibingQueue(false) { 
+        isRunning = false;
+      }
 
 void Gameloop::run() {
     std::cout << "Gameloop::run" << std::endl;
 
     //Inicia el mundo del game.
     Physics gamePhysics(this->connectionList);
-
-    //Instancia las colas de envio y recepcion.
-    Queue<GameStatus> senderQueue(true);
-    Queue<std::shared_ptr<ActionsClient>> recibingQueue(false);
     
     //Instanciamos los receivers.
     for (auto connection = connectionList.begin(); connection != connectionList.end(); ++connection) {
@@ -36,7 +32,7 @@ void Gameloop::run() {
 
     //Iniciamos el Gameloop donde procesa los comandos.
     std::cout << "Gameloop::while" << std::endl;
-    while (true) {
+    while (this->isRunning) {
         auto timeStart = Clock::now();
 
         while (!recibingQueue.empty() && commandsCounter < LIMITOFCOMANDS) {
@@ -53,21 +49,44 @@ void Gameloop::run() {
         senderQueue.push(gameStatus);
         
         gamePhysics.simulateTimeStep();
-        // enviar estado actal (broadcaster)
+        
         auto timeFinish = Clock::now();
-        int elapsed = std::chrono::duration_cast<std::chrono::microseconds>(timeFinish - timeStart).count();
-        if (DELTA - elapsed > 0) {
-            usleep(DELTA - elapsed);
-        }
+
+        synchronizeFrameRate(timeStart, timeFinish);
 
         commandsCounter = 0;
     }
 }
 
 void Gameloop::init(std::list <ClientConnection>& connectionList) {
+    this->isRunning = true;
     this->connectionList = std::move(connectionList);
 
     this->start();
+}
+
+void Gameloop::stop() {
+    /*
+        Al cerrar el gameLoop, necesitamos pushear
+        un nuevo estado del mundo, pero con un
+        estado indicando que esta cerrado
+    */
+    GameStatus gameStatus;
+    gameStatus.setClose();
+
+    senderQueue.push(gameStatus);
+
+    this->isRunning = false;
+}
+
+void Gameloop::synchronizeFrameRate(
+    std::chrono::_V2::system_clock::time_point timeStart,
+    std::chrono::_V2::system_clock::time_point timeFinish
+) {
+    int elapsed = std::chrono::duration_cast<std::chrono::microseconds>(timeFinish - timeStart).count();
+    if (DELTA - elapsed > 0) {
+        usleep(DELTA - elapsed);
+    }
 }
 
 Gameloop::~Gameloop() {

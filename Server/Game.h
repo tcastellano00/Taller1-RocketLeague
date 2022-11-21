@@ -17,12 +17,6 @@ private:
     Gameloop gameLoop;
 
 public:
-    /*
-    Game();
-
-    Game(
-        const std::string& name,
-        int maxClients); */
 
     /*
     * Construye el juego con la conexion del
@@ -48,9 +42,13 @@ public:
     * */
     int getNumberOfConnectedClients();
 
+    int getMaxClients();
+
     bool isFull();
 
     void launch();
+
+    void finish();
 
     /*
     * Libera los recursos.

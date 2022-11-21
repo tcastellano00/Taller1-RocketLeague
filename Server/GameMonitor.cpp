@@ -13,8 +13,6 @@ bool GameMonitor::createGame(
     if (this->games.find(gameName) != this->games.end())
         return false;
 
-    //Game* game = new Game(gameName, maxClient, clientConnection);
-
     this->games.try_emplace(gameName,gameName,maxClient,clientConnection);
 
     clientConnection.setGameName(gameName);
@@ -26,8 +24,6 @@ bool GameMonitor::addPlayerIfNotFull(
     const std::string& gameName, 
     ClientConnection& clientConnection) {
     std::lock_guard<std::mutex> lock(mutex);
-
-    std::cout << "Se union el jugador " << clientConnection.getName() << std::endl;
 
     //Veo si la partida no existe
     if (this->games.find(gameName) == this->games.end())
@@ -58,5 +54,36 @@ bool GameMonitor::startIfLastPlayer(
 }
 
 std::string GameMonitor::listGames() {
-    return "";
+    std::string result = "";
+    std::map<std::string, Game>::iterator it;
+
+    for (it = this->games.begin(); it != this->games.end(); ++it) {
+        result += "\n"; //Break line.
+        result += it->second.getName() + " " + 
+                     std::to_string(it->second.getNumberOfConnectedClients()) + "/" +
+                     std::to_string(it->second.getMaxClients());
+    }
+
+    return result;
+}
+
+void GameMonitor::finishGame(
+    const std::string& gameName) {
+    std::lock_guard<std::mutex> lock(mutex);
+
+    this->games.at(gameName).finish();
+}
+
+void GameMonitor::finishGames() {
+    std::map<std::string, Game>::iterator it;
+
+    for (it = this->games.begin(); 
+         it != this->games.end(); 
+         ++it) {
+        it->second.finish();
+    }
+}
+
+GameMonitor::~GameMonitor() {
+    this->finishGames();
 }

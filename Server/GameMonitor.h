@@ -35,15 +35,32 @@ public:
         const std::string& gameName, 
         ClientConnection& clientConnection);
     
+    /*
+    * Empieza la partida si se unio el ultimo jugador.
+    * */
     bool startIfLastPlayer(
         const std::string& gameName);
 
+    /*
+    * Lista las partidas.
+    * */
     std::string listGames();
+
+    /*
+    * Termina una partida.
+    * */
+    void finishGame(
+        const std::string& gameName);
+
+    /*
+    * Termina todas las partidas.
+    * */
+    void finishGames();
 
     /*
     * Libera los recursos.
     * */
-    ~GameMonitor() = default;
+    ~GameMonitor();
 };
 
 #endif

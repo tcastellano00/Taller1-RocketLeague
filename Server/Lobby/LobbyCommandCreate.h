@@ -6,8 +6,6 @@
 #include "LobbyCommand.h"
 #include "../GameMonitor.h"
 
-
-
 class LobbyCommandCreate : public LobbyCommand {   
 public:
     explicit LobbyCommandCreate(const std::string &arguments);

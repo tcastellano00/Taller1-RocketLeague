@@ -22,8 +22,7 @@ public:
     * Construye el ClientConnection.
     * */
     explicit ClientConnection(
-        Socket& socket, 
-        const std::string& clientName);
+        Socket& socket);
 
     /*
     * Obtiene el id del cliente.
@@ -41,6 +40,8 @@ public:
     * Obtiene el nombre del cliente.
     * */
     std::string getName();
+
+    void setName(std::string name);
 
     ClientConnection(const ClientConnection&) = delete;
     ClientConnection& operator=(const ClientConnection&) = delete;

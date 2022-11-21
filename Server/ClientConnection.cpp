@@ -8,8 +8,7 @@ ClientConnection::ClientConnection() :
     }
 
 ClientConnection::ClientConnection(
-    Socket& socket, 
-    const std::string& clientName) :
+    Socket& socket) :
     socket(std::move(socket)) {
         this->clientName = "";
         this->clientName = clientName;
@@ -21,6 +20,27 @@ int ClientConnection::getId() {
 
 std::string ClientConnection::getName() {
     return this->clientName;
+}
+
+void ClientConnection::setName(std::string name) {
+    this->clientName = name;
+}
+
+Socket& ClientConnection::getSocketReference() {
+    return this->socket;
+}
+
+void ClientConnection::setGameName(std::string newGameName) {
+    this->gameName = newGameName;
+    this->inAGame = true;
+}
+
+std::string ClientConnection::getGameName() {
+    return this->gameName;
+}
+
+bool ClientConnection::getInAGame() {
+    return this->inAGame;
 }
 
 ClientConnection::ClientConnection(ClientConnection&& other): 
@@ -36,22 +56,4 @@ ClientConnection& ClientConnection::operator=(ClientConnection&& other) {
     this->clientName = other.getName();
 
     return *this;
-}
-
-Socket& ClientConnection::getSocketReference() {
-    return this->socket;
-}
-
-
-void ClientConnection::setGameName(std::string newGameName) {
-    this->gameName = newGameName;
-    this->inAGame = true;
-}
-
-std::string ClientConnection::getGameName() {
-    return this->gameName;
-}
-
-bool ClientConnection::getInAGame() {
-    return this->inAGame;
 }

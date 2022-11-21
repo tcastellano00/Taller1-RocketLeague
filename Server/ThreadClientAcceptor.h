@@ -21,6 +21,12 @@ private:
     */
     void cleanDeathClients(
         std::list<ThreadClientLobby>& lobbyThreads);
+
+    void stopClientLobbyThreads(
+        std::list<ThreadClientLobby>& lobbyThreads);
+
+    void stopGames(
+        GameMonitor& gameMonitor);
     
 protected:
     void run() override;

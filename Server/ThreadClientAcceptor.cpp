@@ -5,7 +5,6 @@
 #include "../Common/Socket.h"
 #include "../Common/LibError.h"
 
-#include "ThreadClient.h"
 #include "ThreadClientAcceptor.h"
 #include "ClientConnection.h"
 #include "ThreadClientLobby.h"
@@ -41,11 +40,9 @@ void ThreadClientAcceptor::run() {
             if (not this->isReceiving)
                 break;
 
-            ClientConnection client(clientSocket, "nombrexd");
+            ClientConnection client(clientSocket);
             clientLobbyThreads.emplace_back(client, gameMonitor);
             clientLobbyThreads.back().start();
-
-            // al monitor hay que agregarle el clientConnection 
 
             this->cleanDeathClients(clientLobbyThreads);
         } catch(const LibError &e) {
@@ -53,11 +50,24 @@ void ThreadClientAcceptor::run() {
         }
     }
 
-    for (auto clientThread = clientLobbyThreads.begin(); 
-              clientThread != clientLobbyThreads.end(); 
-              ++clientThread) {
-                (*clientThread).stop();
-              }
+    stopClientLobbyThreads(clientLobbyThreads);
+    stopGames(gameMonitor);
+}
+
+void ThreadClientAcceptor::stopClientLobbyThreads(
+        std::list<ThreadClientLobby>& lobbyThreads) {
+    std::cout << "stopClientLobbyThreads" << std::endl;
+    for (auto lobbyThread = lobbyThreads.begin(); 
+              lobbyThread != lobbyThreads.end(); 
+              ++lobbyThread) {
+        (*lobbyThread).stop();
+    }
+}
+
+void ThreadClientAcceptor::stopGames(
+    GameMonitor& gameMonitor) {
+    std::cout << "stopGames" << std::endl;
+    gameMonitor.finishGames();
 }
 
 void ThreadClientAcceptor::close_reception() {

@@ -1,6 +1,7 @@
 #include <string>
 
 #include "ThreadClientSender.h"
+#include "../Common/LibError.h"
 #include "../Common/GameStatusSerializer.h"
 
 ThreadClientSender::ThreadClientSender(Socket& socket)
@@ -15,14 +16,26 @@ void ThreadClientSender::run(){
     if (open)
         protocol.sendMessage("start!");
 
-    while (open) {
-        GameStatus gameStatus = queue.pop();
+    try {
+        while (open) {
+            GameStatus gameStatus = queue.pop();
 
-        std::string message = gameStatusSerializer.serialize(gameStatus);
-        
-        protocol.sendMessage(message);
+            if (gameStatus.isClosed()) {
+                protocol.sendMessage("close");
+                protocol.close();
+                open = false;
+                break;
+            } 
 
-        this->open = (not protocol.isClosed());
+            std::string message = gameStatusSerializer.serialize(gameStatus);
+            
+            protocol.sendMessage(message);
+
+            this->open = (not protocol.isClosed());
+        }
+    } 
+    catch(const LibError &e) {
+        this->open = false;
     }
 }
 
@@ -30,6 +43,6 @@ void ThreadClientSender::push(GameStatus gameStatus) {
     this->queue.push(gameStatus);
 }
 
-ThreadClientSender::~ThreadClientSender(){
+ThreadClientSender::~ThreadClientSender() {
     this->join();
 }

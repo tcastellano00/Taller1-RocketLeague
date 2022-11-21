@@ -36,6 +36,7 @@ void ThreadClientLobby::run(){
             }
         }
     } catch(const LibError &e) { }
+
 }
 
 void ThreadClientLobby::stop() {

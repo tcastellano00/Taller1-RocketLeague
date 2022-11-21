@@ -2,20 +2,6 @@
 #include "Game.h"
 #include "Gameloop.h"
 
-/*
-Game::Game() : connections() {
-    this->name = "";
-    this->maxClients = -1;
-}
-
-Game::Game(
-    const std::string& name,
-    int maxClients) : connections() {
-    this->name = name;
-    this->maxClients = maxClients;
-}
-*/
-
 Game::Game(
     const std::string& name,
     int maxClients,
@@ -49,6 +35,10 @@ int Game::getNumberOfConnectedClients() {
     return this->clients;
 }
 
+int Game::getMaxClients() {
+    return this->maxClients;
+}
+
 bool Game::isFull() {
     return (this->maxClients == this->getNumberOfConnectedClients());
 }
@@ -61,9 +51,11 @@ void Game::launch() {
     if (this->started)
         return;
 
-    std::cout << "Game::start" << std::endl;
-
     this->started = true;
     this->gameLoop.init(this->connections);
-    
+}
+
+void Game::finish() {
+    if(this->started)
+        this->gameLoop.stop();
 }

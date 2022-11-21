@@ -1,7 +1,8 @@
-#include "ThreadClientReceiver.h"
 #include "../Common/Queue.h"
-#include "ActionsClient/ActionsClient.h"
+#include "../Common/LibError.h"
 
+#include "ThreadClientReceiver.h"
+#include "ActionsClient/ActionsClient.h"
 
 ThreadClientReceiver::ThreadClientReceiver(
     Socket& newSktConecction, 
@@ -15,16 +16,18 @@ ThreadClientReceiver::ThreadClientReceiver(
 void ThreadClientReceiver::run(){
     std::cout << "ThreadClientReceiver::run" << std::endl;
 
-    while (not receiverProtocol.isClosed()) {
-        std::string message = receiverProtocol.reciveMessage();
+    try {
+        while (not receiverProtocol.isClosed()) {
+            std::string message = receiverProtocol.reciveMessage();
 
-        std::shared_ptr<ActionsClient> actionClient = ActionsClient::get_command_ptr(
-            message, 
-            sktConecction.getIdentifier()
-        );
+            std::shared_ptr<ActionsClient> actionClient = ActionsClient::get_command_ptr(
+                message, 
+                sktConecction.getIdentifier()
+            );
 
-        recibingQueue.push(actionClient);
-    }
+            recibingQueue.push(actionClient);
+        }
+    } catch(const LibError &e) { }
 }
 
 ThreadClientReceiver::~ThreadClientReceiver(){
