@@ -96,7 +96,7 @@ void Physics::simulateTimeStep(){
     world.Step(this->timeStep,this->velocityIterations,this->positionIterations);
 }
 
-b2Body* Physics::createCar(int numberOfCar) {
+CarPhysics* Physics::createCar(int numberOfCar) {
     b2BodyDef carBodyDef;
     carBodyDef.type = b2_dynamicBody;
     if (numberOfCar == 0) {carBodyDef.position.Set(FIELDHALFWIDTH/2, FIELDHEIGTH/2);}
@@ -113,7 +113,10 @@ b2Body* Physics::createCar(int numberOfCar) {
     fixtureDef.density = 0.15f;
     fixtureDef.friction = CARFRICTION;
     car->CreateFixture(&fixtureDef);
-    return car;
+    CarPhysics* carPhysics = new CarPhysics(car, FACINGRIGHT);
+    return carPhysics;
+
+
 }
 
 void Physics::createGround() {
@@ -128,54 +131,54 @@ void Physics::createGround() {
 
 void Physics::moveCarRight(int socketId) {
 
-    b2Body* car = (this->cars[socketId]);
+    b2Body* carBody = this->cars[socketId]->getCarBody();
     // car->SetTransform(
     //     b2Vec2(car->GetPosition().x + 1, car->GetPosition().y), car->GetAngle()
     // );
-    b2Vec2 vel = car->GetLinearVelocity();
+    b2Vec2 vel = carBody->GetLinearVelocity();
     float force = MOVEMENTFORCE;
     if ( vel.x ==  0 ) {
-        car->ApplyLinearImpulse(b2Vec2(60, 0), car->GetWorldCenter(), true);
+        carBody->ApplyLinearImpulse(b2Vec2(60, 0), carBody->GetWorldCenter(), true);
     }
 
-    car->ApplyForceToCenter(b2Vec2(force,0), true);
+    carBody->ApplyForceToCenter(b2Vec2(force,0), true);
 
 
 }
 
 void Physics::moveCarLeft(int socketId) {
-    b2Body* car = (this->cars[socketId]);
+    b2Body* carBody = this->cars[socketId]->getCarBody();
 
     /*car->SetTransform(
         b2Vec2(car->GetPosition().x - 1, car->GetPosition().y), car->GetAngle()
     );*/
     float force = MOVEMENTFORCE*(-1);
-    b2Vec2 vel = car->GetLinearVelocity();
+    b2Vec2 vel = carBody->GetLinearVelocity();
     if ( vel.x ==  0 ) {
-        car->ApplyLinearImpulse(b2Vec2(-60, 0), car->GetWorldCenter(), true);
+        carBody->ApplyLinearImpulse(b2Vec2(-60, 0), carBody->GetWorldCenter(), true);
     }
-    car->ApplyForceToCenter(b2Vec2(force,0), true);
+    carBody->ApplyForceToCenter(b2Vec2(force,0), true);
 }
 
 void Physics::carJump(int socketId) {
-    b2Body* car = (this->cars[socketId]);
+    b2Body* carBody = this->cars[socketId]->getCarBody();
 
-    b2Vec2 vel = car->GetLinearVelocity();
+    b2Vec2 vel = carBody->GetLinearVelocity();
     float desiredVel = JUMPIMPULSE;
     float velChange = desiredVel - vel.y;
-    float impulse = car->GetMass() * velChange; //disregard time factor
-    car->ApplyLinearImpulse( b2Vec2(0, impulse), car->GetWorldCenter(), true);
+    float impulse = carBody->GetMass() * velChange; //disregard time factor
+    carBody->ApplyLinearImpulse( b2Vec2(0, impulse), carBody->GetWorldCenter(), true);
 }
 
 void Physics::flipCarRight(int socketId) {
-    b2Body* car = (this->cars[socketId]);
-    car->ApplyAngularImpulse(TORQUEIMPULSE, true);
+    b2Body* carBody = this->cars[socketId]->getCarBody();
+    carBody->ApplyAngularImpulse(TORQUEIMPULSE, true);
     //car->ApplyTorque(TORQUEFORCE, true);
 }
 
 void Physics::flipCarLeft(int socketId) {
-    b2Body* car = (this->cars[socketId]);
-    car->ApplyAngularImpulse(TORQUEIMPULSE*(-1), true);
+    b2Body* carBody = this->cars[socketId]->getCarBody();
+    carBody->ApplyAngularImpulse(TORQUEIMPULSE*(-1), true);
     //car->ApplyTorque(TORQUEFORCE*(-1), true);
 }
 
@@ -184,12 +187,11 @@ void Physics::carTurbo(int socketId){
 
     // }
 
-    b2Body* car = (this->cars[socketId]);
-    float angle = car->GetAngle()*(-1); //Multiplicamos por -1 para tenerlo en antihorario.
+    b2Body* carBody = this->cars[socketId]->getCarBody();
+    float angle = carBody->GetAngle()*(-1); //Multiplicamos por -1 para tenerlo en antihorario.
     float x = std::cos(angle)*TURBOFORCE;
     float y = std::sin(angle)*TURBOFORCE;
-    std::cout << angle << "    " << x << "     " << y << std::endl;
-    car->ApplyForceToCenter(b2Vec2(x, y),true);
+    carBody->ApplyForceToCenter(b2Vec2(x, y),true);
     //this->liquidNitrogen -= 1;
     
 }
@@ -201,9 +203,9 @@ GameStatus Physics::getGameStus(){
 
 
     std::list<PlayerModel> playerModels;
-    for (std::map<int, b2Body*>::iterator it = this->cars.begin(); it != this->cars.end(); ++it) {
-        b2Vec2 carCoord = it->second->GetPosition();
-        float angle = it->second->GetAngle();
+    for (std::map<int, CarPhysics*>::iterator it = this->cars.begin(); it != this->cars.end(); ++it) {
+        b2Vec2 carCoord = it->second->getCarBody()->GetPosition();
+        float angle = it->second->getCarBody()->GetAngle();
         
         float xOriginal = -CARHALFWIDTH;
         float yOriginal = CARHALFHEIGHT;
@@ -220,10 +222,10 @@ GameStatus Physics::getGameStus(){
 
     }
     newGameStatus.setPlayersModels(playerModels);
-    b2Vec2 ballCoord = this->ball->GetPosition();
+    b2Vec2 ballCoord = this->ball->getBody()->GetPosition();
     float ballCoordX = ballCoord.x - BALLRADIUS;
     float ballCoordY = ballCoord.y + BALLRADIUS;
-    BallModel bm(ballCoordX, ballCoordY, ball->GetAngle());
+    BallModel bm(ballCoordX, ballCoordY, ball->getBody()->GetAngle());
     newGameStatus.setBallModel(bm);
 
     //The goals of the left team are the ones scored in the right goal, and viceversa
@@ -253,7 +255,7 @@ void Physics::createBall(){
     b2BodyDef ballBodyDef;
     ballBodyDef.type = b2_dynamicBody;
     ballBodyDef.position.Set(FIELDHALFWIDTH, FIELDHEIGTH/2);
-    this->ball = world.CreateBody(&ballBodyDef);
+    b2Body* ballBody = world.CreateBody(&ballBodyDef);
 
 
     //Textures
@@ -267,8 +269,9 @@ void Physics::createBall(){
     fixtureDef.restitution = 0.9f;
     //fixtureDef.isSensor = true;
     fixtureDef.friction = CARFRICTION;
-    this->ball->CreateFixture(&fixtureDef);
+    ballBody->CreateFixture(&fixtureDef);
     //return ball;
+    this->ball = new BallPhysics(ballBody);
 }
 
 GoalSensor* Physics::createGoal(SideOfGoal side) {
@@ -298,4 +301,9 @@ GoalSensor* Physics::createGoal(SideOfGoal side) {
 Physics::~Physics() {
     delete leftGoal;
     delete rightGoal;
+    for (std::map<int, CarPhysics*>::iterator it = this->cars.begin(); it != this->cars.end(); ++it) {
+        delete it->second;
+    }
+    delete ball;
+
 }

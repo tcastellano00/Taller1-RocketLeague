@@ -8,6 +8,8 @@
 #include "../ClientConnection.h"
 #include "GoalSensor.h"
 #include "ContactListener.h"
+#include "Car.h"
+#include "BallPhysics.h"
 
 enum _entityCategory {
     BOUNDARY = 0x0001,
@@ -17,29 +19,26 @@ enum _entityCategory {
   };
 
 class Physics{
-    private:
-    int numberOfPlayers;
-    float timeStep;
-    int32 velocityIterations = 6;
-    int32 positionIterations = 2;
-    GoalSensor* leftGoal;
-    GoalSensor* rightGoal;
-    b2Timer timer;
-    int liquidNitrogen = 50; //Cantidad de combustible para el Turbo
-    int gameTime = 180000; //milisegundos
-    ContactListener contactListener;
+	private:
+	int numberOfPlayers;
+	float timeStep;
+	int32 velocityIterations = 6;
+	int32 positionIterations = 2;
+	GoalSensor* leftGoal;
+	GoalSensor* rightGoal;
+	b2Timer timer;
+	int liquidNitrogen = 50; //Cantidad de combustible para el Turbo
+	int gameTime = 180000; //milisegundos
+	ContactListener contactListener;
+	std::map<int, CarPhysics*> cars;
+	//b2Body* car;
+	BallPhysics* ball;
+	b2Body* ground;
+	b2Body* box;
 
-
-    
-    std::map<int, b2Body*> cars;
-    //b2Body* car;
-    b2Body* ball;
-    b2Body* ground;
-    b2Body* box;
-
-    b2Body* createCar(int numberOfCar);
-    void createGround();
-   GoalSensor* createGoal(SideOfGoal side);
+	CarPhysics* createCar(int numberOfCar);
+	void createGround();
+	GoalSensor* createGoal(SideOfGoal side);
     
     
 

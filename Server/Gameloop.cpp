@@ -44,7 +44,10 @@ void Gameloop::run() {
 
         while (!recibingQueue.empty() && commandsCounter < LIMITOFCOMANDS) {
             std::shared_ptr<ActionsClient> action = recibingQueue.pop();
-            action->execute(gamePhysics);
+            if (action != NULL) {
+                action->execute(gamePhysics);
+            }
+            
             
             /*
             -- TODO: El juego se va a manejar con un temporizador.

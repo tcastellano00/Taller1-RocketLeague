@@ -1,4 +1,5 @@
-// #include "Car.h"
+#include "Car.h"
+
 
 // CarPhisics::CarPhisics(b2World * &m_world): m_world(m_world){
 
@@ -26,3 +27,16 @@
 //     //No supe como ubicar el circulo.
 //     dynamicBody->CreateFixture(&myFixtureDef); //add a fixture to the body
 // }
+
+CarPhysics::CarPhysics(b2Body* body, FacingStatus facing){
+    body->SetUserData(this);
+    this->carBody = body;
+    this->facingStatus = facing;
+    this->airStatus = AIR;
+}
+
+CarPhysics::CarPhysics() {}
+
+b2Body* CarPhysics::getCarBody() {
+    return this->carBody;
+}
