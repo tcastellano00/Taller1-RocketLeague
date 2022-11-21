@@ -18,12 +18,8 @@ class GameStatusMonitor{
     GameStatus getGameStatus();
 
     void statusUpdate(GameStatus newGameStatus);
+    
     void setClose();
-
-    void movePlayerRight();
-    void movePlayerLeft();
-
-    PlayerModel getPlayer();
 };
 
 #endif

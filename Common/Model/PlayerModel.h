@@ -6,18 +6,15 @@ public:
     float x;
     float y;
     float angle;
-    bool isDoingTurbo;
+    bool turbo;
 
     PlayerModel();
     PlayerModel(float xCoord, float yCoord, float ang, bool turbo);
-    void moveRight();
-    void moveLeft();
-
-    //void setCoordX();
 
     float getCoordX();
     float getCoordY();
     float getAngle();
+    bool isDoingTurbo();
 
     ~PlayerModel();
 };

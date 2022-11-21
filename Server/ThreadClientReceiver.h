@@ -4,9 +4,7 @@
 #include "../Common/Thread.h"
 #include "../Common/Socket.h"
 #include "../Common/Queue.h"
-#include "../Common/Command.h"
 #include "../Common/Protocol.h"
-#include "../Common/GameStatus.h"
 #include "ActionsClient/ActionsClient.h"
 
 class ThreadClientReceiver : public Thread{

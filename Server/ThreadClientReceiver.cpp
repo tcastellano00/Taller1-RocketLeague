@@ -18,14 +18,14 @@ void ThreadClientReceiver::run(){
     while (not receiverProtocol.isClosed()) {
         std::string message = receiverProtocol.reciveMessage();
 
-        //std::cout << "ThreadClientReceiver::message" << std::endl;
-        //std::cout << message << std::endl;
+        std::shared_ptr<ActionsClient> actionClient = ActionsClient::get_command_ptr(
+            message, 
+            sktConecction.getIdentifier()
+        );
 
-        std::shared_ptr<ActionsClient> actionClient = ActionsClient::get_command_ptr(message, sktConecction.getIdentifier());
         recibingQueue.push(actionClient);
     }
 }
-
 
 ThreadClientReceiver::~ThreadClientReceiver(){
     this->join();

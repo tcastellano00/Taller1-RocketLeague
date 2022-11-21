@@ -21,22 +21,7 @@ void GameStatusMonitor::statusUpdate(GameStatus newGameStatus){
     gamestatus = newGameStatus;
 }
 
-void GameStatusMonitor::movePlayerRight() {
-    std::lock_guard<std::mutex> lock(gameMutex);
-    gamestatus.movePlayerRight();
-}
-
-void GameStatusMonitor::movePlayerLeft(){
-    std::lock_guard<std::mutex> lock(gameMutex);
-    gamestatus.movePlayerLeft();
-}
-
 void GameStatusMonitor::setClose() {
     std::lock_guard<std::mutex> lock(gameMutex);
     gamestatus.setClose();
-}
-
-PlayerModel GameStatusMonitor::getPlayer() {
-    std::lock_guard<std::mutex> lock(gameMutex);
-    return gamestatus.getPlayer();
 }
