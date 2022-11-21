@@ -33,7 +33,7 @@ std::string GameStatusSerializer::serialize(GameStatus gameStatus) {
                 ss << (*playerModel).getCoordX() << " ";
                 ss << (*playerModel).getCoordY() << " ";
                 ss << (*playerModel).getAngle() << " ";
-                ss << (*playerModel).isDoingTurbo() << " ";
+                //ss << (*playerModel).isDoingTurbo() << " ";
     }
 
     return ss.str();
@@ -74,7 +74,7 @@ GameStatus GameStatusSerializer::deserialize(std::string gameStatusString) {
         ss >> xCoordPlayer;
         ss >> yCoordPlayer;
         ss >> anglePlayer;
-        ss >> turbo;
+        //ss >> turbo;
         playersModels.emplace_back(xCoordPlayer, yCoordPlayer, anglePlayer, turbo);
     }
 
