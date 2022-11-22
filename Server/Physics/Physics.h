@@ -10,6 +10,8 @@
 #include "ContactListener.h"
 #include "Car.h"
 #include "BallPhysics.h"
+#define GAMETIME 30000 //TIENE QUE SER 3 MINUTOS A PRIORI
+#define EXTRATIME 30000 
 
 enum _entityCategory {
   BOUNDARY = 0x0001,
@@ -30,7 +32,7 @@ class Physics{
     GoalSensor* rightGoal;
     b2Timer timer;
     int liquidNitrogen = 50; //Cantidad de combustible para el Turbo
-    int gameTime = 180000; //milisegundos
+    int gameTime = GAMETIME; //milisegundos
     ContactListener contactListener;
     std::map<int, CarPhysics*> cars;
     //b2Body* car;
@@ -69,6 +71,10 @@ class Physics{
     void createBall();
 
     void carStopTurbo(int socketId);
+
+    void carStopAccelerating(int socketId);
+
+    void carStopFlip(int socketId);
 
     ~Physics();
 };

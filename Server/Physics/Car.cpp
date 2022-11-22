@@ -1,4 +1,8 @@
 #include "Car.h"
+#include <cmath>
+#define FLIPIMPULSE 3000
+#define PI  3.14159265358979323846
+#define FLIPANGULARVEL PI*2
 
 
 CarPhysics::CarPhysics(b2Body* body, PlayerSide side){
@@ -8,6 +12,10 @@ CarPhysics::CarPhysics(b2Body* body, PlayerSide side){
     this->side = side;
     this->airStatus = AIR;
     this->isDoingTurbo = false;
+    this->acceleratingStatus = NOTACCELERATING;
+    this->sensorStatus = NOTSENSOR;
+    this->isFliping = false;
+    this->flipStartAngle = 0;
 }
 
 CarPhysics::CarPhysics() {}
@@ -36,24 +44,12 @@ FacingStatus CarPhysics::getFacingStatus() {
     return this->facingStatus;
 }
 
-void CarPhysics::setBallInFrontSensor(bool cond) {
-    ballInFrontSensor = cond;
-}
-void CarPhysics::setBallInBackSensor(bool cond) {
-    ballInBackSensor = cond;
-}
-void CarPhysics::setBallInBottomSensor(bool cond) {
-    ballInBottomSensor = cond;
+void CarPhysics::setSensorStatus(SensorStatus status) {
+    this->sensorStatus = status;
 }
 
-bool CarPhysics::getBallInFrontSensor() {
-    return ballInFrontSensor;
-}
-bool CarPhysics::getBallInBackSensor() {
-    return ballInBackSensor;
-}
-bool CarPhysics::getBallInBottomSensor() {
-    return ballInBottomSensor;
+SensorStatus CarPhysics::getSensorStatus() {
+    return this->sensorStatus;
 }
 
 PlayerSide CarPhysics::getSide() {
@@ -70,4 +66,42 @@ void CarPhysics::setDoingTurbo(bool doing) {
 
 bool CarPhysics::getDoingTurbo() {
     return this->isDoingTurbo;
+}
+
+void CarPhysics::setAcceleratingStatus(AcceleratingStatus status) {
+    this->acceleratingStatus = status;
+}
+
+AcceleratingStatus CarPhysics::getAcceleratingStatus() {
+    return this->acceleratingStatus;
+}
+
+void CarPhysics::flipJump() {
+    if (this->acceleratingStatus == ACCELERATINGRIGHT) {
+        this->carBody->ApplyLinearImpulse(b2Vec2(FLIPIMPULSE, 0), this->carBody->GetWorldCenter(), true);
+        this->carBody->SetAngularVelocity(FLIPANGULARVEL);
+
+    } else {
+        this->carBody->ApplyLinearImpulse(b2Vec2(FLIPIMPULSE*(-1), 0), this->carBody->GetWorldCenter(), true);
+        this->carBody->SetAngularVelocity(FLIPANGULARVEL* (-1));
+    }
+    this->isFliping = true;
+    this->flipStartAngle = carBody->GetAngle(); 
+    
+}
+
+void CarPhysics::swapFrontBackSensor() {
+    if (this->sensorStatus == BALLINBACKSENSOR){
+        this->sensorStatus = BALLINFRONTSENSOR;
+    } else if (this->sensorStatus == BALLINFRONTSENSOR) {
+        this->sensorStatus = BALLINBACKSENSOR;
+    }
+}
+
+void CarPhysics::updateFlipStatus() {
+    if (this->isFliping && abs(this->carBody->GetAngle() - this->flipStartAngle) >= 2*PI) {
+        this->isFliping = false;
+        this->flipStartAngle = 0;
+        this->carBody->SetAngularVelocity(0);
+    }
 }

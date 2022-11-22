@@ -94,6 +94,6 @@ void Score::render(SDL2pp::Renderer &renderer){
     for (int i = 0; i < (int)digitsSeconds.size(); ++i) {
         vectorNumberAnimations[digitsSeconds[i]].render(renderer, SDL2pp::Rect(SECSPOSX + i*(NUMBERWIDTH + NUMBERSPACE), TIMEPOSY, NUMBERWIDTH, NUMBERHEIGHT), flip, 0);
     }
-    colon.render(renderer, SDL2pp::Rect(COLONPOSX, TIMEPOSY, NUMBERWIDTH, NUMBERHEIGHT), flip, 0);
+    //colon.render(renderer, SDL2pp::Rect(COLONPOSX, TIMEPOSY, NUMBERWIDTH, NUMBERHEIGHT), flip, 0);
 
 }

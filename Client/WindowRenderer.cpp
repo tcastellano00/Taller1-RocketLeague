@@ -37,8 +37,11 @@ void WindowRenderer::launch() {
         renderer.SetDrawColor(255,255,255,255);
 
         // Usar factory
+
         SDL2pp::Texture wallsAndScore(renderer, 
             SDL2pp::Surface("assets/wallsAndScore.png").SetColorKey(true, 0));
+
+        //wallsAndScore.SetBlendMode(SDL_BLENDMODE_NONE);
 
         SDL2pp::Texture backgroud(renderer, 
             SDL2pp::Surface("assets/background.png").SetColorKey(true, 0));
@@ -51,6 +54,7 @@ void WindowRenderer::launch() {
 
         SDL2pp::Texture bowTexture(renderer, 
             SDL2pp::Surface("assets/bow.png").SetColorKey(true, 0));   //bow = arco
+
         
         SDL2pp::Texture zeroTexture(renderer, 
             SDL2pp::Surface("assets/Numbers/zero.png").SetColorKey(true, 0));
