@@ -26,6 +26,7 @@ std::string GameStatusSerializer::serialize(GameStatus gameStatus) {
     ss << ballModel.getCoordX() << " ";
     ss << ballModel.getCoordY() << " ";
     ss << ballModel.getAngle() << " ";
+    ss << ballModel.getColour() << " ";
 
     for (auto playerModel = playersModels.begin(); 
               playerModel != playersModels.end(); 
@@ -33,7 +34,12 @@ std::string GameStatusSerializer::serialize(GameStatus gameStatus) {
                 ss << (*playerModel).getCoordX() << " ";
                 ss << (*playerModel).getCoordY() << " ";
                 ss << (*playerModel).getAngle() << " ";
-                //ss << (*playerModel).isDoingTurbo() << " ";
+                if (playerModel->isDoingTurbo()) {
+                    ss << "turbo" << " ";
+                } else {
+                    ss << "noturbo" << " ";
+                }
+                ss << playerModel->getFacing() << " ";
     }
 
     return ss.str();
@@ -61,21 +67,33 @@ GameStatus GameStatusSerializer::deserialize(std::string gameStatusString) {
     float xCoordBall;
     float yCoordBall;
     float angleBoard;
+    std::string colour;
     ss >> xCoordBall;
     ss >> yCoordBall;
     ss >> angleBoard;
-    BallModel ballModel(xCoordBall, yCoordBall, angleBoard);
+    ss >> colour;
+    BallModel ballModel(xCoordBall, yCoordBall, angleBoard, colour);
     
     for (int i = 0; i < numPlayers; ++i) {
         float xCoordPlayer;
         float yCoordPlayer;
         float anglePlayer;
         bool turbo;
+        std::string turboStr;
+        std::string facing;
         ss >> xCoordPlayer;
         ss >> yCoordPlayer;
         ss >> anglePlayer;
-        //ss >> turbo;
-        playersModels.emplace_back(xCoordPlayer, yCoordPlayer, anglePlayer, turbo);
+        ss >> turboStr;
+        ss >> facing;
+
+        if (turboStr == "turbo") {
+            turbo = true;
+        } else {// turbo = "noturbo"
+            turbo = false;
+        }
+
+        playersModels.emplace_back(xCoordPlayer, yCoordPlayer, anglePlayer, turbo, facing);
     }
 
     GameStatus gm(ballModel, scoreModel, playersModels);

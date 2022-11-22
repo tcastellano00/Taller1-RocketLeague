@@ -21,6 +21,8 @@ class Animation {
     void update(float dt);
     void render(SDL2pp::Renderer &renderer, const SDL2pp::Rect dest, SDL_RendererFlip &flipType, float angle);
 
+    SDL2pp::Texture& getTexture();
+
 
    private:
     void advanceFrame();

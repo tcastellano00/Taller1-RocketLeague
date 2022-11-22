@@ -4,6 +4,7 @@
 #include "Animation.h"
 #include "../../Common/Model/PlayerModel.h"
 #include "../../Common/Model/BallModel.h"
+#include <string>
 
 
 class Ball{
@@ -12,6 +13,8 @@ class Ball{
     float x;
     float y;
     float angle;
+    std::string colour;
+
 
     public:
     Ball(SDL2pp::Texture &texture);

@@ -52,3 +52,7 @@ void Animation::advanceFrame() {
     this->currentFrame += 1;
     this->currentFrame = this->currentFrame % this->numFrames; 
 }
+
+SDL2pp::Texture& Animation::getTexture() {
+    return this->texture;
+}

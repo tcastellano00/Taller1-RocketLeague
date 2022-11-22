@@ -2,11 +2,12 @@
 
 PlayerModel::PlayerModel() {}
 
-PlayerModel::PlayerModel(float xCoord, float yCoord, float ang, bool turbo) {
+PlayerModel::PlayerModel(float xCoord, float yCoord, float ang, bool turbo, std::string face) {
     x = xCoord;
     y = yCoord;
     angle = ang;
     turbo = turbo;
+    facing = face;
 }
 
 PlayerModel::~PlayerModel(){}
@@ -25,4 +26,8 @@ float PlayerModel::getAngle() {
 
 bool PlayerModel::isDoingTurbo() {
     return this->turbo;
+}
+
+std::string PlayerModel::getFacing(){
+    return this->facing;
 }

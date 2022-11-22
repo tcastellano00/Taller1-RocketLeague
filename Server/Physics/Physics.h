@@ -10,7 +10,7 @@
 #include "ContactListener.h"
 #include "Car.h"
 #include "BallPhysics.h"
-#define GAMETIME 30000 //TIENE QUE SER 3 MINUTOS A PRIORI
+#define GAMETIME 180000 //TIENE QUE SER 3 MINUTOS A PRIORI
 #define EXTRATIME 30000 
 
 enum _entityCategory {

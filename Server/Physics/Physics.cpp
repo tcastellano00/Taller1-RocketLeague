@@ -107,6 +107,8 @@ CarPhysics* Physics::createCar(int numberOfCar) {
     carBodyDef.type = b2_dynamicBody;
     if (numberOfCar == 0) {carBodyDef.position.Set(FIELDHALFWIDTH/2, FIELDHEIGTH/2);}
     if (numberOfCar == 1) {carBodyDef.position.Set(3*FIELDHALFWIDTH/2, FIELDHEIGTH/2);}
+    if (numberOfCar == 2) {carBodyDef.position.Set(FIELDHALFWIDTH/3, FIELDHEIGTH/2);}
+    if (numberOfCar == 3) {carBodyDef.position.Set(5*FIELDHALFWIDTH/3, FIELDHEIGTH/2);}
     b2Body* car = world.CreateBody(&carBodyDef);
 
     //Textures
@@ -131,7 +133,12 @@ CarPhysics* Physics::createCar(int numberOfCar) {
     float frontSensorHalfHeight = CARHALFHEIGHT;
     float frontSensorHalfWidth = FRONTSENSORHALFWIDTH;
 
-    polygonShapeSensor.SetAsBox(frontSensorHalfWidth, frontSensorHalfHeight, b2Vec2(CARHALFWIDTH + frontSensorHalfWidth, 0), 0);
+    if (numberOfCar == 0 || numberOfCar == 2) {
+        polygonShapeSensor.SetAsBox(frontSensorHalfWidth, frontSensorHalfHeight, b2Vec2(CARHALFWIDTH + frontSensorHalfWidth, 0), 0);
+
+    }else{
+        polygonShapeSensor.SetAsBox(frontSensorHalfWidth, frontSensorHalfHeight, b2Vec2((-1)*CARHALFWIDTH + frontSensorHalfWidth*(-1), 0), 0);
+    }
 
     car->CreateFixture(&sensorCarFront);
 
@@ -146,12 +153,13 @@ CarPhysics* Physics::createCar(int numberOfCar) {
     float bottomsensorHalfWidht = CARHALFWIDTH;
     float bottomsensorHalfHeight = BOTTOMSENSORHALFHEIGTH;
 
-    polygonShapeSensor1.SetAsBox(bottomsensorHalfWidht, bottomsensorHalfHeight, b2Vec2(0,-CARHALFHEIGHT - bottomsensorHalfHeight), 0);
+    polygonShapeSensor1.SetAsBox(bottomsensorHalfWidht, bottomsensorHalfHeight,
+     b2Vec2(0,CARHALFHEIGHT*(-1) + bottomsensorHalfHeight * (-1)), 0);
 
     car->CreateFixture(&sensorBottomFront);
 
     CarPhysics* carPhysics;
-    if (numberOfCar == 0) {
+    if (numberOfCar == 0 || numberOfCar == 2) {
         carPhysics = new CarPhysics(car, LEFTPLAYER);
     } else {
         carPhysics = new CarPhysics(car, RIGHTPLAYER);
@@ -369,13 +377,30 @@ GameStatus Physics::getGameStatus(){
         float yOriginal = CARHALFHEIGHT;
 
 
-        // float xPrime = xOriginal * std::cos(angle) - yOriginal * std::sin(angle);
-        // float yPrime = xOriginal * std::sin(angle) + yOriginal * std::cos(angle);
+        //float xPrime = xOriginal * std::cos(angle*(-1)) - yOriginal * std::sin(angle*(-1));
+        //float yPrime = xOriginal * std::sin(angle*(-1)) + yOriginal * std::cos(angle*(-1));
 
 
         float xCar = carCoord.x + xOriginal;
         float yCar = carCoord.y + yOriginal;
-        PlayerModel pm(xCar, yCar, angle, false);
+        
+        std::string facing;
+
+        if (it->second->getSide() == LEFTPLAYER) {
+            if (it->second->getFacingStatus() == FACINGBACK) {
+                facing = "left";
+            } else {
+                facing = "right";
+            }
+        } else{
+            if (it->second->getFacingStatus() == FACINGFRONT) {
+                facing = "left";
+            } else {
+                facing = "right";
+            }
+        }
+
+        PlayerModel pm(xCar, yCar, angle, it->second->getDoingTurbo(), facing);
         playerModels.push_back(pm);
 
 
@@ -384,7 +409,27 @@ GameStatus Physics::getGameStatus(){
     b2Vec2 ballCoord = this->ball->getBody()->GetPosition();
     float ballCoordX = ballCoord.x - BALLRADIUS;
     float ballCoordY = ballCoord.y + BALLRADIUS;
-    BallModel bm(ballCoordX, ballCoordY, ball->getBody()->GetAngle());
+    std::string colour;
+    switch(ball->getShotType()) {
+        case NONE: {
+            colour = "normal";
+            break;
+        }
+        case REDSHOT: {
+            colour = "red";
+            break;
+        }
+        case GOLDSHOT: {
+            colour = "gold";
+            break;
+        }
+        case PURPLESHOT: {
+            colour = "purple";
+            break;
+        }
+    }
+
+    BallModel bm(ballCoordX, ballCoordY, ball->getBody()->GetAngle(), colour);
 
     newGameStatus.setBallModel(bm);
 

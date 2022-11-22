@@ -12,8 +12,9 @@ void Player::update(PlayerModel playerModel, int dt) {
     float newXPosTransformed = CoordsTransformator::transformX(newXPos);
     float newYPosTransformed = CoordsTransformator::transformY(newYpos);
 
+    std::string facing = playerModel.getFacing();
 
-    if(newXPosTransformed < x){
+    if(facing == "left"){
         facingLeft = true;
     }
     else{
