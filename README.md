@@ -9,7 +9,9 @@ TP Final de la materia Taller de programación 1
 
 
 # Informes
-[Informe Técnico](https://docs.google.com/document/d/1GZ37hIVslaq5qQRa4rIikDMMmVd59vRMnn6P-WR4FyY/edit?usp=sharing)    
+[Documentación Técnica](https://docs.google.com/document/d/1GZ37hIVslaq5qQRa4rIikDMMmVd59vRMnn6P-WR4FyY/edit?usp=sharing)
+
+[Informe Técnico](https://docs.google.com/document/d/1O9OWEeqHpET_tjnT7PkV4QW3vANfpnvZn209kwH9aao/edit?usp=sharing)
 
 
 # Dependencias
