@@ -14,6 +14,7 @@ private:
     SideOfGoal side;
     b2Body* goalBody;
     int goals;
+    bool goalScored;
 
 public:
     GoalSensor(SideOfGoal side, b2Body* goalBody);
@@ -22,6 +23,9 @@ public:
     b2Body* getGoalBody();
     int getGoals();
     void scoreGoal();
+
+    bool getGoalScored();
+    void setGoalScored(bool set);
 
 };
 

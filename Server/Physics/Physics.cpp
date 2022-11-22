@@ -478,6 +478,30 @@ GameStatus Physics::getGameStatus(){
     return newGameStatus;
 }
 
+void Physics::resetPositionsIfGoal(){
+    if(leftGoal->getGoalScored() || rightGoal->getGoalScored()){
+        leftGoal->setGoalScored(false);
+        rightGoal->setGoalScored(false);
+        int i = 0;
+        for (std::map<int, CarPhysics*>::iterator it = this->cars.begin(); it != this->cars.end(); ++it) {
+            if (i == 0) {
+                it->second->getCarBody()->SetTransform(b2Vec2(FIELDHALFWIDTH/2, FIELDHEIGTH/2), 0); 
+            } else if (i == 1) {
+                it->second->getCarBody()->SetTransform(b2Vec2(3*FIELDHALFWIDTH/2, FIELDHEIGTH/2), 0);
+            } else if (i == 2) {
+                it->second->getCarBody()->SetTransform(b2Vec2(FIELDHALFWIDTH/3, FIELDHEIGTH/2), 0);
+            } else if (i == 3) {
+                it->second->getCarBody()->SetTransform(b2Vec2(5*FIELDHALFWIDTH/3, FIELDHEIGTH/2), 0);
+            }
+            it->second->getCarBody()->ApplyForceToCenter(b2Vec2(0,-1), true);
+            ++i;
+        }
+        ball->getBody()->SetTransform(b2Vec2(FIELDHALFWIDTH, FIELDHEIGTH/2), 0);
+        ball->getBody()->SetLinearVelocity(b2Vec2(0,-1));
+        ball->getBody()->SetAngularVelocity(0);
+    }
+}
+
 
 Physics::~Physics() {
     delete leftGoal;

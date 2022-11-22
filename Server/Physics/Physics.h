@@ -76,6 +76,8 @@ class Physics{
 
     void carStopFlip(int socketId);
 
+    void resetPositionsIfGoal();
+
     ~Physics();
 };
 #endif

@@ -1,11 +1,11 @@
 server: 
-	./build/rocket_league-server 8080
+	./build/rocket_league-server 8082
 
 server_leaks:
 	valgrind -s --track-origins=yes --tool=memcheck ./build/rocket_league-server 8080
 
 client: 
-	./build/rocket_league localhost 8080
+	./build/rocket_league localhost 8082
 
 client_gdb:
 	gdb ./build/rocket_league
