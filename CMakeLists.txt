@@ -65,11 +65,15 @@ file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
 
 #------------------------------------------------------------------------------
 # INSTALL
-# install(TARGETS rocket_league rocket_league-server rocket_league-common libbox2d
-#        ARCHIVE DESTINATION "lib"
-#        RUNTIME DESTINATION "bin"
-#        INCLUDES DESTINATION "include")
-#install(DIRECTORY resources DESTINATION ".")
-#install(DIRECTORY maps DESTINATION ".")
-#install(DIRECTORY config DESTINATION ".")
-#install(DIRECTORY movies DESTINATION ".")
+set(BINARIES_DIRPATH "/usr/local/bin")
+#set(SHAREDLIBS_DIRPATH "/usr/local/lib")
+
+# Common
+install(TARGETS rocket_league-common DESTINATION ${BINARIES_DIRPATH} PERMISSIONS WORLD_READ WORLD_WRITE WORLD_EXECUTE)
+
+# Cliente
+install(TARGETS rocket_league DESTINATION ${BINARIES_DIRPATH} PERMISSIONS WORLD_READ WORLD_WRITE WORLD_EXECUTE WORLD_EXECUTE)
+install(DIRECTORY ${CMAKE_SOURCE_DIR}/assets DESTINATION ${BINARIES_DIRPATH} FILE_PERMISSIONS WORLD_READ WORLD_WRITE)
+
+# Server
+install(TARGETS rocket_league-server DESTINATION ${BINARIES_DIRPATH} PERMISSIONS WORLD_READ WORLD_WRITE WORLD_EXECUTE)
