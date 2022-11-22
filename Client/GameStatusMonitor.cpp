@@ -3,12 +3,13 @@
 #include <iostream>
 #include <utility>
 
-GameStatusMonitor::GameStatusMonitor(){
+GameStatusMonitor::GameStatusMonitor() {
+    this->clientClosedGame = false;
 }
 
 bool GameStatusMonitor::gameIsClosed(){
     std::lock_guard<std::mutex> lock(gameMutex);
-    return gamestatus.isClosed();
+    return this->clientClosedGame;
 }
 
 GameStatus GameStatusMonitor::getGameStatus(){
@@ -24,4 +25,6 @@ void GameStatusMonitor::statusUpdate(GameStatus newGameStatus){
 void GameStatusMonitor::setClose() {
     std::lock_guard<std::mutex> lock(gameMutex);
     gamestatus.setClose();
+
+    this->clientClosedGame = true;
 }

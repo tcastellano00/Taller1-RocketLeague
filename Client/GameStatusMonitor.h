@@ -3,12 +3,14 @@
 
 #include <mutex>
 #include <string>
+#include <atomic>
 #include "../Common/GameStatus.h"
 #include "../Common/Model/PlayerModel.h"
 
 class GameStatusMonitor{
     std::mutex gameMutex;
     GameStatus gamestatus;
+    std::atomic<bool> clientClosedGame;
 
     public:
     GameStatusMonitor();
