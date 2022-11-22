@@ -175,10 +175,17 @@ void Physics::moveCarRight(int socketId) {
     // car->SetTransform(
     //     b2Vec2(car->GetPosition().x + 1, car->GetPosition().y), car->GetAngle()
     // );
-    b2Vec2 vel = carBody->GetLinearVelocity();
+    //b2Vec2 vel = carBody->GetLinearVelocity();
     float force = MOVEMENTFORCE;
-    if ( vel.x ==  0 ) {
-        carBody->ApplyLinearImpulse(b2Vec2(60, 0), carBody->GetWorldCenter(), true);
+
+
+    // if ( vel.x ==  0 ) {
+    //     carBody->ApplyLinearImpulse(b2Vec2(60, 0), carBody->GetWorldCenter(), true);
+    // }
+
+
+    if (car->getAirStatus() != GROUND) {
+        force /= 10;
     }
 
     carBody->ApplyForceToCenter(b2Vec2(force,0), true);
@@ -209,9 +216,16 @@ void Physics::moveCarLeft(int socketId) {
         b2Vec2(car->GetPosition().x - 1, car->GetPosition().y), car->GetAngle()
     );*/
     float force = MOVEMENTFORCE*(-1);
-    b2Vec2 vel = carBody->GetLinearVelocity();
-    if ( vel.x ==  0 ) {
-        carBody->ApplyLinearImpulse(b2Vec2(-60, 0), carBody->GetWorldCenter(), true);
+    //b2Vec2 vel = carBody->GetLinearVelocity();
+
+
+
+    // if ( vel.x ==  0 ) {
+    //     carBody->ApplyLinearImpulse(b2Vec2(-60, 0), carBody->GetWorldCenter(), true);
+    // }
+
+    if (car->getAirStatus() !=  GROUND) {
+        force /= 10;
     }
     carBody->ApplyForceToCenter(b2Vec2(force,0), true);
     if (car->getSide() == LEFTPLAYER) {
@@ -242,11 +256,12 @@ void Physics::carJump(int socketId) {
         return;
     }
 
-
-    if (car->getSensorStatus() == BALLINBACKSENSOR) {
+    if (car->getSensorStatus() == BALLINBACKSENSOR && airStatus == AIR && car->getAcceleratingStatus() != NOTACCELERATING) {
         ball->goldShot(car->getSide());
-    } else if (car->getSensorStatus() == BALLINFRONTSENSOR) {
+        car->flipJump();
+    } else if (car->getSensorStatus() == BALLINFRONTSENSOR && airStatus == AIR && car->getAcceleratingStatus() != NOTACCELERATING) {
         ball->redShot(car->getSide());
+        car->flipJump();
     } else if (car->getSensorStatus() == BALLINBOTTOMSENSOR) {
         ball->purpleShot(car->getSide());
     } else if (car->getAcceleratingStatus() != NOTACCELERATING && car->getAirStatus() == AIR ){
@@ -400,7 +415,11 @@ GameStatus Physics::getGameStatus(){
             }
         }
 
-        PlayerModel pm(xCar, yCar, angle, it->second->getDoingTurbo(), facing);
+        bool turbo = it->second->getDoingTurbo();
+        //std::string turbostr = (turbo ? "turbo" : "no turbo");
+        //std::cout << "Physics::getGameStatus " << turbostr << std::endl;
+
+        PlayerModel pm(xCar, yCar, angle, turbo, facing);
         playerModels.push_back(pm);
 
 

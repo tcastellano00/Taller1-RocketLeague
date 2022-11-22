@@ -31,6 +31,7 @@ add_library(libbox2d STATIC ${BOX2D_SRCS})
 
 # Agrego la libreria SDL2pp habilitando manejo de imagenes y de letras
 SET(SDL2PP_WITH_IMAGE YES)
+SET(SDL2PP_WITH_MIXER YES)
 SET(SDL2PP_WITH_TTF YES)
 add_subdirectory(libs/libSDL2pp)
 
@@ -61,3 +62,14 @@ add_executable(rocket_league-server ${server_src})
 target_link_libraries(rocket_league-server rocket_league-common libbox2d)
 
 file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
+
+#------------------------------------------------------------------------------
+# INSTALL
+# install(TARGETS rocket_league rocket_league-server rocket_league-common libbox2d
+#        ARCHIVE DESTINATION "lib"
+#        RUNTIME DESTINATION "bin"
+#        INCLUDES DESTINATION "include")
+#install(DIRECTORY resources DESTINATION ".")
+#install(DIRECTORY maps DESTINATION ".")
+#install(DIRECTORY config DESTINATION ".")
+#install(DIRECTORY movies DESTINATION ".")

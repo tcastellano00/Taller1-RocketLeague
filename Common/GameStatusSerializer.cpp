@@ -5,6 +5,7 @@
 #include "Model/ScoreModel.h"
 #include "Model/BallModel.h"
 #include "GameStatusSerializer.h"
+#include <iostream>
 
 GameStatusSerializer::GameStatusSerializer() { }
 
@@ -34,13 +35,15 @@ std::string GameStatusSerializer::serialize(GameStatus gameStatus) {
                 ss << (*playerModel).getCoordX() << " ";
                 ss << (*playerModel).getCoordY() << " ";
                 ss << (*playerModel).getAngle() << " ";
-                if (playerModel->isDoingTurbo()) {
+                if ((*playerModel).isDoingTurbo()) {
                     ss << "turbo" << " ";
                 } else {
                     ss << "noturbo" << " ";
                 }
                 ss << playerModel->getFacing() << " ";
     }
+
+    //std::cout << ss.str() << std::endl;
 
     return ss.str();
 }

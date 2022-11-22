@@ -2,12 +2,12 @@
 
 PlayerModel::PlayerModel() {}
 
-PlayerModel::PlayerModel(float xCoord, float yCoord, float ang, bool turbo, std::string face) {
-    x = xCoord;
-    y = yCoord;
-    angle = ang;
-    turbo = turbo;
-    facing = face;
+PlayerModel::PlayerModel(float xCoord, float yCoord, float ang, bool nwturbo, std::string face) {
+    this->x = xCoord;
+    this->y = yCoord;
+    this->angle = ang;
+    this->turbo = nwturbo;
+    this->facing = face;
 }
 
 PlayerModel::~PlayerModel(){}

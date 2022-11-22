@@ -25,16 +25,22 @@ WindowRenderer::WindowRenderer(
 void WindowRenderer::launch() {
     try {
         // Inicializo biblioteca de SDL
-        SDL2pp::SDL sdl(SDL_INIT_VIDEO);
+        SDL2pp::SDL sdl(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
 
         // Creo una ventana dinamica con titulo "Hello world"
-        SDL2pp::Window window("Hello world", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-            SCREENWIDTH, SCREENHEIGHT, SDL_WINDOW_RESIZABLE);
+        SDL2pp::Window window("Rocket League", 
+            SDL_WINDOWPOS_UNDEFINED, 
+            SDL_WINDOWPOS_UNDEFINED,
+            SCREENWIDTH, 
+            SCREENHEIGHT, 
+            SDL_WINDOW_RESIZABLE);
 
         // Creo renderer
         SDL2pp::Renderer renderer(window, -1, SDL_RENDERER_ACCELERATED);
 
         renderer.SetDrawColor(255,255,255,255);
+
+        //SDL2pp::Mixer mixer(44100, MIX_DEFAULT_FORMAT, 2, 2048)
 
         // Usar factory
 
@@ -47,7 +53,7 @@ void WindowRenderer::launch() {
             SDL2pp::Surface("assets/background.png").SetColorKey(true, 0));
             
         SDL2pp::Texture im(renderer, 
-            SDL2pp::Surface("assets/autoderecha.png").SetColorKey(true, 0));
+            SDL2pp::Surface("assets/autoderecha.png").SetColorKey(false, 0));
 
         SDL2pp::Texture ballTexture(renderer, 
             SDL2pp::Surface("assets/ball.png").SetColorKey(true, 0));
@@ -78,6 +84,13 @@ void WindowRenderer::launch() {
             SDL2pp::Surface("assets/Numbers/nine.png").SetColorKey(true, 0));
         SDL2pp::Texture colon(renderer, 
             SDL2pp::Surface("assets/Numbers/colon.png").SetColorKey(true, 0));
+        
+        /*SDL2pp::Texture turbo(renderer, 
+            SDL2pp::Surface("assets/turbo.png").SetColorKey(false, 0));*/
+
+        SDL2pp::Texture turbo(renderer, 
+            SDL2pp::Surface("assets/turbo_car.png").SetColorKey(true, 0));
+
 
         //Iniciamos el command reader.
         threadCmdReader.start();
@@ -107,7 +120,7 @@ void WindowRenderer::launch() {
         //Instanciamos a priori cuatro jugadores.
         std::list<Player> players;
         for (int i = 0; i < 4; i++) {
-            players.emplace_back(im);
+            players.emplace_back(im, turbo);
         }
         
         std::string lastState("");
