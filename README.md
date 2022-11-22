@@ -4,7 +4,7 @@ TP Final de la materia Taller de programación 1
 | Integrantes    | Padron |
 | -------------- | ------ |
 | Couttulenc Marcos| 106381 |
-| Castellanos Tomas   | 100835  |
+| Martín Tomás   | 100835  |
 | Bursztyn Fernando   | 100898  |
 
 
@@ -55,34 +55,33 @@ sudo apt-get install qt5-default
 Clonar localmente el repo del siguente link: https://github.com/tcastellano00/Taller1-RocketLeague.git
 
 
-## Compilar aplicación
-Para compilar la aplicacion, en una consola ejecutar el script ya hecho en el proyecto.
-
+## Instalar aplicación
+Para instalar la aplicacion, posicionese en la raiz del proyecto, abra una consola y ejecute el siguiente script para compilar el programa.
 ```
 $ sh script.sh
 ```
-El cual ya realiza los siguientes comandos.
+Luego, si la ejecucion fue satisfactoria, ejecute el siguiente script.
 
 ```
-$ sudo rm -rf build
-$ mkdir build
-$ cd build
-$ cmake ..
-$ make
+$ sh installer.sh
 ```
+
+Al finalizar la ejecucion, la aplicación se encontrara instalada en la carpeta /usr/local/bin, ingrese a esta carpeta.
 
 ## Correr Server
+Una vez posicionado en la carpeta, abra una nueva consola y corra el siguiente comnado
 ```
-./build/rocket_league-server <Puerto>
+./rocket_league-server <Puerto>
 ```
 
 ## Correr Cliente
+Luego, en la misma carpeta, abra otra consola y corra el siguiente comando
 ```
-./build/rocket_league <Servicio> <Puerto>
+./rocket_league <Servicio> <Puerto>
 ```
 En caso de querer correrlo de manera local:
 ```
-./build/rocket_league localhost <Puerto>
+./rocket_league localhost <Puerto>
 ```
 
 # In Game
