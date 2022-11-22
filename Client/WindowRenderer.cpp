@@ -2,20 +2,27 @@
 #include <string>
 #include <exception>
 #include <unistd.h>
+#include <list>
+
 #include "SDL/Ball.h"
 #include "SDL/Bow.h"
 #include "SDL/Score.h"
+#include "SDL/Player.h"
+#include "SDL/Scene.h"
 
 #include <SDL2pp/SDL2pp.hh>
 
-#include "SDL/Player.h"
-#include "SDL/Scene.h"
 #include "WindowRenderer.h"
-#include <list>
+#include "ThreadCmdReader.h"
 
-WindowRenderer::WindowRenderer() {}
+WindowRenderer::WindowRenderer(
+        Queue<Command>& commandQueue,
+        GameStatusMonitor& gameStatusMonitor) 
+    : commandQueue(commandQueue),
+      gameStatusMonitor(gameStatusMonitor),
+      threadCmdReader(commandQueue, gameStatusMonitor) {}
 
-void WindowRenderer::launch(GameStatusMonitor& gameStatusMonitor) {
+void WindowRenderer::launch() {
     try {
         // Inicializo biblioteca de SDL
         SDL2pp::SDL sdl(SDL_INIT_VIDEO);
@@ -30,11 +37,8 @@ void WindowRenderer::launch(GameStatusMonitor& gameStatusMonitor) {
         renderer.SetDrawColor(255,255,255,255);
 
         // Usar factory
-
         SDL2pp::Texture wallsAndScore(renderer, 
             SDL2pp::Surface("assets/wallsAndScore.png").SetColorKey(true, 0));
-
-        //wallsAndScore.SetBlendMode(SDL_BLENDMODE_NONE);
 
         SDL2pp::Texture backgroud(renderer, 
             SDL2pp::Surface("assets/background.png").SetColorKey(true, 0));
@@ -47,7 +51,6 @@ void WindowRenderer::launch(GameStatusMonitor& gameStatusMonitor) {
 
         SDL2pp::Texture bowTexture(renderer, 
             SDL2pp::Surface("assets/bow.png").SetColorKey(true, 0));   //bow = arco
-
         
         SDL2pp::Texture zeroTexture(renderer, 
             SDL2pp::Surface("assets/Numbers/zero.png").SetColorKey(true, 0));
@@ -71,7 +74,10 @@ void WindowRenderer::launch(GameStatusMonitor& gameStatusMonitor) {
             SDL2pp::Surface("assets/Numbers/nine.png").SetColorKey(true, 0));
         SDL2pp::Texture colon(renderer, 
             SDL2pp::Surface("assets/Numbers/colon.png").SetColorKey(true, 0));
-        
+
+        //Iniciamos el command reader.
+        threadCmdReader.start();
+
         
         Score score(
             zeroTexture,
@@ -94,7 +100,6 @@ void WindowRenderer::launch(GameStatusMonitor& gameStatusMonitor) {
 
         Ball ball(ballTexture);
 
-        
         //Instanciamos a priori cuatro jugadores.
         std::list<Player> players;
         for (int i = 0; i < 4; i++) {
@@ -104,14 +109,14 @@ void WindowRenderer::launch(GameStatusMonitor& gameStatusMonitor) {
         std::string lastState("");
         //bool running = true;
         
-        while (!gameStatusMonitor.gameIsClosed()) {
+        while (not gameStatusMonitor.gameIsClosed()) {
 
             renderer.Clear();
-
             scene.render(renderer);
 
             GameStatus gameStatusSnapshot = gameStatusMonitor.getGameStatus();
 
+            //Render gameStatus snapshot.
             ball.update(gameStatusSnapshot.getBallModel(), FRAME_RATE);
             ball.render(renderer);
 
@@ -130,12 +135,12 @@ void WindowRenderer::launch(GameStatusMonitor& gameStatusMonitor) {
             // la cantidad de segundos que debo dormir se debe ajustar en función
             // de la cantidad de tiempo que demoró el handleEvents y el render
             usleep(FRAME_RATE);
-
         }
+
+        
     } catch (std::exception& e) {
         std::cout << e.what() << std::endl;
     }
-    
 }
 
 void renderPlayers(GameStatusMonitor& gameStatusMonitor) {

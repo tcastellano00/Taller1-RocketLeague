@@ -1,3 +1,6 @@
+#ifndef CLIENT_THREAD_CMDREADER_H
+#define CLIENT_THREAD_CMDREADER_H
+
 #include "../Common/Thread.h"
 #include "../Common/Queue.h"
 #include "../Common/Command.h"
@@ -14,3 +17,5 @@ public:
     ThreadCmdReader(Queue<Command>& newQueue, GameStatusMonitor& gameStatusMonitor);
     ~ThreadCmdReader();
 };
+
+#endif

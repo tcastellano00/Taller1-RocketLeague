@@ -10,7 +10,7 @@ ThreadCmdReader::ThreadCmdReader(
     queue(newQueue), gameStatusMonitor(newGameStatusMonitor) {}
 
 void ThreadCmdReader::run() {
-    usleep(5000000); //reemplazar por una CV.
+    //usleep(5000000); //reemplazar por una CV.
 
     std::cout << "Im running cmd reader thread" << std::endl;
 
@@ -20,6 +20,7 @@ void ThreadCmdReader::run() {
         running = handleEvents();
     }
 
+    std::cout << "Terminando ThreadCmdReader::run" << std::endl;
     gameStatusMonitor.setClose();
 }
 
@@ -86,15 +87,9 @@ bool ThreadCmdReader::handleEvents() {
             }
             case SDL_QUIT: {
                 std::cout << "Quit :(" << std::endl;
-                //Command cmd("close");
-                //Command cmdQueue("close queue");
-                //queue.push(cmd);
-                //queue.push(cmdQueue);
-
-                gameStatusMonitor.setClose();
-                Command cmd("close");
+                Command cmd("quit");
                 queue.push(cmd);
-                
+
                 return false;
             }
             

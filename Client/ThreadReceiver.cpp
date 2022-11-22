@@ -30,7 +30,6 @@ void ThreadReceiver::run() {
     }
     catch(const LibError& e)
     {
-        std::cout << "Se corto la conexcion en el reciver" << std::endl;
         gameStatusMonitor.setClose();
     }
 }

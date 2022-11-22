@@ -7,9 +7,9 @@
 class ThreadSender: public Thread {
 private:
     Queue<Command>& queue;
-    bool playing;
     Socket& connection;
     GameStatusMonitor& gameStatusMonitor;
+    
 public:
     void run() override;
     ThreadSender(Queue<Command>& newQueue, Socket& cnct, GameStatusMonitor& gameStatusMonitor);
