@@ -4,8 +4,12 @@ TP Final de la materia Taller de programación 1
 | Integrantes    | Padron |
 | -------------- | ------ |
 | Couttulenc Marcos| 106381 |
-| Castellanos Tomas   |   |
+| Castellanos Tomas   | 100835  |
 | Bursztyn Fernando   | 100898  |
+
+
+# Informes
+[Informe Técnico](https://docs.google.com/document/d/1GZ37hIVslaq5qQRa4rIikDMMmVd59vRMnn6P-WR4FyY/edit?usp=sharing)    
 
 
 # Dependencias
@@ -122,18 +126,3 @@ Estando cerca de la pelota pero mirando en direccion contraria a ella, realizar 
 ### Purple Shot
 Estando cerca de la pelota, posicionar el auto de tal manera que las ruedas del mismo queden orientadas hacia la pelota. En esa posicion, tocar la tecla space.
 
-
-
-
-Diagramas:
-
-![](http://www.plantuml.com/plantuml/png/bL7BQiCm4BplL-XKN4pw0JcKG0wba5wQzWDaQN54PQb8gpum_VVQicWsaI_rmR0pevbXTnT91ag31MLbZ69l3JeQeSruSmi_K9YZLsz8uzzyy5ttlIPya0CUILAAJzuPyc64I7gx7HBXbyX_Q3llhUWdvMFSMnzHJmvjbaKAnlKpLrncviCRBM8UNz-r96ourk7dBCNL4YFaB9LJW3-JYfAqYweqCgNDVp9vxQBdwtWv1PJw89DJ9mpd_JsZqnWcf2I5F3VLzcv4Vmrbz_bRhYKsc_lb71oeZ3XvMOepfHR7okaXHuYxCt3fmfag_AeIb9ZbKQLUSwv5kyaZ3VON)
-
-![](http://www.plantuml.com/plantuml/png/TP71JiCm44Jl_WeVYwhq0oeKLUJ0XKf0-G5Zhve8EnjvRII4-7SMqwZPkZr5anc_YISxIYQc7BootX3fjpw2SKycZxQ7-AtMnL_TgH-brAC9S4WcPThZE2ICkcbQVNwh1AGBxfKVaY8Yx5iOFaLYdITd4foXzQa3Z8NwZkZrvCtNC1wlL3n7J6ZH5xZRRYb53khutxa78dE4lqPYtYmNINPAmq2THmAtP3zuj1-SUScGuRx34CpeMcwQClMhazOsE8RCQiBfjACIAvSLBpUx7U7Rt_3bfafAtMnQNVr0jMGMoBnQTRpoHBbSv0AxgMrnsJfH0-fFtx6PW_y5)
-
-
-Links la edicion de los diagramas de clases(en PlantUML):
-http://www.plantuml.com/plantuml/uml/bL7BJiCm4BplL_Y4WgBo0JsWIZqWf7AXy05El4ej71lPQnwA-7UITQ1EdKjpYBGpuvdHxYwGz1Hx0z0Q6OBO6usM1gYPg6xXvuyvklODQVYV3wvfljU43xB78qcAuSbPJSuF44Xjjtqa_1ByXxfnpeXkL3w6lN41rUXGiooGrxPZBhbCp8VJIWGUNz-L9AnohSNFIOgh9GRWh9PJ87ycMuhI9DNSICzjhiXSraxwV1ql9uzI7MIqxGdzUN_FQ1Nw4PcJFCzLiRqRqLr2apj_wLfYixbFvyY1mYWdbwLo9jLQOkdqm17YxWmiNNAc2B-e17DCUbIervnB4UpGgjYRNm00
-http://www.plantuml.com/plantuml/uml/TP71JiCm44Jl_WeVYwhq0oeKLUJ0XKf0-G5Zhve8EnjvRII4-7SMqwZPkZr5anc_YISxIYQc7BootX3fjpw2SKycZxQ7-AtMnL_TgH-brAC9S4WcPThZE2ICkcbQVNwh1AGBxfKVaY8Yx5iOFaLYdITd4foXzQa3Z8NwZkZrvCtNC1wlL3n7J6ZH5xZRRYb53khutxa78dE4lqPYtYmNINPAmq2THmAtP3zuj1-SUScGuRx34CpeMcwQClMhazOsE8RCQiBfjACIAvSLBpUx7U7Rt_3bfafAtMnQNVr0jMGMoBnQTRpoHBbSv0AxgMrnsJfH0-fFtx6PW_y5
-Link a la edicion del diagrama de accion del server(en excalidraw):
-https://excalidraw.com/#room=f124f8de2eabcd6b127c,OPp9lKtPSRsemZVk_IFf-A
