@@ -44,7 +44,7 @@ void Gameloop::run() {
             commandsCounter += 1;
         }
 
-        GameStatus gameStatus = gamePhysics.getGameStatus();
+        GameStatus gameStatus = gamePhysics.getGameStatus(); //Creemos que hay que moverlo para despues del simulateTimeStep
         
         senderQueue.push(gameStatus);
         
@@ -55,6 +55,11 @@ void Gameloop::run() {
         synchronizeFrameRate(timeStart, timeFinish);
 
         commandsCounter = 0;
+
+        if (gameStatus.isClosed()) {
+            this->isRunning = false;
+        }
+
     }
 }
 

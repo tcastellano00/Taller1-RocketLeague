@@ -79,13 +79,15 @@ AcceleratingStatus CarPhysics::getAcceleratingStatus() {
 void CarPhysics::flipJump() {
     if (this->acceleratingStatus == ACCELERATINGRIGHT) {
         this->carBody->ApplyLinearImpulse(b2Vec2(FLIPIMPULSE, 0), this->carBody->GetWorldCenter(), true);
+        this->carBody->SetAngularVelocity(FLIPANGULARVEL);
 
     } else {
         this->carBody->ApplyLinearImpulse(b2Vec2(FLIPIMPULSE*(-1), 0), this->carBody->GetWorldCenter(), true);
+        this->carBody->SetAngularVelocity(FLIPANGULARVEL* (-1));
     }
     this->isFliping = true;
     this->flipStartAngle = carBody->GetAngle(); 
-    this->carBody->SetAngularVelocity(FLIPANGULARVEL);
+    
 }
 
 void CarPhysics::swapFrontBackSensor() {

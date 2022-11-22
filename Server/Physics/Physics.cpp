@@ -403,6 +403,14 @@ GameStatus Physics::getGameStatus(){
     ScoreModel scm(minGame, segGame, 0, goalsLeft, goalsRight);
     newGameStatus.setScoreModel(scm);
 
+    if (gameTime <= 0) {
+        if (goalsLeft == goalsRight) {
+            gameTime = EXTRATIME;
+        } else {
+            newGameStatus.setClose();
+        }
+    }
+
     return newGameStatus;
 }
 
