@@ -264,6 +264,8 @@ void Physics::carJump(int socketId) {
         car->flipJump();
     } else if (car->getSensorStatus() == BALLINBOTTOMSENSOR) {
         ball->purpleShot(car->getSide());
+        if(car->getSide() == LEFTPLAYER){ car->getCarBody()->ApplyLinearImpulse(b2Vec2(-3000,0),car->getCarBody()->GetWorldCenter(), true);}
+        else{car->getCarBody()->ApplyLinearImpulse(b2Vec2(3000,0), car->getCarBody()->GetWorldCenter(), true);}
     } else if (car->getAcceleratingStatus() != NOTACCELERATING && car->getAirStatus() == AIR ){
         car->flipJump();
     } else {
@@ -284,6 +286,7 @@ void Physics::carJump(int socketId) {
 void Physics::flipCarRight(int socketId) {
     b2Body* carBody = this->cars[socketId]->getCarBody();
     carBody->SetAngularVelocity(ANGULARVELOCITYFLIP);
+    std::cout << carBody->GetAngle() << std::endl;
 
 
 
@@ -311,7 +314,7 @@ void Physics::carTurbo(int socketId){
 
     CarPhysics* car = this->cars[socketId];
     b2Body* carBody = car->getCarBody();
-    float angle = carBody->GetAngle()*(-1); //Multiplicamos por -1 para tenerlo en antihorario.
+    float angle = carBody->GetAngle();
     float x = std::cos(angle)*TURBOFORCE;
     float y = std::sin(angle)*TURBOFORCE;
 
@@ -386,7 +389,7 @@ GameStatus Physics::getGameStatus(){
     std::list<PlayerModel> playerModels;
     for (std::map<int, CarPhysics*>::iterator it = this->cars.begin(); it != this->cars.end(); ++it) {
         b2Vec2 carCoord = it->second->getCarBody()->GetPosition();
-        float angle = it->second->getCarBody()->GetAngle();
+        float angle = it->second->getCarBody()->GetAngle() * (-1);
         
         float xOriginal = -CARHALFWIDTH;
         float yOriginal = CARHALFHEIGHT;
@@ -448,7 +451,7 @@ GameStatus Physics::getGameStatus(){
         }
     }
 
-    BallModel bm(ballCoordX, ballCoordY, ball->getBody()->GetAngle(), colour);
+    BallModel bm(ballCoordX, ballCoordY, ball->getBody()->GetAngle() * (-1), colour);
 
     newGameStatus.setBallModel(bm);
 
@@ -476,6 +479,30 @@ GameStatus Physics::getGameStatus(){
     }
 
     return newGameStatus;
+}
+
+void Physics::resetPositionsIfGoal(){
+    if(leftGoal->getGoalScored() || rightGoal->getGoalScored()){
+        leftGoal->setGoalScored(false);
+        rightGoal->setGoalScored(false);
+        int i = 0;
+        for (std::map<int, CarPhysics*>::iterator it = this->cars.begin(); it != this->cars.end(); ++it) {
+            if (i == 0) {
+                it->second->getCarBody()->SetTransform(b2Vec2(FIELDHALFWIDTH/2, FIELDHEIGTH/2), 0); 
+            } else if (i == 1) {
+                it->second->getCarBody()->SetTransform(b2Vec2(3*FIELDHALFWIDTH/2, FIELDHEIGTH/2), 0);
+            } else if (i == 2) {
+                it->second->getCarBody()->SetTransform(b2Vec2(FIELDHALFWIDTH/3, FIELDHEIGTH/2), 0);
+            } else if (i == 3) {
+                it->second->getCarBody()->SetTransform(b2Vec2(5*FIELDHALFWIDTH/3, FIELDHEIGTH/2), 0);
+            }
+            it->second->getCarBody()->ApplyForceToCenter(b2Vec2(0,-1), true);
+            ++i;
+        }
+        ball->getBody()->SetTransform(b2Vec2(FIELDHALFWIDTH, FIELDHEIGTH/2), 0);
+        ball->getBody()->SetLinearVelocity(b2Vec2(0,-1));
+        ball->getBody()->SetAngularVelocity(0);
+    }
 }
 
 

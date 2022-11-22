@@ -5,6 +5,7 @@ GoalSensor::GoalSensor(SideOfGoal side, b2Body* body) {
     this->side = side;
     this->goalBody = body;
     this->goals = 0;
+    this->goalScored = false;
 }
 
 GoalSensor::GoalSensor() {
@@ -23,5 +24,14 @@ int GoalSensor::getGoals() {
 }
 
 void GoalSensor::scoreGoal() {
+    goalScored = true;
     goals++;
+}
+
+bool GoalSensor::getGoalScored(){
+    return this->goalScored;
+}
+
+void GoalSensor::setGoalScored(bool set) {
+    this->goalScored = set;
 }

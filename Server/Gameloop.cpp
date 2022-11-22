@@ -30,6 +30,7 @@ void Gameloop::run() {
 
     int commandsCounter = 0;
 
+
     //Iniciamos el Gameloop donde procesa los comandos.
     std::cout << "Gameloop::while" << std::endl;
     while (this->isRunning) {
@@ -43,12 +44,14 @@ void Gameloop::run() {
 
             commandsCounter += 1;
         }
-
-        GameStatus gameStatus = gamePhysics.getGameStatus(); //Creemos que hay que moverlo para despues del simulateTimeStep
-        
-        senderQueue.push(gameStatus);
         
         gamePhysics.simulateTimeStep();
+
+        GameStatus gameStatus = gamePhysics.getGameStatus(); //Creemos que hay que moverlo para despues del simulateTimeStep
+
+        senderQueue.push(gameStatus);
+
+        gamePhysics.resetPositionsIfGoal();
         
         auto timeFinish = Clock::now();
 

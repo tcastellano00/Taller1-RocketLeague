@@ -1,7 +1,7 @@
 #include "BallPhysics.h"
-#define REDSHOTIMPULSE 1500.0
-#define GOLDSHOTIMPULSE 1000.0
-#define PURPLESHOTIMPULSE 500.0
+#define REDSHOTIMPULSE 100000.0
+#define GOLDSHOTIMPULSE 100000.0
+#define PURPLESHOTIMPULSE 100000.0
 #define SPECIALSHOTTIME 25
 
 BallPhysics::BallPhysics(b2Body* body) {
@@ -44,7 +44,9 @@ void BallPhysics::purpleShot(PlayerSide side) {
 }
 
 void BallPhysics::generateImpulse(float impulse) {
-    this->ballBody->ApplyLinearImpulse(b2Vec2(impulse, 0), this->ballBody->GetWorldCenter(), true);
+    this->ballBody->ApplyForceToCenter(b2Vec2(impulse,0),true);
+    //this->ballBody->SetLinearVelocity(b2Vec2(impulse,0));
+    //this->ballBody->ApplyLinearImpulse(b2Vec2(impulse, 0), this->ballBody->GetWorldCenter(), true);
 }
 
 SpecialShot BallPhysics::getShotType(){
