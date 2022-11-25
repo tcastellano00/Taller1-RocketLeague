@@ -3,12 +3,14 @@
 #define NUMBERWIDTH 40
 #define NUMBERHEIGHT 60
 #define NUMBERSPACE 5
-#define FIRSTDIGITLEFTPOSX 810
-#define FIRSTDIGITRIGHTPOSX 960
-#define DIGITPOSY 30
+#define FIRSTDIGITLEFTPOSX 780
+#define FIRSTDIGITRIGHTPOSX 930
+#define DIGITPOSY 27
 #define MINUTESPOSX 810
-#define SECSPOSX 900
-#define TIMEPOSY 100
+#define SECSPOSX 950
+#define TIMEPOSY 83
+#define TIMEHEIGHT 40
+#define TIMEWIDTH 24
 #define COLONPOSX 855
 
 
@@ -80,19 +82,13 @@ void Score::render(SDL2pp::Renderer &renderer){
     }
 
     std::vector<int> digitsMinutes(DigitSeparator::getVectorOfDigits(minutesLeft));
-
-    /*for (int i = 0; i < (int)digitsMinutes.size(); ++i) {
-        std::cout << digitsMinutes[i] << "  ";
-    }
-    std::cout << "\n";*/
-
     for (int i = 0; i < (int)digitsMinutes.size(); ++i) {
-        vectorNumberAnimations[digitsMinutes[i]].render(renderer, SDL2pp::Rect(MINUTESPOSX + i*(NUMBERWIDTH + NUMBERSPACE), TIMEPOSY, NUMBERWIDTH, NUMBERHEIGHT), flip, 0);
+        vectorNumberAnimations[digitsMinutes[i]].render(renderer, SDL2pp::Rect(MINUTESPOSX + i*(TIMEWIDTH + NUMBERSPACE), TIMEPOSY, TIMEWIDTH, TIMEHEIGHT), flip, 0);
     }
 
     std::vector<int> digitsSeconds(DigitSeparator::getVectorOfDigits(secondsLeft));
     for (int i = 0; i < (int)digitsSeconds.size(); ++i) {
-        vectorNumberAnimations[digitsSeconds[i]].render(renderer, SDL2pp::Rect(SECSPOSX + i*(NUMBERWIDTH + NUMBERSPACE), TIMEPOSY, NUMBERWIDTH, NUMBERHEIGHT), flip, 0);
+        vectorNumberAnimations[digitsSeconds[i]].render(renderer, SDL2pp::Rect(SECSPOSX + i*(TIMEWIDTH + NUMBERSPACE), TIMEPOSY, TIMEWIDTH, TIMEHEIGHT), flip, 0);
     }
     //colon.render(renderer, SDL2pp::Rect(COLONPOSX, TIMEPOSY, NUMBERWIDTH, NUMBERHEIGHT), flip, 0);
 
