@@ -1,7 +1,7 @@
 #include "Scene.h"
 
 
-Scene::Scene(SDL2pp::Texture &bkTexture, SDL2pp::Texture &wsTexture): background(bkTexture), wallsAndScore(wsTexture) {}
+Scene::Scene(SDL2pp::Texture &bkTexture, SDL2pp::Texture &wsTexture): background(bkTexture, 1, 1), wallsAndScore(wsTexture, 1, 1) {}
 
 void Scene::render(SDL2pp::Renderer &renderer) {
     SDL_RendererFlip flip = SDL_FLIP_NONE;

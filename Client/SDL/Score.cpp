@@ -11,7 +11,7 @@
 #define TIMEPOSY 83
 #define TIMEHEIGHT 40
 #define TIMEWIDTH 24
-#define COLONPOSX 855
+#define COLONPOSX 890
 
 
 #include <iostream>
@@ -27,17 +27,17 @@ Score::Score(
         SDL2pp::Texture &sevenTexture,
         SDL2pp::Texture &eightTexture,
         SDL2pp::Texture &nineTexture,
-        SDL2pp::Texture &colon): colon(colon) {
-            vectorNumberAnimations.emplace_back(zeroTexture);
-            vectorNumberAnimations.emplace_back(oneTexture);
-            vectorNumberAnimations.emplace_back(twoTexture);
-            vectorNumberAnimations.emplace_back(threeTexture);
-            vectorNumberAnimations.emplace_back(fourTexture);
-            vectorNumberAnimations.emplace_back(fiveTexture);
-            vectorNumberAnimations.emplace_back(sixTexture);
-            vectorNumberAnimations.emplace_back(sevenTexture);
-            vectorNumberAnimations.emplace_back(eightTexture);
-            vectorNumberAnimations.emplace_back(nineTexture);
+        SDL2pp::Texture &colon): colon(colon, 1, 1) {
+            vectorNumberAnimations.emplace_back(zeroTexture, 1, 1);
+            vectorNumberAnimations.emplace_back(oneTexture, 1, 1);
+            vectorNumberAnimations.emplace_back(twoTexture, 1, 1);
+            vectorNumberAnimations.emplace_back(threeTexture, 1, 1);
+            vectorNumberAnimations.emplace_back(fourTexture, 1, 1);
+            vectorNumberAnimations.emplace_back(fiveTexture, 1, 1);
+            vectorNumberAnimations.emplace_back(sixTexture, 1, 1);
+            vectorNumberAnimations.emplace_back(sevenTexture, 1, 1);
+            vectorNumberAnimations.emplace_back(eightTexture, 1, 1);
+            vectorNumberAnimations.emplace_back(nineTexture, 1, 1);
 }
 
 void Score::update(ScoreModel scoreModel, int dt) {
@@ -90,6 +90,6 @@ void Score::render(SDL2pp::Renderer &renderer){
     for (int i = 0; i < (int)digitsSeconds.size(); ++i) {
         vectorNumberAnimations[digitsSeconds[i]].render(renderer, SDL2pp::Rect(SECSPOSX + i*(TIMEWIDTH + NUMBERSPACE), TIMEPOSY, TIMEWIDTH, TIMEHEIGHT), flip, 0);
     }
-    //colon.render(renderer, SDL2pp::Rect(COLONPOSX, TIMEPOSY, NUMBERWIDTH, NUMBERHEIGHT), flip, 0);
+    colon.render(renderer, SDL2pp::Rect(COLONPOSX, TIMEPOSY, TIMEWIDTH, TIMEHEIGHT), flip, 0);
 
 }

@@ -1,7 +1,7 @@
 #include "Bow.h"
 #define ANGLE 0
 
-Bow::Bow(SDL2pp::Texture &texture, int coordX,bool left): an(texture), x(coordX), y(300),facingLeft(left) {}
+Bow::Bow(SDL2pp::Texture &texture, int coordX,bool left): an(texture, 1, 1), x(coordX), y(300),facingLeft(left) {}
 
 
 void Bow::render(SDL2pp::Renderer &renderer){
