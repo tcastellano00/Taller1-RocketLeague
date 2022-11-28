@@ -14,6 +14,7 @@
 
 #include "WindowRenderer.h"
 #include "ThreadCmdReader.h"
+#include "Config/ClientConfig.h"
 
 WindowRenderer::WindowRenderer(
         Queue<Command>& commandQueue,
@@ -31,8 +32,8 @@ void WindowRenderer::launch() {
         SDL2pp::Window window("Rocket League", 
             SDL_WINDOWPOS_UNDEFINED, 
             SDL_WINDOWPOS_UNDEFINED,
-            SCREENWIDTH, 
-            SCREENHEIGHT, 
+            ClientConfig::getScreenWidth(), 
+            ClientConfig::getScreenHeight(), 
             SDL_WINDOW_RESIZABLE);
 
         // Creo renderer

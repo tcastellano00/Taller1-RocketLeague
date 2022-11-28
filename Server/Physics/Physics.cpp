@@ -23,7 +23,7 @@
 #define TURBOFORCE MOVEMENTFORCE*8
 #define FRONTSENSORHALFWIDTH 5.0
 #define BOTTOMSENSORHALFHEIGTH 5.0
-#define ANGULARVELOCITYFLIP 3
+#define ROTATIONANGULARVELOCITY 3
 
 
 
@@ -284,7 +284,7 @@ void Physics::carJump(int socketId) {
 
 void Physics::flipCarRight(int socketId) {
     b2Body* carBody = this->cars[socketId]->getCarBody();
-    carBody->SetAngularVelocity(ANGULARVELOCITYFLIP);
+    carBody->SetAngularVelocity(ROTATIONANGULARVELOCITY);
     std::cout << carBody->GetAngle() << std::endl;
 
 
@@ -294,7 +294,7 @@ void Physics::flipCarRight(int socketId) {
 
 void Physics::flipCarLeft(int socketId) {
     b2Body* carBody = this->cars[socketId]->getCarBody();
-    carBody->SetAngularVelocity(ANGULARVELOCITYFLIP * (-1));
+    carBody->SetAngularVelocity(ROTATIONANGULARVELOCITY * (-1));
 
 
     //carBody->ApplyAngularImpulse(TORQUEIMPULSE*(-1), true);

@@ -9,6 +9,7 @@
 #include "ClientConnection.h"
 #include "ThreadClientLobby.h"
 #include "GameMonitor.h"
+#include "Config/ServerConfig.h"
 
 ThreadClientAcceptor::ThreadClientAcceptor(Socket &accepter) 
     : accepter(std::move(accepter)) {
@@ -31,6 +32,9 @@ void ThreadClientAcceptor::cleanDeathClients(
 void ThreadClientAcceptor::run() {
     std::list<ThreadClientLobby> clientLobbyThreads;
     GameMonitor gameMonitor;
+
+    // Quitar luego.
+    std::cout << ServerConfig::getGravity() << std::endl;
 
     while (this->isReceiving)
     {
