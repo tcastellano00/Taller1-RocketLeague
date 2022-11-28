@@ -16,7 +16,7 @@ class Area;
 
 class Animation {
    public:
-    Animation(SDL2pp::Texture &texture);
+    Animation(SDL2pp::Texture &texture, int numberRows, int numberColumns);
     ~Animation();
     void update(float dt);
     void render(SDL2pp::Renderer &renderer, const SDL2pp::Rect dest, SDL_RendererFlip &flipType, float angle);
@@ -28,12 +28,18 @@ class Animation {
     void advanceFrame();
     /** SDL texture of the raw image. */
     SDL2pp::Texture &texture;
-    /** Current animation frame. */
-    int currentFrame;
-    /** Total number of frames in the sprite. */
-    int numFrames;
-    /** Size of the sprite (height and width). */
-    int size;
+    /** Current animation frame's row. */
+    int currentFrameRow;
+    /** Current animation frame's column. */
+    int currentFrameColumn;
+    /** Total number of rows in the sprite. */
+    int numRows;
+    /** Total number of columns in the sprite. */
+    int numColumns;
+    /** Height of the sprite. */
+    int height;
+    /* Width of the sprite*/
+    int width;
     /** Time elapsed since last update. */
     float elapsed;
 };

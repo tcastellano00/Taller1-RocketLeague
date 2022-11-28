@@ -2,7 +2,7 @@
 #include "CoordsTransformator.h"
 #include <iostream>
 
-Ball::Ball(SDL2pp::Texture &texture): an(texture),moving(false), x(370), y(400), angle(0) {}
+Ball::Ball(SDL2pp::Texture &texture): an(texture, 1, 1),moving(false), x(370), y(400), angle(0) {}
 
 
 void Ball::render(SDL2pp::Renderer &renderer){

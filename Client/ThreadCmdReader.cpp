@@ -61,6 +61,9 @@ bool ThreadCmdReader::handleEvents() {
                         queue.push(cmd);
                         break;
                     }
+                    default: {
+                        break;
+                    }
                 }
                 break;
             }
@@ -92,6 +95,9 @@ bool ThreadCmdReader::handleEvents() {
                         queue.push(cmd);
                         break;
                     }
+                    default: {
+                        break;
+                    }
                 }
                 break;
             }
@@ -101,6 +107,9 @@ bool ThreadCmdReader::handleEvents() {
                 queue.push(cmd);
 
                 return false;
+            }
+            default: {
+                break;
             }
             
         }

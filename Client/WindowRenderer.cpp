@@ -40,7 +40,11 @@ void WindowRenderer::launch() {
 
         renderer.SetDrawColor(255,255,255,255);
 
-        //SDL2pp::Mixer mixer(44100, MIX_DEFAULT_FORMAT, 2, 2048)
+        SDL2pp::Mixer mixer(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 4096);
+
+        SDL2pp::Chunk sound("music/audioFondo.ogg");
+
+        mixer.PlayChannel(-1, sound);
 
         // Usar factory
 

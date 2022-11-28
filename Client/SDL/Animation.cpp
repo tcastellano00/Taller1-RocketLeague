@@ -11,11 +11,17 @@
 
 #include "Animation.h"
 
-Animation::Animation(SDL2pp::Texture &texture) : texture(texture), currentFrame(0),
-                                                  numFrames(1),
-                                                  size(this->texture.GetWidth()), elapsed(0.0f) {
-    assert(this->numFrames > 0);
-    assert(this->size > 0);
+Animation::Animation(SDL2pp::Texture &texture, int numberRows, int numberColumns) :
+    texture(texture),
+    currentFrameRow(0),
+    currentFrameColumn(0),
+    numRows(numberRows),
+    numColumns(numberColumns),
+    height(this->texture.GetHeight()/numRows),
+    width(this->texture.GetWidth()/numColumns),
+    elapsed(0.0f) {
+    //assert(this->numFrames > 0);
+    //assert(this->size > 0);
 }
 
 
@@ -40,7 +46,7 @@ void Animation::update(float dt) {
 void Animation::render(SDL2pp::Renderer &renderer, const SDL2pp::Rect dst, SDL_RendererFlip &flipType, float angle) {
     renderer.Copy(
             texture,
-            SDL2pp::Rect(1 + (1 + this->size) * this->currentFrame, 0, this->size, this->size),
+            SDL2pp::Rect(1 + (1 + this->width * this->currentFrameRow), 1 + (1 + this->height * this->currentFrameColumn), this->width, this->height),
             dst,
             angle,
             SDL2pp::NullOpt,    // rotation center - not needed
@@ -49,8 +55,14 @@ void Animation::render(SDL2pp::Renderer &renderer, const SDL2pp::Rect dst, SDL_R
 }
 
 void Animation::advanceFrame() {
-    this->currentFrame += 1;
-    this->currentFrame = this->currentFrame % this->numFrames; 
+    this->currentFrameColumn += 1; //Avanzo un frame a la derecha
+    if (this->currentFrameColumn == this->numColumns) { //Si estaba en el ultimo de la fila
+        this->currentFrameColumn = 0;
+        this->currentFrameRow += 1; //Avanzo uno para abajo y vuelvo al primero de la fila
+        if (this->currentFrameRow == this->numRows) { //Si estaba en la ultima fila
+            this->currentFrameRow = 0; //Vuelvo a la primera fila
+        }
+    }
 }
 
 SDL2pp::Texture& Animation::getTexture() {

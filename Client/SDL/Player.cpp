@@ -3,8 +3,8 @@
 #include <iostream>
 
 Player::Player(SDL2pp::Texture &textureCar, SDL2pp::Texture &textureTurbo) : 
-    anCar(textureCar), 
-    anTurbo(textureTurbo), 
+    anCar(textureCar, 1, 1), 
+    anTurbo(textureTurbo, 1, 1), 
     facingLeft(false), 
     moving(false),
     turbo(false) {}
