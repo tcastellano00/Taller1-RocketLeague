@@ -3,12 +3,14 @@
 #include <exception>
 #include <unistd.h>
 #include <list>
+#include "CappedList.h"
 
 #include "SDL/Ball.h"
 #include "SDL/Bow.h"
 #include "SDL/Score.h"
 #include "SDL/Player.h"
 #include "SDL/Scene.h"
+#include "SDL/ReplayFrame.h"
 
 #include <SDL2pp/SDL2pp.hh>
 
@@ -96,9 +98,15 @@ void WindowRenderer::launch() {
         SDL2pp::Texture turbo(renderer, 
             SDL2pp::Surface("assets/turbo_car.png").SetColorKey(true, 0));
 
+        SDL2pp::Texture replayTexture(renderer, 
+            SDL2pp::Surface("assets/replay.png").SetColorKey(true, 0));
+
 
         //Iniciamos el command reader.
         threadCmdReader.start();
+
+        //Creamos la lista de gamestatus para la repeticion
+        CappedList<GameStatus> replayList(125); // 5 segundos
 
         
         Score score(
@@ -122,6 +130,8 @@ void WindowRenderer::launch() {
 
         Ball ball(ballTexture);
 
+        ReplayFrame replayFrame(replayTexture);
+
         //Instanciamos a priori cuatro jugadores.
         std::list<Player> players;
         for (int i = 0; i < 4; i++) {
@@ -130,6 +140,8 @@ void WindowRenderer::launch() {
         
         std::string lastState("");
         //bool running = true;
+
+        bool isInReplay = false;
         
         while (not gameStatusMonitor.gameIsClosed()) {
 
@@ -138,12 +150,17 @@ void WindowRenderer::launch() {
 
             GameStatus gameStatusSnapshot = gameStatusMonitor.getGameStatus();
 
+            if (gameStatusSnapshot.isInReplay()) {
+                gameStatusSnapshot = replayList.pop_front();
+                isInReplay = true;
+            } else {
+                replayList.push_back(gameStatusSnapshot);
+            }
+
             //Render gameStatus snapshot.
             ball.update(gameStatusSnapshot.getBallModel(), FRAME_RATE);
             ball.render(renderer);
 
-            score.update(gameStatusSnapshot.getScoreModel(), FRAME_RATE);
-            score.render(renderer);
 
             auto playerIter = players.begin();
             std::list<PlayerModel> playerModels = gameStatusSnapshot.getPlayersModels();
@@ -152,10 +169,20 @@ void WindowRenderer::launch() {
                 playerIter->render(renderer);
                 ++playerIter;
             }
+
+            if (isInReplay) {
+                replayFrame.render(renderer);
+            } else {
+                score.update(gameStatusSnapshot.getScoreModel(), FRAME_RATE);
+                score.render(renderer);
+            }
+
             renderer.Present();
 
             // la cantidad de segundos que debo dormir se debe ajustar en función
             // de la cantidad de tiempo que demoró el handleEvents y el render
+
+            isInReplay = false;
             usleep(FRAME_RATE);
         }
 

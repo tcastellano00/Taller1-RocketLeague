@@ -16,6 +16,12 @@ std::string GameStatusSerializer::serialize(GameStatus gameStatus) {
     ScoreModel scoreModel = gameStatus.getScoreModel();
     std::list<PlayerModel> playersModels = gameStatus.getPlayersModels();
 
+    if (gameStatus.isInReplay()) {
+        ss << "replay" << " ";
+    } else {
+        ss << "noReplay" << " ";
+    }
+
     ss << playersModels.size() << " ";
 
     ss << scoreModel.getMinutesLeft() << " ";
@@ -51,6 +57,17 @@ std::string GameStatusSerializer::serialize(GameStatus gameStatus) {
 GameStatus GameStatusSerializer::deserialize(std::string gameStatusString) {
     std::stringstream ss(gameStatusString);
     std::list<PlayerModel> playersModels;
+
+    bool isInReplay;
+    std::string replayStr;
+    ss >> replayStr;
+
+    if (replayStr == "replay") {
+        isInReplay = true;
+    } else { // replayStr == "noReplay"
+        isInReplay = false;
+    }
+
 
     int numPlayers;
     ss >> numPlayers;
@@ -100,6 +117,7 @@ GameStatus GameStatusSerializer::deserialize(std::string gameStatusString) {
     }
 
     GameStatus gm(ballModel, scoreModel, playersModels);
+    gm.setReplay(isInReplay);
 
     return gm;
 }

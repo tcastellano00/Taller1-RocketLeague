@@ -419,7 +419,7 @@ GameStatus Physics::getGameStatus(){
 
         bool turbo = it->second->getDoingTurbo();
 
-        if (it->second->getSensorStatus() == BALLINBACKSENSOR) {
+        /*if (it->second->getSensorStatus() == BALLINBACKSENSOR) {
             std::cout << "SENSOR: BACK" << std::endl;
         } else if (it->second->getSensorStatus() == BALLINBOTTOMSENSOR) {
             std::cout << "SENSOR: BOTTOM" << std::endl;
@@ -427,7 +427,7 @@ GameStatus Physics::getGameStatus(){
             std::cout << "SENSOR: FRONT" << std::endl;
         } else if (it->second->getSensorStatus() == NOTSENSOR) {
             std::cout << "SENSOR: NOT" << std::endl;
-        }
+        }*/
 
         PlayerModel pm(xCar, yCar, angle, turbo, facing);
         playerModels.push_back(pm);
@@ -469,10 +469,13 @@ GameStatus Physics::getGameStatus(){
 
 
     //float segGame = (gameTime - timer.GetMilliseconds()) / 1000 ;  No funciona el getMIllisenconds()
-    gameTime -= 40; 
+    if(!isInReplay){
+        gameTime -= 40;
+    } 
     int segGame = (gameTime) / 1000 ; //Restamos a mano el tiempo correspondiente a un frame.
     int minGame = segGame / 60;
     segGame = segGame - minGame*60;
+    
 
     ScoreModel scm(minGame, segGame, 0, goalsLeft, goalsRight);
     newGameStatus.setScoreModel(scm);
@@ -485,33 +488,60 @@ GameStatus Physics::getGameStatus(){
         }
     }
 
+    if (this->isInReplay) {
+        newGameStatus.setReplay(true);
+    } else {
+        newGameStatus.setReplay(false);
+    }
+
     return newGameStatus;
 }
 
 void Physics::resetPositionsIfGoal(){
-    if(leftGoal->getGoalScored() || rightGoal->getGoalScored()){
-        leftGoal->setGoalScored(false);
-        rightGoal->setGoalScored(false);
-        int i = 0;
-        for (std::map<int, CarPhysics*>::iterator it = this->cars.begin(); it != this->cars.end(); ++it) {
-            if (i == 0) {
-                it->second->getCarBody()->SetTransform(b2Vec2(FIELDHALFWIDTH/2, FIELDHEIGTH/2), 0); 
-            } else if (i == 1) {
-                it->second->getCarBody()->SetTransform(b2Vec2(3*FIELDHALFWIDTH/2, FIELDHEIGTH/2), 0);
-            } else if (i == 2) {
-                it->second->getCarBody()->SetTransform(b2Vec2(FIELDHALFWIDTH/3, FIELDHEIGTH/2), 0);
-            } else if (i == 3) {
-                it->second->getCarBody()->SetTransform(b2Vec2(5*FIELDHALFWIDTH/3, FIELDHEIGTH/2), 0);
-            }
-            it->second->getCarBody()->ApplyForceToCenter(b2Vec2(0,-1), true);
-            ++i;
-        }
-        ball->getBody()->SetTransform(b2Vec2(FIELDHALFWIDTH, FIELDHEIGTH/2), 0);
-        ball->getBody()->SetLinearVelocity(b2Vec2(0,-1));
-        ball->getBody()->SetAngularVelocity(0);
+    if(!leftGoal->getGoalScored() && !rightGoal->getGoalScored()){
+        return;
     }
+    leftGoal->setGoalScored(false);
+    rightGoal->setGoalScored(false);
+    int i = 0;
+    for (std::map<int, CarPhysics*>::iterator it = this->cars.begin(); it != this->cars.end(); ++it) {
+        if (i == 0) {
+            it->second->getCarBody()->SetTransform(b2Vec2(FIELDHALFWIDTH/2, FIELDHEIGTH/2), 0); 
+        } else if (i == 1) {
+            it->second->getCarBody()->SetTransform(b2Vec2(3*FIELDHALFWIDTH/2, FIELDHEIGTH/2), 0);
+        } else if (i == 2) {
+            it->second->getCarBody()->SetTransform(b2Vec2(FIELDHALFWIDTH/3, FIELDHEIGTH/2), 0);
+        } else if (i == 3) {
+            it->second->getCarBody()->SetTransform(b2Vec2(5*FIELDHALFWIDTH/3, FIELDHEIGTH/2), 0);
+        }
+        it->second->getCarBody()->ApplyForceToCenter(b2Vec2(0,-1), true);
+        ++i;
+    }
+    ball->getBody()->SetTransform(b2Vec2(FIELDHALFWIDTH, FIELDHEIGTH/2), 0);
+    ball->getBody()->SetLinearVelocity(b2Vec2(0,-1));
+    ball->getBody()->SetAngularVelocity(0);
+
+    this->setIsInReplay(true);
 }
 
+bool Physics::getIsInReplay() {
+    return this->isInReplay;
+}
+
+void Physics::setIsInReplay(bool replay) {
+    this->isInReplay = replay;
+}
+
+void Physics::updateReplayStaus() {
+    if (!this->isInReplay) {
+        return;
+    }
+    this->currentTimeOfReplay += 40; //equivalente a un frame
+    if (this->currentTimeOfReplay >= REPLAYTIME) {
+        this->currentTimeOfReplay = 0;
+        this->setIsInReplay(false);
+    }
+}
 
 Physics::~Physics() {
     delete leftGoal;

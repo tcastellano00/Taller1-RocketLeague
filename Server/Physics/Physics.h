@@ -11,7 +11,8 @@
 #include "Car.h"
 #include "BallPhysics.h"
 #define GAMETIME 180000 //TIENE QUE SER 3 MINUTOS A PRIORI
-#define EXTRATIME 30000 
+#define EXTRATIME 30000
+#define REPLAYTIME 5000
 
 enum _entityCategory {
   BOUNDARY = 0x0001,
@@ -42,6 +43,9 @@ class Physics{
     CarPhysics* createCar(int numberOfCar);
     void createGround();
     GoalSensor* createGoal(SideOfGoal side);
+
+    bool isInReplay = false;
+    int currentTimeOfReplay = 0;
 
   protected:
     b2World world;
@@ -77,6 +81,12 @@ class Physics{
     void carStopFlip(int socketId);
 
     void resetPositionsIfGoal();
+
+    bool getIsInReplay();
+
+    void setIsInReplay(bool replay);
+
+    void updateReplayStaus();
 
     ~Physics();
 };

@@ -14,6 +14,7 @@ GameStatus::GameStatus(
     this->score = std::move(score);
     this->players = std::move(players);
     this->closed = false;
+    this->replay = false;
 }
 
 BallModel GameStatus::getBallModel() {
@@ -50,4 +51,12 @@ void GameStatus::setClose() {
 
 bool GameStatus::isClosed(){
     return closed;
+}
+
+bool GameStatus::isInReplay() {
+    return this->replay;
+}
+
+void GameStatus::setReplay(bool rep) {
+    this->replay = rep;
 }

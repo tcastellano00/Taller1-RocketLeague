@@ -15,6 +15,7 @@ class GameStatus{
     bool closed;
     std::string actualStatus;
     std::list<PlayerModel> players;
+    bool replay;
 
 
 
@@ -46,5 +47,9 @@ class GameStatus{
     std::string status();
 
     void setClose();
+
+    bool isInReplay();
+
+    void setReplay(bool rep);
 };
 #endif

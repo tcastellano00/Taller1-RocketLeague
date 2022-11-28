@@ -38,20 +38,23 @@ void Gameloop::run() {
 
         while (!recibingQueue.empty() && commandsCounter < LIMITOFCOMANDS) {
             std::shared_ptr<ActionsClient> action = recibingQueue.pop();
-            if (action != NULL) {
+            if (action != NULL && !gamePhysics.getIsInReplay()) {
                 action->execute(gamePhysics);
             }
 
             commandsCounter += 1;
         }
         
-        gamePhysics.simulateTimeStep();
+        if (!gamePhysics.getIsInReplay()) {
+            gamePhysics.simulateTimeStep();
+        }
 
         GameStatus gameStatus = gamePhysics.getGameStatus(); //Creemos que hay que moverlo para despues del simulateTimeStep
 
         senderQueue.push(gameStatus);
 
         gamePhysics.resetPositionsIfGoal();
+        gamePhysics.updateReplayStaus();
         
         auto timeFinish = Clock::now();
 
