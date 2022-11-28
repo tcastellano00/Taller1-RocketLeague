@@ -240,7 +240,6 @@ void Physics::moveCarLeft(int socketId) {
         car->setFacingStatus(FACINGFRONT);
     }
     car->setAcceleratingStatus(ACCELERATINGLEFT);
-    car->swapFrontBackSensor();
 }
 
 void Physics::carStopAccelerating(int socketId) {
@@ -419,8 +418,16 @@ GameStatus Physics::getGameStatus(){
         }
 
         bool turbo = it->second->getDoingTurbo();
-        //std::string turbostr = (turbo ? "turbo" : "no turbo");
-        //std::cout << "Physics::getGameStatus " << turbostr << std::endl;
+
+        if (it->second->getSensorStatus() == BALLINBACKSENSOR) {
+            std::cout << "SENSOR: BACK" << std::endl;
+        } else if (it->second->getSensorStatus() == BALLINBOTTOMSENSOR) {
+            std::cout << "SENSOR: BOTTOM" << std::endl;
+        } else if (it->second->getSensorStatus() == BALLINFRONTSENSOR) {
+            std::cout << "SENSOR: FRONT" << std::endl;
+        } else if (it->second->getSensorStatus() == NOTSENSOR) {
+            std::cout << "SENSOR: NOT" << std::endl;
+        }
 
         PlayerModel pm(xCar, yCar, angle, turbo, facing);
         playerModels.push_back(pm);
