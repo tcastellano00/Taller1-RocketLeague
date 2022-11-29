@@ -5,7 +5,7 @@
 #include "../Common/GameStatusSerializer.h"
 
 ThreadClientSender::ThreadClientSender(Socket& socket)
-    : queue(true), protocol(socket), open(true){}
+    : queue(), protocol(socket), open(true) {}
 
 void ThreadClientSender::run(){
     std::cout << "ThreadClientSender::run" << std::endl;

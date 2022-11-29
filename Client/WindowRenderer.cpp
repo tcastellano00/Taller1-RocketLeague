@@ -18,7 +18,7 @@
 #include "Config/ClientConfig.h"
 
 WindowRenderer::WindowRenderer(
-        Queue<Command>& commandQueue,
+        BlockingQueue<Command>& commandQueue,
         GameStatusMonitor& gameStatusMonitor) 
     : commandQueue(commandQueue),
       gameStatusMonitor(gameStatusMonitor),

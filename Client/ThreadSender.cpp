@@ -4,7 +4,7 @@
 #include "../Common/Protocol.h"
 
 ThreadSender::ThreadSender(
-    Queue<Command>& newQueue, 
+    BlockingQueue<Command>& newQueue, 
     Socket& cnct, 
     GameStatusMonitor& newGameStatusMonitor)
     : queue(newQueue),

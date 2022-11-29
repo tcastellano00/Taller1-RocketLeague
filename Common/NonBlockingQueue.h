@@ -1,5 +1,5 @@
-#ifndef QUEUE_H
-#define QUEUE_H
+#ifndef NONBLOCKING_QUEUE_H
+#define NONBLOCKING_QUEUE_H
 
 #include <queue>
 #include <mutex>
@@ -7,32 +7,20 @@
 #include <condition_variable>
 
 template<typename T>
-class Queue {
+class NonBlockingQueue {
 private:
     std::queue<T> internal;
     std::mutex mutex;
-    std::condition_variable keep_popping;
-    bool blocksPop;
 public:
-    Queue(bool blocksPop) {
-        this->blocksPop = blocksPop; 
-    }
+    NonBlockingQueue() { }
 
     void push(T element) {
         std::unique_lock<std::mutex> lock(mutex);
         internal.push(element);
-        keep_popping.notify_all();
     }
 
     T pop() {
         std::unique_lock<std::mutex> lock(mutex);
-
-        if (this->blocksPop) {
-            while (internal.empty()) {
-                keep_popping.wait(lock);
-            }
-        }
-
         T element = internal.front();
         internal.pop();
         return element;
@@ -43,9 +31,7 @@ public:
         return internal.empty();
     }
     
-    ~Queue() {
-        std::cout << "Se destruye la cola" << std::endl;
-    }
+    ~NonBlockingQueue() { }
 };
 
 #endif

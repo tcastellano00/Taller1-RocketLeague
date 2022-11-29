@@ -1,10 +1,10 @@
 #include "ThreadClientBroadcaster.h"
 #include "ThreadClientSender.h"
-#include "../Common/Queue.h"
+#include "../Common/BlockingQueue.h"
 #include "../Common/LibError.h"
 
 ThreadClientBroadcaster::ThreadClientBroadcaster(
-    Queue<GameStatus>& newSenderQueue,
+    BlockingQueue<GameStatus>& newSenderQueue,
     std::list<ClientConnection>& newConnections)
     : senderQueue(newSenderQueue), 
       connections(newConnections), 

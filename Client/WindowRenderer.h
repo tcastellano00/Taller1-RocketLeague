@@ -1,15 +1,16 @@
 #include "GameStatusMonitor.h"
 #include "ThreadCmdReader.h"
+#include "../Common/BlockingQueue.h"
 
 class WindowRenderer {
 private:
-    Queue<Command>& commandQueue;
+    BlockingQueue<Command>& commandQueue;
     GameStatusMonitor& gameStatusMonitor;
     ThreadCmdReader threadCmdReader;
 
 public:
     WindowRenderer(
-        Queue<Command>& commandQueue,
+        BlockingQueue<Command>& commandQueue,
         GameStatusMonitor& gameStatusMonitor);
 
     void launch();

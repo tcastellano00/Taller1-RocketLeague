@@ -7,10 +7,9 @@
 
 
 Gameloop::Gameloop() 
-    : senderQueue(true), 
-      recibingQueue(false) { 
-        isRunning = false;
-      }
+    : senderQueue(), 
+      recibingQueue(),
+      isRunning(false) { }
 
 void Gameloop::run() {
     std::cout << "Gameloop::run" << std::endl;

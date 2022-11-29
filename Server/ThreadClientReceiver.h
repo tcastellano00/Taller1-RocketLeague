@@ -3,14 +3,14 @@
 
 #include "../Common/Thread.h"
 #include "../Common/Socket.h"
-#include "../Common/Queue.h"
+#include "../Common/NonBlockingQueue.h"
 #include "../Common/Protocol.h"
 #include "ActionsClient/ActionsClient.h"
 
 class ThreadClientReceiver : public Thread{
 
     Socket& sktConecction;
-    Queue<std::shared_ptr<ActionsClient>>& recibingQueue;
+    NonBlockingQueue<std::shared_ptr<ActionsClient>>& recibingQueue;
     Protocol receiverProtocol;
 
     public:
@@ -18,7 +18,7 @@ class ThreadClientReceiver : public Thread{
 
     ThreadClientReceiver(
         Socket& newSktConecction, 
-        Queue<std::shared_ptr<ActionsClient>>& newRecibingQueue);
+        NonBlockingQueue<std::shared_ptr<ActionsClient>>& newRecibingQueue);
     
     ~ThreadClientReceiver();
 };
