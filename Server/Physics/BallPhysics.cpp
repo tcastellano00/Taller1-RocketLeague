@@ -44,9 +44,9 @@ void BallPhysics::purpleShot(PlayerSide side) {
 }
 
 void BallPhysics::generateImpulse(float impulse) {
-    this->ballBody->ApplyForceToCenter(b2Vec2(impulse,0),true);
+    //this->ballBody->ApplyForceToCenter(b2Vec2(impulse,0),true);
     //this->ballBody->SetLinearVelocity(b2Vec2(impulse,0));
-    //this->ballBody->ApplyLinearImpulse(b2Vec2(impulse, 0), this->ballBody->GetWorldCenter(), true);
+    this->ballBody->ApplyLinearImpulse(b2Vec2(impulse, 0), this->ballBody->GetWorldCenter(), true);
 }
 
 SpecialShot BallPhysics::getShotType(){

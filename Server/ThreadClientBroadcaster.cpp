@@ -27,6 +27,7 @@ void ThreadClientBroadcaster::run(){
         }
 
         //Enviamos el estado del mundo a todos los clientes conectados.
+        // while (not gameStatus.isClosed()), y ya no hace falta el bool
         while (open) {
             GameStatus gameStatus = senderQueue.pop();
 
@@ -39,7 +40,10 @@ void ThreadClientBroadcaster::run(){
             open = (not gameStatus.isClosed());
         }
     }
-    catch(const LibError &e) { }
+    catch(const LibError &e) {
+        // Por qué ignorar esta exception? Es esperada? Si ignoran una exception, pongan
+        // un comentario de por qué lo hacen.
+    }
 }
 
 ThreadClientBroadcaster::~ThreadClientBroadcaster() {

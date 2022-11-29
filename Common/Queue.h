@@ -14,6 +14,9 @@ private:
     std::condition_variable keep_popping;
     bool blocksPop;
 public:
+
+    // Prefiero que sean dos clases distintas en vez de un bool, sino cuando
+    // blocksPop==false, esa condition variable ni se usa.
     Queue(bool blocksPop) {
         this->blocksPop = blocksPop; 
     }
@@ -38,6 +41,9 @@ public:
         return element;
     }
     
+
+    // Los métodos de abajo también tienen que tomar el mutex!
+
     //le agrego un metodo para ver si esta vacia
     bool empty(){
         return internal.empty();

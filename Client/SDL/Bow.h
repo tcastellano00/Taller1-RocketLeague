@@ -4,6 +4,7 @@
 #include "Animation.h"
 #include "../../Common/Model/PlayerModel.h"
 
+// El "arco" de fútbol se traduce más a "goal" que a "bow"
 class Bow{
     Animation an;
     int x;

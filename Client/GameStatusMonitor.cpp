@@ -4,6 +4,7 @@
 #include <utility>
 
 GameStatusMonitor::GameStatusMonitor() {
+    // Member initialization list
     this->clientClosedGame = false;
 }
 

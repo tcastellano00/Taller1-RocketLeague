@@ -28,6 +28,7 @@ void Animation::update(float dt) {
         this->advanceFrame();
         this->elapsed -= FRAME_RATE;
     }
+    // No me convence el nombre de "FRAME_RATE". Es más un "FRAME_TIME" que una frecuencia
 }
 
 /**

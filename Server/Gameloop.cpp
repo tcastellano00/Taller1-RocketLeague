@@ -31,7 +31,11 @@ void Gameloop::run() {
     int commandsCounter = 0;
 
 
-    //Iniciamos el Gameloop donde procesa los comandos.
+    //Iniciamos el Gameloop donde procesa los comandos. Acá arrancan las responsabilidades del GameLoop, 
+    // lo de antes no debería ser parte de esta clase. Para preservar el esquema de hilos, podrían:
+    // 1. Renombrar esta clase a algo que evidencie que va a hacer todas estas acciones
+    // 2. Extraer lo que es propio del GameLoop a otra clase con ese nombre, que no extienda de hilo
+    // 3. Acá simplemente instancian un GameLoop y lo mandan a correr.
     std::cout << "Gameloop::while" << std::endl;
     while (this->isRunning) {
         auto timeStart = Clock::now();
@@ -45,9 +49,13 @@ void Gameloop::run() {
             commandsCounter += 1;
         }
         
+        // Para hacer que el delta sea cambiable, este simulateTimeStep debería recibir
+        // por parámetro esa constante. Eso va a hacer más testeable todo.
+        // Además, DELTA y gamePhysics.timeStep representan lo mismo, no? Por qué no tienen
+        // el mismo valor? No deberían salir de la misma constante?
         gamePhysics.simulateTimeStep();
 
-        GameStatus gameStatus = gamePhysics.getGameStatus(); //Creemos que hay que moverlo para despues del simulateTimeStep
+        GameStatus gameStatus = gamePhysics.getGameStatus(); //Creemos que hay que moverlo para despues del simulateTimeStep <- yo lo veo después... :)
 
         senderQueue.push(gameStatus);
 

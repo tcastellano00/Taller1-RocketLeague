@@ -56,6 +56,8 @@ void ThreadClientAcceptor::run() {
 
 void ThreadClientAcceptor::stopClientLobbyThreads(
     std::list<ThreadClientLobby>& lobbyThreads) {
+
+    // for (auto &lobbyThread : lobbyThreads)
     for (auto lobbyThread = lobbyThreads.begin(); 
               lobbyThread != lobbyThreads.end(); 
               ++lobbyThread) {

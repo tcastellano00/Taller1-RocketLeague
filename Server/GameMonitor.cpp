@@ -54,6 +54,8 @@ bool GameMonitor::startIfLastPlayer(
 }
 
 std::string GameMonitor::listGames() {
+    // Por qué este métdo no toma el mutex? Este monitor tiene métodos de escritura...
+
     std::string result = "";
     std::map<std::string, Game>::iterator it;
 

@@ -13,10 +13,11 @@ void ThreadClientSender::run(){
     GameStatusSerializer gameStatusSerializer;
 
     //Avisa que tiene que arrancar.
-    if (open)
+    if (open) // puede ser false acá open?
         protocol.sendMessage("start!");
 
     try {
+        // while (not protocol.isClosed()) y pueden volar el bool 
         while (open) {
             GameStatus gameStatus = queue.pop();
 
