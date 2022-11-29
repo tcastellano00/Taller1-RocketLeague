@@ -53,6 +53,7 @@ void Gameloop::run() {
         senderQueue.push(gameStatus);
 
         gamePhysics.resetPositionsIfGoal();
+        gamePhysics.fillTurbos();
         gamePhysics.updateReplayStaus();
         
         auto timeFinish = Clock::now();

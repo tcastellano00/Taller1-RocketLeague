@@ -2,12 +2,13 @@
 
 PlayerModel::PlayerModel() {}
 
-PlayerModel::PlayerModel(float xCoord, float yCoord, float ang, bool nwturbo, std::string face) {
+PlayerModel::PlayerModel(float xCoord, float yCoord, float ang, bool nwturbo, std::string face, int turboRem) {
     this->x = xCoord;
     this->y = yCoord;
     this->angle = ang;
     this->turbo = nwturbo;
     this->facing = face;
+    this->turboRemaining = turboRem;
 }
 
 PlayerModel::~PlayerModel(){}
@@ -30,4 +31,8 @@ bool PlayerModel::isDoingTurbo() {
 
 std::string PlayerModel::getFacing(){
     return this->facing;
+}
+
+int PlayerModel::getTurboRemaining() {
+    return this->turboRemaining;
 }

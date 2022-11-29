@@ -88,6 +88,8 @@ class Physics{
 
     void updateReplayStaus();
 
+    void fillTurbos();
+
     ~Physics();
 };
 #endif
