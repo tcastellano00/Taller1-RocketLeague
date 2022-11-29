@@ -51,6 +51,7 @@ private:
     bool isFliping;
     float flipStartAngle;
     bool isDoingTurbo;
+    int turboRemaining;
 
 
 public:
@@ -81,6 +82,14 @@ public:
     void swapFrontBackSensor();
 
     void updateFlipStatus();
+
+    void loseTurbo();
+
+    void fillTurbo();
+
+    bool canUseTurbo();
+
+    int getTurbo();
 
 };
 

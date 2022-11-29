@@ -285,7 +285,6 @@ void Physics::carJump(int socketId) {
 void Physics::flipCarRight(int socketId) {
     b2Body* carBody = this->cars[socketId]->getCarBody();
     carBody->SetAngularVelocity(ROTATIONANGULARVELOCITY);
-    std::cout << carBody->GetAngle() << std::endl;
 
 
 
@@ -301,7 +300,6 @@ void Physics::flipCarLeft(int socketId) {
 }
 
 void Physics::carStopFlip(int socketId) {
-    std::cout << "carStopFlip" << std::endl;
     b2Body* carBody = this->cars[socketId]->getCarBody();
     carBody->SetAngularVelocity(0);
 }
@@ -312,6 +310,14 @@ void Physics::carTurbo(int socketId){
     // }
 
     CarPhysics* car = this->cars[socketId];
+
+    if (!car->canUseTurbo()) {
+        car->setDoingTurbo(false);
+        return;
+    }
+
+    car->loseTurbo();
+
     b2Body* carBody = car->getCarBody();
     float angle = carBody->GetAngle();
     float x = std::cos(angle)*TURBOFORCE;
@@ -418,6 +424,7 @@ GameStatus Physics::getGameStatus(){
         }
 
         bool turbo = it->second->getDoingTurbo();
+        int turboRem = it->second->getTurbo();
 
         /*if (it->second->getSensorStatus() == BALLINBACKSENSOR) {
             std::cout << "SENSOR: BACK" << std::endl;
@@ -429,7 +436,8 @@ GameStatus Physics::getGameStatus(){
             std::cout << "SENSOR: NOT" << std::endl;
         }*/
 
-        PlayerModel pm(xCar, yCar, angle, turbo, facing);
+
+        PlayerModel pm(xCar, yCar, angle, turbo, facing, turboRem);
         playerModels.push_back(pm);
 
 
@@ -540,6 +548,14 @@ void Physics::updateReplayStaus() {
     if (this->currentTimeOfReplay >= REPLAYTIME) {
         this->currentTimeOfReplay = 0;
         this->setIsInReplay(false);
+    }
+}
+
+void Physics::fillTurbos() {
+    for (std::map<int, CarPhysics*>::iterator it = this->cars.begin(); it != this->cars.end(); ++it) {
+        if (!it->second->getDoingTurbo() && it->second->getAirStatus() == GROUND ) {
+            it->second->fillTurbo();
+        }
     }
 }
 

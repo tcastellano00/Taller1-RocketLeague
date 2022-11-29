@@ -3,6 +3,7 @@
 #define FLIPIMPULSE 3000
 #define PI  3.14159265358979323846
 #define FLIPANGULARVEL PI*2
+#define MAXTURBO 50 //dos segundos de turbo
 
 
 CarPhysics::CarPhysics(b2Body* body, PlayerSide side){
@@ -16,6 +17,7 @@ CarPhysics::CarPhysics(b2Body* body, PlayerSide side){
     this->sensorStatus = NOTSENSOR;
     this->isFliping = false;
     this->flipStartAngle = 0;
+    this->turboRemaining = MAXTURBO;
 }
 
 CarPhysics::CarPhysics() {}
@@ -104,4 +106,24 @@ void CarPhysics::updateFlipStatus() {
         this->flipStartAngle = 0;
         this->carBody->SetAngularVelocity(0);
     }
+}
+
+void CarPhysics::loseTurbo() {
+    if (this->turboRemaining > 0) {
+        this->turboRemaining -= 1;
+    }
+}
+
+void CarPhysics::fillTurbo() {
+    if (this->turboRemaining < MAXTURBO) {
+        this->turboRemaining += 1;
+    }
+}
+
+bool CarPhysics::canUseTurbo() {
+    return this->turboRemaining != 0;
+}
+
+int CarPhysics::getTurbo() {
+    return this->turboRemaining;
 }

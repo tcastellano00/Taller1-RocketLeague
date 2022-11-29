@@ -47,7 +47,7 @@ void WindowRenderer::launch() {
 
         SDL2pp::Chunk sound("music/audioFondo.ogg");
 
-        mixer.PlayChannel(-1, sound);
+        //mixer.PlayChannel(-1, sound);
 
         // Usar factory
 
@@ -97,6 +97,10 @@ void WindowRenderer::launch() {
 
         SDL2pp::Texture turbo(renderer, 
             SDL2pp::Surface("assets/turbo_car.png").SetColorKey(true, 0));
+        SDL2pp::Texture turboBarEmpty(renderer, 
+            SDL2pp::Surface("assets/turboBarEmpty.png").SetColorKey(true, 0));
+        SDL2pp::Texture turboBarFull(renderer, 
+            SDL2pp::Surface("assets/turboBarFull.png").SetColorKey(true, 0));
 
         SDL2pp::Texture replayTexture(renderer, 
             SDL2pp::Surface("assets/replay.png").SetColorKey(true, 0));
@@ -135,7 +139,7 @@ void WindowRenderer::launch() {
         //Instanciamos a priori cuatro jugadores.
         std::list<Player> players;
         for (int i = 0; i < 4; i++) {
-            players.emplace_back(im, turbo);
+            players.emplace_back(im, turbo, turboBarEmpty, turboBarFull);
         }
         
         std::string lastState("");
@@ -163,11 +167,13 @@ void WindowRenderer::launch() {
 
 
             auto playerIter = players.begin();
+            int i = 0;
             std::list<PlayerModel> playerModels = gameStatusSnapshot.getPlayersModels();
             for (auto playerModel = playerModels.begin(); playerModel != playerModels.end(); ++playerModel) {
                 playerIter->update(*playerModel, FRAME_RATE);
-                playerIter->render(renderer);
+                playerIter->render(renderer, i);
                 ++playerIter;
+                ++i;
             }
 
             if (isInReplay) {
