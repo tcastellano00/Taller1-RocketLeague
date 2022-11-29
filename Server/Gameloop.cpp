@@ -18,8 +18,8 @@ void Gameloop::run() {
     Physics gamePhysics(this->connectionList);
     
     //Instanciamos los receivers.
-    for (auto connection = connectionList.begin(); connection != connectionList.end(); ++connection) {
-        clientThreadReceiver.emplace_back((*connection).getSocketReference(),recibingQueue);
+    for (auto &connection : connectionList){
+        clientThreadReceiver.emplace_back(connection.getSocketReference(), recibingQueue);
         clientThreadReceiver.back().start();
     }
 

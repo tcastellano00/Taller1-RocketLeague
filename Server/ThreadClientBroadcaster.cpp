@@ -8,9 +8,7 @@ ThreadClientBroadcaster::ThreadClientBroadcaster(
     std::list<ClientConnection>& newConnections)
     : senderQueue(newSenderQueue), 
       connections(newConnections), 
-      open(true) { 
-
-    }
+      open(true) { }
 
 void ThreadClientBroadcaster::run(){
     std::cout << "Broadcaster::run" << std::endl;
@@ -19,10 +17,8 @@ void ThreadClientBroadcaster::run(){
     try
     {
         //Instanciamos todos los hilos sender.
-        for (auto connection = connections.begin(); 
-                connection != connections.end(); 
-                ++connection) {
-            clientSenderThreads.emplace_back((*connection).getSocketReference());
+        for (auto &connection : connections){
+            clientSenderThreads.emplace_back(connection.getSocketReference());
             clientSenderThreads.back().start();
         }
 
@@ -30,11 +26,8 @@ void ThreadClientBroadcaster::run(){
         while (open) {
             GameStatus gameStatus = senderQueue.pop();
 
-            for (auto sender = clientSenderThreads.begin(); 
-                    sender != clientSenderThreads.end(); 
-                    ++sender) {
-                (*sender).push(gameStatus);
-            }
+            for (auto &senderThread : clientSenderThreads)
+                senderThread.push(gameStatus);
             
             open = (not gameStatus.isClosed());
         }

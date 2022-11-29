@@ -44,6 +44,10 @@ bool GameMonitor::startIfLastPlayer(
     const std::string& gameName) {
     std::lock_guard<std::mutex> lock(mutex);
     
+    //Veo si la partida no existe
+    if (this->games.find(gameName) == this->games.end())
+        return false;
+
     //Esta llena?
     if (!this->games.at(gameName).isFull())
         return false;
@@ -59,11 +63,11 @@ std::string GameMonitor::listGames() {
     std::string result = "";
     std::map<std::string, Game>::iterator it;
 
-    for (it = this->games.begin(); it != this->games.end(); ++it) {
+    for (auto &gameRow : this->games) {
         result += "\n"; //Break line.
-        result += it->second.getName() + " " + 
-                     std::to_string(it->second.getNumberOfConnectedClients()) + "/" +
-                     std::to_string(it->second.getMaxClients());
+        result += gameRow.second.getName() + " " + 
+                     std::to_string(gameRow.second.getNumberOfConnectedClients()) + "/" +
+                     std::to_string(gameRow.second.getMaxClients());
     }
 
     return result;
@@ -73,18 +77,19 @@ void GameMonitor::finishGame(
     const std::string& gameName) {
     std::lock_guard<std::mutex> lock(mutex);
 
+    //Veo si la partida no existe
+    if (this->games.find(gameName) == this->games.end())
+        return;
+
     this->games.at(gameName).finish();
 }
 
 void GameMonitor::finishGames() {
     std::lock_guard<std::mutex> lock(mutex);
     std::map<std::string, Game>::iterator it;
-
-    for (it = this->games.begin(); 
-         it != this->games.end(); 
-         ++it) {
-        it->second.finish();
-    }
+    
+    for (auto &gameRow : this->games)
+        gameRow.second.finish();
 }
 
 GameMonitor::~GameMonitor() {
