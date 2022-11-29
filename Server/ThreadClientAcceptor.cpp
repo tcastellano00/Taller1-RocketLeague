@@ -33,9 +33,6 @@ void ThreadClientAcceptor::run() {
     std::list<ThreadClientLobby> clientLobbyThreads;
     GameMonitor gameMonitor;
 
-    // Quitar luego.
-    std::cout << ServerConfig::getGravity() << std::endl;
-
     while (this->isReceiving)
     {
         try {
