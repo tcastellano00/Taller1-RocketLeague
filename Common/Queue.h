@@ -38,17 +38,9 @@ public:
         return element;
     }
     
-    //le agrego un metodo para ver si esta vacia
     bool empty(){
+        std::unique_lock<std::mutex> lock(mutex);
         return internal.empty();
-    }
-
-    void liberar() {
-        keep_popping.notify_all();
-    }
-    
-    int longitud(){
-        return internal.size();
     }
     
     ~Queue() {
