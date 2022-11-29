@@ -5,13 +5,11 @@
 #include "ThreadCmdReader.h"
 
 ThreadCmdReader::ThreadCmdReader(
-    Queue<Command>& newQueue, 
+    BlockingQueue<Command>& newQueue, 
     GameStatusMonitor& newGameStatusMonitor) : 
     queue(newQueue), gameStatusMonitor(newGameStatusMonitor) {}
 
 void ThreadCmdReader::run() {
-    //usleep(5000000); //reemplazar por una CV.
-
     std::cout << "Im running cmd reader thread" << std::endl;
 
     bool running = (not gameStatusMonitor.gameIsClosed());

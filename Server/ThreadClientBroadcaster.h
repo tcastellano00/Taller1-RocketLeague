@@ -5,19 +5,19 @@
 #include <string>
 #include "../Common/Thread.h"
 #include "../Common/Socket.h"
-#include "../Common/Queue.h"
+#include "../Common/BlockingQueue.h"
 #include "../Common/GameStatus.h"
 #include "ClientConnection.h"
 
 class ThreadClientBroadcaster : public Thread{
 
-    Queue<GameStatus>& senderQueue;
+    BlockingQueue<GameStatus>& senderQueue;
     std::list<ClientConnection>& connections;
     bool open;
 
     public:
     ThreadClientBroadcaster(
-        Queue<GameStatus>& newSenderQueue,
+        BlockingQueue<GameStatus>& newSenderQueue,
         std::list<ClientConnection>& newConnections
     );
 

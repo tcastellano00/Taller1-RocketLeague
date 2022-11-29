@@ -10,15 +10,13 @@
 #include "ThreadClientAcceptor.h"
 
 Server::Server(
-    const char *port) : socket(port), serverConfig() { }
+    const char *port) : socket(port) { }
 
 void Server::run() {
     ThreadClientAcceptor clientAcceptor(this->socket);
     clientAcceptor.start();
 
     std::string key;
-
-    std::cout << serverConfig.getGravity() << std::endl;
 
     while (std::cin >> key) {
         if (key == "q")

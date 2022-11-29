@@ -6,7 +6,6 @@
 class Server {
 private:
     Socket socket;
-    ServerConfig serverConfig;
 
 public:
     /*

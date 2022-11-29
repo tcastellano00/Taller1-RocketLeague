@@ -1,5 +1,5 @@
-#ifndef QUEUE_H
-#define QUEUE_H
+#ifndef BLOCKING_QUEUE_H
+#define BLOCKING_QUEUE_H
 
 #include <queue>
 #include <mutex>
@@ -7,16 +7,13 @@
 #include <condition_variable>
 
 template<typename T>
-class Queue {
+class BlockingQueue {
 private:
     std::queue<T> internal;
     std::mutex mutex;
     std::condition_variable keep_popping;
-    bool blocksPop;
 public:
-    Queue(bool blocksPop) {
-        this->blocksPop = blocksPop; 
-    }
+    BlockingQueue() { }
 
     void push(T element) {
         std::unique_lock<std::mutex> lock(mutex);
@@ -27,10 +24,8 @@ public:
     T pop() {
         std::unique_lock<std::mutex> lock(mutex);
 
-        if (this->blocksPop) {
-            while (internal.empty()) {
-                keep_popping.wait(lock);
-            }
+        while (internal.empty()) {
+            keep_popping.wait(lock);
         }
 
         T element = internal.front();
@@ -38,22 +33,12 @@ public:
         return element;
     }
     
-    //le agrego un metodo para ver si esta vacia
     bool empty(){
+        std::unique_lock<std::mutex> lock(mutex);
         return internal.empty();
     }
-
-    void liberar() {
-        keep_popping.notify_all();
-    }
     
-    int longitud(){
-        return internal.size();
-    }
-    
-    ~Queue() {
-        std::cout << "Se destruye la cola" << std::endl;
-    }
+    ~BlockingQueue() { }
 };
 
 #endif

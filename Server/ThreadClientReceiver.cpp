@@ -1,12 +1,12 @@
-#include "../Common/Queue.h"
 #include "../Common/LibError.h"
+#include "../Common/NonBlockingQueue.h"
 
 #include "ThreadClientReceiver.h"
 #include "ActionsClient/ActionsClient.h"
 
 ThreadClientReceiver::ThreadClientReceiver(
     Socket& newSktConecction, 
-    Queue<std::shared_ptr<ActionsClient>>& newRecibingQueue
+    NonBlockingQueue<std::shared_ptr<ActionsClient>>& newRecibingQueue
 )
     :   sktConecction(newSktConecction),
         recibingQueue(newRecibingQueue), 

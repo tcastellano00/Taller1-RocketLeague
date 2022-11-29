@@ -3,7 +3,8 @@
 
 #include "../Common/Thread.h"
 #include "../Common/Socket.h"
-#include "../Common/Queue.h"
+#include "../Common/BlockingQueue.h"
+#include "../Common/NonBlockingQueue.h"
 #include "../Common/Command.h"
 #include "ClientConnection.h"
 #include "ThreadClientReceiver.h"
@@ -19,8 +20,8 @@ typedef std::chrono::high_resolution_clock Clock;
 class Gameloop : public Thread {
 
 private:
-    Queue<GameStatus> senderQueue;
-    Queue<std::shared_ptr<ActionsClient>> recibingQueue;
+    BlockingQueue<GameStatus> senderQueue;
+    NonBlockingQueue<std::shared_ptr<ActionsClient>> recibingQueue;
     std::list <ThreadClientReceiver> clientThreadReceiver;
     std::list <ClientConnection> connectionList;
     bool isRunning;

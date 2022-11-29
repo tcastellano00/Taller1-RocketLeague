@@ -3,9 +3,7 @@
 #include "ThreadLauncher.h"
 #include "GameStatusMonitor.h"
 
-Client::Client(char* service, char* port): conection(service, port){
-
-}
+Client::Client(char* ip, char* port) : conection(ip, port) { }
 
 void Client::start() {
     Lobby lobby(conection);

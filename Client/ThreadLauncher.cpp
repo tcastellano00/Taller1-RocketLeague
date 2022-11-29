@@ -4,7 +4,7 @@
 #include "ThreadReceiver.h"
 #include "ThreadSender.h"
 #include "WindowRenderer.h"
-#include "../Common/Queue.h"
+#include "../Common/BlockingQueue.h"
 #include "../Common/Command.h"
 
 
@@ -12,16 +12,13 @@ ThreadLauncher::ThreadLauncher() {}
 
 void ThreadLauncher::start(Socket& connection,GameStatusMonitor& gameStatusMonitor) {
     std::cout << "Im launching the threads" << std::endl;
-    Queue<Command> queue(true);
+    BlockingQueue<Command> queue;
 
     ThreadSender sender(queue, connection, gameStatusMonitor);
     sender.start();
     
     ThreadReceiver receiver(connection, gameStatusMonitor);
     receiver.start();
-
-    //ThreadCmdReader cmdReader(queue, gameStatusMonitor);
-    //cmdReader.start();
    
     WindowRenderer renderer(queue, gameStatusMonitor);
     renderer.launch();

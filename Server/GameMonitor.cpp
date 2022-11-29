@@ -54,6 +54,8 @@ bool GameMonitor::startIfLastPlayer(
 }
 
 std::string GameMonitor::listGames() {
+    std::lock_guard<std::mutex> lock(mutex);
+
     std::string result = "";
     std::map<std::string, Game>::iterator it;
 
@@ -75,6 +77,7 @@ void GameMonitor::finishGame(
 }
 
 void GameMonitor::finishGames() {
+    std::lock_guard<std::mutex> lock(mutex);
     std::map<std::string, Game>::iterator it;
 
     for (it = this->games.begin(); 

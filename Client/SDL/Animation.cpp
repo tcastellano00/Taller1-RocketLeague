@@ -30,9 +30,9 @@ Animation::~Animation() {}
 void Animation::update(float dt) {
     this->elapsed += dt;
     /* checks if the frame should be updated based on the time elapsed since the last update */
-    while (this->elapsed > FRAME_RATE) {
+    while (this->elapsed > FRAME_TIME) {
         this->advanceFrame();
-        this->elapsed -= FRAME_RATE;
+        this->elapsed -= FRAME_TIME;
     }
 }
 

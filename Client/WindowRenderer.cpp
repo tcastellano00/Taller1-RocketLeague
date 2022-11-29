@@ -6,7 +6,6 @@
 #include "CappedList.h"
 
 #include "SDL/Ball.h"
-#include "SDL/Bow.h"
 #include "SDL/Score.h"
 #include "SDL/Player.h"
 #include "SDL/Scene.h"
@@ -19,7 +18,7 @@
 #include "Config/ClientConfig.h"
 
 WindowRenderer::WindowRenderer(
-        Queue<Command>& commandQueue,
+        BlockingQueue<Command>& commandQueue,
         GameStatusMonitor& gameStatusMonitor) 
     : commandQueue(commandQueue),
       gameStatusMonitor(gameStatusMonitor),
@@ -54,8 +53,6 @@ void WindowRenderer::launch() {
         SDL2pp::Texture wallsAndScore(renderer, 
             SDL2pp::Surface("assets/wallsAndScore.png").SetColorKey(false, 0));
 
-        //wallsAndScore.SetBlendMode(SDL_BLENDMODE_NONE);
-
         SDL2pp::Texture backgroud(renderer, 
             SDL2pp::Surface("assets/background.png").SetColorKey(true, 0));
             
@@ -64,10 +61,6 @@ void WindowRenderer::launch() {
 
         SDL2pp::Texture ballTexture(renderer, 
             SDL2pp::Surface("assets/ball.png").SetColorKey(true, 0));
-
-        SDL2pp::Texture bowTexture(renderer, 
-            SDL2pp::Surface("assets/bow.png").SetColorKey(true, 0));   //bow = arco
-
         
         SDL2pp::Texture zeroTexture(renderer, 
             SDL2pp::Surface("assets/Numbers/zero.png").SetColorKey(true, 0));
@@ -91,9 +84,6 @@ void WindowRenderer::launch() {
             SDL2pp::Surface("assets/Numbers/nine.png").SetColorKey(true, 0));
         SDL2pp::Texture colon(renderer, 
             SDL2pp::Surface("assets/Numbers/colon.png").SetColorKey(true, 0));
-        
-        /*SDL2pp::Texture turbo(renderer, 
-            SDL2pp::Surface("assets/turbo.png").SetColorKey(false, 0));*/
 
         SDL2pp::Texture turbo(renderer, 
             SDL2pp::Surface("assets/turbo_car.png").SetColorKey(true, 0));
@@ -129,9 +119,6 @@ void WindowRenderer::launch() {
 
         Scene scene(backgroud,wallsAndScore);
 
-        Bow bow1(bowTexture,0,false);
-        Bow bow2(bowTexture,700,true);
-
         Ball ball(ballTexture);
 
         ReplayFrame replayFrame(replayTexture);
@@ -162,15 +149,14 @@ void WindowRenderer::launch() {
             }
 
             //Render gameStatus snapshot.
-            ball.update(gameStatusSnapshot.getBallModel(), FRAME_RATE);
+            ball.update(gameStatusSnapshot.getBallModel(), FRAME_TIME);
             ball.render(renderer);
-
 
             auto playerIter = players.begin();
             int i = 0;
             std::list<PlayerModel> playerModels = gameStatusSnapshot.getPlayersModels();
             for (auto playerModel = playerModels.begin(); playerModel != playerModels.end(); ++playerModel) {
-                playerIter->update(*playerModel, FRAME_RATE);
+                playerIter->update(*playerModel, FRAME_TIME);
                 playerIter->render(renderer, i);
                 ++playerIter;
                 ++i;
@@ -179,7 +165,7 @@ void WindowRenderer::launch() {
             if (isInReplay) {
                 replayFrame.render(renderer);
             } else {
-                score.update(gameStatusSnapshot.getScoreModel(), FRAME_RATE);
+                score.update(gameStatusSnapshot.getScoreModel(), FRAME_TIME);
                 score.render(renderer);
             }
 
@@ -189,7 +175,7 @@ void WindowRenderer::launch() {
             // de la cantidad de tiempo que demoró el handleEvents y el render
 
             isInReplay = false;
-            usleep(FRAME_RATE);
+            usleep(FRAME_TIME);
         }
 
         
