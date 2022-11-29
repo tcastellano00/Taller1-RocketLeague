@@ -4,6 +4,6 @@ class Client {
 private:
     Socket conection;
 public:
-    Client(char* service, char* port);
+    Client(char* ip, char* port);
     void start();
 };
