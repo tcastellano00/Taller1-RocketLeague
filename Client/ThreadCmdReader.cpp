@@ -48,16 +48,6 @@ void ThreadCmdReader::handleEventOnKeyDown(SDL_Event event) {
     std::string command = keyBoardMapper.getActionByKeyCodeOnKeyDown(keyEvent.keysym.sym);
 
     pushCommand(command);
-    /*
-    switch (keyEvent.keysym.sym) {
-        case SDLK_UP: pushCommand(START_FLIPING_RIGHT); break;
-        case SDLK_DOWN: pushCommand(START_FLIPING_LEFT); break;
-        case SDLK_SPACE: pushCommand(START_JUMPING); break;
-        case SDLK_RIGHT: pushCommand(START_MOVING_RIGHT); break;
-        case SDLK_LEFT: pushCommand(START_MOVING_LEFT); break;
-        case SDLK_t: pushCommand(START_DOING_TURBO); break;
-        default: break;
-    } */
 }
 
 void ThreadCmdReader::handleEventOnKeyUp(SDL_Event event) {
@@ -66,16 +56,6 @@ void ThreadCmdReader::handleEventOnKeyUp(SDL_Event event) {
     std::string command = keyBoardMapper.getActionByKeyCodeOnKeyUp(keyEvent.keysym.sym);
 
     pushCommand(command);
-    /*
-    switch (keyEvent.keysym.sym) {
-        case SDLK_UP: pushCommand(STOP_FLIPING_RIGHT); break;
-        case SDLK_DOWN: pushCommand(STOP_FLIPING_LEFT); break;
-        case SDLK_SPACE: pushCommand(STOP_JUMPING); break;
-        case SDLK_RIGHT: pushCommand(STOP_MOVING_RIGHT); break;
-        case SDLK_LEFT: pushCommand(STOP_MOVING_LEFT); break;
-        case SDLK_t: pushCommand(STOP_DOING_TURBO); break;
-        default: break;
-    } */
 }
 
 void ThreadCmdReader::handleEventOnQuit() {
