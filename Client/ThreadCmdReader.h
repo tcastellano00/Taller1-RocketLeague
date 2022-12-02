@@ -6,12 +6,20 @@
 #include "../Common/Command.h"
 #include "GameStatusMonitor.h"
 
+#include <SDL2/SDL.h>
+
 class ThreadCmdReader: public Thread {
 private:
     BlockingQueue<Command>& queue;
     GameStatusMonitor& gameStatusMonitor;
 
     bool handleEvents();
+    bool handleEvent(SDL_Event event);
+    void handleEventOnKeyDown(SDL_Event event);
+    void handleEventOnKeyUp(SDL_Event event);
+    void handleEventOnQuit();
+    void pushCommand(const std::string command);
+
 public:
     void run() override;
     ThreadCmdReader(

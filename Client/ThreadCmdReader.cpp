@@ -10,112 +10,70 @@ ThreadCmdReader::ThreadCmdReader(
     queue(newQueue), gameStatusMonitor(newGameStatusMonitor) {}
 
 void ThreadCmdReader::run() {
-    std::cout << "Im running cmd reader thread" << std::endl;
-
     bool running = (not gameStatusMonitor.gameIsClosed());
 
-    while (running) {
+    while (running)
         running = handleEvents();
-    }
-
-    std::cout << "Terminando ThreadCmdReader::run" << std::endl;
+    
     gameStatusMonitor.setClose();
 }
 
 bool ThreadCmdReader::handleEvents() {
     SDL_Event event;
-    while (SDL_PollEvent(&event)) {
-        switch(event.type) {
-            case SDL_KEYDOWN: {
-                SDL_KeyboardEvent& keyEvent = (SDL_KeyboardEvent&) event;
-                switch (keyEvent.keysym.sym) {
-                    case SDLK_UP: {
-                        Command cmd("flip right");
-                        queue.push(cmd);
-                        break;
-                    }
-                    case SDLK_DOWN: {
-                        Command cmd("flip left");
-                        queue.push(cmd);
-                        break;
-                    }
-                    case SDLK_SPACE: {
-                        Command cmd("jump");
-                        queue.push(cmd);
-                        break;
-                    }
-                    case SDLK_RIGHT: {
-                        Command cmd("right");
-                        queue.push(cmd);
-                        break;
-                    }
-                    case SDLK_LEFT: {
-                        Command cmd("left");
-                        queue.push(cmd);
-                        break;
-                    }
-                    case SDLK_t: {
-                        Command cmd("turbo");
-                        queue.push(cmd);
-                        break;
-                    }
-                    default: {
-                        break;
-                    }
-                }
-                break;
-            }
-            case SDL_KEYUP: {
-                SDL_KeyboardEvent& keyEvent = (SDL_KeyboardEvent&) event;
-                switch (keyEvent.keysym.sym) {
-                    case SDLK_RIGHT: {
-                        Command cmd("stop accelerating");
-                        queue.push(cmd);
-                        break;
-                    }
-                    case SDLK_LEFT: {
-                        Command cmd("stop accelerating");
-                        queue.push(cmd);
-                        break;
-                    }
-                    case SDLK_t: {
-                        Command cmd("stop turbo");
-                        queue.push(cmd);
-                        break;
-                    }
-                    case SDLK_UP: {
-                        Command cmd("stop flip");
-                        queue.push(cmd);
-                        break;
-                    }
-                    case SDLK_DOWN: {
-                        Command cmd("stop flip");
-                        queue.push(cmd);
-                        break;
-                    }
-                    default: {
-                        break;
-                    }
-                }
-                break;
-            }
-            case SDL_QUIT: {
-                std::cout << "Quit :(" << std::endl;
-                Command cmd("quit");
-                queue.push(cmd);
+    bool running = true;
+    while (SDL_WaitEvent(&event) && running) {
+        running = handleEvent(event);
+    }
 
-                return false;
-            }
-            default: {
-                break;
-            }
-            
-        }
+    return running;
+}
 
+bool ThreadCmdReader::handleEvent(SDL_Event event) {
+    switch(event.type) {
+        case SDL_KEYDOWN: handleEventOnKeyDown(event); break;
+        case SDL_KEYUP: handleEventOnKeyUp(event); break;
+        case SDL_QUIT: handleEventOnQuit(); return false;
+        default: break;
     }
 
     return true;
+}
 
+void ThreadCmdReader::handleEventOnKeyDown(SDL_Event event) {
+    SDL_KeyboardEvent& keyEvent = (SDL_KeyboardEvent&) event;
+
+    switch (keyEvent.keysym.sym) {
+        case SDLK_UP: pushCommand("flip right"); break;
+        case SDLK_DOWN: pushCommand("flip left"); break;
+        case SDLK_SPACE: pushCommand("jump"); break;
+        case SDLK_RIGHT: pushCommand("right"); break;
+        case SDLK_LEFT: pushCommand("left"); break;
+        case SDLK_t: pushCommand("turbo"); break;
+        default: break;
+    }
+}
+
+void ThreadCmdReader::handleEventOnKeyUp(SDL_Event event) {
+    SDL_KeyboardEvent& keyEvent = (SDL_KeyboardEvent&) event;
+
+    switch (keyEvent.keysym.sym) {
+        case SDLK_UP: pushCommand("stop right"); break;
+        case SDLK_DOWN: pushCommand("stop left"); break;
+        //case SDLK_SPACE: pushCommand("stop jumping"); break;
+        case SDLK_RIGHT: pushCommand("stop accelerating"); break;
+        case SDLK_LEFT: pushCommand("stop accelerating"); break;
+        case SDLK_t: pushCommand("stop turbo"); break;
+        default: break;
+    }
+}
+
+void ThreadCmdReader::handleEventOnQuit() {
+    pushCommand("quit");
+}
+
+void ThreadCmdReader::pushCommand(const std::string command) {
+    Command cmd(command);
+    queue.push(cmd);
 }
 
 ThreadCmdReader::~ThreadCmdReader() {
