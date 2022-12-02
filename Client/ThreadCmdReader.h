@@ -7,11 +7,14 @@
 #include "GameStatusMonitor.h"
 
 #include <SDL2/SDL.h>
+#include "SDL/KeyboardEvent/KeyBoardMapper.h"
+
 
 class ThreadCmdReader: public Thread {
 private:
     BlockingQueue<Command>& queue;
     GameStatusMonitor& gameStatusMonitor;
+    KeyBoardMapper keyBoardMapper;
 
     bool handleEvents();
     bool handleEvent(SDL_Event event);

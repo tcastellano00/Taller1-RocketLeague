@@ -3,6 +3,7 @@
 #define START_MOVING_LEFT "left"
 #define START_FLIPING_RIGHT "flip right"
 #define START_FLIPING_LEFT "flip left"
+#define START_FLIPING "start flip"
 #define START_DOING_TURBO "turbo"
 
 #define STOP_JUMPING "stop jump"
@@ -13,4 +14,5 @@
 #define STOP_FLIPING_LEFT "stop left"
 #define STOP_DOING_TURBO "stop turbo"
 
+#define SKIP_REPLAY "skip replay"
 #define QUIT "quit"
