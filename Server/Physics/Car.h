@@ -55,9 +55,11 @@ private:
 
 
 public:
-    CarPhysics(b2Body* body, PlayerSide side);
+    CarPhysics(b2World& world, int numberOfCar);
     CarPhysics();
     b2Body* getCarBody();
+
+    b2Body* createBody(b2World& world, int numberOfCar);
 
     void landed();
     void jumpedFromTheFloor();

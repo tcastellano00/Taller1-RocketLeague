@@ -7,8 +7,8 @@ KeyBoardMapper::KeyBoardMapper() {
 
     this->addKeyCodeAction(ClientConfig::getKeyCommandMoveRight(), START_MOVING_RIGHT, STOP_MOVING_RIGHT);
     this->addKeyCodeAction(ClientConfig::getKeyCommandMoveLeft(), START_MOVING_LEFT, STOP_MOVING_LEFT);
-    this->addKeyCodeAction(ClientConfig::getKeyCommandMoveUp(), START_FLIPING_RIGHT, STOP_FLIPING_RIGHT);
-    this->addKeyCodeAction(ClientConfig::getKeyCommandMoveDown(), START_FLIPING_LEFT, STOP_FLIPING_LEFT);
+    this->addKeyCodeAction(ClientConfig::getKeyCommandMoveUp(), START_FLIPING_RIGHT, STOP_FLIPING);
+    this->addKeyCodeAction(ClientConfig::getKeyCommandMoveDown(), START_FLIPING_LEFT, STOP_FLIPING);
     this->addKeyCodeAction(ClientConfig::getKeyCommandTurbo(), START_DOING_TURBO, STOP_DOING_TURBO);
     this->addKeyCodeAction(ClientConfig::getKeyCommandJump(), START_JUMPING, STOP_JUMPING);
     this->addKeyCodeAction(ClientConfig::getKeyCommandFlip(), START_FLIPING, STOP_FLIPING);

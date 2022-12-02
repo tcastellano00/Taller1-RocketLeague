@@ -5,6 +5,7 @@
 #include "GoalSensor.h"
 #include "Car.h"
 #include "BallPhysics.h"
+#include "EntityCategory.h"
 
 
 class ContactListener : public b2ContactListener  {

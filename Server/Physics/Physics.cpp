@@ -1,5 +1,6 @@
 #include "Physics.h"
 #include "Car.h"
+#include "Box.h"
 #include <iostream>
 #include <string>
 
@@ -40,16 +41,14 @@ Physics::Physics(std::list<ClientConnection>& connections): world(b2Vec2(0.0f, G
     int numberOfCar = 0;
     for (auto connection = connections.begin(); connection != connections.end(); ++connection) {
         int sktId = (*connection).getId();
-        cars[sktId] = createCar(numberOfCar);
+        cars[sktId] = new CarPhysics(world, numberOfCar);
         numberOfCar++;
     }
-
+    BoxPhysics box(this->world);
     this->createBall();
 
-
-
     //this->createGround();
-    this->createBox();
+    //this->createBox();
     //this->createCars();
 
     //CarPhisics car(b2World);
@@ -57,94 +56,10 @@ Physics::Physics(std::list<ClientConnection>& connections): world(b2Vec2(0.0f, G
     this->rightGoal = this->createGoal(RIGHT);
 
     this->world.SetContactListener(&(this->contactListener));
-
-    //int gameTime = 180000; //milisegundos
-    //b2Timer timer;
-    //timer.GetMilliseconds();
-
-
 }
 
 void Physics::createBox(){
-    b2BodyDef boxBodyDef;
-
-    b2PolygonShape polygonShape;
-    b2FixtureDef myFixtureDef;
-    myFixtureDef.shape = &polygonShape;
-    myFixtureDef.density = 1;
-    myFixtureDef.friction = GROUNDFRICTION;
-    myFixtureDef.filter.categoryBits = BOUNDARY;
-    myFixtureDef.filter.maskBits = CAR | BALL;
-
-    boxBodyDef.type = b2_staticBody;
-    boxBodyDef.position.Set(FIELDHALFWIDTH, 0);
-    this->box = world.CreateBody(&boxBodyDef);
-
-    //add four walls to the static body
-    polygonShape.SetAsBox( FIELDHALFWIDTH, WALLWIDTH, b2Vec2(0, WALLWIDTH*(-1)), 0);//ground
-    this->box->CreateFixture(&myFixtureDef);
-    polygonShape.SetAsBox( FIELDHALFWIDTH, WALLWIDTH, b2Vec2(0, FIELDHEIGTH + WALLWIDTH), 0);//ceiling
-    this->box->CreateFixture(&myFixtureDef);
-    polygonShape.SetAsBox( WALLWIDTH, FIELDHALFWIDTH, b2Vec2((FIELDHALFWIDTH + WALLWIDTH)*(-1), FIELDHEIGTH/2), 0);//left wall
-    this->box->CreateFixture(&myFixtureDef);
-    polygonShape.SetAsBox( WALLWIDTH, FIELDHALFWIDTH, b2Vec2(FIELDHALFWIDTH + WALLWIDTH, FIELDHEIGTH/2), 0);//right wall
-    this->box->CreateFixture(&myFixtureDef);
-
-
-
-    polygonShape.SetAsBox( GOALTOPHALFWIDTH, mitadAltoParedesArco, b2Vec2(GOALTOPHALFWIDTH - FIELDHALFWIDTH,mitadAltoParedesArco), 0);//left goal down
-    this->box->CreateFixture(&myFixtureDef);
-    
-    polygonShape.SetAsBox( GOALTOPHALFWIDTH, mitadAltoParedesArco, b2Vec2(GOALTOPHALFWIDTH - FIELDHALFWIDTH,FIELDHEIGTH - mitadAltoParedesArco), 0);//left goal down
-    this->box->CreateFixture(&myFixtureDef);
-    
-    
-    
-    polygonShape.SetAsBox( GOALTOPHALFWIDTH, mitadAltoParedesArco, b2Vec2(FIELDHALFWIDTH - GOALTOPHALFWIDTH, mitadAltoParedesArco), 0);//right goal down
-    this->box->CreateFixture(&myFixtureDef);
-    
-    polygonShape.SetAsBox( GOALTOPHALFWIDTH, mitadAltoParedesArco, b2Vec2(FIELDHALFWIDTH - GOALTOPHALFWIDTH, FIELDHEIGTH - mitadAltoParedesArco), 0);//right goal up
-    this->box->CreateFixture(&myFixtureDef);
-
-
-     //Rampas
-    b2ChainShape chain;
-    //std::list<b2Vec2> surface;
-    
-    
-    //Rampa arco inferior izquierdo
-    b2Vec2 surface[17];
-    
-    surface[0] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2     ,  CHAINSTARTHEIGHT  );
-    surface[1] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2     ,  CHAINSTARTHEIGHT -1.7 );
-    surface[2] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +1  ,  CHAINSTARTHEIGHT -2.8 );
-    surface[3] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +2  ,  CHAINSTARTHEIGHT -3.9);
-    surface[4] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +3  ,  CHAINSTARTHEIGHT -4.9 );
-    surface[5] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +4  ,  CHAINSTARTHEIGHT -5.7 );
-    surface[6] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +5  ,  CHAINSTARTHEIGHT -6.5 );
-    surface[7] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +6  ,  CHAINSTARTHEIGHT -7.3 );
-    surface[8] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +7  ,  CHAINSTARTHEIGHT -7.9 );
-    surface[9] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +8  ,  CHAINSTARTHEIGHT -8.5 );
-    surface[10] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +9  ,  CHAINSTARTHEIGHT -9.0 );
-    surface[11] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +10  ,  CHAINSTARTHEIGHT -9.4 );
-    surface[12] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +11 ,  CHAINSTARTHEIGHT -9.8 );
-    surface[13] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +12 ,  CHAINSTARTHEIGHT -10.2 );
-    surface[14] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +13 ,  CHAINSTARTHEIGHT -10.6 );
-    surface[15] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +14 ,  CHAINSTARTHEIGHT -10.9 );
-    surface[16] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +15  ,  CHAINSTARTHEIGHT - 11);
-    
-    chain.CreateChain(surface, 17);
-    
-    this->box->CreateFixture(&chain,1);
-
-
- 
-    /*
-    polygonShape.SetAsBox( GOALTOPHALFWIDTH, GOALTOPHALFHEIGHT, b2Vec2(GOALTOPHALFWIDTH - FIELDHALFWIDTH, FIELDHEIGTH - GOALTOPHALFHEIGHT), 0);//left goal
-    this->box->CreateFixture(&myFixtureDef);
-    polygonShape.SetAsBox( GOALTOPHALFWIDTH, GOALTOPHALFHEIGHT, b2Vec2(FIELDHALFWIDTH - GOALTOPHALFWIDTH, FIELDHEIGTH - GOALTOPHALFHEIGHT), 0);//right goal
-    this->box->CreateFixture(&myFixtureDef);*/
-
+    BoxPhysics box(this->world);
 }
 
 void Physics::simulateTimeStep(){
@@ -157,68 +72,9 @@ void Physics::simulateTimeStep(){
 }
 
 CarPhysics* Physics::createCar(int numberOfCar) {
-    b2BodyDef carBodyDef;
-    carBodyDef.type = b2_dynamicBody;
-    if (numberOfCar == 0) {carBodyDef.position.Set(FIELDHALFWIDTH/2, FIELDHEIGTH/2);}
-    if (numberOfCar == 1) {carBodyDef.position.Set(3*FIELDHALFWIDTH/2, FIELDHEIGTH/2);}
-    if (numberOfCar == 2) {carBodyDef.position.Set(FIELDHALFWIDTH/3, FIELDHEIGTH/2);}
-    if (numberOfCar == 3) {carBodyDef.position.Set(5*FIELDHALFWIDTH/3, FIELDHEIGTH/2);}
-    b2Body* car = world.CreateBody(&carBodyDef);
-
-    //Textures
-    b2PolygonShape dynamicBox;
-    dynamicBox.SetAsBox(CARHALFWIDTH, CARHALFHEIGHT);
-    b2FixtureDef fixtureDef;
-    fixtureDef.filter.categoryBits = CAR;
-    fixtureDef.filter.maskBits = BOUNDARY | BALL;
-    fixtureDef.shape = &dynamicBox;
-    fixtureDef.density = 0.15f;
-    fixtureDef.friction = CARFRICTION;
-    car->CreateFixture(&fixtureDef);
-    
-    
-    //Sensor de la trompa del auto
-    b2FixtureDef sensorCarFront;
-    b2PolygonShape polygonShapeSensor;
-    sensorCarFront.shape = &polygonShapeSensor;
-    sensorCarFront.isSensor = true;
-    sensorCarFront.filter.categoryBits = CAR_FRONT_SENSOR;
-    sensorCarFront.filter.maskBits = BALL;
-    float frontSensorHalfHeight = CARHALFHEIGHT;
-    float frontSensorHalfWidth = FRONTSENSORHALFWIDTH;
-
-    if (numberOfCar == 0 || numberOfCar == 2) {
-        polygonShapeSensor.SetAsBox(frontSensorHalfWidth, frontSensorHalfHeight, b2Vec2(CARHALFWIDTH + frontSensorHalfWidth, 0), 0);
-
-    }else{
-        polygonShapeSensor.SetAsBox(frontSensorHalfWidth, frontSensorHalfHeight, b2Vec2((-1)*CARHALFWIDTH + frontSensorHalfWidth*(-1), 0), 0);
-    }
-
-    car->CreateFixture(&sensorCarFront);
-
-
-    //Sensor de la parte de abajo del auto
-    b2FixtureDef sensorBottomFront;
-    b2PolygonShape polygonShapeSensor1;
-    sensorBottomFront.shape = &polygonShapeSensor1;
-    sensorBottomFront.isSensor = true;
-    sensorBottomFront.filter.categoryBits = CAR_BOTTOM_SENSOR;
-    sensorBottomFront.filter.maskBits = BALL;
-    float bottomsensorHalfWidht = CARHALFWIDTH;
-    float bottomsensorHalfHeight = BOTTOMSENSORHALFHEIGTH;
-
-    polygonShapeSensor1.SetAsBox(bottomsensorHalfWidht, bottomsensorHalfHeight,
-     b2Vec2(0,CARHALFHEIGHT*(-1) + bottomsensorHalfHeight * (-1)), 0);
-
-    car->CreateFixture(&sensorBottomFront);
-
-    CarPhysics* carPhysics;
-    if (numberOfCar == 0 || numberOfCar == 2) {
-        carPhysics = new CarPhysics(car, LEFTPLAYER);
-    } else {
-        carPhysics = new CarPhysics(car, RIGHTPLAYER);
-    }
+    CarPhysics* carPhysics = new CarPhysics(world, numberOfCar);
     return carPhysics;
+
 
 
 }
@@ -255,11 +111,6 @@ void Physics::moveCarRight(int socketId) {
         car->setFacingStatus(FACINGBACK);
     }
     car->setAcceleratingStatus(ACCELERATINGRIGHT);
-
-
-    
-
-
 }
 
 void Physics::moveCarLeft(int socketId) {
@@ -339,18 +190,11 @@ void Physics::carJump(int socketId) {
 void Physics::flipCarRight(int socketId) {
     b2Body* carBody = this->cars[socketId]->getCarBody();
     carBody->SetAngularVelocity(ROTATIONANGULARVELOCITY);
-
-
-
-    //carBody->ApplyAngularImpulse(TORQUEIMPULSE, true);
 }
 
 void Physics::flipCarLeft(int socketId) {
     b2Body* carBody = this->cars[socketId]->getCarBody();
     carBody->SetAngularVelocity(ROTATIONANGULARVELOCITY * (-1));
-
-
-    //carBody->ApplyAngularImpulse(TORQUEIMPULSE*(-1), true);
 }
 
 void Physics::carStopFlip(int socketId) {

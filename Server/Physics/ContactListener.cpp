@@ -2,6 +2,7 @@
 #include <iostream>
 #include "Physics.h"
 
+
 bool ContactListener::getGoal(b2Contact* contact, GoalSensor*& goal) {
     b2Fixture* fixtureA = contact->GetFixtureA();
     b2Fixture* fixtureB = contact->GetFixtureB();

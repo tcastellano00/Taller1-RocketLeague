@@ -1,0 +1,13 @@
+#ifndef ENTITY_CATEGORY_H
+#define ENTITY_CATEGORY_H
+
+enum _entityCategory {
+  BOUNDARY = 0x0001,
+  CAR  = 0x0002,
+  BALL = 0x0004,
+  GOALSENSOR = 0x0008,
+  CAR_FRONT_SENSOR = 0x0010,
+  CAR_BOTTOM_SENSOR = 0x0020,
+};
+
+#endif
