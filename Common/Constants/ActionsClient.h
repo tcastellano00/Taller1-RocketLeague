@@ -14,5 +14,10 @@
 #define STOP_FLIPING_LEFT "stop left"
 #define STOP_DOING_TURBO "stop turbo"
 
+#define DO_FLIP_SHOT "do flip shot"
+#define DO_RED_SHOT "do red shot"
+#define DO_PURPLE_SHOT "do pruple shot"
+#define DO_GOLDEN_SHOT "do golden shot"
+
 #define SKIP_REPLAY "skip replay"
 #define QUIT "quit"

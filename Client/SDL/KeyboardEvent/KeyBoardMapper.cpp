@@ -12,7 +12,11 @@ KeyBoardMapper::KeyBoardMapper() {
     this->addKeyCodeAction(ClientConfig::getKeyCommandTurbo(), START_DOING_TURBO, STOP_DOING_TURBO);
     this->addKeyCodeAction(ClientConfig::getKeyCommandJump(), START_JUMPING, STOP_JUMPING);
     this->addKeyCodeAction(ClientConfig::getKeyCommandFlip(), START_FLIPING, STOP_FLIPING);
-    this->addKeyCodeAction(ClientConfig::getKeyCommandSkipReplay(), SKIP_REPLAY, "");
+    this->addKeyCodeAction(ClientConfig::getKeyCommandFlipShot(), DO_FLIP_SHOT);
+    this->addKeyCodeAction(ClientConfig::getKeyCommandRedShot(), DO_RED_SHOT);
+    this->addKeyCodeAction(ClientConfig::getKeyCommandGoldenShot(), DO_GOLDEN_SHOT);
+    this->addKeyCodeAction(ClientConfig::getKeyCommandPurpleShot(), DO_PURPLE_SHOT);
+    this->addKeyCodeAction(ClientConfig::getKeyCommandSkipReplay(), SKIP_REPLAY);
 }
 
 void KeyBoardMapper::initMapSDLKeyCode() {
@@ -31,6 +35,14 @@ void KeyBoardMapper::initMapSDLKeyCode() {
     this->MapSDLKeyCode[CONFIG_KEY_3] = SDLK_3;
     this->MapSDLKeyCode[CONFIG_KEY_4] = SDLK_4;
     this->MapSDLKeyCode[CONFIG_KEY_SPACE_BAR] = SDLK_SPACE;
+}
+
+void KeyBoardMapper::addKeyCodeAction(
+        const std::string userConfig, 
+        const std::string cientActionOnKeyDown) {
+
+    SDL_Keycode keyCode = this->MapSDLKeyCode[userConfig];
+    this->MapActionsClientBySDLKeyCodeOnKeyDown[keyCode] = cientActionOnKeyDown;
 }
 
 void KeyBoardMapper::addKeyCodeAction(

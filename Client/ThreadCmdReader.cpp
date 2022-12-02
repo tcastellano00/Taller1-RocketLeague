@@ -83,6 +83,8 @@ void ThreadCmdReader::handleEventOnQuit() {
 }
 
 void ThreadCmdReader::pushCommand(const std::string command) {
+    if (command == "") return;
+    
     Command cmd(command);
     queue.push(cmd);
 }

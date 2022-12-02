@@ -23,6 +23,10 @@ public:
     static std::string getKeyCommandJump();
     static std::string getKeyCommandFlip();
     static std::string getKeyCommandSkipReplay();
+    static std::string getKeyCommandFlipShot();
+    static std::string getKeyCommandRedShot();
+    static std::string getKeyCommandPurpleShot();
+    static std::string getKeyCommandGoldenShot();
 
     ClientConfig(ClientConfig &other) = delete;
     void operator=(ClientConfig const&) = delete;

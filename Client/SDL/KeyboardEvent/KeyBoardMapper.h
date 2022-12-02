@@ -29,6 +29,9 @@ private:
     void initMapSDLKeyCode();
     void addKeyCodeAction(
         const std::string userConfig, 
+        const std::string cientActionOnKeyDown);
+    void addKeyCodeAction(
+        const std::string userConfig, 
         const std::string cientActionOnKeyDown,
         const std::string cientActionOnKeyUp);
 

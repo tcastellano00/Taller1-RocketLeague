@@ -55,3 +55,19 @@ std::string ClientConfig::getKeyCommandFlip() {
 std::string ClientConfig::getKeyCommandSkipReplay() {
     return getInstance()->rootNode["KEY_COMMAND_SKIP_REPLAY"].as<std::string>();
 }
+
+std::string ClientConfig::getKeyCommandFlipShot() {
+    return getInstance()->rootNode["KEY_COMMAND_FLIP_SHOT"].as<std::string>();
+}
+
+std::string ClientConfig::getKeyCommandRedShot() {
+    return getInstance()->rootNode["KEY_COMMAND_RED_SHOT"].as<std::string>();
+}
+
+std::string ClientConfig::getKeyCommandPurpleShot() {
+    return getInstance()->rootNode["KEY_COMMAND_PRUPLE_SHOT"].as<std::string>();
+}
+
+std::string ClientConfig::getKeyCommandGoldenShot() {
+    return getInstance()->rootNode["KEY_COMMAND_GOLDEN_SHOT"].as<std::string>();
+}
