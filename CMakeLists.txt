@@ -66,6 +66,7 @@ target_link_libraries(rocket_league-server rocket_league-common libbox2d yaml-cp
 
 file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
 file(COPY config DESTINATION ${CMAKE_BINARY_DIR})
+file(COPY music DESTINATION ${CMAKE_BINARY_DIR})
 
 #------------------------------------------------------------------------------
 # INSTALL
