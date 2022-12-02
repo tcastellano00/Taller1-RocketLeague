@@ -1,0 +1,4 @@
+#define JOIN_GAME "UNIR"
+#define LIST_GAMES "LISTAR"
+#define CREATE_GAME "CREAR"
+#define GO_HOME "VOLVER"

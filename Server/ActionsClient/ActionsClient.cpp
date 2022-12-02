@@ -33,5 +33,5 @@ std::shared_ptr<ActionsClient> ActionsClient::get_command_ptr(
     else if (name == STOP_FLIPING)
         return std::shared_ptr<ActionsClient>(new ActionClientStopFlip(sktId));
 
-    else return NULL;
+    return NULL;
 }

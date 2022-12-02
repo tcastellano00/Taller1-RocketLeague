@@ -3,17 +3,17 @@
 #include "LobbyCommandJoin.h"
 #include "LobbyCommandList.h"
 
+#include "../../Common/Constants/ActionsLobby.h"
+
 std::unique_ptr<LobbyCommand> LobbyCommand::get_command_ptr(
-    const std::string &name,
-    const std::string &arguments) {
-    if (name == "UNIR")
-        return std::unique_ptr<LobbyCommandJoin>(
-            new LobbyCommandJoin(arguments));
-    else if (name == "LISTAR")
-        return std::unique_ptr<LobbyCommandList>(
-            new LobbyCommandList(arguments));
-    else if (name == "CREAR")
-        return std::unique_ptr<LobbyCommandCreate>(
-            new LobbyCommandCreate(arguments));
-    else return NULL;
+    const std::string &name, const std::string &arguments) {
+
+    if (name == JOIN_GAME)
+        return std::unique_ptr<LobbyCommandJoin>(new LobbyCommandJoin(arguments));
+    else if (name == LIST_GAMES)
+        return std::unique_ptr<LobbyCommandList>(new LobbyCommandList(arguments));
+    else if (name == CREATE_GAME)
+        return std::unique_ptr<LobbyCommandCreate>(new LobbyCommandCreate(arguments));
+
+    return NULL;
 }
