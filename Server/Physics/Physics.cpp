@@ -26,6 +26,9 @@
 #define ROTATIONANGULARVELOCITY 3
 
 
+#define mitadAltoParedesArco 8 //CAMBIAR ESTO
+#define CHAINSTARTHEIGHT 11
+
 
 Physics::Physics(std::list<ClientConnection>& connections): world(b2Vec2(0.0f, GRAVITY)){
 
@@ -86,10 +89,61 @@ void Physics::createBox(){
     this->box->CreateFixture(&myFixtureDef);
     polygonShape.SetAsBox( WALLWIDTH, FIELDHALFWIDTH, b2Vec2(FIELDHALFWIDTH + WALLWIDTH, FIELDHEIGTH/2), 0);//right wall
     this->box->CreateFixture(&myFixtureDef);
+
+
+
+    polygonShape.SetAsBox( GOALTOPHALFWIDTH, mitadAltoParedesArco, b2Vec2(GOALTOPHALFWIDTH - FIELDHALFWIDTH,mitadAltoParedesArco), 0);//left goal down
+    this->box->CreateFixture(&myFixtureDef);
+    
+    polygonShape.SetAsBox( GOALTOPHALFWIDTH, mitadAltoParedesArco, b2Vec2(GOALTOPHALFWIDTH - FIELDHALFWIDTH,FIELDHEIGTH - mitadAltoParedesArco), 0);//left goal down
+    this->box->CreateFixture(&myFixtureDef);
+    
+    
+    
+    polygonShape.SetAsBox( GOALTOPHALFWIDTH, mitadAltoParedesArco, b2Vec2(FIELDHALFWIDTH - GOALTOPHALFWIDTH, mitadAltoParedesArco), 0);//right goal down
+    this->box->CreateFixture(&myFixtureDef);
+    
+    polygonShape.SetAsBox( GOALTOPHALFWIDTH, mitadAltoParedesArco, b2Vec2(FIELDHALFWIDTH - GOALTOPHALFWIDTH, FIELDHEIGTH - mitadAltoParedesArco), 0);//right goal up
+    this->box->CreateFixture(&myFixtureDef);
+
+
+     //Rampas
+    b2ChainShape chain;
+    //std::list<b2Vec2> surface;
+    
+    
+    //Rampa arco inferior izquierdo
+    b2Vec2 surface[17];
+    
+    surface[0] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2     ,  CHAINSTARTHEIGHT  );
+    surface[1] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2     ,  CHAINSTARTHEIGHT -1.7 );
+    surface[2] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +1  ,  CHAINSTARTHEIGHT -2.8 );
+    surface[3] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +2  ,  CHAINSTARTHEIGHT -3.9);
+    surface[4] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +3  ,  CHAINSTARTHEIGHT -4.9 );
+    surface[5] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +4  ,  CHAINSTARTHEIGHT -5.7 );
+    surface[6] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +5  ,  CHAINSTARTHEIGHT -6.5 );
+    surface[7] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +6  ,  CHAINSTARTHEIGHT -7.3 );
+    surface[8] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +7  ,  CHAINSTARTHEIGHT -7.9 );
+    surface[9] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +8  ,  CHAINSTARTHEIGHT -8.5 );
+    surface[10] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +9  ,  CHAINSTARTHEIGHT -9.0 );
+    surface[11] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +10  ,  CHAINSTARTHEIGHT -9.4 );
+    surface[12] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +11 ,  CHAINSTARTHEIGHT -9.8 );
+    surface[13] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +12 ,  CHAINSTARTHEIGHT -10.2 );
+    surface[14] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +13 ,  CHAINSTARTHEIGHT -10.6 );
+    surface[15] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +14 ,  CHAINSTARTHEIGHT -10.9 );
+    surface[16] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +15  ,  CHAINSTARTHEIGHT - 11);
+    
+    chain.CreateChain(surface, 17);
+    
+    this->box->CreateFixture(&chain,1);
+
+
+ 
+    /*
     polygonShape.SetAsBox( GOALTOPHALFWIDTH, GOALTOPHALFHEIGHT, b2Vec2(GOALTOPHALFWIDTH - FIELDHALFWIDTH, FIELDHEIGTH - GOALTOPHALFHEIGHT), 0);//left goal
     this->box->CreateFixture(&myFixtureDef);
     polygonShape.SetAsBox( GOALTOPHALFWIDTH, GOALTOPHALFHEIGHT, b2Vec2(FIELDHALFWIDTH - GOALTOPHALFWIDTH, FIELDHEIGTH - GOALTOPHALFHEIGHT), 0);//right goal
-    this->box->CreateFixture(&myFixtureDef);
+    this->box->CreateFixture(&myFixtureDef);*/
 
 }
 
@@ -374,11 +428,11 @@ GoalSensor* Physics::createGoal(SideOfGoal side) {
     sensorFixture.filter.categoryBits = GOALSENSOR;
     sensorFixture.filter.maskBits = BALL;
     float sensorHalfWidht = GOALTOPHALFWIDTH - BALLRADIUS;
-    float sensorHalfHeight = (FIELDHEIGTH - GOALTOPHALFHEIGHT*2)/2;
+    float sensorHalfHeight = (FIELDHEIGTH - mitadAltoParedesArco*2)/2;
     if (side == LEFT) {
-        polygonShapeSensor.SetAsBox(sensorHalfWidht, sensorHalfHeight, b2Vec2(-FIELDHALFWIDTH + sensorHalfWidht, sensorHalfHeight), 0);
+        polygonShapeSensor.SetAsBox(sensorHalfWidht, sensorHalfHeight, b2Vec2(-FIELDHALFWIDTH + sensorHalfWidht,  FIELDHEIGTH/2), 0);
     } else if (side == RIGHT) {
-        polygonShapeSensor.SetAsBox(sensorHalfWidht, sensorHalfHeight, b2Vec2(FIELDHALFWIDTH - sensorHalfWidht, sensorHalfHeight), 0);
+        polygonShapeSensor.SetAsBox(sensorHalfWidht, sensorHalfHeight, b2Vec2(FIELDHALFWIDTH - sensorHalfWidht, FIELDHEIGTH/2), 0);
     }
     body->CreateFixture(&sensorFixture);
     GoalSensor* goal = new GoalSensor(side, body);

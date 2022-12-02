@@ -51,7 +51,7 @@ void WindowRenderer::launch() {
         // Usar factory
 
         SDL2pp::Texture wallsAndScore(renderer, 
-            SDL2pp::Surface("assets/wallsAndScore.png").SetColorKey(false, 0));
+            SDL2pp::Surface("assets/back2.png").SetColorKey(false, 0));
 
         SDL2pp::Texture backgroud(renderer, 
             SDL2pp::Surface("assets/background.png").SetColorKey(true, 0));
