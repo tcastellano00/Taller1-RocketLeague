@@ -9,34 +9,29 @@
 #include "ActionClientStopAccelerating.h"
 #include "ActionClientStopFlip.h"
 
+#include "../../Common/Constants/ActionsClient.h"
+
 std::shared_ptr<ActionsClient> ActionsClient::get_command_ptr(
-const std::string &name, int sktId){
-    if (name == "left")
-        return std::shared_ptr<ActionsClient>(
-            new ActionClientLeft(sktId));
-    else if (name == "right")
-        return std::shared_ptr<ActionsClient>(
-            new ActionClientRight(sktId));
-    else if(name == "jump")
-        return std::shared_ptr<ActionsClient>(
-            new ActionClientJump(sktId));
-    else if(name == "flip right")
-        return std::shared_ptr<ActionsClient>(
-            new ActionClientFlipRight(sktId));
-    else if(name == "flip left")
-        return std::shared_ptr<ActionsClient>(
-            new ActionClientFlipLeft(sktId));
-    else if(name == "turbo")
-        return std::shared_ptr<ActionsClient>(
-            new ActionClientTurbo(sktId));
-    else if(name == "stop turbo")
-        return std::shared_ptr<ActionsClient>(
-            new ActionClientStopTurbo(sktId));
-    else if(name == "stop accelerating")
-        return std::shared_ptr<ActionsClient>(
-            new ActionClientStopAccelerating(sktId));
-    else if (name == "stop flip")
-        return std::shared_ptr<ActionsClient>(
-            new ActionClientStopFlip(sktId));
+    const std::string &name, int sktId) {
+
+    if (name == START_MOVING_LEFT)
+        return std::shared_ptr<ActionsClient>(new ActionClientLeft(sktId));
+    else if (name == START_MOVING_RIGHT)
+        return std::shared_ptr<ActionsClient>(new ActionClientRight(sktId));
+    else if(name == START_JUMPING)
+        return std::shared_ptr<ActionsClient>(new ActionClientJump(sktId));
+    else if(name == START_FLIPING_RIGHT)
+        return std::shared_ptr<ActionsClient>(new ActionClientFlipRight(sktId));
+    else if(name == START_FLIPING_LEFT)
+        return std::shared_ptr<ActionsClient>(new ActionClientFlipLeft(sktId));
+    else if(name == START_DOING_TURBO)
+        return std::shared_ptr<ActionsClient>(new ActionClientTurbo(sktId));
+    else if(name == STOP_DOING_TURBO)
+        return std::shared_ptr<ActionsClient>(new ActionClientStopTurbo(sktId));
+    else if(name == STOP_MOVING_RIGHT)
+        return std::shared_ptr<ActionsClient>(new ActionClientStopAccelerating(sktId));
+    else if (name == STOP_FLIPING)
+        return std::shared_ptr<ActionsClient>(new ActionClientStopFlip(sktId));
+
     else return NULL;
 }

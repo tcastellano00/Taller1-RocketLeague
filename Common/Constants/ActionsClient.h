@@ -1,0 +1,16 @@
+#define START_JUMPING "jump"
+#define START_MOVING_RIGHT "right"
+#define START_MOVING_LEFT "left"
+#define START_FLIPING_RIGHT "flip right"
+#define START_FLIPING_LEFT "flip left"
+#define START_DOING_TURBO "turbo"
+
+#define STOP_JUMPING "stop jump"
+#define STOP_MOVING_RIGHT "stop accelerating"
+#define STOP_MOVING_LEFT "stop accelerating"
+#define STOP_FLIPING "stop flip"
+#define STOP_FLIPING_RIGHT "stop right"
+#define STOP_FLIPING_LEFT "stop left"
+#define STOP_DOING_TURBO "stop turbo"
+
+#define QUIT "quit"
