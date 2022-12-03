@@ -16,8 +16,10 @@ private:
     int goals;
     bool goalScored;
 
+    b2Body* createBody(b2World& world);
+
 public:
-    GoalSensor(SideOfGoal side, b2Body* goalBody);
+    GoalSensor(SideOfGoal side, b2World& world);
     GoalSensor();
     SideOfGoal getSideOfGoal();
     b2Body* getGoalBody();

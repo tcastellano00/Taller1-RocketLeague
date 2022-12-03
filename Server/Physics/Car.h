@@ -2,6 +2,8 @@
 #define CARPHYSICS_H
 
 #include "../Box2D/Box2D.h"
+#include "BallPhysics.h"
+#include "../../Common/Model/PlayerModel.h"
 
 // class CarPhisics{
 //     b2World * &m_world;
@@ -81,7 +83,11 @@ public:
 
     void flipJump();
 
+    void jumpFromGround();
+
     void swapFrontBackSensor();
+    void swapFacingStatus();
+    void swapAcceleratingStatus();
 
     void updateFlipStatus();
 
@@ -92,6 +98,27 @@ public:
     bool canUseTurbo();
 
     int getTurbo();
+
+    void startAcceleratingForward();
+    void startAcceleratingBackwards();
+    
+    void stopAccelerating();
+
+    void applyAcceleration();
+
+    void turn();
+
+    void jump(BallPhysics* ball);
+
+    void rotate(int sideMultiplicator);
+    void stopRotate();
+
+    void startDoingTurbo();
+    void stopDoingTurbo();
+    void applyTurbo();
+
+    PlayerModel getPlayerModel();
+
 
 };
 

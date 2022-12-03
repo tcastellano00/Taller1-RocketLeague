@@ -1,6 +1,7 @@
 #include "Car.h"
 #include <cmath>
 #include "EntityCategory.h"
+#include <iostream>
 #define FLIPIMPULSE 3000
 #define PI  3.14159265358979323846
 #define FLIPANGULARVEL PI*2
@@ -13,6 +14,10 @@
 #define FRONTSENSORHALFWIDTH 5.0
 #define BOTTOMSENSORHALFHEIGTH 5.0
 #define CARFRICTION 1.5
+#define MOVEMENTFORCE 500
+#define TURBOFORCE 40000
+#define JUMPIMPULSE 40
+#define ROTATIONANGULARVELOCITY 3
 
 
 CarPhysics::CarPhysics(b2World& world, int numberOfCar){
@@ -167,11 +172,36 @@ void CarPhysics::flipJump() {
     
 }
 
+void CarPhysics::jumpFromGround() {
+    b2Body* carBody = this->getCarBody();
+    b2Vec2 vel = carBody->GetLinearVelocity();
+    float desiredVel = JUMPIMPULSE;
+    float velChange = desiredVel - vel.y;
+    float impulse = carBody->GetMass() * velChange; //disregard time factor
+    carBody->ApplyLinearImpulse( b2Vec2(0, impulse), carBody->GetWorldCenter(), true);
+}
+
 void CarPhysics::swapFrontBackSensor() {
     if (this->sensorStatus == BALLINBACKSENSOR){
         this->sensorStatus = BALLINFRONTSENSOR;
     } else if (this->sensorStatus == BALLINFRONTSENSOR) {
         this->sensorStatus = BALLINBACKSENSOR;
+    }
+}
+
+void CarPhysics::swapFacingStatus() {
+    if (this->facingStatus == FACINGFRONT) {
+        this->facingStatus = FACINGBACK;
+    } else {
+        this->facingStatus = FACINGFRONT;
+    }
+}
+
+void CarPhysics::swapAcceleratingStatus() {
+    if (this->acceleratingStatus == ACCELERATINGLEFT) {
+        this->acceleratingStatus = ACCELERATINGRIGHT;
+    } else if (this->acceleratingStatus == ACCELERATINGRIGHT) {
+        this->acceleratingStatus = ACCELERATINGLEFT;
     }
 }
 
@@ -201,4 +231,176 @@ bool CarPhysics::canUseTurbo() {
 
 int CarPhysics::getTurbo() {
     return this->turboRemaining;
+}
+
+void CarPhysics::startAcceleratingForward() {
+    if ((this->side == LEFTPLAYER && this->facingStatus == FACINGFRONT) ||
+        (this->side == RIGHTPLAYER && this->facingStatus == FACINGBACK) ) {
+        this->acceleratingStatus = ACCELERATINGRIGHT;
+    } else {
+        this->acceleratingStatus = ACCELERATINGLEFT;
+    }
+}
+
+void CarPhysics::startAcceleratingBackwards() {
+    if ((this->side == LEFTPLAYER && this->facingStatus == FACINGFRONT) ||
+        (this->side == RIGHTPLAYER && this->facingStatus == FACINGBACK) ) {
+        this->acceleratingStatus = ACCELERATINGLEFT;
+    } else {
+        this->acceleratingStatus = ACCELERATINGRIGHT;
+    }
+}
+
+void CarPhysics::stopAccelerating() {
+    this->acceleratingStatus = NOTACCELERATING;
+}
+
+void CarPhysics::applyAcceleration() {
+    if (this->acceleratingStatus == NOTACCELERATING) {
+        return;
+    }
+    float32 xForce;
+    float32 yForce;
+    float force = MOVEMENTFORCE;
+
+    if (this->airStatus != GROUND) {
+        force /= 10;
+    }
+
+    float angle = this->carBody->GetAngle();
+    xForce = std::cos(angle)*force;
+    yForce = std::sin(angle)*force;
+
+    if (this->acceleratingStatus == ACCELERATINGLEFT) {
+        xForce *= -1;
+        yForce *= -1;
+    }
+    carBody->ApplyForceToCenter(b2Vec2(xForce, yForce), true);
+}
+
+void CarPhysics::turn() {
+    this->swapFrontBackSensor();
+    this->swapFacingStatus();
+    this->swapAcceleratingStatus();
+}
+
+void CarPhysics::jump(BallPhysics* ball) {
+
+    if (airStatus == AIRAFTERFLIP){
+        return;
+    }
+    int sideMultiplicator = (this->side == LEFTPLAYER) ? 1 : -1;
+
+
+    if (sensorStatus == BALLINBACKSENSOR && airStatus == AIR && acceleratingStatus != NOTACCELERATING) {
+        ball->goldShot(sideMultiplicator);
+        this->flipJump();
+    } else if (sensorStatus == BALLINFRONTSENSOR && airStatus == AIR && acceleratingStatus != NOTACCELERATING) {
+        ball->redShot(sideMultiplicator);
+        this->flipJump();
+    } else if (sensorStatus == BALLINBOTTOMSENSOR) {
+        ball->purpleShot(sideMultiplicator);
+        this->getCarBody()->ApplyLinearImpulse(b2Vec2(-3000*sideMultiplicator,0),this->getCarBody()->GetWorldCenter(), true);
+    } else if (acceleratingStatus != NOTACCELERATING && airStatus == AIR ){
+        this->flipJump();
+    } else {
+        this->jumpFromGround();
+    }
+    
+    if (airStatus == AIR) {
+        this->setAirStatus(AIRAFTERFLIP);
+    }
+}
+
+ void CarPhysics::rotate(int sideMultiplicator) {
+    this->carBody->SetAngularVelocity(ROTATIONANGULARVELOCITY*sideMultiplicator);
+ }
+
+  void CarPhysics::stopRotate() {
+    this->carBody->SetAngularVelocity(0);
+ }
+
+ void CarPhysics::startDoingTurbo(){
+    this->isDoingTurbo = true;
+ }
+
+ void CarPhysics::stopDoingTurbo(){
+    this->isDoingTurbo = false;
+ }
+
+ void CarPhysics::applyTurbo(){
+
+    if (!this->isDoingTurbo) {
+        return;
+    }
+
+    if (!this->canUseTurbo()) {
+        this->setDoingTurbo(false);
+        return;
+    }
+    this->loseTurbo();
+
+    b2Body* carBody = this->getCarBody();
+    float angle = carBody->GetAngle();
+
+
+    float x = std::cos(angle)*TURBOFORCE;
+    float y = std::sin(angle)*TURBOFORCE;
+
+    if ((this->side == LEFTPLAYER && this->facingStatus == FACINGBACK) ||
+        (this->side == RIGHTPLAYER && this->facingStatus == FACINGFRONT)){
+        x *= -1;
+        y *= -1;
+    }
+    //carBody->ApplyForceToCenter(b2Vec2(x, y),true);
+    carBody->ApplyLinearImpulse(b2Vec2(x, y), carBody->GetWorldCenter(), true);
+}
+
+PlayerModel CarPhysics::getPlayerModel() {
+    b2Vec2 carCoord = carBody->GetPosition();
+    float angle = carBody->GetAngle() * (-1);
+    
+    float xOriginal = -CARHALFWIDTH;
+    float yOriginal = CARHALFHEIGHT;
+
+
+    //float xPrime = xOriginal * std::cos(angle*(-1)) - yOriginal * std::sin(angle*(-1));
+    //float yPrime = xOriginal * std::sin(angle*(-1)) + yOriginal * std::cos(angle*(-1));
+
+
+    float xCar = carCoord.x + xOriginal;
+    float yCar = carCoord.y + yOriginal;
+    
+    std::string facing;
+
+    if (side == LEFTPLAYER) {
+        if (facingStatus == FACINGBACK) {
+            facing = "left";
+        } else {
+            facing = "right";
+        }
+    } else{
+        if (facingStatus == FACINGFRONT) {
+            facing = "left";
+        } else {
+            facing = "right";
+        }
+    }
+
+    bool turbo = this->isDoingTurbo;
+    int turboRem = this->turboRemaining;
+
+    /*if (it->second->getSensorStatus() == BALLINBACKSENSOR) {
+        std::cout << "SENSOR: BACK" << std::endl;
+    } else if (it->second->getSensorStatus() == BALLINBOTTOMSENSOR) {
+        std::cout << "SENSOR: BOTTOM" << std::endl;
+    } else if (it->second->getSensorStatus() == BALLINFRONTSENSOR) {
+        std::cout << "SENSOR: FRONT" << std::endl;
+    } else if (it->second->getSensorStatus() == NOTSENSOR) {
+        std::cout << "SENSOR: NOT" << std::endl;
+    }*/
+
+
+    PlayerModel pm(xCar, yCar, angle, turbo, facing, turboRem);
+    return pm;
 }

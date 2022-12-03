@@ -5,13 +5,13 @@ SCREEN_HEIGHT: 600
 #Las posibles teclas del jugador son:
 # "FlechitaDerecha", "FlechitaIzquierda", "FlechitaArriba", "FlechitaAbajo", "T", 
 # "W", "S", "D", "M", "A", "1", "2", "3", "4", "SpaceBar";
-KEY_COMMAND_MOVE_RIGHT: "FlechitaDerecha"
-KEY_COMMAND_MOVE_LEFT: "FlechitaIzquierda"
-KEY_COMMAND_MOVE_UP: "FlechitaArriba"
-KEY_COMMAND_MOVE_DOWN: "FlechitaAbajo"
+KEY_COMMAND_MOVE_RIGHT: "FlechitaArriba"
+KEY_COMMAND_MOVE_LEFT: "FlechitaAbajo"
+KEY_COMMAND_MOVE_UP: "FlechitaDerecha"
+KEY_COMMAND_MOVE_DOWN: "FlechitaIzquierda"
 KEY_COMMAND_TURBO: "T"
 KEY_COMMAND_JUMP: "SpaceBar"
-KEY_COMMAND_FLIP: "S"
+KEY_COMMAND_TURN: "S"
 KEY_COMMAND_SKIP_REPLAY: "A"
 KEY_COMMAND_FLIP_SHOT: "1"
 KEY_COMMAND_RED_SHOT: "2"

@@ -31,7 +31,6 @@ class Physics{
     BallPhysics* ball;
     b2Body* ground;
     b2Body* box;
-    CarPhysics* createCar(int numberOfCar);
     void createGround();
     GoalSensor* createGoal(SideOfGoal side);
 
@@ -47,17 +46,11 @@ class Physics{
     b2World world;
     Physics(std::list<ClientConnection>& connections);
 
-    void moveCarRight(int socketId);
-
-    void moveCarLeft(int socketId);
-
     void flipCarRight(int socketId);
 
     void flipCarLeft(int socketId);
 
     void carJump(int socketId);
-
-    void carTurbo(int socketId);
 
     GameStatus getGameStatus();
 
@@ -82,6 +75,17 @@ class Physics{
     void updateReplayStaus();
 
     void fillTurbos();
+
+    void startAcceleratingCarForward(int socketId);
+    void startAcceleratingCarBackwards(int socketId);
+    void stopAcceleratingCar(int socketId);
+
+    void accelerateCars();
+
+    void startDoingTurbo(int socketId);
+    void applyTurboToCars();
+
+    void turnCar(int socketId);
 
     ~Physics();
 };

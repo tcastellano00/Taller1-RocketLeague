@@ -54,6 +54,8 @@ void Gameloop::run() {
 
         gamePhysics.resetPositionsIfGoal();
         gamePhysics.fillTurbos();
+        gamePhysics.accelerateCars();
+        gamePhysics.applyTurboToCars();
         gamePhysics.updateReplayStaus();
         
         auto timeFinish = Clock::now();

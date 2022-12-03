@@ -2,8 +2,9 @@
 #define BALLPHYSICS_H
 
 #include "../Box2D/Box2D.h"
-#include "Car.h"
+#include "EntityCategory.h"
 #include <string>
+#include "../../Common/Model/BallModel.h"
 
 enum SpecialShot {
     REDSHOT,
@@ -22,20 +23,24 @@ private:
     
 
 public:
-    BallPhysics(b2Body* body);
+    BallPhysics(b2World &world);
     BallPhysics();
     b2Body* getBody();
+
+    b2Body* createBody(b2World& world);
     
 
 
-    void redShot(PlayerSide side);
-    void goldShot(PlayerSide side);
-    void purpleShot(PlayerSide side);
+    void redShot(int sideMultiplicator);
+    void goldShot(int sideMultiplicator);
+    void purpleShot(int sideMultiplicator);
 
     SpecialShot getShotType();
     void setShotType(SpecialShot type);
 
     void updateShotStatus();
+
+    BallModel getModel();
 
 };
 

@@ -24,11 +24,11 @@ int ClientConfig::getScreenHeight() {
     return getInstance()->rootNode["SCREEN_HEIGHT"].as<int>();
 }
 
-std::string ClientConfig::getKeyCommandMoveRight() {
+std::string ClientConfig::getKeyCommandMoveForward() {
     return getInstance()->rootNode["KEY_COMMAND_MOVE_RIGHT"].as<std::string>();
 }
 
-std::string ClientConfig::getKeyCommandMoveLeft() {
+std::string ClientConfig::getKeyCommandMoveBackwards() {
     return getInstance()->rootNode["KEY_COMMAND_MOVE_LEFT"].as<std::string>();
 }
 
@@ -48,8 +48,8 @@ std::string ClientConfig::getKeyCommandJump() {
     return getInstance()->rootNode["KEY_COMMAND_JUMP"].as<std::string>();
 }
 
-std::string ClientConfig::getKeyCommandFlip() {
-    return getInstance()->rootNode["KEY_COMMAND_FLIP"].as<std::string>();
+std::string ClientConfig::getKeyCommandTurn() {
+    return getInstance()->rootNode["KEY_COMMAND_TURN"].as<std::string>();
 }
 
 std::string ClientConfig::getKeyCommandSkipReplay() {

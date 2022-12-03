@@ -5,13 +5,13 @@
 KeyBoardMapper::KeyBoardMapper() {
     this->initMapSDLKeyCode();
 
-    this->addKeyCodeAction(ClientConfig::getKeyCommandMoveRight(), START_MOVING_RIGHT, STOP_MOVING_RIGHT);
-    this->addKeyCodeAction(ClientConfig::getKeyCommandMoveLeft(), START_MOVING_LEFT, STOP_MOVING_LEFT);
+    this->addKeyCodeAction(ClientConfig::getKeyCommandMoveForward(), START_ACCELERATING_FORWARD, STOP_ACCELERATING);
+    this->addKeyCodeAction(ClientConfig::getKeyCommandMoveBackwards(), START_ACCELERATING_BACKWARDS, STOP_ACCELERATING);
     this->addKeyCodeAction(ClientConfig::getKeyCommandMoveUp(), START_FLIPING_RIGHT, STOP_FLIPING);
     this->addKeyCodeAction(ClientConfig::getKeyCommandMoveDown(), START_FLIPING_LEFT, STOP_FLIPING);
     this->addKeyCodeAction(ClientConfig::getKeyCommandTurbo(), START_DOING_TURBO, STOP_DOING_TURBO);
     this->addKeyCodeAction(ClientConfig::getKeyCommandJump(), START_JUMPING, STOP_JUMPING);
-    this->addKeyCodeAction(ClientConfig::getKeyCommandFlip(), START_FLIPING, STOP_FLIPING);
+    this->addKeyCodeAction(ClientConfig::getKeyCommandTurn(), START_TURNING, STOP_TURNING);
     this->addKeyCodeAction(ClientConfig::getKeyCommandFlipShot(), DO_FLIP_SHOT);
     this->addKeyCodeAction(ClientConfig::getKeyCommandRedShot(), DO_RED_SHOT);
     this->addKeyCodeAction(ClientConfig::getKeyCommandGoldenShot(), DO_GOLDEN_SHOT);

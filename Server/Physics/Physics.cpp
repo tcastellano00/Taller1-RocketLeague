@@ -45,15 +45,12 @@ Physics::Physics(std::list<ClientConnection>& connections): world(b2Vec2(0.0f, G
         numberOfCar++;
     }
     BoxPhysics box(this->world);
-    this->createBall();
 
-    //this->createGround();
-    //this->createBox();
-    //this->createCars();
+    this->ball = new BallPhysics(this->world);
 
-    //CarPhisics car(b2World);
-    this->leftGoal = this->createGoal(LEFT);
-    this->rightGoal = this->createGoal(RIGHT);
+    //this->createBall();
+    this->leftGoal = new GoalSensor(LEFT, world);
+    this->rightGoal = new GoalSensor(RIGHT, world);
 
     this->world.SetContactListener(&(this->contactListener));
 }
@@ -71,302 +68,54 @@ void Physics::simulateTimeStep(){
 
 }
 
-CarPhysics* Physics::createCar(int numberOfCar) {
-    CarPhysics* carPhysics = new CarPhysics(world, numberOfCar);
-    return carPhysics;
-
-
-
-}
-
-void Physics::moveCarRight(int socketId) {
-    CarPhysics* car = this->cars[socketId];
-    b2Body* carBody = car->getCarBody();
-    // car->SetTransform(
-    //     b2Vec2(car->GetPosition().x + 1, car->GetPosition().y), car->GetAngle()
-    // );
-    //b2Vec2 vel = carBody->GetLinearVelocity();
-    float force = MOVEMENTFORCE;
-
-
-    // if ( vel.x ==  0 ) {
-    //     carBody->ApplyLinearImpulse(b2Vec2(60, 0), carBody->GetWorldCenter(), true);
-    // }
-
-
-    if (car->getAirStatus() != GROUND) {
-        force /= 10;
-    }
-
-    carBody->ApplyForceToCenter(b2Vec2(force,0), true);
-    if (car->getSide() == LEFTPLAYER) {
-        if (car->getFacingStatus() == FACINGBACK) {
-            car->swapFrontBackSensor();
-        }
-        car->setFacingStatus(FACINGFRONT);
-    } else {
-        if (car->getFacingStatus() == FACINGFRONT) {
-            car->swapFrontBackSensor();
-        }
-        car->setFacingStatus(FACINGBACK);
-    }
-    car->setAcceleratingStatus(ACCELERATINGRIGHT);
-}
-
-void Physics::moveCarLeft(int socketId) {
-    CarPhysics* car = this->cars[socketId];
-    b2Body* carBody = car->getCarBody();
-
-    /*car->SetTransform(
-        b2Vec2(car->GetPosition().x - 1, car->GetPosition().y), car->GetAngle()
-    );*/
-    float force = MOVEMENTFORCE*(-1);
-    //b2Vec2 vel = carBody->GetLinearVelocity();
-
-
-
-    // if ( vel.x ==  0 ) {
-    //     carBody->ApplyLinearImpulse(b2Vec2(-60, 0), carBody->GetWorldCenter(), true);
-    // }
-
-    if (car->getAirStatus() !=  GROUND) {
-        force /= 10;
-    }
-    carBody->ApplyForceToCenter(b2Vec2(force,0), true);
-    if (car->getSide() == LEFTPLAYER) {
-        if (car->getFacingStatus() == FACINGFRONT) {
-            car->swapFrontBackSensor();
-        }
-        car->setFacingStatus(FACINGBACK);
-    } else {
-        if (car->getFacingStatus() == FACINGBACK) {
-            car->swapFrontBackSensor();
-        }
-        car->setFacingStatus(FACINGFRONT);
-    }
-    car->setAcceleratingStatus(ACCELERATINGLEFT);
-}
-
 void Physics::carStopAccelerating(int socketId) {
     CarPhysics* car = this->cars[socketId];
-    car->setAcceleratingStatus(NOTACCELERATING);
+    car->stopAccelerating();
 }
 
 void Physics::carJump(int socketId) {
     CarPhysics* car = this->cars[socketId];
-    AirStatus airStatus = car->getAirStatus();
-
-    if (airStatus == AIRAFTERFLIP){
-        return;
-    }
-
-    if (car->getSensorStatus() == BALLINBACKSENSOR && airStatus == AIR && car->getAcceleratingStatus() != NOTACCELERATING) {
-        ball->goldShot(car->getSide());
-        car->flipJump();
-    } else if (car->getSensorStatus() == BALLINFRONTSENSOR && airStatus == AIR && car->getAcceleratingStatus() != NOTACCELERATING) {
-        ball->redShot(car->getSide());
-        car->flipJump();
-    } else if (car->getSensorStatus() == BALLINBOTTOMSENSOR) {
-        ball->purpleShot(car->getSide());
-        if(car->getSide() == LEFTPLAYER){ car->getCarBody()->ApplyLinearImpulse(b2Vec2(-3000,0),car->getCarBody()->GetWorldCenter(), true);}
-        else{car->getCarBody()->ApplyLinearImpulse(b2Vec2(3000,0), car->getCarBody()->GetWorldCenter(), true);}
-    } else if (car->getAcceleratingStatus() != NOTACCELERATING && car->getAirStatus() == AIR ){
-        car->flipJump();
-    } else {
-        b2Body* carBody = car->getCarBody();
-        b2Vec2 vel = carBody->GetLinearVelocity();
-        float desiredVel = JUMPIMPULSE;
-        float velChange = desiredVel - vel.y;
-        float impulse = carBody->GetMass() * velChange; //disregard time factor
-        carBody->ApplyLinearImpulse( b2Vec2(0, impulse), carBody->GetWorldCenter(), true);
-    }
-    
-    if (airStatus == AIR) {
-        car->setAirStatus(AIRAFTERFLIP);
-    }
-    
+    car->jump(this->ball); 
 }
 
 void Physics::flipCarRight(int socketId) {
-    b2Body* carBody = this->cars[socketId]->getCarBody();
-    carBody->SetAngularVelocity(ROTATIONANGULARVELOCITY);
+    CarPhysics* car = this->cars[socketId];
+    car->rotate(1);
 }
 
 void Physics::flipCarLeft(int socketId) {
-    b2Body* carBody = this->cars[socketId]->getCarBody();
-    carBody->SetAngularVelocity(ROTATIONANGULARVELOCITY * (-1));
+    CarPhysics* car = this->cars[socketId];
+    car->rotate(-1);
 }
 
 void Physics::carStopFlip(int socketId) {
-    b2Body* carBody = this->cars[socketId]->getCarBody();
-    carBody->SetAngularVelocity(0);
-}
-
-void Physics::carTurbo(int socketId){
-    // if(this->liquidNitrogen != 0){
-
-    // }
-
     CarPhysics* car = this->cars[socketId];
-
-    if (!car->canUseTurbo()) {
-        car->setDoingTurbo(false);
-        return;
-    }
-
-    car->loseTurbo();
-
-    b2Body* carBody = car->getCarBody();
-    float angle = carBody->GetAngle();
-    float x = std::cos(angle)*TURBOFORCE;
-    float y = std::sin(angle)*TURBOFORCE;
-
-    if ((car->getSide() == LEFTPLAYER && car->getFacingStatus() == FACINGBACK) ||
-        (car->getSide() == RIGHTPLAYER && car->getFacingStatus() == FACINGFRONT)){
-        x *= -1;
-        y *= -1;
-    }
-    carBody->ApplyForceToCenter(b2Vec2(x, y),true);
-    car->setDoingTurbo(true);
-    //this->liquidNitrogen -= 1;
-    
+    car->stopRotate();
 }
+
+void Physics::startDoingTurbo(int socketId) {
+    CarPhysics* car = this->cars[socketId];
+    car->startDoingTurbo();
+} 
+
 
 void Physics::carStopTurbo(int socketId) {
     CarPhysics* car = this->cars[socketId];
-    car->setDoingTurbo(false);
+    car->stopDoingTurbo();
 }
-
-
-void Physics::createBall(){
-    b2BodyDef ballBodyDef;
-    ballBodyDef.type = b2_dynamicBody;
-    ballBodyDef.position.Set(FIELDHALFWIDTH, FIELDHEIGTH/2);
-    b2Body* ballBody = world.CreateBody(&ballBodyDef);
-
-    //Textures
-    b2CircleShape circleBall;
-    circleBall.m_radius = BALLRADIUS;
-    b2FixtureDef fixtureDef;
-    fixtureDef.filter.categoryBits = BALL;
-    fixtureDef.filter.maskBits = BOUNDARY | CAR | GOALSENSOR | CAR_FRONT_SENSOR | CAR_BOTTOM_SENSOR;
-    fixtureDef.shape = &circleBall;
-    fixtureDef.density = 0.001f;
-    fixtureDef.restitution = 0.9f;
-    //fixtureDef.isSensor = true;
-    fixtureDef.friction = CARFRICTION;
-    ballBody->CreateFixture(&fixtureDef);
-    //return ball;
-    this->ball = new BallPhysics(ballBody);
-}
-
-GoalSensor* Physics::createGoal(SideOfGoal side) {
-    b2BodyDef goalBodyDef;
-    goalBodyDef.type = b2_staticBody;
-    goalBodyDef.position.Set(FIELDHALFWIDTH, 0);
-    b2Body* body = world.CreateBody(&goalBodyDef);
-    b2FixtureDef sensorFixture;
-    b2PolygonShape polygonShapeSensor;
-    sensorFixture.shape = &polygonShapeSensor;
-    sensorFixture.isSensor = true;
-    sensorFixture.filter.categoryBits = GOALSENSOR;
-    sensorFixture.filter.maskBits = BALL;
-    float sensorHalfWidht = GOALTOPHALFWIDTH - BALLRADIUS;
-    float sensorHalfHeight = (FIELDHEIGTH - mitadAltoParedesArco*2)/2;
-    if (side == LEFT) {
-        polygonShapeSensor.SetAsBox(sensorHalfWidht, sensorHalfHeight, b2Vec2(-FIELDHALFWIDTH + sensorHalfWidht,  FIELDHEIGTH/2), 0);
-    } else if (side == RIGHT) {
-        polygonShapeSensor.SetAsBox(sensorHalfWidht, sensorHalfHeight, b2Vec2(FIELDHALFWIDTH - sensorHalfWidht, FIELDHEIGTH/2), 0);
-    }
-    body->CreateFixture(&sensorFixture);
-    GoalSensor* goal = new GoalSensor(side, body);
-    return goal;
-}
-
 
 GameStatus Physics::getGameStatus(){
     GameStatus newGameStatus;
 
-
-
     std::list<PlayerModel> playerModels;
     for (std::map<int, CarPhysics*>::iterator it = this->cars.begin(); it != this->cars.end(); ++it) {
-        b2Vec2 carCoord = it->second->getCarBody()->GetPosition();
-        float angle = it->second->getCarBody()->GetAngle() * (-1);
-        
-        float xOriginal = -CARHALFWIDTH;
-        float yOriginal = CARHALFHEIGHT;
-
-
-        //float xPrime = xOriginal * std::cos(angle*(-1)) - yOriginal * std::sin(angle*(-1));
-        //float yPrime = xOriginal * std::sin(angle*(-1)) + yOriginal * std::cos(angle*(-1));
-
-
-        float xCar = carCoord.x + xOriginal;
-        float yCar = carCoord.y + yOriginal;
-        
-        std::string facing;
-
-        if (it->second->getSide() == LEFTPLAYER) {
-            if (it->second->getFacingStatus() == FACINGBACK) {
-                facing = "left";
-            } else {
-                facing = "right";
-            }
-        } else{
-            if (it->second->getFacingStatus() == FACINGFRONT) {
-                facing = "left";
-            } else {
-                facing = "right";
-            }
-        }
-
-        bool turbo = it->second->getDoingTurbo();
-        int turboRem = it->second->getTurbo();
-
-        /*if (it->second->getSensorStatus() == BALLINBACKSENSOR) {
-            std::cout << "SENSOR: BACK" << std::endl;
-        } else if (it->second->getSensorStatus() == BALLINBOTTOMSENSOR) {
-            std::cout << "SENSOR: BOTTOM" << std::endl;
-        } else if (it->second->getSensorStatus() == BALLINFRONTSENSOR) {
-            std::cout << "SENSOR: FRONT" << std::endl;
-        } else if (it->second->getSensorStatus() == NOTSENSOR) {
-            std::cout << "SENSOR: NOT" << std::endl;
-        }*/
-
-
-        PlayerModel pm(xCar, yCar, angle, turbo, facing, turboRem);
+        PlayerModel pm = it->second->getPlayerModel();
         playerModels.push_back(pm);
 
 
     }
     newGameStatus.setPlayersModels(playerModels);
-    b2Vec2 ballCoord = this->ball->getBody()->GetPosition();
-    float ballCoordX = ballCoord.x - BALLRADIUS;
-    float ballCoordY = ballCoord.y + BALLRADIUS;
-    std::string colour;
-    switch(ball->getShotType()) {
-        case NONE: {
-            colour = "normal";
-            break;
-        }
-        case REDSHOT: {
-            colour = "red";
-            break;
-        }
-        case GOLDSHOT: {
-            colour = "gold";
-            break;
-        }
-        case PURPLESHOT: {
-            colour = "purple";
-            break;
-        }
-    }
-
-    BallModel bm(ballCoordX, ballCoordY, ball->getBody()->GetAngle() * (-1), colour);
-
-    newGameStatus.setBallModel(bm);
+    newGameStatus.setBallModel(this->ball->getModel());
 
     //The goals of the left team are the ones scored in the right goal, and viceversa
     int goalsLeft = this->rightGoal->getGoals();
@@ -455,6 +204,38 @@ void Physics::fillTurbos() {
             it->second->fillTurbo();
         }
     }
+}
+
+void Physics::accelerateCars() {
+    for (std::map<int, CarPhysics*>::iterator it = this->cars.begin(); it != this->cars.end(); ++it) {
+        it->second->applyAcceleration();
+    }
+}
+
+void Physics::applyTurboToCars() {
+    for (std::map<int, CarPhysics*>::iterator it = this->cars.begin(); it != this->cars.end(); ++it) {
+        it->second->applyTurbo();
+    }
+}
+
+void Physics::startAcceleratingCarForward(int socketId) {
+    CarPhysics* car = this->cars[socketId];
+    car->startAcceleratingForward();
+}
+
+void Physics::startAcceleratingCarBackwards(int socketId){
+    CarPhysics* car = this->cars[socketId];
+    car->startAcceleratingBackwards();
+}
+
+void Physics::stopAcceleratingCar(int socketId){
+    CarPhysics* car = this->cars[socketId];
+    car->stopAccelerating();
+}
+
+void Physics::turnCar(int socketId) {
+    CarPhysics* car = this->cars[socketId];
+    car->turn();
 }
 
 Physics::~Physics() {
