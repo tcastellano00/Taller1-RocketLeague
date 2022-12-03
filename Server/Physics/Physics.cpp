@@ -4,31 +4,36 @@
 #include <iostream>
 #include <string>
 
+
 #include "../../libs/Box2D/Box2D.h"
 
-#define MOVEMENTFORCE 500
-#define CARFRICTION 1.5
-#define GROUNDFRICTION 1.0
-#define JUMPIMPULSE 40
-#define GRAVITY -10
-#define TORQUEFORCE 5000
-#define TORQUEIMPULSE 200
-#define FIELDHALFWIDTH 90
-#define FIELDHEIGTH 60
-#define WALLWIDTH 1
-#define CARHALFWIDTH 7.5
-#define CARHALFHEIGHT 2
-#define BALLRADIUS 5
-#define GOALTOPHALFWIDTH 10
-#define GOALTOPHALFHEIGHT 22
-#define TURBOFORCE MOVEMENTFORCE*8
-#define FRONTSENSORHALFWIDTH 5.0
-#define BOTTOMSENSORHALFHEIGTH 5.0
-#define ROTATIONANGULARVELOCITY 3
+// #define MOVEMENTFORCE 500
+// #define CARFRICTION 1.5
+// #define GROUNDFRICTION 1.0
+// #define JUMPIMPULSE 40
+// #define GRAVITY -10
+// #define TORQUEFORCE 5000
+// #define TORQUEIMPULSE 200
+// #define FIELDHALFWIDTH 90
+// #define FIELDHEIGTH 60
+// #define WALLWIDTH 1
+// #define CARHALFWIDTH 7.5
+// #define CARHALFHEIGHT 2
+// #define BALLRADIUS 5
+// #define GOALTOPHALFWIDTH 10
+// #define GOALTOPHALFHEIGHT 22
+// #define TURBOFORCE MOVEMENTFORCE*8
+// #define FRONTSENSORHALFWIDTH 5.0
+// #define BOTTOMSENSORHALFHEIGTH 5.0
+// #define ROTATIONANGULARVELOCITY 3
 
+float FIELDHALFWIDTH = ServerConfig::getFieldHalfWidth();
+float FIELDHEIGHT = ServerConfig::getFieldHeight();
+float GRAVITY = ServerConfig::getGravity();
+float GAMETIME = ServerConfig::getGameTime();
+float EXTRATIME = ServerConfig::getExtraTime();
+float REPLAYTIME = ServerConfig::getReplayTime();
 
-#define mitadAltoParedesArco 8 //CAMBIAR ESTO
-#define CHAINSTARTHEIGHT 11
 
 
 Physics::Physics(std::list<ClientConnection>& connections): world(b2Vec2(0.0f, GRAVITY)){
@@ -37,6 +42,7 @@ Physics::Physics(std::list<ClientConnection>& connections): world(b2Vec2(0.0f, G
     timeStep = 1.0f / 10.0f;
     velocityIterations = 6;
     positionIterations = 2;
+    gameTime = GAMETIME;
 
     int numberOfCar = 0;
     for (auto connection = connections.begin(); connection != connections.end(); ++connection) {
@@ -161,18 +167,18 @@ void Physics::resetPositionsIfGoal(){
     int i = 0;
     for (std::map<int, CarPhysics*>::iterator it = this->cars.begin(); it != this->cars.end(); ++it) {
         if (i == 0) {
-            it->second->getCarBody()->SetTransform(b2Vec2(FIELDHALFWIDTH/2, FIELDHEIGTH/2), 0); 
+            it->second->getCarBody()->SetTransform(b2Vec2(FIELDHALFWIDTH/2, FIELDHEIGHT/2), 0); 
         } else if (i == 1) {
-            it->second->getCarBody()->SetTransform(b2Vec2(3*FIELDHALFWIDTH/2, FIELDHEIGTH/2), 0);
+            it->second->getCarBody()->SetTransform(b2Vec2(3*FIELDHALFWIDTH/2, FIELDHEIGHT/2), 0);
         } else if (i == 2) {
-            it->second->getCarBody()->SetTransform(b2Vec2(FIELDHALFWIDTH/3, FIELDHEIGTH/2), 0);
+            it->second->getCarBody()->SetTransform(b2Vec2(FIELDHALFWIDTH/3, FIELDHEIGHT/2), 0);
         } else if (i == 3) {
-            it->second->getCarBody()->SetTransform(b2Vec2(5*FIELDHALFWIDTH/3, FIELDHEIGTH/2), 0);
+            it->second->getCarBody()->SetTransform(b2Vec2(5*FIELDHALFWIDTH/3, FIELDHEIGHT/2), 0);
         }
         it->second->getCarBody()->ApplyForceToCenter(b2Vec2(0,-1), true);
         ++i;
     }
-    ball->getBody()->SetTransform(b2Vec2(FIELDHALFWIDTH, FIELDHEIGTH/2), 0);
+    ball->getBody()->SetTransform(b2Vec2(FIELDHALFWIDTH, FIELDHEIGHT/2), 0);
     ball->getBody()->SetLinearVelocity(b2Vec2(0,-1));
     ball->getBody()->SetAngularVelocity(0);
 

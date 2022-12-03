@@ -10,9 +10,10 @@
 #include "ContactListener.h"
 #include "Car.h"
 #include "BallPhysics.h"
-#define GAMETIME 180000 //TIENE QUE SER 3 MINUTOS A PRIORI
-#define EXTRATIME 30000
-#define REPLAYTIME 5000
+#include "../Config/ServerConfig.h"
+
+
+
 
 class Physics{
 	private:
@@ -24,7 +25,7 @@ class Physics{
     GoalSensor* rightGoal;
     b2Timer timer;
     int liquidNitrogen = 50; //Cantidad de combustible para el Turbo
-    int gameTime = GAMETIME; //milisegundos
+    int gameTime; //milisegundos
     ContactListener contactListener;
     std::map<int, CarPhysics*> cars;
     //b2Body* car;
