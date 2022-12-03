@@ -67,26 +67,30 @@ BoxPhysics::BoxPhysics(b2World &world){
     b2ChainShape chain;
 
     //Rampa arco inferior izquierdo
-    b2Vec2 surface[17];
+    b2Vec2 surface[21];
     
-    surface[0] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2     ,  CHAINSTARTHEIGHT  );
-    surface[1] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +0.5,  CHAINSTARTHEIGHT -1.7 );
-    surface[2] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +1  ,  CHAINSTARTHEIGHT -2.8 );
-    surface[3] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +2  ,  CHAINSTARTHEIGHT -3.9);
-    surface[4] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +3  ,  CHAINSTARTHEIGHT -4.9 );
-    surface[5] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +4  ,  CHAINSTARTHEIGHT -5.7 );
-    surface[6] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +5  ,  CHAINSTARTHEIGHT -6.5 );
-    surface[7] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +6  ,  CHAINSTARTHEIGHT -7.3 );
-    surface[8] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +7  ,  CHAINSTARTHEIGHT -7.9 );
-    surface[9] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +8  ,  CHAINSTARTHEIGHT -8.5 );
-    surface[10] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +9  ,  CHAINSTARTHEIGHT -9.0 );
-    surface[11] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +10  ,  CHAINSTARTHEIGHT -9.4 );
-    surface[12] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +11 ,  CHAINSTARTHEIGHT -9.8 );
-    surface[13] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +12 ,  CHAINSTARTHEIGHT -10.2 );
-    surface[14] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +13 ,  CHAINSTARTHEIGHT -10.6 );
-    surface[15] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +14 ,  CHAINSTARTHEIGHT -10.9 );
-    surface[16] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +15  ,  CHAINSTARTHEIGHT - 11);
+    surface[0] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2     ,  mitadAltoParedesArco*2  );
+    surface[1] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +0.2    ,  mitadAltoParedesArco*2 -1 );
+    surface[2] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +0.5  ,  mitadAltoParedesArco*2 -2 );
+    surface[3] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +1  ,  mitadAltoParedesArco*2 -4);
+    surface[4] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +1.5  ,  mitadAltoParedesArco*2 -5 );
+    surface[5] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +2.0  ,  mitadAltoParedesArco*2 -6 );
+    surface[6] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +3  ,  mitadAltoParedesArco*2 -7.5 );
+    surface[7] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +4  ,  mitadAltoParedesArco*2 -9.0 );
+    surface[8] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +5  ,  mitadAltoParedesArco*2 -10.5 );
+    surface[9] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +6  ,  mitadAltoParedesArco*2 -11.5 );
+    surface[10] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +7  ,  mitadAltoParedesArco*2 -12.3 );
+    surface[11] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +8.0  ,  mitadAltoParedesArco*2 -13.2 );
+    surface[12] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +9.5 ,  mitadAltoParedesArco*2 -13.9 );
+    surface[13] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +11 ,  mitadAltoParedesArco*2 -14.4 );
+    surface[14] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +13 ,  mitadAltoParedesArco*2 -14.8 );
+    surface[15] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +14 ,  mitadAltoParedesArco*2 -15.0 );
+    surface[16] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +16  ,  mitadAltoParedesArco*2 - 15.3);
+    surface[17] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +17  ,  mitadAltoParedesArco*2 - 15.5);
+    surface[18] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +18  ,  mitadAltoParedesArco*2 - 15.7);
+    surface[19] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +19  ,  mitadAltoParedesArco*2 - 15.9);
+    surface[20] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +20  ,  mitadAltoParedesArco*2 - 16);
     
-    chain.CreateChain(surface, 17);
+    chain.CreateChain(surface, 21);
     box->CreateFixture(&chain,1);
 }

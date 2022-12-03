@@ -263,9 +263,9 @@ void CarPhysics::applyAcceleration() {
     float32 yForce;
     float force = MOVEMENTFORCE;
 
-    if (this->airStatus != GROUND) {
+    /*if (this->airStatus != GROUND) {
         force /= 10;
-    }
+    }*/
 
     float angle = this->carBody->GetAngle();
     xForce = std::cos(angle)*force;

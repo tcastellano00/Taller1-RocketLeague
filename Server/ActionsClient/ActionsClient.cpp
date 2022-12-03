@@ -9,6 +9,9 @@
 #include "ActionClientStopAccelerating.h"
 #include "ActionClientStopFlip.h"
 #include "ActionClientStartTurning.h"
+#include "ActionClientDoRedShot.h"
+#include "ActionClientDoGoldenShot.h"
+#include "ActionClientDoPurpleShot.h"
 
 #include "../../Common/Constants/ActionsClient.h"
 
@@ -35,6 +38,12 @@ std::shared_ptr<ActionsClient> ActionsClient::get_command_ptr(
         return std::shared_ptr<ActionsClient>(new ActionClientStopAccelerating(sktId));
     else if (name == STOP_FLIPING)
         return std::shared_ptr<ActionsClient>(new ActionClientStopFlip(sktId));
+    else if (name == DO_RED_SHOT)
+        return std::shared_ptr<ActionsClient>(new ActionClientDoRedShot(sktId));
+    else if (name == DO_GOLDEN_SHOT)
+        return std::shared_ptr<ActionsClient>(new ActionClientDoGoldenShot(sktId));
+    else if (name == DO_PURPLE_SHOT)
+        return std::shared_ptr<ActionsClient>(new ActionClientDoPurpleShot(sktId));
 
     return NULL;
 }

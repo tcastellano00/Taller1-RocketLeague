@@ -87,6 +87,10 @@ class Physics{
 
     void turnCar(int socketId);
 
+    void doRedShot(int socketId);
+    void doGoldenShot(int socketId);
+    void doPurpleShot(int socketId);
+
     ~Physics();
 };
 #endif

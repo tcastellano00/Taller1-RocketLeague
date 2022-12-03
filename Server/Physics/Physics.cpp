@@ -238,6 +238,33 @@ void Physics::turnCar(int socketId) {
     car->turn();
 }
 
+void Physics::doRedShot(int socketId) {
+    CarPhysics* car = this->cars[socketId];
+    if (car->getSide() == LEFTPLAYER) {
+        ball->redShot(1);
+    } else {
+        ball->redShot(-1);
+    }
+}
+
+void Physics::doGoldenShot(int socketId) {
+    CarPhysics* car = this->cars[socketId];
+    if (car->getSide() == LEFTPLAYER) {
+        ball->goldShot(1);
+    } else {
+        ball->goldShot(-1);
+    }
+}
+
+void Physics::doPurpleShot(int socketId) {
+    CarPhysics* car = this->cars[socketId];
+    if (car->getSide() == LEFTPLAYER) {
+        ball->purpleShot(1);
+    } else {
+        ball->purpleShot(-1);
+    }
+}
+
 Physics::~Physics() {
     delete leftGoal;
     delete rightGoal;
