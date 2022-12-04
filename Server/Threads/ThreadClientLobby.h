@@ -1,10 +1,10 @@
 #ifndef SERVER_THREAD_CLIENT_LOBBY_H
 #define SERVER_THREAD_CLIENT_LOBBY_H
 
-#include "../Common/Thread.h"
-#include "../Common/Socket.h"
-#include "ClientConnection.h"
-#include "GameMonitor.h"
+#include "../../Common/Thread.h"
+#include "../../Common/Socket.h"
+#include "../Game/GameMonitor.h"
+#include "../ClientConnection.h"
 
 class ThreadClientLobby: public Thread {
 private:

@@ -1,14 +1,13 @@
 #include <string>
 
-#include "LobbyCommand.h"
-#include "LobbyCommandList.h"
+#include "ActionLobbyList.h"
 
-LobbyCommandList::LobbyCommandList(
+ActionLobbyList::ActionLobbyList(
     const std::string &arguments) {
         this->arguments = arguments;
     }
 
-std::string LobbyCommandList::execute(
+std::string ActionLobbyList::execute(
     GameMonitor &game_monitor, ClientConnection& client) {
         std::string result = "OK";
 

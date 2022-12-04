@@ -1,8 +1,8 @@
-#include "../Common/LibError.h"
-#include "../Common/NonBlockingQueue.h"
+#include "../../Common/LibError.h"
+#include "../../Common/NonBlockingQueue.h"
 
 #include "ThreadClientReceiver.h"
-#include "ActionsClient/ActionsClient.h"
+#include "../ActionsClient/ActionsClient.h"
 
 ThreadClientReceiver::ThreadClientReceiver(
     int clientId,

@@ -2,14 +2,14 @@
 #include <utility>
 #include <string>
 
-#include "../Common/Socket.h"
-#include "../Common/LibError.h"
+#include "../../Common/Socket.h"
+#include "../../Common/LibError.h"
 
 #include "ThreadClientAcceptor.h"
-#include "ClientConnection.h"
+#include "../ClientConnection.h"
 #include "ThreadClientLobby.h"
-#include "GameMonitor.h"
-#include "Config/ServerConfig.h"
+#include "../Game/GameMonitor.h"
+#include "../Config/ServerConfig.h"
 
 ThreadClientAcceptor::ThreadClientAcceptor(Socket &accepter) 
     : accepter(std::move(accepter)) {

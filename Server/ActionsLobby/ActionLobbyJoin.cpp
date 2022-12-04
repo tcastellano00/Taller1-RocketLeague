@@ -1,25 +1,24 @@
 #include <string>
 #include <sstream>
+#include <iostream>
 
-#include "LobbyCommand.h"
-#include "LobbyCommandCreate.h"
+#include "ActionsLobby.h"
+#include "ActionLobbyJoin.h"
 
-LobbyCommandCreate::LobbyCommandCreate(
+ActionLobbyJoin::ActionLobbyJoin(
     const std::string &arguments) {
         this->arguments = arguments;
     }
 
-std::string LobbyCommandCreate::execute(
+std::string ActionLobbyJoin::execute(
     GameMonitor &game_monitor, ClientConnection& client) {
         std::stringstream args(arguments);
 
-        int max_players;
         std::string game_name;
 
-        args >> max_players;
         args >> game_name;
 
-        bool result = game_monitor.createGame(game_name, max_players, client);
+        bool result = game_monitor.addPlayerIfNotFull(game_name, client);
 
         return (result ? "OK" : "ERROR");
     }

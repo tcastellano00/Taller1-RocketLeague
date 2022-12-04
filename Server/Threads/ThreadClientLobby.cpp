@@ -2,12 +2,12 @@
 #include <utility>
 #include <iostream>
 
-#include "../Common/Protocol.h"
-#include "../Common/LibError.h"
+#include "../../Common/Protocol.h"
+#include "../../Common/LibError.h"
 
+#include "../ActionsLobby/ActionsLobby.h"
+#include "../ActionsLobby/ActionsLobbyParser.h"
 #include "ThreadClientLobby.h"
-#include "Lobby/LobbyCommand.h"
-#include "Lobby/LobbyParser.h"
 
 ThreadClientLobby::ThreadClientLobby(ClientConnection& clt, GameMonitor& gameMtr): 
     client(std::move(clt)), 
@@ -25,7 +25,7 @@ void ThreadClientLobby::run(){
     try {
         while (!clientJoinedGame && not protocol.isClosed()){
             std::string message = protocol.reciveMessage();
-            std::unique_ptr<LobbyCommand> command = LobbyParser::getCommand(message);
+            std::unique_ptr<ActionsLobby> command = ActionsLobbyParser::getCommand(message);
 
             std::string response;
             if (command != NULL)

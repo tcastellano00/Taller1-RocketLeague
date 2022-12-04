@@ -3,12 +3,12 @@
 
 #include <list>
 #include <string>
-#include "../Common/Thread.h"
-#include "../Common/Socket.h"
-#include "../Common/BlockingQueue.h"
-#include "../Common/Protocol.h"
-#include "../Common/GameStatus.h"
-#include "ClientConnection.h"
+#include "../../Common/Thread.h"
+#include "../../Common/Socket.h"
+#include "../../Common/BlockingQueue.h"
+#include "../../Common/Protocol.h"
+#include "../../Common/GameStatus.h"
+#include "../ClientConnection.h"
 
 
 class ThreadClientSender : public Thread{

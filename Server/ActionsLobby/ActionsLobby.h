@@ -5,21 +5,21 @@
 #include <memory>
 #include <bits/unique_ptr.h>
 
-#include "../GameMonitor.h"
+#include "../Game/GameMonitor.h"
 #include "../ClientConnection.h"
 
-class LobbyCommand {
+class ActionsLobby {
 protected:
     std::string arguments;
    
 public:
-    static std::unique_ptr<LobbyCommand> get_command_ptr(
+    static std::unique_ptr<ActionsLobby> get_command_ptr(
         const std::string &name,
         const std::string &arguments);
 
     virtual std::string execute(GameMonitor &game_monitor, ClientConnection& client) = 0;
 
-    ~LobbyCommand() = default;
+    ~ActionsLobby() = default;
 };
 
 #endif

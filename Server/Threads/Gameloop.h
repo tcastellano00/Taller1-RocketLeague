@@ -1,12 +1,12 @@
 #ifndef GAME_LOOP_H
 #define GAME_LOOP_H
 
-#include "../Common/Thread.h"
-#include "../Common/Socket.h"
-#include "../Common/BlockingQueue.h"
-#include "../Common/NonBlockingQueue.h"
-#include "../Common/Command.h"
-#include "ClientConnection.h"
+#include "../../Common/Thread.h"
+#include "../../Common/Socket.h"
+#include "../../Common/BlockingQueue.h"
+#include "../../Common/NonBlockingQueue.h"
+#include "../../Common/Command.h"
+#include "../ClientConnection.h"
 #include "ThreadClientReceiver.h"
 
 #include <list>

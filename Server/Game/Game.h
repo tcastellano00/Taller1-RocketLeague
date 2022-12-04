@@ -4,8 +4,8 @@
 #include <list>
 #include <string>
 
-#include "Gameloop.h"
-#include "ClientConnection.h"
+#include "../Threads/Gameloop.h"
+#include "../ClientConnection.h"
 
 class Game {
 private:

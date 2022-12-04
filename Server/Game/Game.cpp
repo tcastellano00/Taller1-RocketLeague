@@ -1,6 +1,5 @@
 #include "iostream"
 #include "Game.h"
-#include "Gameloop.h"
 
 Game::Game(
     const std::string& name,

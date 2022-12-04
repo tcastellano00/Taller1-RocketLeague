@@ -7,7 +7,7 @@
 #include <mutex>
 
 #include "Game.h"
-#include "ClientConnection.h"
+#include "../ClientConnection.h"
 
 class GameMonitor {
 private:

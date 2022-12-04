@@ -1,7 +1,7 @@
 #include "ThreadClientBroadcaster.h"
 #include "ThreadClientSender.h"
-#include "../Common/BlockingQueue.h"
-#include "../Common/LibError.h"
+#include "../../Common/BlockingQueue.h"
+#include "../../Common/LibError.h"
 
 ThreadClientBroadcaster::ThreadClientBroadcaster(
     BlockingQueue<GameStatus>& newSenderQueue,

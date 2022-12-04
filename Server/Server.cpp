@@ -7,7 +7,7 @@
 #include "../Common/Protocol.h"
 
 #include "Server.h"
-#include "ThreadClientAcceptor.h"
+#include "Threads/ThreadClientAcceptor.h"
 
 Server::Server(
     const char *port) : socket(port) { }

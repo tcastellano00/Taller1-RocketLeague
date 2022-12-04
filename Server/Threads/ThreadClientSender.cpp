@@ -1,8 +1,8 @@
 #include <string>
 
 #include "ThreadClientSender.h"
-#include "../Common/LibError.h"
-#include "../Common/GameStatusSerializer.h"
+#include "../../Common/LibError.h"
+#include "../../Common/GameStatusSerializer.h"
 
 ThreadClientSender::ThreadClientSender(Socket& socket)
     : queue(), protocol(socket), open(true) {}

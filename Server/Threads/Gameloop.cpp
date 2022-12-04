@@ -1,8 +1,8 @@
 #include "Gameloop.h"
 #include "ThreadClientBroadcaster.h"
-#include "Physics/Physics.h"
-#include "ActionsClient/ActionsClient.h"
-#include "../Common/GameStatus.h"
+#include "../Physics/Physics.h"
+#include "../ActionsClient/ActionsClient.h"
+#include "../../Common/GameStatus.h"
 
 
 
