@@ -1,5 +1,4 @@
-langauge: cpp
-sudo: required
+os: linux
 dist: focal
 
 addons:
