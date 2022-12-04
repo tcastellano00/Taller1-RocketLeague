@@ -1,7 +1,7 @@
 #include "CoordsTransformator.h"
 #define METERTOPIXEL 10
 #define GROUNDFROMCEILING 600
-#include <math.h>
+#define PI  3.14159265358979323846
 
 
 float CoordsTransformator::transformX(float x) {
@@ -13,5 +13,5 @@ float CoordsTransformator::transformY(float y) {
 }
 
 float CoordsTransformator::radianToDegree(float angle) {
-    return (angle * 180.0)/M_PIf;
+    return (angle * 180.0) / PI;
 }
