@@ -1,6 +1,6 @@
 #include "ClientConfig.h"
 
-ClientConfig* ClientConfig::clientConfig = nullptr;;
+ClientConfig* ClientConfig::clientConfig = nullptr;
 
 ClientConfig::ClientConfig() {
     std::string configFile = "config/client.yaml";

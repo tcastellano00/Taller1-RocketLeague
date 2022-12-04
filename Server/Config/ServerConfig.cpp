@@ -1,6 +1,6 @@
 #include "ServerConfig.h"
 
-ServerConfig* ServerConfig::serverConfig = nullptr;;
+ServerConfig* ServerConfig::serverConfig = nullptr;
 
 ServerConfig::ServerConfig() {
     std::string configFile = "config/server.yaml";
