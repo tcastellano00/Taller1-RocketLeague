@@ -1,0 +1,19 @@
+langauge: cpp
+sudo: required
+dist: focal
+
+addons:
+  apt:
+    packages:
+      - libusb-1.0-0-dev
+      - libsdl2-dev
+      - libsdl2-image-dev
+      - libyaml-cpp-dev
+
+script:
+  - mkdir build
+  - cd build
+  - cmake ..
+  - make
+  - cd ..
+  - ./build/tests
