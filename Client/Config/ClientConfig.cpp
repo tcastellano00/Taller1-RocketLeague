@@ -21,7 +21,7 @@ int ClientConfig::getScreenWidth() {
 }
 
 int ClientConfig::getScreenHeight() {
-    return getInstance()->rootNode["SCREEN_HEIGHT"].as<int>();
+    return (getInstance()->rootNode["SCREEN_WIDTH"].as<int>())/3;
 }
 
 std::string ClientConfig::getKeyCommandMoveForward() {

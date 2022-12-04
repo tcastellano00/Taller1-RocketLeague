@@ -5,8 +5,8 @@
 #include "Animation.h"
 #include "../../Common/Model/PlayerModel.h"
 
-#define CAR_WIDTH 150
-#define CAR_HEIGHT 40
+#define CAR_WIDTH 110
+#define CAR_HEIGHT 30
 #define MAXTURBO 50.0
 #define TURBOBARX 200
 #define TURBOBARY 27

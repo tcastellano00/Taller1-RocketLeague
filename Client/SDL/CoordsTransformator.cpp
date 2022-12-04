@@ -1,4 +1,7 @@
 #include "CoordsTransformator.h"
+#include "../Config/ClientConfig.h"
+#include "../../Server/Config/ServerConfig.h"
+
 #define METERTOPIXEL 10
 #define GROUNDFROMCEILING 600
 #define PI  3.14159265358979323846
