@@ -50,6 +50,7 @@ include_directories(${SDL2PP_INCLUDE_DIRS})
 FILE(GLOB_RECURSE common_src "Common/*.cpp")
 FILE(GLOB_RECURSE client_src "Client/*.cpp")
 FILE(GLOB_RECURSE server_src "Server/*.cpp")
+FILE(GLOB_RECURSE tests_src "Tests/*.cpp")
 
 #------------------------------------------------------------------------------
 # TARGETS
@@ -71,33 +72,20 @@ file(COPY music DESTINATION ${CMAKE_BINARY_DIR})
 
 #------------------------------------------------------------------------------
 # TESTS
-#include(cmake/googletest.cmake)
-#fetch_googletest(
-#    ${PROJECT_SOURCE_DIR}/cmake
-#    ${CMAKE_BINARY_DIR}/googletest
-#)
-#enable_testing()
-
 include(FetchContent)
 FetchContent_Declare(
   googletest
   URL https://github.com/google/googletest/archive/03597a01ee50ed33e9dfd640b249b4be3799d395.zip
 )
-# For Windows: Prevent overriding the parent project's compiler/linker settings
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 
-add_executable(
-  ProtocoloTest Tests/ProtocolTest.cpp
-)
-target_link_libraries(
-  ProtocoloTest GTest::gtest_main
-)
-
+add_executable(tests ${tests_src})
+target_link_libraries(tests rocket_league-common GTest::gtest_main)
 include(GoogleTest)
-gtest_discover_tests(ProtocoloTest)
+gtest_discover_tests(tests)
 
 
 #------------------------------------------------------------------------------
