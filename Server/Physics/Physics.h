@@ -92,6 +92,8 @@ class Physics{
     void doGoldenShot(int socketId);
     void doPurpleShot(int socketId);
 
+    void applyExplosion();
+
     ~Physics();
 };
 #endif

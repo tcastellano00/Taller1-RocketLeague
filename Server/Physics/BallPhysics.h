@@ -4,6 +4,7 @@
 #include "../Box2D/Box2D.h"
 #include "EntityCategory.h"
 #include <string>
+#include "../Config/ServerConfig.h"
 #include "../../Common/Model/BallModel.h"
 
 enum SpecialShot {

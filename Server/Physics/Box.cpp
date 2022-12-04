@@ -8,7 +8,7 @@
 #define TORQUEFORCE 5000
 #define TORQUEIMPULSE 200
 #define FIELDHALFWIDTH 90
-#define FIELDHEIGTH 60
+#define FIELDHEIGHT 60
 #define WALLWIDTH 1
 #define CARHALFWIDTH 7.5
 #define CARHALFHEIGHT 2
@@ -19,8 +19,28 @@
 #define FRONTSENSORHALFWIDTH 5.0
 #define BOTTOMSENSORHALFHEIGTH 5.0
 #define ROTATIONANGULARVELOCITY 3
-#define mitadAltoParedesArco 8 //CAMBIAR ESTO
 #define CHAINSTARTHEIGHT 11
+#define mitadAltoParedesArco 8 //CAMBIAR ESTO
+
+
+
+// float FIELDHALFWIDTH = ServerConfig::getFieldHalfWidth();
+// float FIELDHEIGHT = ServerConfig::getFieldHeight();
+// float GRAVITY = ServerConfig::getGravity();
+// float GAMETIME = ServerConfig::getGameTime();
+// float EXTRATIME = ServerConfig::getExtraTime();
+// float REPLAYTIME = ServerConfig::getReplayTime();
+// float REDSHOTIMPULSE = ServerConfig::getRedShotImpulse();
+// float GOLDSHOTIMPULSE = ServerConfig::getGoldShotImpulse();
+// float PURPLESHOTIMPULSE = ServerConfig::getPurpleShotImpulse();
+// float CARFRICTION = ServerConfig::getCarFriction();
+// float SPECIALSHOTTIME = ServerConfig::getSpecialShotTime();
+// float BALLRADIUS = ServerConfig::getBallRadius();
+// float GROUNDFRICTION = ServerConfig::getGroundFriction();
+// float WALLWIDTH = ServerConfig::getWallWidth();
+// float GOALTOPHALFWIDTH = ServerConfig::getGoalTopHalfWidth();
+
+
 
 BoxPhysics::BoxPhysics(b2World &world){
     b2Body* box;
@@ -41,11 +61,11 @@ BoxPhysics::BoxPhysics(b2World &world){
     //add four walls to the static body
     polygonShape.SetAsBox( FIELDHALFWIDTH, WALLWIDTH, b2Vec2(0, WALLWIDTH*(-1)), 0);//ground
     box->CreateFixture(&myFixtureDef);
-    polygonShape.SetAsBox( FIELDHALFWIDTH, WALLWIDTH, b2Vec2(0, FIELDHEIGTH + WALLWIDTH), 0);//ceiling
+    polygonShape.SetAsBox( FIELDHALFWIDTH, WALLWIDTH, b2Vec2(0, FIELDHEIGHT + WALLWIDTH), 0);//ceiling
     box->CreateFixture(&myFixtureDef);
-    polygonShape.SetAsBox( WALLWIDTH, FIELDHALFWIDTH, b2Vec2((FIELDHALFWIDTH + WALLWIDTH)*(-1), FIELDHEIGTH/2), 0);//left wall
+    polygonShape.SetAsBox( WALLWIDTH, FIELDHALFWIDTH, b2Vec2((FIELDHALFWIDTH + WALLWIDTH)*(-1), FIELDHEIGHT/2), 0);//left wall
     box->CreateFixture(&myFixtureDef);
-    polygonShape.SetAsBox( WALLWIDTH, FIELDHALFWIDTH, b2Vec2(FIELDHALFWIDTH + WALLWIDTH, FIELDHEIGTH/2), 0);//right wall
+    polygonShape.SetAsBox( WALLWIDTH, FIELDHALFWIDTH, b2Vec2(FIELDHALFWIDTH + WALLWIDTH, FIELDHEIGHT/2), 0);//right wall
     box->CreateFixture(&myFixtureDef);
 
 
@@ -53,13 +73,13 @@ BoxPhysics::BoxPhysics(b2World &world){
     polygonShape.SetAsBox( GOALTOPHALFWIDTH, mitadAltoParedesArco, b2Vec2(GOALTOPHALFWIDTH - FIELDHALFWIDTH,mitadAltoParedesArco), 0);//left goal down
     box->CreateFixture(&myFixtureDef);
     
-    polygonShape.SetAsBox( GOALTOPHALFWIDTH, mitadAltoParedesArco, b2Vec2(GOALTOPHALFWIDTH - FIELDHALFWIDTH,FIELDHEIGTH - mitadAltoParedesArco), 0);//left goal down
+    polygonShape.SetAsBox( GOALTOPHALFWIDTH, mitadAltoParedesArco, b2Vec2(GOALTOPHALFWIDTH - FIELDHALFWIDTH,FIELDHEIGHT - mitadAltoParedesArco), 0);//left goal down
     box->CreateFixture(&myFixtureDef);
 
     polygonShape.SetAsBox( GOALTOPHALFWIDTH, mitadAltoParedesArco, b2Vec2(FIELDHALFWIDTH - GOALTOPHALFWIDTH, mitadAltoParedesArco), 0);//right goal down
     box->CreateFixture(&myFixtureDef);
     
-    polygonShape.SetAsBox( GOALTOPHALFWIDTH, mitadAltoParedesArco, b2Vec2(FIELDHALFWIDTH - GOALTOPHALFWIDTH, FIELDHEIGTH - mitadAltoParedesArco), 0);//right goal up
+    polygonShape.SetAsBox( GOALTOPHALFWIDTH, mitadAltoParedesArco, b2Vec2(FIELDHALFWIDTH - GOALTOPHALFWIDTH, FIELDHEIGHT - mitadAltoParedesArco), 0);//right goal up
     box->CreateFixture(&myFixtureDef);
 
 

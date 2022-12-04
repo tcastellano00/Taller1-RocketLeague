@@ -68,6 +68,17 @@ file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
 file(COPY config DESTINATION ${CMAKE_BINARY_DIR})
 file(COPY music DESTINATION ${CMAKE_BINARY_DIR})
 
+
+#------------------------------------------------------------------------------
+# TESTS
+include(cmake/googletest.cmake)
+fetch_googletest(
+    ${PROJECT_SOURCE_DIR}/cmake
+    ${CMAKE_BINARY_DIR}/googletest
+)
+enable_testing()
+
+
 #------------------------------------------------------------------------------
 # INSTALL
 set(BINARIES_DIRPATH "/usr/local/bin")

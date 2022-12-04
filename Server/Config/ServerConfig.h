@@ -49,6 +49,7 @@ public:
     static float getGoldShotImpulse();
     static float getPurpleShotImpulse();
     static float getSpecialShotTime();
+    static float getRotationAngularVelocity();
 
     ~ServerConfig() = default;
 };

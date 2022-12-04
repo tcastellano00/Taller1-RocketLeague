@@ -2,6 +2,7 @@
 #define GOALSENSOR_H
 
 #include "../../libs/Box2D/Box2D.h"
+#include "../Config/ServerConfig.h"
 
 
 enum SideOfGoal {

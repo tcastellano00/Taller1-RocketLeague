@@ -3,8 +3,15 @@
 #define FIELDHALFWIDTH 90
 #define FIELDHEIGTH 60
 #define GOALTOPHALFWIDTH 10
-#define mitadAltoParedesArco 8 //CAMBIAR ESTO
 #define BALLRADIUS 5
+#define mitadAltoParedesArco 8 //CAMBIAR ESTO
+
+
+// float FIELDHALFWIDTH = ServerConfig::getFieldHalfWidth();
+// float FIELDHEIGTH = ServerConfig::getFieldHeight();
+// float GOALTOPHALFWIDTH = ServerConfig::getGoalTopHalfWidth();
+// float BALLRADIUS = ServerConfig::getBallRadius();
+
 
 GoalSensor::GoalSensor(SideOfGoal side, b2World& world) {
     this->side = side;

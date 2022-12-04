@@ -9,6 +9,15 @@
 #define BALLRADIUS 5
 
 
+// float REDSHOTIMPULSE = ServerConfig::getRedShotImpulse();
+// float GOLDSHOTIMPULSE = ServerConfig::getGoldShotImpulse();
+// float PURPLESHOTIMPULSE = ServerConfig::getPurpleShotImpulse();
+// float FIELDHALFWIDTH = ServerConfig::getFieldHalfWidth();
+// float FIELDHEIGTH = ServerConfig::getFieldHeight();
+// float CARFRICTION = ServerConfig::getCarFriction();
+// float SPECIALSHOTTIME = ServerConfig::getSpecialShotTime();
+// float BALLRADIUS = ServerConfig::getBallRadius();
+
 
 BallPhysics::BallPhysics(b2World &world) {
     

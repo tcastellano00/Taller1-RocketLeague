@@ -120,3 +120,7 @@ float ServerConfig::getPurpleShotImpulse() {
 float ServerConfig::getSpecialShotTime() {
     return getInstance()->rootNode["SPECIAL_SHOT_TIME"].as<float>();
 }
+
+float ServerConfig::getRotationAngularVelocity(){
+    return getInstance()->rootNode["ROTATION_ANGULAR_VELOCITY"].as<float>();
+}

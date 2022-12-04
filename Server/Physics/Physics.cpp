@@ -35,6 +35,9 @@ float EXTRATIME = ServerConfig::getExtraTime();
 float REPLAYTIME = ServerConfig::getReplayTime();
 
 
+bool isInExplosion = false;
+int timeExplosion = 50; //frames, 2 segundos.
+
 
 Physics::Physics(std::list<ClientConnection>& connections): world(b2Vec2(0.0f, GRAVITY)){
 
@@ -158,10 +161,31 @@ GameStatus Physics::getGameStatus(){
     return newGameStatus;
 }
 
+
+// void Physics::applyExplosion(){
+//     if (isInExplosion){return;}
+
+//     isInExplosion = true;
+//     for (b2Body* body = world.GetBodyList(); body; body = body->GetNext())
+//     {
+//         //if(body->GetFixtureList)
+//         body->ApplyLinearImpulse( b2Vec2(-1000000000000000,0), body->GetWorldCenter(),true );
+//     }
+// }
+
 void Physics::resetPositionsIfGoal(){
     if(!leftGoal->getGoalScored() && !rightGoal->getGoalScored()){
         return;
     }
+
+    // this->applyExplosion();
+    // if (timeExplosion > 1){
+    //     timeExplosion -= 1;
+    //     return; }
+    // timeExplosion = 50;
+    // isInExplosion = false;
+
+
     leftGoal->setGoalScored(false);
     rightGoal->setGoalScored(false);
     int i = 0;

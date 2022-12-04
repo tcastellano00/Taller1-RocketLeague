@@ -8,7 +8,7 @@
 #define MAXTURBO 50 //dos segundos de turbo
 
 #define FIELDHALFWIDTH 90
-#define FIELDHEIGTH 60
+#define FIELDHEIGHT 60
 #define CARHALFWIDTH 7.5
 #define CARHALFHEIGHT 2
 #define FRONTSENSORHALFWIDTH 5.0
@@ -18,6 +18,18 @@
 #define TURBOFORCE 40000
 #define JUMPIMPULSE 40
 #define ROTATIONANGULARVELOCITY 3
+
+// float FIELDHALFWIDTH = ServerConfig::getFieldHalfWidth();
+// float FIELDHEIGHT = ServerConfig::getFieldHeight();
+// float CARFRICTION = ServerConfig::getCarFriction();
+// float CARHALFWIDTH = ServerConfig::getCarHalfWidth();
+// float CARHALFHEIGHT = ServerConfig::getCarHalfHeight();
+// float FRONTSENSORHALFWIDTH = ServerConfig::getFrontSensorHalfWidth();
+// float BOTTOMSENSORHALFHEIGTH = ServerConfig::getBottomSensorHalfHeigth();
+// float MOVEMENTFORCE = ServerConfig::getMovementForce();
+// float TURBOFORCE = ServerConfig::getTurboForce();
+// float JUMPIMPULSE = ServerConfig::getJumpImpulse();
+// float ROTATIONANGULARVELOCITY = ServerConfig::getRotationAngularVelocity();
 
 
 CarPhysics::CarPhysics(b2World& world, int numberOfCar){
@@ -45,10 +57,10 @@ CarPhysics::CarPhysics(b2World& world, int numberOfCar){
 b2Body* CarPhysics::createBody(b2World& world, int numberOfCar) {
     b2BodyDef carBodyDef;
     carBodyDef.type = b2_dynamicBody;
-    if (numberOfCar == 0) {carBodyDef.position.Set(FIELDHALFWIDTH/2, FIELDHEIGTH/2);}
-    if (numberOfCar == 1) {carBodyDef.position.Set(3*FIELDHALFWIDTH/2, FIELDHEIGTH/2);}
-    if (numberOfCar == 2) {carBodyDef.position.Set(FIELDHALFWIDTH/3, FIELDHEIGTH/2);}
-    if (numberOfCar == 3) {carBodyDef.position.Set(5*FIELDHALFWIDTH/3, FIELDHEIGTH/2);}
+    if (numberOfCar == 0) {carBodyDef.position.Set(FIELDHALFWIDTH/2, FIELDHEIGHT/2);}
+    if (numberOfCar == 1) {carBodyDef.position.Set(3*FIELDHALFWIDTH/2, FIELDHEIGHT/2);}
+    if (numberOfCar == 2) {carBodyDef.position.Set(FIELDHALFWIDTH/3, FIELDHEIGHT/2);}
+    if (numberOfCar == 3) {carBodyDef.position.Set(5*FIELDHALFWIDTH/3, FIELDHEIGHT/2);}
     b2Body* car = world.CreateBody(&carBodyDef);
 
     //Textures
