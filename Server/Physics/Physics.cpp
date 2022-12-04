@@ -77,39 +77,38 @@ void Physics::simulateTimeStep(){
 
 }
 
-void Physics::carStopAccelerating(int socketId) {
-    CarPhysics* car = this->cars[socketId];
+void Physics::carStopAccelerating(int clientId) {
+    CarPhysics* car = this->cars[clientId];
     car->stopAccelerating();
 }
 
-void Physics::carJump(int socketId) {
-    CarPhysics* car = this->cars[socketId];
+void Physics::carJump(int clientId) {
+    CarPhysics* car = this->cars[clientId];
     car->jump(this->ball); 
 }
 
-void Physics::flipCarRight(int socketId) {
-    CarPhysics* car = this->cars[socketId];
+void Physics::flipCarRight(int clientId) {
+    CarPhysics* car = this->cars[clientId];
     car->rotate(1);
 }
 
-void Physics::flipCarLeft(int socketId) {
-    CarPhysics* car = this->cars[socketId];
+void Physics::flipCarLeft(int clientId) {
+    CarPhysics* car = this->cars[clientId];
     car->rotate(-1);
 }
 
-void Physics::carStopFlip(int socketId) {
-    CarPhysics* car = this->cars[socketId];
+void Physics::carStopFlip(int clientId) {
+    CarPhysics* car = this->cars[clientId];
     car->stopRotate();
 }
 
-void Physics::startDoingTurbo(int socketId) {
-    CarPhysics* car = this->cars[socketId];
+void Physics::startDoingTurbo(int clientId) {
+    CarPhysics* car = this->cars[clientId];
     car->startDoingTurbo();
 } 
 
-
-void Physics::carStopTurbo(int socketId) {
-    CarPhysics* car = this->cars[socketId];
+void Physics::carStopTurbo(int clientId) {
+    CarPhysics* car = this->cars[clientId];
     car->stopDoingTurbo();
 }
 
@@ -248,28 +247,28 @@ void Physics::applyTurboToCars() {
     }
 }
 
-void Physics::startAcceleratingCarForward(int socketId) {
-    CarPhysics* car = this->cars[socketId];
+void Physics::startAcceleratingCarForward(int clientId) {
+    CarPhysics* car = this->cars[clientId];
     car->startAcceleratingForward();
 }
 
-void Physics::startAcceleratingCarBackwards(int socketId){
-    CarPhysics* car = this->cars[socketId];
+void Physics::startAcceleratingCarBackwards(int clientId){
+    CarPhysics* car = this->cars[clientId];
     car->startAcceleratingBackwards();
 }
 
-void Physics::stopAcceleratingCar(int socketId){
-    CarPhysics* car = this->cars[socketId];
+void Physics::stopAcceleratingCar(int clientId){
+    CarPhysics* car = this->cars[clientId];
     car->stopAccelerating();
 }
 
-void Physics::turnCar(int socketId) {
-    CarPhysics* car = this->cars[socketId];
+void Physics::turnCar(int clientId) {
+    CarPhysics* car = this->cars[clientId];
     car->turn();
 }
 
-void Physics::doRedShot(int socketId) {
-    CarPhysics* car = this->cars[socketId];
+void Physics::doRedShot(int clientId) {
+    CarPhysics* car = this->cars[clientId];
     if (car->getSide() == LEFTPLAYER) {
         ball->redShot(1);
     } else {
@@ -277,8 +276,8 @@ void Physics::doRedShot(int socketId) {
     }
 }
 
-void Physics::doGoldenShot(int socketId) {
-    CarPhysics* car = this->cars[socketId];
+void Physics::doGoldenShot(int clientId) {
+    CarPhysics* car = this->cars[clientId];
     if (car->getSide() == LEFTPLAYER) {
         ball->goldShot(1);
     } else {
@@ -286,8 +285,8 @@ void Physics::doGoldenShot(int socketId) {
     }
 }
 
-void Physics::doPurpleShot(int socketId) {
-    CarPhysics* car = this->cars[socketId];
+void Physics::doPurpleShot(int clientId) {
+    CarPhysics* car = this->cars[clientId];
     if (car->getSide() == LEFTPLAYER) {
         ball->purpleShot(1);
     } else {
