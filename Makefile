@@ -16,6 +16,9 @@ client_leaks:
 server_gdb:
 	gdb ./build/rocket_league-server
 
+test:
+	./build/tests
+
 pc:
 	gdb --tui ./build/rocket_league
 
