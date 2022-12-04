@@ -1,6 +1,5 @@
 #Pantalla SDL
 SCREEN_WIDTH: 1800
-SCREEN_HEIGHT: 600
 
 #Las posibles teclas del jugador son:
 # "FlechitaDerecha", "FlechitaIzquierda", "FlechitaArriba", "FlechitaAbajo", "T", 
