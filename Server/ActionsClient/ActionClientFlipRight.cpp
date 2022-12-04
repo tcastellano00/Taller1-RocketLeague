@@ -3,12 +3,12 @@
 
 #include "ActionClientFlipRight.h"
 
-ActionClientFlipRight::ActionClientFlipRight(int sktId) {
-    this->socketId = sktId;
+ActionClientFlipRight::ActionClientFlipRight(int cltId) {
+    this->clientId = cltId;
 }
 
 std::string ActionClientFlipRight::execute(
     Physics &physics) {
-    physics.flipCarRight(socketId);
+    physics.flipCarRight(clientId);
     return "";
 }

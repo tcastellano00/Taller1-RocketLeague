@@ -56,11 +56,11 @@ class Physics{
     b2World world;
     Physics(std::list<ClientConnection>& connections);
 
-    void flipCarRight(int socketId);
+    void flipCarRight(int clientId);
 
-    void flipCarLeft(int socketId);
+    void flipCarLeft(int clientId);
 
-    void carJump(int socketId);
+    void carJump(int clientId);
 
     GameStatus getGameStatus();
 
@@ -70,11 +70,11 @@ class Physics{
 
     void createBall();
 
-    void carStopTurbo(int socketId);
+    void carStopTurbo(int clientId);
 
-    void carStopAccelerating(int socketId);
+    void carStopAccelerating(int clientId);
 
-    void carStopFlip(int socketId);
+    void carStopFlip(int clientId);
 
     void resetPositionsIfGoal();
 
@@ -86,20 +86,20 @@ class Physics{
 
     void fillTurbos();
 
-    void startAcceleratingCarForward(int socketId);
-    void startAcceleratingCarBackwards(int socketId);
-    void stopAcceleratingCar(int socketId);
+    void startAcceleratingCarForward(int clientId);
+    void startAcceleratingCarBackwards(int clientId);
+    void stopAcceleratingCar(int clientId);
 
     void accelerateCars();
 
-    void startDoingTurbo(int socketId);
+    void startDoingTurbo(int clientId);
     void applyTurboToCars();
 
-    void turnCar(int socketId);
+    void turnCar(int clientId);
 
-    void doRedShot(int socketId);
-    void doGoldenShot(int socketId);
-    void doPurpleShot(int socketId);
+    void doRedShot(int clientId);
+    void doGoldenShot(int clientId);
+    void doPurpleShot(int clientId);
 
     void applyExplosion();
     void applyBlastImpulse(b2Body* body, b2Vec2 blastCenter, b2Vec2 applyPoint, float blastPower);

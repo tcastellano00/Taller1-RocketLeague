@@ -13,7 +13,7 @@ protected:
    
 public:
     static std::shared_ptr<ActionsClient> get_command_ptr(
-        const std::string &name, int sktId);
+        const std::string &name, int cltId);
 
     virtual std::string execute(Physics &physics) = 0;
 

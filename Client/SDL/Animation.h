@@ -1,14 +1,7 @@
-/*
- * Created by Federico Manuel Gomez Peter
- * Date: 17/05/18.
- */
-
 #ifndef __ANIMATION_H__
 #define __ANIMATION_H__
 
 #include <SDL2pp/SDL2pp.hh>
-
-#define FRAME_TIME 1000000.0f / 25.0f
 
 class SdlTexture;
 class Area;

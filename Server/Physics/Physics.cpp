@@ -4,11 +4,9 @@
 #include <iostream>
 #include <string>
 
-
 #include "../../libs/Box2D/Box2D.h"
 #include "QueryCallback.h"
-
-
+#include "../../Common/Config/CommonConfig.h"
 
 Physics::Physics(std::list<ClientConnection>& connections): world(b2Vec2(0.0f, GRAVITY)){
 
@@ -20,8 +18,8 @@ Physics::Physics(std::list<ClientConnection>& connections): world(b2Vec2(0.0f, G
 
     int numberOfCar = 0;
     for (auto connection = connections.begin(); connection != connections.end(); ++connection) {
-        int sktId = (*connection).getId();
-        cars[sktId] = new CarPhysics(world, numberOfCar);
+        int clientId = (*connection).getId();
+        cars[clientId] = new CarPhysics(clientId,world, numberOfCar);
         numberOfCar++;
     }
     BoxPhysics box(this->world);
@@ -230,9 +228,12 @@ void Physics::setIsInReplay(bool replay) {
 
 void Physics::updateReplayStaus() {
     if (!this->isInReplay) {
-        return;
+        return; 
     }
-    this->currentTimeOfReplay += 40; //equivalente a un frame
+    
+    //Tiempo en milisegundos que demora un frame.
+    this->currentTimeOfReplay += 1000.0f / CommonConfig::getFrameRate();
+
     if (this->currentTimeOfReplay >= REPLAYTIME) {
         this->currentTimeOfReplay = 0;
         this->setIsInReplay(false);

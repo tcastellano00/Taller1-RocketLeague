@@ -7,9 +7,9 @@
 
 class ActionClientStopAccelerating : public ActionsClient {
 private:
-    int socketId;
+    int clientId;
 public:
-    explicit ActionClientStopAccelerating(int sktId);
+    explicit ActionClientStopAccelerating(int cltId);
 
     std::string execute(Physics &physics) override;
 

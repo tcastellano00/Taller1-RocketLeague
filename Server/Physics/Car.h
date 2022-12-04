@@ -54,6 +54,7 @@ private:
     float flipStartAngle;
     bool isDoingTurbo;
     int turboRemaining;
+    int clientId; 
 
 
     float FIELDHALFWIDTH = ServerConfig::getFieldHalfWidth();
@@ -70,7 +71,7 @@ private:
 
 
 public:
-    CarPhysics(b2World& world, int numberOfCar);
+    CarPhysics(int ClientId,b2World& world, int numberOfCar);
     CarPhysics();
     b2Body* getCarBody();
 

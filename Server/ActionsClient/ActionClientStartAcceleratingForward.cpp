@@ -3,14 +3,14 @@
 
 #include "ActionClientStartAcceleratingForward.h"
 
-ActionClientStartAcceleratingForward::ActionClientStartAcceleratingForward(int sktId) {
-    this->socketId = sktId;
+ActionClientStartAcceleratingForward::ActionClientStartAcceleratingForward(int cltId) {
+    this->clientId = cltId;
 }
 
 std::string ActionClientStartAcceleratingForward::execute(
     Physics &physics) {
 
-    physics.startAcceleratingCarForward(socketId);
+    physics.startAcceleratingCarForward(clientId);
 
     return "OK";
 }

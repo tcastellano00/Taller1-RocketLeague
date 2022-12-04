@@ -6,9 +6,9 @@
 
 class ActionClientStartTurning : public ActionsClient {   
 private:
-    int socketId;
+    int clientId;
 public:
-    explicit ActionClientStartTurning(int sktId);
+    explicit ActionClientStartTurning(int cltId);
 
     std::string execute(Physics &physics) override;
 

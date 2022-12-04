@@ -5,12 +5,12 @@
 #include "ActionClientStopFlip.h"
 #include <iostream>
 
-ActionClientStopFlip::ActionClientStopFlip(int sktId) {
-    this->socketId = sktId;
+ActionClientStopFlip::ActionClientStopFlip(int cltId) {
+    this->clientId = cltId;
 }
 
 std::string ActionClientStopFlip::execute(
     Physics &physics) {
-        physics.carStopFlip(socketId);
+        physics.carStopFlip(clientId);
         return "";
 }

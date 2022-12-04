@@ -7,9 +7,9 @@
 
 class ActionClientTurbo : public ActionsClient {
 private:
-    int socketId;
+    int clientId;
 public:
-    explicit ActionClientTurbo(int sktId);
+    explicit ActionClientTurbo(int cltId);
 
     std::string execute(Physics &physics) override;
 

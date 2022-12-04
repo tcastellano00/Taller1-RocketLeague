@@ -49,7 +49,7 @@ void Ball::update(BallModel ballModel, int dt,bool isInExplosion) {
     this->colour = ballModel.getColour();
 
     if (isInExplosion) {
-        if (anExplosion.update(FRAME_TIME)) {
+        if (anExplosion.update(dt)) {
             this->finishedExplosion = true;
             std::cout << "termino la explosion" << std::endl;
         }

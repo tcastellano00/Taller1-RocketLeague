@@ -5,12 +5,12 @@
 #include "ActionClientStopAccelerating.h"
 #include <iostream>
 
-ActionClientStopAccelerating::ActionClientStopAccelerating(int sktId) {
-    this->socketId = sktId;
+ActionClientStopAccelerating::ActionClientStopAccelerating(int cltId) {
+    this->clientId = cltId;
 }
 
 std::string ActionClientStopAccelerating::execute(
     Physics &physics) {
-        physics.carStopAccelerating(socketId);
+        physics.carStopAccelerating(clientId);
         return "";
 }

@@ -3,12 +3,12 @@
 
 #include "ActionClientDoGoldenShot.h"
 
-ActionClientDoGoldenShot::ActionClientDoGoldenShot(int sktId) {
-    this->socketId = sktId;
+ActionClientDoGoldenShot::ActionClientDoGoldenShot(int cltId) { 
+    this->clientId = cltId;
 }
 
 std::string ActionClientDoGoldenShot::execute(
     Physics &physics) {
-    physics.doGoldenShot(socketId);
+    physics.doGoldenShot(clientId);
     return "";
 }

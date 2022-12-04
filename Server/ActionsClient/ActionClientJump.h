@@ -7,9 +7,9 @@
 
 class ActionClientJump : public ActionsClient {
 private:
-    int socketId;
+    int clientId;
 public:
-    explicit ActionClientJump(int sktId);
+    explicit ActionClientJump(int cltId);
 
     std::string execute(Physics &physics) override;
 

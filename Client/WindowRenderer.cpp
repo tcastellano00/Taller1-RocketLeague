@@ -16,6 +16,7 @@
 #include "WindowRenderer.h"
 #include "ThreadCmdReader.h"
 #include "../Common/Config/ClientConfig.h"
+#include "../Common/Config/CommonConfig.h"
 
 WindowRenderer::WindowRenderer(
         BlockingQueue<Command>& commandQueue,
@@ -52,16 +53,12 @@ void WindowRenderer::launch() {
 
         SDL2pp::Texture wallsAndScore(renderer, 
             SDL2pp::Surface("assets/back2.png").SetColorKey(false, 0));
-
         SDL2pp::Texture backgroud(renderer, 
             SDL2pp::Surface("assets/background.png").SetColorKey(true, 0));
-            
         SDL2pp::Texture im(renderer, 
             SDL2pp::Surface("assets/autoderecha.png").SetColorKey(false, 0));
-
         SDL2pp::Texture ballTexture(renderer, 
             SDL2pp::Surface("assets/ball.png").SetColorKey(true, 0));
-        
         SDL2pp::Texture zeroTexture(renderer, 
             SDL2pp::Surface("assets/Numbers/zero.png").SetColorKey(true, 0));
         SDL2pp::Texture oneTexture(renderer, 
@@ -84,17 +81,14 @@ void WindowRenderer::launch() {
             SDL2pp::Surface("assets/Numbers/nine.png").SetColorKey(true, 0));
         SDL2pp::Texture colon(renderer, 
             SDL2pp::Surface("assets/Numbers/colon.png").SetColorKey(true, 0));
-
         SDL2pp::Texture turbo(renderer, 
             SDL2pp::Surface("assets/turbo_car.png").SetColorKey(true, 0));
         SDL2pp::Texture turboBarEmpty(renderer, 
             SDL2pp::Surface("assets/turboBarEmpty.png").SetColorKey(true, 0));
         SDL2pp::Texture turboBarFull(renderer, 
             SDL2pp::Surface("assets/turboBarFull.png").SetColorKey(true, 0));
-
         SDL2pp::Texture replayTexture(renderer, 
             SDL2pp::Surface("assets/replay.png").SetColorKey(true, 0));
-
         SDL2pp::Texture explosionTexture(renderer, 
             SDL2pp::Surface("assets/explosion.png").SetColorKey(true, 0));
 
@@ -152,14 +146,17 @@ void WindowRenderer::launch() {
             }
 
             //Render gameStatus snapshot.
-            ball.update(gameStatusSnapshot.getBallModel(), FRAME_TIME, gameStatusSnapshot.isInExplosion());
+            ball.update(
+                gameStatusSnapshot.getBallModel(), 
+                CommonConfig::getFrameTimeInMicroseconds(), 
+                gameStatusSnapshot.isInExplosion());
             ball.render(renderer,gameStatusSnapshot.isInExplosion());
 
             auto playerIter = players.begin();
             int i = 0;
             std::list<PlayerModel> playerModels = gameStatusSnapshot.getPlayersModels();
             for (auto playerModel = playerModels.begin(); playerModel != playerModels.end(); ++playerModel) {
-                playerIter->update(*playerModel, FRAME_TIME);
+                playerIter->update(*playerModel, CommonConfig::getFrameTimeInMicroseconds());
                 playerIter->render(renderer, i);
                 ++playerIter;
                 ++i;
@@ -168,7 +165,7 @@ void WindowRenderer::launch() {
             if (isInReplay) {
                 replayFrame.render(renderer);
             } else {
-                score.update(gameStatusSnapshot.getScoreModel(), FRAME_TIME);
+                score.update(gameStatusSnapshot.getScoreModel(), CommonConfig::getFrameTimeInMicroseconds());
                 score.render(renderer);
             }
 
@@ -178,7 +175,7 @@ void WindowRenderer::launch() {
             // de la cantidad de tiempo que demoró el handleEvents y el render
 
             isInReplay = false;
-            usleep(FRAME_TIME);
+            usleep(CommonConfig::getFrameTimeInMicroseconds());
         }
 
         

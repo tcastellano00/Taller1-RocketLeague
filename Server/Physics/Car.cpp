@@ -7,8 +7,8 @@
 #define FLIPANGULARVEL PI*2
 #define MAXTURBO 50 //dos segundos de turbo
 
-CarPhysics::CarPhysics(b2World& world, int numberOfCar){
-
+CarPhysics::CarPhysics(int cltId,b2World& world, int numberOfCar){
+    this->clientId = cltId;
     if (numberOfCar == 0 || numberOfCar == 2) {
         this->side = LEFTPLAYER;
     } else {
@@ -326,7 +326,6 @@ void CarPhysics::jump(BallPhysics* ball) {
         return;
     }
     this->loseTurbo();
-
     b2Body* carBody = this->getCarBody();
     float angle = carBody->GetAngle();
 
@@ -388,6 +387,6 @@ PlayerModel CarPhysics::getPlayerModel() {
     }*/
 
 
-    PlayerModel pm(xCar, yCar, angle, turbo, facing, turboRem);
+    PlayerModel pm(this->clientId , xCar, yCar, angle, turbo, facing, turboRem);
     return pm;
 }

@@ -4,14 +4,14 @@
 #include "ActionsClient.h"
 #include "ActionClientStartAcceleratingBackwards.h"
 
-ActionClientStartAcceleratingBackwards::ActionClientStartAcceleratingBackwards(int sktId) {
-    this->socketId = sktId;
+ActionClientStartAcceleratingBackwards::ActionClientStartAcceleratingBackwards(int cltId) {
+    this->clientId = cltId;
 }
 
 std::string ActionClientStartAcceleratingBackwards::execute(
     Physics &physics) {
     
-    physics.startAcceleratingCarBackwards(socketId);
+    physics.startAcceleratingCarBackwards(clientId);
 
     return "OK";
 }

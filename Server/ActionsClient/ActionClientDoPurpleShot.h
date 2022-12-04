@@ -7,9 +7,9 @@
 
 class ActionClientDoPurpleShot : public ActionsClient {
 private:
-    int socketId;
+    int clientId;
 public:
-    explicit ActionClientDoPurpleShot(int sktId);
+    explicit ActionClientDoPurpleShot(int cltId);
 
     std::string execute(Physics &physics) override;
 

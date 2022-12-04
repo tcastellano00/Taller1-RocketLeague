@@ -6,14 +6,17 @@
 #include "../../Common/BlockingQueue.h"
 #include "../../Common/NonBlockingQueue.h"
 #include "../../Common/Command.h"
+#include "../../Common/Config/CommonConfig.h"
 #include "../ClientConnection.h"
 #include "ThreadClientReceiver.h"
 
 #include <list>
 #include <chrono>
 #include <unistd.h>
+
 #define LIMITOFCOMANDS 10
-#define DELTA 1000000.0f/25.0f
+#define DELTA CommonConfig::getFrameTimeInMicroseconds()
+
 typedef std::chrono::high_resolution_clock Clock;
 
 

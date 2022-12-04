@@ -44,6 +44,7 @@ std::string GameStatusSerializer::serialize(GameStatus gameStatus) {
     for (auto playerModel = playersModels.begin(); 
               playerModel != playersModels.end(); 
               ++playerModel) {
+                ss << (*playerModel).getClientId() << " ";
                 ss << (*playerModel).getTurboRemaining() << " ";
                 ss << (*playerModel).getCoordX() << " ";
                 ss << (*playerModel).getCoordY() << " ";
@@ -112,6 +113,7 @@ GameStatus GameStatusSerializer::deserialize(std::string gameStatusString) {
     BallModel ballModel(xCoordBall, yCoordBall, angleBoard, colour);
     
     for (int i = 0; i < numPlayers; ++i) {
+        int clientId;
         int turboRem;
         float xCoordPlayer;
         float yCoordPlayer;
@@ -120,6 +122,7 @@ GameStatus GameStatusSerializer::deserialize(std::string gameStatusString) {
         std::string turboStr;
         std::string facing;
 
+        ss >> clientId;
         ss >> turboRem;
         ss >> xCoordPlayer;
         ss >> yCoordPlayer;
@@ -133,7 +136,7 @@ GameStatus GameStatusSerializer::deserialize(std::string gameStatusString) {
             turbo = false;
         }
 
-        playersModels.emplace_back(xCoordPlayer, yCoordPlayer, anglePlayer, turbo, facing, turboRem);
+        playersModels.emplace_back(clientId,xCoordPlayer, yCoordPlayer, anglePlayer, turbo, facing, turboRem);
     }
 
     GameStatus gm(ballModel, scoreModel, playersModels);

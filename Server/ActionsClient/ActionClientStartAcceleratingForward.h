@@ -6,9 +6,9 @@
 
 class ActionClientStartAcceleratingForward : public ActionsClient {   
 private:
-    int socketId;
+    int clientId;
 public:
-    explicit ActionClientStartAcceleratingForward(int sktId);
+    explicit ActionClientStartAcceleratingForward(int cltId);
 
     std::string execute(Physics &physics) override;
 

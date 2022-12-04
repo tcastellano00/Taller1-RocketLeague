@@ -7,9 +7,9 @@
 
 class ActionClientFlipRight : public ActionsClient {
 private:
-    int socketId;
+    int clientId;
 public:
-    explicit ActionClientFlipRight(int sktId);
+    explicit ActionClientFlipRight(int cltId);
 
     std::string execute(Physics &physics) override;
 

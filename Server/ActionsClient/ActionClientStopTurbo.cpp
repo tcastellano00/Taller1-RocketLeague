@@ -5,12 +5,12 @@
 #include "ActionClientStopTurbo.h"
 #include <iostream>
 
-ActionClientStopTurbo::ActionClientStopTurbo(int sktId) {
-    this->socketId = sktId;
+ActionClientStopTurbo::ActionClientStopTurbo(int cltId) {
+    this->clientId = cltId;
 }
 
 std::string ActionClientStopTurbo::execute(
     Physics &physics) {
-        physics.carStopTurbo(socketId);
+        physics.carStopTurbo(clientId);
         return "";
 }

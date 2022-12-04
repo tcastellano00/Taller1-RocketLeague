@@ -3,12 +3,12 @@
 
 #include "ActionClientJump.h"
 
-ActionClientJump::ActionClientJump(int sktId) {
-    this->socketId = sktId;
+ActionClientJump::ActionClientJump(int cltId) {
+    this->clientId = cltId;
 }
 
 std::string ActionClientJump::execute(
     Physics &physics) {
-    physics.carJump(socketId);
+    physics.carJump(clientId);
     return "";
 }

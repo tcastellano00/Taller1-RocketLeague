@@ -7,9 +7,9 @@
 
 class ActionClientStartAcceleratingBackwards : public ActionsClient {
 private:
-    int socketId;
+    int clientId;
 public:
-    explicit ActionClientStartAcceleratingBackwards(int sktId);
+    explicit ActionClientStartAcceleratingBackwards(int cltId);
 
     std::string execute(Physics &physics) override;
 

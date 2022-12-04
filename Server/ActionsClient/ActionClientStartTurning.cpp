@@ -3,14 +3,14 @@
 
 #include "ActionClientStartTurning.h"
 
-ActionClientStartTurning::ActionClientStartTurning(int sktId) {
-    this->socketId = sktId;
+ActionClientStartTurning::ActionClientStartTurning(int cltId) {
+    this->clientId = cltId;
 }
 
 std::string ActionClientStartTurning::execute(
     Physics &physics) {
 
-    physics.turnCar(socketId);
+    physics.turnCar(clientId);
 
     return "OK";
 }

@@ -7,9 +7,9 @@
 
 class ActionClientStopFlip : public ActionsClient {
 private:
-    int socketId;
+    int clientId;
 public:
-    explicit ActionClientStopFlip(int sktId);
+    explicit ActionClientStopFlip(int cltId);
 
     std::string execute(Physics &physics) override;
 

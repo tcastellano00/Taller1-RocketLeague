@@ -2,7 +2,8 @@
 
 PlayerModel::PlayerModel() {}
 
-PlayerModel::PlayerModel(float xCoord, float yCoord, float ang, bool nwturbo, std::string face, int turboRem) {
+PlayerModel::PlayerModel(int cltId,float xCoord, float yCoord, float ang, bool nwturbo, std::string face, int turboRem) {
+    this->clientId = cltId;
     this->x = xCoord;
     this->y = yCoord;
     this->angle = ang;
@@ -35,4 +36,8 @@ std::string PlayerModel::getFacing(){
 
 int PlayerModel::getTurboRemaining() {
     return this->turboRemaining;
+}
+
+int PlayerModel::getClientId(){
+    return this->clientId;
 }

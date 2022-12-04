@@ -3,12 +3,12 @@
 
 #include "ActionClientDoRedShot.h"
 
-ActionClientDoRedShot::ActionClientDoRedShot(int sktId) {
-    this->socketId = sktId;
+ActionClientDoRedShot::ActionClientDoRedShot(int cltId) {
+    this->clientId = cltId;
 }
 
 std::string ActionClientDoRedShot::execute(
     Physics &physics) {
-    physics.doRedShot(socketId);
+    physics.doRedShot(clientId);
     return "";
 }
