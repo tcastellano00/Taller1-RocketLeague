@@ -8,6 +8,7 @@
 class ClientConnection {
 private:
     Socket socket;
+    int id;
     std::string clientName;
     std::string gameName;
     bool inAGame;

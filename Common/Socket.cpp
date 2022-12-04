@@ -413,8 +413,3 @@ Socket::~Socket() {
         ::close(this->skt);
     }
 }
-
-
-int Socket::getIdentifier(){
-    return skt;
-}

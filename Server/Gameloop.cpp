@@ -19,7 +19,7 @@ void Gameloop::run() {
     
     //Instanciamos los receivers.
     for (auto &connection : connectionList){
-        clientThreadReceiver.emplace_back(connection.getSocketReference(), recibingQueue);
+        clientThreadReceiver.emplace_back(connection.getId(), connection.getSocketReference(), recibingQueue);
         clientThreadReceiver.back().start();
     }
 

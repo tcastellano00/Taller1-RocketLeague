@@ -8,7 +8,7 @@
 #include "ActionsClient/ActionsClient.h"
 
 class ThreadClientReceiver : public Thread{
-
+    int clientId;
     Socket& sktConecction;
     NonBlockingQueue<std::shared_ptr<ActionsClient>>& recibingQueue;
     Protocol receiverProtocol;
@@ -17,6 +17,7 @@ class ThreadClientReceiver : public Thread{
     void run() override;
 
     ThreadClientReceiver(
+        int clientId,
         Socket& newSktConecction, 
         NonBlockingQueue<std::shared_ptr<ActionsClient>>& newRecibingQueue);
     

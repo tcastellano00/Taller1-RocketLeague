@@ -2,7 +2,7 @@
 #include "../Common/Socket.h"
 #include "../Common/Protocol.h"
 
-TEST(ProtocoloTest, isClosed_shouldReturnFalseWhenTheProtocoloItsCreated) {
+TEST(ProtocoloTest, isClosed_shouldReturnFalseWhenTheProtocolItsCreated) {
     const char* port = "8080";
 
     Socket socket(port);

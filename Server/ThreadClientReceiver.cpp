@@ -5,10 +5,12 @@
 #include "ActionsClient/ActionsClient.h"
 
 ThreadClientReceiver::ThreadClientReceiver(
+    int clientId,
     Socket& newSktConecction, 
     NonBlockingQueue<std::shared_ptr<ActionsClient>>& newRecibingQueue
 )
-    :   sktConecction(newSktConecction),
+    :   clientId(clientId),
+        sktConecction(newSktConecction),
         recibingQueue(newRecibingQueue), 
         receiverProtocol(sktConecction){
 }
@@ -22,7 +24,7 @@ void ThreadClientReceiver::run(){
 
             std::shared_ptr<ActionsClient> actionClient = ActionsClient::get_command_ptr(
                 message, 
-                sktConecction.getIdentifier()
+                this->clientId
             );
 
             recibingQueue.push(actionClient);

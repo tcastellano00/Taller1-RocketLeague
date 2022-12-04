@@ -1,7 +1,9 @@
 #include "ClientConnection.h"
+#include "ClientIdGenerator.h"
 
 ClientConnection::ClientConnection() :
     socket() {
+        this->id = ClientIdGenerator::getId();
         this->gameName = "";
         this->clientName = "";
         this->inAGame = false;
@@ -10,13 +12,14 @@ ClientConnection::ClientConnection() :
 ClientConnection::ClientConnection(
     Socket& socket) :
     socket(std::move(socket)) {
+        this->id = ClientIdGenerator::getId();
         this->gameName = "";
         this->clientName = "";
         this->clientName = clientName;
     }
 
 int ClientConnection::getId() {
-    return this->socket.getIdentifier();
+    return this->id;
 }
 
 std::string ClientConnection::getName() {
