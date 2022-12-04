@@ -3,6 +3,7 @@
 #include "../../libs/Box2D/Box2D.h"
 #include "EntityCategory.h"
 #include "../Config/ServerConfig.h"
+#include "PhysicsConfig.h"
 
 class BoxPhysics{
 public:

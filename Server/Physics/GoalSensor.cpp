@@ -1,7 +1,7 @@
 #include "GoalSensor.h"
 #include "EntityCategory.h"
 #define FIELDHALFWIDTH 90
-#define FIELDHEIGTH 60
+#define FIELDHEIGHT 60
 #define GOALTOPHALFWIDTH 10
 #define BALLRADIUS 5
 #define mitadAltoParedesArco 8 //CAMBIAR ESTO
@@ -34,11 +34,11 @@ b2Body* GoalSensor::createBody(b2World& world) {
     sensorFixture.filter.categoryBits = GOALSENSOR;
     sensorFixture.filter.maskBits = BALL;
     float sensorHalfWidht = GOALTOPHALFWIDTH - BALLRADIUS;
-    float sensorHalfHeight = (FIELDHEIGTH - mitadAltoParedesArco*2)/2;
+    float sensorHalfHeight = (FIELDHEIGHT - mitadAltoParedesArco*2)/2;
     if (side == LEFT) {
-        polygonShapeSensor.SetAsBox(sensorHalfWidht, sensorHalfHeight, b2Vec2(-FIELDHALFWIDTH + sensorHalfWidht,  FIELDHEIGTH/2), 0);
+        polygonShapeSensor.SetAsBox(sensorHalfWidht, sensorHalfHeight, b2Vec2(-FIELDHALFWIDTH + sensorHalfWidht,  FIELDHEIGHT/2), 0);
     } else if (side == RIGHT) {
-        polygonShapeSensor.SetAsBox(sensorHalfWidht, sensorHalfHeight, b2Vec2(FIELDHALFWIDTH - sensorHalfWidht, FIELDHEIGTH/2), 0);
+        polygonShapeSensor.SetAsBox(sensorHalfWidht, sensorHalfHeight, b2Vec2(FIELDHALFWIDTH - sensorHalfWidht, FIELDHEIGHT/2), 0);
     }
     body->CreateFixture(&sensorFixture);
     return body;

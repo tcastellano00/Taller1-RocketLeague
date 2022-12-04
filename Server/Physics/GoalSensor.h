@@ -3,6 +3,7 @@
 
 #include "../../libs/Box2D/Box2D.h"
 #include "../Config/ServerConfig.h"
+#include "PhysicsConfig.h"
 
 
 enum SideOfGoal {

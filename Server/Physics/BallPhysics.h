@@ -6,6 +6,7 @@
 #include <string>
 #include "../Config/ServerConfig.h"
 #include "../../Common/Model/BallModel.h"
+#include "PhysicsConfig.h"
 
 enum SpecialShot {
     REDSHOT,
