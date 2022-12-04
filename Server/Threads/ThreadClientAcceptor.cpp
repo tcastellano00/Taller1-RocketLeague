@@ -9,7 +9,7 @@
 #include "../ClientConnection.h"
 #include "ThreadClientLobby.h"
 #include "../Game/GameMonitor.h"
-#include "../Config/ServerConfig.h"
+#include "../../Common/Config/ServerConfig.h"
 
 ThreadClientAcceptor::ThreadClientAcceptor(Socket &accepter) 
     : accepter(std::move(accepter)) {
