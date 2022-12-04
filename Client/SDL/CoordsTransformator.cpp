@@ -1,9 +1,9 @@
 #include "CoordsTransformator.h"
-#include "../Config/ClientConfig.h"
-#include "../../Server/Config/ServerConfig.h"
+#include "../../Common/Config/ClientConfig.h"
+#include "../../Common/Config/ServerConfig.h"
 
-#define METERTOPIXEL 10
-#define GROUNDFROMCEILING 600
+#define METERTOPIXEL ClientConfig::getScreenHeight()/ServerConfig::getFieldHeight()
+#define GROUNDFROMCEILING ClientConfig::getScreenHeight()
 #define PI  3.14159265358979323846
 
 

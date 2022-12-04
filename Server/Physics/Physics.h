@@ -10,9 +10,7 @@
 #include "ContactListener.h"
 #include "Car.h"
 #include "BallPhysics.h"
-#include "../Config/ServerConfig.h"
-#include "PhysicsConfig.h"
-
+#include "../../Common/Config/ServerConfig.h"
 
 
 

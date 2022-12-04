@@ -1,5 +1,5 @@
 #include "KeyBoardMapper.h"
-#include "../../Config/ClientConfig.h"
+#include "../../../Common/Config/ClientConfig.h"
 #include "../../../Common/Constants/ActionsClient.h"
 
 KeyBoardMapper::KeyBoardMapper() {

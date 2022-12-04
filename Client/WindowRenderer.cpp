@@ -15,7 +15,7 @@
 
 #include "WindowRenderer.h"
 #include "ThreadCmdReader.h"
-#include "Config/ClientConfig.h"
+#include "../Common/Config/ClientConfig.h"
 
 WindowRenderer::WindowRenderer(
         BlockingQueue<Command>& commandQueue,

@@ -4,9 +4,8 @@
 #include "../Box2D/Box2D.h"
 #include "EntityCategory.h"
 #include <string>
-#include "../Config/ServerConfig.h"
+#include "../../Common/Config/ServerConfig.h"
 #include "../../Common/Model/BallModel.h"
-#include "PhysicsConfig.h"
 
 enum SpecialShot {
     REDSHOT,
