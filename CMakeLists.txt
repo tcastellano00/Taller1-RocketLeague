@@ -82,7 +82,9 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 
-add_executable(tests ${tests_src})
+add_executable(
+  tests ${tests_src} 
+  Server/ClientIdGenerator.cpp)
 target_link_libraries(tests rocket_league-common GTest::gtest_main)
 include(GoogleTest)
 gtest_discover_tests(tests)
