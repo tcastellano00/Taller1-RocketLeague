@@ -56,6 +56,7 @@ FILE(GLOB_RECURSE tests_src "Tests/*.cpp")
 # TARGETS
 # Common
 add_library(rocket_league-common SHARED ${common_src})
+target_link_libraries(rocket_league-common yaml-cpp)
 
 # Client
 add_executable(rocket_league ${client_src})
