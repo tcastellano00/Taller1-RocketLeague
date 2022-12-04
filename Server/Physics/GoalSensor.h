@@ -20,6 +20,11 @@ private:
 
     b2Body* createBody(b2World& world);
 
+    float FIELDHALFWIDTH = ServerConfig::getFieldHalfWidth();
+    float FIELDHEIGHT = ServerConfig::getFieldHeight();
+    float GOALTOPHALFWIDTH = ServerConfig::getGoalTopHalfWidth();
+    float BALLRADIUS = ServerConfig::getBallRadius();
+
 public:
     GoalSensor(SideOfGoal side, b2World& world);
     GoalSensor();

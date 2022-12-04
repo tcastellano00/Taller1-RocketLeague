@@ -6,37 +6,8 @@
 
 
 #include "../../libs/Box2D/Box2D.h"
+#include "QueryCallback.h"
 
-// #define MOVEMENTFORCE 500
-// #define CARFRICTION 1.5
-// #define GROUNDFRICTION 1.0
-// #define JUMPIMPULSE 40
-// #define GRAVITY -10
-// #define TORQUEFORCE 5000
-// #define TORQUEIMPULSE 200
-// #define FIELDHALFWIDTH 90
-// #define FIELDHEIGTH 60
-// #define WALLWIDTH 1
-// #define CARHALFWIDTH 7.5
-// #define CARHALFHEIGHT 2
-// #define BALLRADIUS 5
-// #define GOALTOPHALFWIDTH 10
-// #define GOALTOPHALFHEIGHT 22
-// #define TURBOFORCE MOVEMENTFORCE*8
-// #define FRONTSENSORHALFWIDTH 5.0
-// #define BOTTOMSENSORHALFHEIGTH 5.0
-// #define ROTATIONANGULARVELOCITY 3
-
-float FIELDHALFWIDTH = ServerConfig::getFieldHalfWidth();
-float FIELDHEIGHT = ServerConfig::getFieldHeight();
-float GRAVITY = ServerConfig::getGravity();
-float GAMETIME = ServerConfig::getGameTime();
-float EXTRATIME = ServerConfig::getExtraTime();
-float REPLAYTIME = ServerConfig::getReplayTime();
-
-
-bool isInExplosion = false;
-int timeExplosion = 50; //frames, 2 segundos.
 
 
 Physics::Physics(std::list<ClientConnection>& connections): world(b2Vec2(0.0f, GRAVITY)){
@@ -151,38 +122,79 @@ GameStatus Physics::getGameStatus(){
         }
     }
 
-    if (this->isInReplay) {
-        newGameStatus.setReplay(true);
-    } else {
-        newGameStatus.setReplay(false);
-    }
+
+    newGameStatus.setReplay(this->isInReplay);
+    newGameStatus.setInExplosion(this->isInExplosion);
+
+
 
     return newGameStatus;
 }
 
 
-// void Physics::applyExplosion(){
-//     if (isInExplosion){return;}
-
-//     isInExplosion = true;
-//     for (b2Body* body = world.GetBodyList(); body; body = body->GetNext())
+// void Physics::applyBlastImpulse(b2Body* body, b2Vec2 blastCenter, b2Vec2 applyPoint, float blastPower)
 //     {
-//         //if(body->GetFixtureList)
-//         body->ApplyLinearImpulse( b2Vec2(-1000000000000000,0), body->GetWorldCenter(),true );
+//         //ignore the grenade itself, and any non-dynamic bodies
+//         if ( body == this->ball->getBody() || body->GetType() != b2_dynamicBody )
+//             return;
+//         b2Vec2 blastDir = applyPoint - blastCenter;
+//         float distance = blastDir.Normalize();
+//         //ignore bodies exactly at the blast point - blast direction is undefined
+//         if ( distance == 0 )
+//             return;
+//         float invDistance = 1 / distance;
+//         float impulseMag = blastPower * invDistance * invDistance;
+//         impulseMag = b2Min( impulseMag, 500.0f );
+//         body->ApplyLinearImpulse( impulseMag * blastDir, applyPoint,true);
+// }
+
+// void Physics::applyExplosion(){
+//     //if (isInExplosion){return;}
+    
+//     b2Vec2 center = ball->getBody()->GetPosition();
+
+//     //find all fixtures within blast radius AABB
+//     QueryCallback queryCallback;
+//     b2AABB aabb;
+//     aabb.lowerBound = center - b2Vec2( FIELDHALFWIDTH*2,FIELDHEIGHT );
+//     aabb.upperBound = center + b2Vec2( FIELDHALFWIDTH*2,FIELDHEIGHT  );
+//     world.QueryAABB( &queryCallback, aabb );
+
+//     //check which of these have their center of mass within the blast radius
+//     for (long unsigned int i = 0; i < queryCallback.foundBodies.size(); i++) {
+//         b2Body* body = queryCallback.foundBodies[i];
+//         b2Vec2 bodyCom = body->GetWorldCenter();
+//         //ignore bodies outside the blast range
+//         if ( (bodyCom - center).Length() >= BALLRADIUS )
+//             continue;
+//         applyBlastImpulse(body, center, bodyCom, blastPower );//scale blast power to roughly match results of other methods at 32 rays
 //     }
 // }
+
+
+
+void Physics::applyExplosion(){
+    if (isInExplosion){return;}
+
+    isInExplosion = true;
+    for (b2Body* body = world.GetBodyList(); body; body = body->GetNext())
+    {
+        if (body == this->ball->getBody()){continue;}
+        body->ApplyLinearImpulse( b2Vec2(-1000000000000000,0), body->GetWorldCenter(),true );
+    }
+}
 
 void Physics::resetPositionsIfGoal(){
     if(!leftGoal->getGoalScored() && !rightGoal->getGoalScored()){
         return;
     }
 
-    // this->applyExplosion();
-    // if (timeExplosion > 1){
-    //     timeExplosion -= 1;
-    //     return; }
-    // timeExplosion = 50;
-    // isInExplosion = false;
+    this->applyExplosion();
+    if (timeExplosion > 1){
+        timeExplosion -= 1;
+        return; }
+    timeExplosion = 50;
+    isInExplosion = false;
 
 
     leftGoal->setGoalScored(false);
@@ -303,3 +315,4 @@ Physics::~Physics() {
     delete ball;
 
 }
+

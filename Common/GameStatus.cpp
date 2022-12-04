@@ -15,6 +15,7 @@ GameStatus::GameStatus(
     this->players = std::move(players);
     this->closed = false;
     this->replay = false;
+    this->inExplosion = false;
 }
 
 BallModel GameStatus::getBallModel() {
@@ -59,4 +60,12 @@ bool GameStatus::isInReplay() {
 
 void GameStatus::setReplay(bool rep) {
     this->replay = rep;
+}
+
+bool GameStatus::isInExplosion() {
+    return this->inExplosion;
+}
+
+void GameStatus::setInExplosion(bool expl) {
+    this->inExplosion = expl;
 }

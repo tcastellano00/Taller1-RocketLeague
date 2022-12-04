@@ -95,6 +95,9 @@ void WindowRenderer::launch() {
         SDL2pp::Texture replayTexture(renderer, 
             SDL2pp::Surface("assets/replay.png").SetColorKey(true, 0));
 
+        SDL2pp::Texture explosionTexture(renderer, 
+            SDL2pp::Surface("assets/explosion.png").SetColorKey(true, 0));
+
 
         //Iniciamos el command reader.
         threadCmdReader.start();
@@ -119,7 +122,7 @@ void WindowRenderer::launch() {
 
         Scene scene(backgroud,wallsAndScore);
 
-        Ball ball(ballTexture);
+        Ball ball(ballTexture,explosionTexture);
 
         ReplayFrame replayFrame(replayTexture);
 
@@ -149,8 +152,8 @@ void WindowRenderer::launch() {
             }
 
             //Render gameStatus snapshot.
-            ball.update(gameStatusSnapshot.getBallModel(), FRAME_TIME);
-            ball.render(renderer);
+            ball.update(gameStatusSnapshot.getBallModel(), FRAME_TIME, gameStatusSnapshot.isInExplosion());
+            ball.render(renderer,gameStatusSnapshot.isInExplosion());
 
             auto playerIter = players.begin();
             int i = 0;

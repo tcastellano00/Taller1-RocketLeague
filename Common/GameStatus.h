@@ -16,6 +16,7 @@ class GameStatus{
     std::string actualStatus;
     std::list<PlayerModel> players;
     bool replay;
+    bool inExplosion;
 
 
 
@@ -51,5 +52,8 @@ class GameStatus{
     bool isInReplay();
 
     void setReplay(bool rep);
+
+    bool isInExplosion();
+    void setInExplosion(bool expl);
 };
 #endif

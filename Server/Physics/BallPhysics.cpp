@@ -1,22 +1,15 @@
 #include "BallPhysics.h"
-#define REDSHOTIMPULSE 100000.0
-#define GOLDSHOTIMPULSE 100000.0
-#define PURPLESHOTIMPULSE 100000.0
-#define FIELDHALFWIDTH 90
-#define FIELDHEIGTH 60
-#define CARFRICTION 1.5
-#define SPECIALSHOTTIME 25
-#define BALLRADIUS 5
+// #define REDSHOTIMPULSE 100000.0
+// #define GOLDSHOTIMPULSE 100000.0
+// #define PURPLESHOTIMPULSE 100000.0
+// #define FIELDHALFWIDTH 90
+// #define FIELDHEIGTH 60
+// #define CARFRICTION 1.5
+// #define SPECIALSHOTTIME 25
+// #define BALLRADIUS 5
 
 
-// float REDSHOTIMPULSE = ServerConfig::getRedShotImpulse();
-// float GOLDSHOTIMPULSE = ServerConfig::getGoldShotImpulse();
-// float PURPLESHOTIMPULSE = ServerConfig::getPurpleShotImpulse();
-// float FIELDHALFWIDTH = ServerConfig::getFieldHalfWidth();
-// float FIELDHEIGTH = ServerConfig::getFieldHeight();
-// float CARFRICTION = ServerConfig::getCarFriction();
-// float SPECIALSHOTTIME = ServerConfig::getSpecialShotTime();
-// float BALLRADIUS = ServerConfig::getBallRadius();
+
 
 
 BallPhysics::BallPhysics(b2World &world) {

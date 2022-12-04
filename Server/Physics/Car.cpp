@@ -7,31 +7,6 @@
 #define FLIPANGULARVEL PI*2
 #define MAXTURBO 50 //dos segundos de turbo
 
-#define FIELDHALFWIDTH 90
-#define FIELDHEIGHT 60
-#define CARHALFWIDTH 7.5
-#define CARHALFHEIGHT 2
-#define FRONTSENSORHALFWIDTH 5.0
-#define BOTTOMSENSORHALFHEIGTH 5.0
-#define CARFRICTION 1.5
-#define MOVEMENTFORCE 500
-#define TURBOFORCE 40000
-#define JUMPIMPULSE 40
-#define ROTATIONANGULARVELOCITY 3
-
-// float FIELDHALFWIDTH = ServerConfig::getFieldHalfWidth();
-// float FIELDHEIGHT = ServerConfig::getFieldHeight();
-// float CARFRICTION = ServerConfig::getCarFriction();
-// float CARHALFWIDTH = ServerConfig::getCarHalfWidth();
-// float CARHALFHEIGHT = ServerConfig::getCarHalfHeight();
-// float FRONTSENSORHALFWIDTH = ServerConfig::getFrontSensorHalfWidth();
-// float BOTTOMSENSORHALFHEIGTH = ServerConfig::getBottomSensorHalfHeigth();
-// float MOVEMENTFORCE = ServerConfig::getMovementForce();
-// float TURBOFORCE = ServerConfig::getTurboForce();
-// float JUMPIMPULSE = ServerConfig::getJumpImpulse();
-// float ROTATIONANGULARVELOCITY = ServerConfig::getRotationAngularVelocity();
-
-
 CarPhysics::CarPhysics(b2World& world, int numberOfCar){
 
     if (numberOfCar == 0 || numberOfCar == 2) {

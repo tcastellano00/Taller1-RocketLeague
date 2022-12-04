@@ -37,7 +37,17 @@ class Physics{
     GoalSensor* createGoal(SideOfGoal side);
 
     bool isInReplay = false;
+    bool isInExplosion = false;
     int currentTimeOfReplay = 0;
+    int timeExplosion = 50; //frames, 2 segundos.
+
+    float FIELDHALFWIDTH = ServerConfig::getFieldHalfWidth();
+    float FIELDHEIGHT = ServerConfig::getFieldHeight();
+    float GRAVITY = ServerConfig::getGravity();
+    float GAMETIME = ServerConfig::getGameTime();
+    float EXTRATIME = ServerConfig::getExtraTime();
+    float REPLAYTIME = ServerConfig::getReplayTime();
+    float BALLRADIUS = ServerConfig::getBallRadius();
 
   protected:
     
@@ -94,6 +104,7 @@ class Physics{
     void doPurpleShot(int socketId);
 
     void applyExplosion();
+    void applyBlastImpulse(b2Body* body, b2Vec2 blastCenter, b2Vec2 applyPoint, float blastPower);
 
     ~Physics();
 };

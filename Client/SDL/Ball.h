@@ -8,18 +8,20 @@
 
 
 class Ball{
-    Animation an;
+    Animation anBall;
+    Animation anExplosion;
     bool moving;
     float x;
     float y;
     float angle;
     std::string colour;
+    bool finishedExplosion;
 
 
     public:
-    Ball(SDL2pp::Texture &texture);
-    void update(BallModel ballModel, int dt);
-    void render(SDL2pp::Renderer &renderer);
+    Ball(SDL2pp::Texture &textureBall, SDL2pp::Texture &textureExplosion);
+    void update(BallModel ballModel, int dt,bool isInExplosion);
+    void render(SDL2pp::Renderer &renderer, bool isInExplosion);
 
     ~Ball();
 };

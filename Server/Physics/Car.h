@@ -58,6 +58,19 @@ private:
     int turboRemaining;
 
 
+    float FIELDHALFWIDTH = ServerConfig::getFieldHalfWidth();
+    float FIELDHEIGHT = ServerConfig::getFieldHeight();
+    float CARFRICTION = ServerConfig::getCarFriction();
+    float CARHALFWIDTH = ServerConfig::getCarHalfWidth();
+    float CARHALFHEIGHT = ServerConfig::getCarHalfHeight();
+    float FRONTSENSORHALFWIDTH = ServerConfig::getFrontSensorHalfWidth();
+    float BOTTOMSENSORHALFHEIGTH = ServerConfig::getBottomSensorHalfHeigth();
+    float MOVEMENTFORCE = ServerConfig::getMovementForce();
+    float TURBOFORCE = ServerConfig::getTurboForce();
+    float JUMPIMPULSE = ServerConfig::getJumpImpulse();
+    float ROTATIONANGULARVELOCITY = ServerConfig::getRotationAngularVelocity();
+
+
 public:
     CarPhysics(b2World& world, int numberOfCar);
     CarPhysics();

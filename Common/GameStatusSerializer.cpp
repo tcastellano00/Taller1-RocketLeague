@@ -22,6 +22,12 @@ std::string GameStatusSerializer::serialize(GameStatus gameStatus) {
         ss << "noReplay" << " ";
     }
 
+    if (gameStatus.isInExplosion()) {
+        ss << "inExplosion" << " ";
+    } else {
+        ss << "notInExplosion" << " ";
+    }
+
     ss << playersModels.size() << " ";
 
     ss << scoreModel.getMinutesLeft() << " ";
@@ -67,6 +73,16 @@ GameStatus GameStatusSerializer::deserialize(std::string gameStatusString) {
         isInReplay = true;
     } else { // replayStr == "noReplay"
         isInReplay = false;
+    }
+
+    bool isInExplosion;
+    std::string explosionStr;
+    ss >> explosionStr;
+
+    if (explosionStr == "inExplosion") {
+        isInExplosion = true;
+    } else { // explosionStr == "notInExplosion"
+        isInExplosion = false;
     }
 
 
@@ -122,6 +138,7 @@ GameStatus GameStatusSerializer::deserialize(std::string gameStatusString) {
 
     GameStatus gm(ballModel, scoreModel, playersModels);
     gm.setReplay(isInReplay);
+    gm.setInExplosion(isInExplosion);
 
     return gm;
 }

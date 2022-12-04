@@ -17,14 +17,14 @@ class Animation {
    public:
     Animation(SDL2pp::Texture &texture, int numberRows, int numberColumns);
     ~Animation();
-    void update(float dt);
+    bool update(float dt);
     void render(SDL2pp::Renderer &renderer, const SDL2pp::Rect dest, SDL_RendererFlip &flipType, float angle);
 
     SDL2pp::Texture& getTexture();
 
 
    private:
-    void advanceFrame();
+    bool advanceFrame();
     /** SDL texture of the raw image. */
     SDL2pp::Texture &texture;
     /** Current animation frame's row. */

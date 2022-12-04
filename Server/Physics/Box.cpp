@@ -1,46 +1,9 @@
 #include "Box.h"
 
-#define MOVEMENTFORCE 500
-#define CARFRICTION 1.5
-#define GROUNDFRICTION 1.0
-#define JUMPIMPULSE 40
-#define GRAVITY -10
-#define TORQUEFORCE 5000
-#define TORQUEIMPULSE 200
-#define FIELDHALFWIDTH 90
-#define FIELDHEIGHT 60
-#define WALLWIDTH 1
-#define CARHALFWIDTH 7.5
-#define CARHALFHEIGHT 2
-#define BALLRADIUS 5
-#define GOALTOPHALFWIDTH 10
-#define GOALTOPHALFHEIGHT 22
-#define TURBOFORCE MOVEMENTFORCE*8
-#define FRONTSENSORHALFWIDTH 5.0
-#define BOTTOMSENSORHALFHEIGTH 5.0
-#define ROTATIONANGULARVELOCITY 3
-#define CHAINSTARTHEIGHT 11
+// #define MOVEMENTFORCE 500
+
+
 #define mitadAltoParedesArco 8 //CAMBIAR ESTO
-
-
-
-// float FIELDHALFWIDTH = ServerConfig::getFieldHalfWidth();
-// float FIELDHEIGHT = ServerConfig::getFieldHeight();
-// float GRAVITY = ServerConfig::getGravity();
-// float GAMETIME = ServerConfig::getGameTime();
-// float EXTRATIME = ServerConfig::getExtraTime();
-// float REPLAYTIME = ServerConfig::getReplayTime();
-// float REDSHOTIMPULSE = ServerConfig::getRedShotImpulse();
-// float GOLDSHOTIMPULSE = ServerConfig::getGoldShotImpulse();
-// float PURPLESHOTIMPULSE = ServerConfig::getPurpleShotImpulse();
-// float CARFRICTION = ServerConfig::getCarFriction();
-// float SPECIALSHOTTIME = ServerConfig::getSpecialShotTime();
-// float BALLRADIUS = ServerConfig::getBallRadius();
-// float GROUNDFRICTION = ServerConfig::getGroundFriction();
-// float WALLWIDTH = ServerConfig::getWallWidth();
-// float GOALTOPHALFWIDTH = ServerConfig::getGoalTopHalfWidth();
-
-
 
 BoxPhysics::BoxPhysics(b2World &world){
     b2Body* box;
