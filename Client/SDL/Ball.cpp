@@ -3,7 +3,7 @@
 #include <iostream>
 
 Ball::Ball(SDL2pp::Texture &textureBall,SDL2pp::Texture &textureExplosion)
-: anBall(textureBall, 1, 1),anExplosion(textureExplosion,8,6),moving(false), x(370), y(400), angle(0), finishedExplosion(false) {}
+: anBall(textureBall, 1, 1),anExplosion(textureExplosion,6,8),moving(false), x(370), y(400), angle(0), finishedExplosion(false), explosionX(0), explosionY(0) {}
 
 
 void Ball::render(SDL2pp::Renderer &renderer, bool isInExplosion){
@@ -11,8 +11,9 @@ void Ball::render(SDL2pp::Renderer &renderer, bool isInExplosion){
     SDL_RendererFlip flip = SDL_FLIP_NONE;
     
     if (isInExplosion) {
+        
         if (!finishedExplosion) {
-            anExplosion.render(renderer, SDL2pp::Rect(x-50, y-50, 150, 150),flip, angle);
+            anExplosion.render(renderer, SDL2pp::Rect(explosionX-50, explosionY-50, 150, 150),flip, angle);
         }
         
     } else {
@@ -52,6 +53,9 @@ void Ball::update(BallModel ballModel, int dt,bool isInExplosion) {
             this->finishedExplosion = true;
             std::cout << "termino la explosion" << std::endl;
         }
+    } else {
+        this->explosionX = this->x;
+        this->explosionY = this->y;
     }
     
     

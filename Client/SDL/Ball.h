@@ -16,6 +16,8 @@ class Ball{
     float angle;
     std::string colour;
     bool finishedExplosion;
+    float explosionX;
+    float explosionY;
 
 
     public:
