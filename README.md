@@ -31,7 +31,8 @@ libsdl2-mixer-dev
 apt-get install libsdl2-dev
 apt-get install libsdl2-image-dev
 apt-get install SDL2_ttf-devel
-apt-get install SDL2_mixer-devel.
+apt-get install SDL2_mixer-devel
+apt-get install libgtest-dev
 ```
 
 ## Instalación de CMake
