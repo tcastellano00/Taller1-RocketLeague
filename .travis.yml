@@ -5,10 +5,11 @@ dist: focal
 addons:
   apt:
     packages:
-      - cmake
       - libusb-1.0-0-dev
       - libsdl2-dev
       - libsdl2-image-dev
+      - libsdl2-ttf-dev
+      - libsdl2-mixer-dev
       - libyaml-cpp-dev
 
 script:
