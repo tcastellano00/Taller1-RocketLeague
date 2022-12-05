@@ -17,6 +17,8 @@ KeyBoardMapper::KeyBoardMapper() {
     this->addKeyCodeAction(ClientConfig::getKeyCommandGoldenShot(), DO_GOLDEN_SHOT);
     this->addKeyCodeAction(ClientConfig::getKeyCommandPurpleShot(), DO_PURPLE_SHOT);
     this->addKeyCodeAction(ClientConfig::getKeyCommandSkipReplay(), SKIP_REPLAY);
+    this->addKeyCodeAction(ClientConfig::getKeyCommandPauseMusic(), PAUSE_MUSIC);
+    this->addKeyCodeAction(ClientConfig::getKeyCommandNextMusic(), NEXT_MUSIC);
 }
 
 void KeyBoardMapper::initMapSDLKeyCode() {
@@ -29,6 +31,7 @@ void KeyBoardMapper::initMapSDLKeyCode() {
     this->MapSDLKeyCode[CONFIG_KEY_S] = SDLK_s;
     this->MapSDLKeyCode[CONFIG_KEY_D] = SDLK_d;
     this->MapSDLKeyCode[CONFIG_KEY_M] = SDLK_m;
+    this->MapSDLKeyCode[CONFIG_KEY_N] = SDLK_n;
     this->MapSDLKeyCode[CONFIG_KEY_A] = SDLK_a;
     this->MapSDLKeyCode[CONFIG_KEY_1] = SDLK_1;
     this->MapSDLKeyCode[CONFIG_KEY_2] = SDLK_2;

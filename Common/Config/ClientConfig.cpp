@@ -71,3 +71,11 @@ std::string ClientConfig::getKeyCommandPurpleShot() {
 std::string ClientConfig::getKeyCommandGoldenShot() {
     return getInstance()->rootNode["KEY_COMMAND_GOLDEN_SHOT"].as<std::string>();
 }
+
+std::string ClientConfig::getKeyCommandPauseMusic(){
+    return getInstance()->rootNode["KEY_COMMAND_PAUSE_MUSIC"].as<std::string>();
+}
+
+std::string ClientConfig::getKeyCommandNextMusic(){
+    return getInstance()->rootNode["KEY_COMMAND_NEXT_MUSIC"].as<std::string>();
+}

@@ -21,3 +21,6 @@
 
 #define SKIP_REPLAY "skip replay"
 #define QUIT "quit"
+
+#define PAUSE_MUSIC "pause music"
+#define NEXT_MUSIC "next music"

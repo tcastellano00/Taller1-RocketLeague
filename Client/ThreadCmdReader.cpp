@@ -10,7 +10,8 @@ ThreadCmdReader::ThreadCmdReader(
     GameStatusMonitor& newGameStatusMonitor) : 
     queue(newQueue), 
     gameStatusMonitor(newGameStatusMonitor),
-    keyBoardMapper() {}
+    keyBoardMapper()
+    {}
 
 void ThreadCmdReader::run() {
     bool running = (not gameStatusMonitor.gameIsClosed());
@@ -64,6 +65,15 @@ void ThreadCmdReader::handleEventOnQuit() {
 
 void ThreadCmdReader::pushCommand(const std::string command) {
     if (command == "") return;
+
+    if (command == "pause music"){
+        std::cout << "comando M" << std::endl; 
+        gameStatusMonitor.toggleMusic();
+    }
+
+    if (command == "next music"){
+        std::cout << "comando N" << std::endl;
+    }
     
     Command cmd(command);
     queue.push(cmd);

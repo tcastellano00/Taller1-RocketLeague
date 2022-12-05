@@ -27,6 +27,8 @@ public:
     static std::string getKeyCommandRedShot();
     static std::string getKeyCommandPurpleShot();
     static std::string getKeyCommandGoldenShot();
+    static std::string getKeyCommandPauseMusic();
+    static std::string getKeyCommandNextMusic();
 
     ClientConfig(ClientConfig &other) = delete;
     void operator=(ClientConfig const&) = delete;

@@ -11,6 +11,7 @@
 #include "SDL/Scene.h"
 #include "SDL/ReplayFrame.h"
 
+
 #include <SDL2pp/SDL2pp.hh>
 
 #include "WindowRenderer.h"
@@ -45,9 +46,12 @@ void WindowRenderer::launch() {
 
         SDL2pp::Mixer mixer(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, MIX_DEFAULT_CHANNELS, 4096);
 
-        SDL2pp::Chunk sound("music/audioFondo.ogg");
+        //SDL2pp::Chunk backGroundsound("music/background.ogg");
+        ///std::cout << "pase esto" << std::endl;
 
-        //mixer.PlayChannel(-1, sound);
+        std::cout << "antes bg" << std::endl;
+        BackGroundMusic backGroundMusic(mixer);
+        std::cout << "despues bg" << std::endl;
 
         // Usar factory
 
@@ -133,6 +137,11 @@ void WindowRenderer::launch() {
         
         while (not gameStatusMonitor.gameIsClosed()) {
 
+            
+            if(gameStatusMonitor.getIsPlayingMusic() != backGroundMusic.getIsPlayingMusic()){
+                std::cout << gameStatusMonitor.getIsPlayingMusic() << std::endl; 
+                backGroundMusic.togglePause();
+            }
             renderer.Clear();
             scene.render(renderer);
 

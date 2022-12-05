@@ -3,7 +3,7 @@
 #include <iostream>
 #include <utility>
 
-GameStatusMonitor::GameStatusMonitor() : clientClosedGame(false) { }
+GameStatusMonitor::GameStatusMonitor() : clientClosedGame(false),isPlayingMusic(true) { }
 
 bool GameStatusMonitor::gameIsClosed(){
     std::lock_guard<std::mutex> lock(gameMutex);
@@ -25,4 +25,12 @@ void GameStatusMonitor::setClose() {
     gamestatus.setClose();
 
     this->clientClosedGame = true;
+}
+
+void GameStatusMonitor::toggleMusic(){
+    isPlayingMusic = !isPlayingMusic;
+}
+
+bool GameStatusMonitor::getIsPlayingMusic(){
+    return isPlayingMusic;
 }

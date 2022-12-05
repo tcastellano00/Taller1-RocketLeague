@@ -11,6 +11,7 @@ class GameStatusMonitor{
     std::mutex gameMutex;
     GameStatus gamestatus;
     std::atomic<bool> clientClosedGame;
+    bool isPlayingMusic;
 
     public:
     GameStatusMonitor();
@@ -22,6 +23,10 @@ class GameStatusMonitor{
     void statusUpdate(GameStatus newGameStatus);
     
     void setClose();
+
+    void toggleMusic();
+
+    bool getIsPlayingMusic();
 };
 
 #endif

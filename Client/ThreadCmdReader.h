@@ -5,6 +5,7 @@
 #include "../Common/BlockingQueue.h"
 #include "../Common/Command.h"
 #include "GameStatusMonitor.h"
+#include "BackGroundMusic.h"
 
 #include <SDL2/SDL.h>
 #include "SDL/KeyboardEvent/KeyBoardMapper.h"

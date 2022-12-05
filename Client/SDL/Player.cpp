@@ -53,12 +53,13 @@ void Player::render(SDL2pp::Renderer &renderer, int i) {
         anTurbo.render(renderer, SDL2pp::Rect(x - 50, y, CAR_WIDTH + 50, CAR_HEIGHT), flip, angle);
     
     flip = SDL_FLIP_NONE;
-        
     if (i == 0) {
+        anCar.getTexture().SetColorMod(255, 0, 0);
         float barPercentage = turboRemaining/MAXTURBO;
         anTurboBarFull.render(renderer, SDL2pp::Rect(TURBOBARX, TURBOBARY, TURBOBARWIDTH * barPercentage, TURBOBARHEIGHT), flip, 0);
         anTurboBarEmpty.render(renderer, SDL2pp::Rect(TURBOBARX, TURBOBARY, TURBOBARWIDTH, TURBOBARHEIGHT), flip, 0);
     } else if (i == 1) {
+        anCar.getTexture().SetColorMod(0, 0, 255);
         float barPercentage = turboRemaining/MAXTURBO;
         anTurboBarFull.render(renderer, SDL2pp::Rect(SCREENWIDTH - TURBOBARX - TURBOBARWIDTH * barPercentage, TURBOBARY, TURBOBARWIDTH * barPercentage, TURBOBARHEIGHT), flip, 0);
         anTurboBarEmpty.render(renderer, SDL2pp::Rect(SCREENWIDTH - TURBOBARX - TURBOBARWIDTH, TURBOBARY, TURBOBARWIDTH, TURBOBARHEIGHT), flip, 0);
