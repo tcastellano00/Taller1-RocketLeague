@@ -2,6 +2,7 @@
 #define DIALOGJOINGAME_H
 
 #include <QDialog>
+#include "DialogListGames.h"
 
 namespace Ui {
 class DialogJoinGame;
@@ -12,7 +13,7 @@ class DialogJoinGame : public QDialog
     Q_OBJECT
 
 public:
-    explicit DialogJoinGame(QWidget *parent = nullptr);
+    explicit DialogJoinGame(DialogListGames *listGames, QWidget *parent = nullptr);
     ~DialogJoinGame();
 
 private slots:
@@ -20,6 +21,7 @@ private slots:
 
 private:
     Ui::DialogJoinGame *ui;
+    DialogListGames *listGames;
 };
 
 #endif // DIALOGJOINGAME_H
