@@ -35,6 +35,7 @@ class Physics{
     GoalSensor* createGoal(SideOfGoal side);
 
     bool isInReplay = false;
+    bool skipRep = false;
     bool isInExplosion = false;
     bool carJumping = false;
     int currentTimeOfReplay = 0;

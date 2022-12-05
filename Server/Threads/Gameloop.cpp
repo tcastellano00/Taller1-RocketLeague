@@ -46,6 +46,10 @@ void Gameloop::run() {
                 continue;
             }
 
+            if (!gamePhysics.getIsInReplay() && action->getSkipReplay()) {
+                continue;
+            }
+
             action->execute(gamePhysics);
 
             commandsCounter += 1;

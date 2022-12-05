@@ -98,7 +98,8 @@ GameStatus Physics::getGameStatus(){
 
     std::list<PlayerModel> playerModels;
 
-    bool skipRep = true;
+    bool skip = true;
+
     for (std::map<int, CarPhysics*>::iterator it = this->cars.begin(); it != this->cars.end(); ++it) {
         PlayerModel pm = it->second->getPlayerModel();
         playerModels.push_back(pm);
@@ -106,10 +107,13 @@ GameStatus Physics::getGameStatus(){
         // std::cout << "Asistencias de " << it->second->getName() << ": " << it->second->getPlayerAssists() << std::endl;
         // std::cout << "Goles de " << it->second->getName() << ": " << it->second->getGoalsScored() << std::endl;
 
-        skipRep = skipRep && it->second->getSkipReplay();
+        skip = skip && it->second->getSkipReplay();
 
 
     }
+
+    this->skipRep = skip;
+
     newGameStatus.setPlayersModels(playerModels);
     newGameStatus.setBallModel(this->ball->getModel());
 
@@ -139,14 +143,14 @@ GameStatus Physics::getGameStatus(){
         }
     }
 
-    if (skipRep) {
+    if (this->skipRep) {
         std::cout << "skipRep: true" << std::endl;
     } else {
         std::cout << "skipRep: false" << std::endl;
     }
     
 
-    newGameStatus.setReplay(this->isInReplay && !skipRep);
+    newGameStatus.setReplay(this->isInReplay && !this->skipRep);
     newGameStatus.setInExplosion(this->isInExplosion);
     newGameStatus.setCarJump(this->carJumping);
 
@@ -260,9 +264,13 @@ void Physics::updateReplayStaus() {
     //Tiempo en milisegundos que demora un frame.
     this->currentTimeOfReplay += 1000.0f / CommonConfig::getFrameRate();
 
-    if (this->currentTimeOfReplay >= REPLAYTIME) {
+    if (this->currentTimeOfReplay >= REPLAYTIME || this->skipRep) {
         this->currentTimeOfReplay = 0;
         this->setIsInReplay(false);
+        this->skipRep = false;
+        for (std::map<int, CarPhysics*>::iterator it = this->cars.begin(); it != this->cars.end(); ++it) {
+            it->second->setSkipReplay(false);
+        }
         
     }
 }
