@@ -6,6 +6,7 @@
 #include <string>
 #include "../../Common/Config/ServerConfig.h"
 #include "../../Common/Model/BallModel.h"
+#include "Car.h"
 
 enum SpecialShot {
     REDSHOT,
@@ -21,6 +22,15 @@ private:
     void generateImpulse(float impulse);
     SpecialShot shotType;
     int specialShotTimer;
+    
+
+    //Id del cliente
+    CarPhysics* lastPLayerContact;
+    CarPhysics* penultimatePlayerContact;
+    // int lastPLayerContact;
+    // int penultimatePlayerContact;
+
+
 
     float REDSHOTIMPULSE = ServerConfig::getRedShotImpulse();
     float GOLDSHOTIMPULSE = ServerConfig::getGoldShotImpulse();
@@ -49,6 +59,12 @@ public:
     void setShotType(SpecialShot type);
 
     void updateShotStatus();
+
+    void updateLastPlayerContact(CarPhysics* newPlayer);
+
+    CarPhysics* getLastPlayerContact();
+    CarPhysics* getPenultimatePlayerContact();
+
 
     BallModel getModel();
 

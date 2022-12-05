@@ -12,6 +12,7 @@
 #define CONFIG_KEY_W "W"
 #define CONFIG_KEY_S "S"
 #define CONFIG_KEY_D "D"
+#define CONFIG_KEY_R "R"
 #define CONFIG_KEY_M "M"
 #define CONFIG_KEY_N "N"
 #define CONFIG_KEY_A "A"

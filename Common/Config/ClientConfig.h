@@ -25,13 +25,13 @@ public:
     static std::string getKeyCommandTurbo();
     static std::string getKeyCommandJump();
     static std::string getKeyCommandTurn();
-    static std::string getKeyCommandSkipReplay();
     static std::string getKeyCommandFlipShot();
     static std::string getKeyCommandRedShot();
     static std::string getKeyCommandPurpleShot();
     static std::string getKeyCommandGoldenShot();
     static std::string getKeyCommandPauseMusic();
     static std::string getKeyCommandNextMusic();
+    static std::string getKeyCommandSkipReplay();
 
     ClientConfig(ClientConfig &other) = delete;
     void operator=(ClientConfig const&) = delete;

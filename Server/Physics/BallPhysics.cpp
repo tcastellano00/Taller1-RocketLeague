@@ -19,6 +19,11 @@ BallPhysics::BallPhysics(b2World &world) {
     //this->ballBody = body;
     this->shotType = NONE;
     this->specialShotTimer = 0;
+
+    this->lastPLayerContact = nullptr;
+    this->penultimatePlayerContact = nullptr;
+    // this->lastPLayerContact = 0;
+    // this->penultimatePlayerContact = 0;
 }
 
  b2Body* BallPhysics::createBody(b2World& world){
@@ -115,4 +120,19 @@ BallModel BallPhysics::getModel(){
     BallModel bm(ballCoordX, ballCoordY, this->ballBody->GetAngle() * (-1), colour);
     return bm;
 
+}
+
+
+void BallPhysics::updateLastPlayerContact(CarPhysics* newPlayer){
+    this->penultimatePlayerContact =  this->lastPLayerContact;
+    this->lastPLayerContact = newPlayer;
+    
+}
+
+CarPhysics* BallPhysics::getLastPlayerContact(){
+    return this->lastPLayerContact;
+}
+
+CarPhysics* BallPhysics::getPenultimatePlayerContact(){
+    return this->penultimatePlayerContact;
 }

@@ -12,6 +12,7 @@
 #include "ActionClientDoRedShot.h"
 #include "ActionClientDoGoldenShot.h"
 #include "ActionClientDoPurpleShot.h"
+#include "ActionClientDoSkipReplay.h"
 
 #include "../../Common/Constants/ActionsClient.h"
 
@@ -44,6 +45,11 @@ std::shared_ptr<ActionsClient> ActionsClient::get_command_ptr(
         return std::shared_ptr<ActionsClient>(new ActionClientDoGoldenShot(cltId));
     else if (name == DO_PURPLE_SHOT)
         return std::shared_ptr<ActionsClient>(new ActionClientDoPurpleShot(cltId));
-
+    else if (name == SKIP_REPLAY)
+        return std::shared_ptr<ActionsClient>(new ActionClientDoSkipReplay(cltId));
     return NULL;
+}
+
+bool ActionsClient::getSkipReplay(){
+    return skipReplay;
 }

@@ -105,6 +105,10 @@ class Physics{
     void applyExplosion();
     void applyBlastImpulse(b2Body* body, b2Vec2 blastCenter, b2Vec2 applyPoint, float blastPower);
 
+    void playerSetSkipReplay(int clientId);
+
+
+
     ~Physics();
 };
 #endif

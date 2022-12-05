@@ -37,9 +37,16 @@ void Gameloop::run() {
 
         while (!recibingQueue.empty() && commandsCounter < LIMITOFCOMANDS) {
             std::shared_ptr<ActionsClient> action = recibingQueue.pop();
-            if (action != NULL && !gamePhysics.getIsInReplay()) {
-                action->execute(gamePhysics);
+
+            if (action == NULL) {
+                continue;
             }
+
+            if (gamePhysics.getIsInReplay() && !action->getSkipReplay()) {
+                continue;
+            }
+
+            action->execute(gamePhysics);
 
             commandsCounter += 1;
         }

@@ -2,9 +2,10 @@
 #define CARPHYSICS_H
 
 #include "../Box2D/Box2D.h"
-#include "BallPhysics.h"
+//#include "BallPhysics.h"
 #include "../../Common/Model/PlayerModel.h"
 #include "../../Common/Config/ServerConfig.h"
+#include <string>
 // class CarPhisics{
 //     b2World * &m_world;
     
@@ -41,6 +42,13 @@ enum AcceleratingStatus {
     NOTACCELERATING,
 };
 
+enum MakeShot {
+    DONTMAKESHOT,
+    MAKEGOLDSHOT,
+    MAKEPURPLESHOT,
+    MAKEREDSHOT,
+};
+
 
 class CarPhysics {
 private:
@@ -55,6 +63,13 @@ private:
     bool isDoingTurbo;
     int turboRemaining;
     int clientId; 
+    std::string playerName;
+
+    int goals;
+    int goalAssists;
+
+    bool skipReplay;
+
 
 
     float FIELDHALFWIDTH = ServerConfig::getFieldHalfWidth();
@@ -76,7 +91,7 @@ private:
 
 
 public:
-    CarPhysics(int ClientId,b2World& world, int numberOfCar);
+    CarPhysics(int ClientId, std::string name, b2World& world, int numberOfCar);
     CarPhysics();
     b2Body* getCarBody();
 
@@ -127,7 +142,7 @@ public:
 
     void turn();
 
-    bool jump(BallPhysics* ball);
+    bool jump(MakeShot& makeShot);
 
     void rotate(int sideMultiplicator);
     void stopRotate();
@@ -137,6 +152,18 @@ public:
     void applyTurbo();
 
     PlayerModel getPlayerModel();
+
+    void scoreAGoal();
+    void assistAGoal();
+
+    int getGoalsScored();
+    int getPlayerAssists();
+
+    int getId();
+    std::string getName();
+
+    void setSkipReplay(bool skip);
+    bool getSkipReplay();
 
 
 };

@@ -3,7 +3,7 @@
 #include "Physics.h"
 
 
-bool ContactListener::getGoal(b2Contact* contact, GoalSensor*& goal) {
+bool ContactListener::getGoalContactWithBall(b2Contact* contact, GoalSensor*& goal, BallPhysics*& ball) {
     b2Fixture* fixtureA = contact->GetFixtureA();
     b2Fixture* fixtureB = contact->GetFixtureB();
 
@@ -24,14 +24,18 @@ bool ContactListener::getGoal(b2Contact* contact, GoalSensor*& goal) {
     }
 
     GoalSensor* goalEntity;
+    BallPhysics* ballEntity;
 
     if (sensorA) {//fixtureA is the goal
         goalEntity = static_cast<GoalSensor*>(fixtureA->GetBody()->GetUserData());
+        ballEntity = static_cast<BallPhysics*>(fixtureB->GetBody()->GetUserData());
     } else {//fixtureB is the goal
         goalEntity = static_cast<GoalSensor*>(fixtureB->GetBody()->GetUserData());
+        ballEntity = static_cast<BallPhysics*>(fixtureA->GetBody()->GetUserData());
     }
 
     goal = goalEntity;
+    ball = ballEntity;
 
     return true;
 }
@@ -92,10 +96,58 @@ bool ContactListener::getCarSensorContactWithBall(b2Contact* contact, CarPhysics
     return true;
 }
 
+bool ContactListener::getCarContactWithBall(b2Contact* contact, CarPhysics*& car, BallPhysics*& ball) {
+    b2Fixture* fixtureA = contact->GetFixtureA();
+    b2Fixture* fixtureB = contact->GetFixtureB();
+
+    bool match1 =  fixtureA->GetFilterData().categoryBits == CAR && fixtureB->GetFilterData().categoryBits == BALL;
+    bool match2 = fixtureA->GetFilterData().categoryBits == BALL && fixtureB->GetFilterData().categoryBits == CAR;
+
+    if (!(match1 || match2)){
+        return false;
+    }
+    CarPhysics* carEntity;
+    BallPhysics* ballEntity;
+
+    if (fixtureA->GetFilterData().categoryBits == BALL) {
+        ballEntity = static_cast<BallPhysics*>(fixtureA->GetBody()->GetUserData());
+        carEntity = static_cast<CarPhysics*>(fixtureB->GetBody()->GetUserData());
+    } else { //fixtureB is the ball, fixtureA is the car
+        ballEntity = static_cast<BallPhysics*>(fixtureB->GetBody()->GetUserData());
+        carEntity = static_cast<CarPhysics*>(fixtureA->GetBody()->GetUserData());
+    }
+
+    car = carEntity;
+    ball = ballEntity;
+    return true;
+}
+
 void ContactListener::BeginContact(b2Contact* contact) {
     GoalSensor* goal;
-    if ( this->getGoal(contact, goal) ) {
+    BallPhysics* ball;
+    if ( this->getGoalContactWithBall(contact, goal, ball) ) {
         goal->scoreGoal();
+        CarPhysics* scorer = ball->getLastPlayerContact();
+        CarPhysics* assister = ball->getPenultimatePlayerContact();
+
+        //Chequeo por si el puntero es nulo
+        if (!scorer) {return;}
+
+        bool ownGoal = true; 
+
+        if ((scorer->getSide() == LEFTPLAYER && goal->getSideOfGoal() == RIGHT) ||
+            (scorer->getSide() == RIGHTPLAYER && goal->getSideOfGoal() == LEFT)) {
+            scorer->scoreAGoal();
+            ownGoal = false;
+        }
+
+        //Chequeo por si el puntero es nulo
+        if (!assister) {return;}
+
+        if(!ownGoal && assister->getSide() == scorer->getSide() && (assister != scorer)){
+            assister->assistAGoal();
+        }
+        
         return;
     }
     CarPhysics* car;
@@ -119,12 +171,22 @@ void ContactListener::BeginContact(b2Contact* contact) {
         return;
     }
 
+    if (this->getCarContactWithBall(contact, car, ball)) {
+        if (ball->getLastPlayerContact() == car) {
+            return;
+        }
+
+        ball->updateLastPlayerContact(car);
+
+    }
+
 }
 
 void ContactListener::EndContact(b2Contact* contact) {
     
     GoalSensor* goal;
-    if ( this->getGoal(contact, goal) ) {
+    BallPhysics* ball;
+    if ( this->getGoalContactWithBall(contact, goal, ball) ) {
         //modelar termina el contacto
     }
     CarPhysics* car;

@@ -14,11 +14,14 @@ class ContactListener : public b2ContactListener  {
 
     void EndContact(b2Contact* contact);
 
-    bool getGoal(b2Contact* contact, GoalSensor*& goal);
+    bool getGoalContactWithBall(b2Contact* contact, GoalSensor*& goal, BallPhysics*& ball);
 
     bool getCarContactWithBox(b2Contact* contact, CarPhysics*& car);
 
     bool getCarSensorContactWithBall(b2Contact* contact, CarPhysics*& car, bool& isFrontSensor);
+
+    bool getCarContactWithBall(b2Contact* contact, CarPhysics*& car, BallPhysics*& ball);
+
 
 };
 

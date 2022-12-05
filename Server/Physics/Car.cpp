@@ -4,7 +4,7 @@
 #include <iostream>
 
 
-CarPhysics::CarPhysics(int cltId,b2World& world, int numberOfCar){
+CarPhysics::CarPhysics(int cltId, std::string newPlayerName, b2World& world, int numberOfCar){
     this->clientId = cltId;
     if (numberOfCar == 0 || numberOfCar == 2) {
         this->side = LEFTPLAYER;
@@ -22,6 +22,10 @@ CarPhysics::CarPhysics(int cltId,b2World& world, int numberOfCar){
     this->isFliping = false;
     this->flipStartAngle = 0;
     this->turboRemaining = MAXTURBO;
+    this->playerName = newPlayerName;
+    this->goals = 0;
+    this->goalAssists = 0;
+    this->skipReplay = false;
 
     
 }
@@ -268,22 +272,23 @@ void CarPhysics::turn() {
     this->swapAcceleratingStatus();
 }
 
-bool CarPhysics::jump(BallPhysics* ball) {
+bool CarPhysics::jump(MakeShot& makeShot) {
 
     if (airStatus == AIRAFTERFLIP){
         return false;
     }
     int sideMultiplicator = (this->side == LEFTPLAYER) ? 1 : -1;
-
+    
 
     if (sensorStatus == BALLINBACKSENSOR && airStatus == AIR && acceleratingStatus != NOTACCELERATING) {
-        ball->goldShot(sideMultiplicator);
+        makeShot = MAKEGOLDSHOT;
         this->flipJump();
     } else if (sensorStatus == BALLINFRONTSENSOR && airStatus == AIR && acceleratingStatus != NOTACCELERATING) {
-        ball->redShot(sideMultiplicator);
+        makeShot = MAKEREDSHOT;
         this->flipJump();
     } else if (sensorStatus == BALLINBOTTOMSENSOR) {
-        ball->purpleShot(sideMultiplicator);
+        makeShot = MAKEPURPLESHOT;
+        //ball->purpleShot(sideMultiplicator);
         this->getCarBody()->ApplyLinearImpulse(b2Vec2(-3000*sideMultiplicator,0),this->getCarBody()->GetWorldCenter(), true);
     } else if (acceleratingStatus != NOTACCELERATING && airStatus == AIR ){
         this->flipJump();
@@ -387,4 +392,36 @@ PlayerModel CarPhysics::getPlayerModel() {
 
     PlayerModel pm(this->clientId , xCar, yCar, angle, turbo, facing, turboRem);
     return pm;
+}
+
+int CarPhysics::getId() {
+    return this->clientId;
+}
+
+void CarPhysics::scoreAGoal() {
+    this->goals++;
+}
+
+void CarPhysics::assistAGoal() {
+    this->goalAssists++;
+}
+
+int CarPhysics::getGoalsScored(){
+    return this->goals;
+}
+
+int CarPhysics::getPlayerAssists() {
+    return this->goalAssists;
+}
+
+std::string CarPhysics::getName(){
+    return this->playerName;
+}
+
+void CarPhysics::setSkipReplay(bool skip){
+    this->skipReplay = skip;
+}
+
+bool CarPhysics::getSkipReplay(){
+    return skipReplay;
 }
