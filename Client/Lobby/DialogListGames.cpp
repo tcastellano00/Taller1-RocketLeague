@@ -21,14 +21,14 @@ DialogListGames::~DialogListGames()
 
 void DialogListGames::on_btn_createGame_clicked()
 {
-    DialogCreateGame dialogCreateGame;
+    DialogCreateGame dialogCreateGame(this);
     dialogCreateGame.setModal(true);
     dialogCreateGame.exec();
 }
 
 void DialogListGames::on_btn_joinGame_clicked()
 {
-    DialogJoinGame dialogJoinGame;
+    DialogJoinGame dialogJoinGame(this);
     dialogJoinGame.setModal(true);
     dialogJoinGame.exec();
 }

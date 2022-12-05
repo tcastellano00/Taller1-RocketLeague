@@ -137,11 +137,18 @@ void WindowRenderer::launch() {
         
         while (not gameStatusMonitor.gameIsClosed()) {
 
-            
+            //Pauso la musica de fondo.
             if(gameStatusMonitor.getIsPlayingMusic() != backGroundMusic.getIsPlayingMusic()){
                 std::cout << gameStatusMonitor.getIsPlayingMusic() << std::endl; 
                 backGroundMusic.togglePause();
             }
+
+            //Cambio el tema actual
+            if(gameStatusMonitor.getCallNext()){
+                backGroundMusic.changeMusic();
+                gameStatusMonitor.toggleNext();
+            }
+
             renderer.Clear();
             scene.render(renderer);
 

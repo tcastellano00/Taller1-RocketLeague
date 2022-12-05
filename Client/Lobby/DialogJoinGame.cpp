@@ -1,9 +1,11 @@
 #include "DialogJoinGame.h"
+#include "DialogListGames.h"
 #include "../../ui_dialogjoingame.h"
 
-DialogJoinGame::DialogJoinGame(QWidget *parent) :
+DialogJoinGame::DialogJoinGame(DialogListGames *listGames, QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::DialogJoinGame)
+    ui(new Ui::DialogJoinGame),
+    listGames(listGames)
 {
     ui->setupUi(this);
 }
@@ -25,5 +27,9 @@ void DialogJoinGame::on_pushButton_clicked()
     ui->txt_gameName->setDisabled(true);
     ui->pushButton->setDisabled(true);
     ui->infoClientConnected->setText("Conectado, aguardando jugadores..");
-}
 
+
+    //Cerramos todo.
+    this->listGames->close();
+    this->close();
+}

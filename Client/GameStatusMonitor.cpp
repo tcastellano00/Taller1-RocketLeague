@@ -31,6 +31,14 @@ void GameStatusMonitor::toggleMusic(){
     isPlayingMusic = !isPlayingMusic;
 }
 
+void GameStatusMonitor::toggleNext(){
+    callNext = !callNext;
+}
+
 bool GameStatusMonitor::getIsPlayingMusic(){
     return isPlayingMusic;
+}
+
+bool GameStatusMonitor::getCallNext(){
+    return callNext;
 }

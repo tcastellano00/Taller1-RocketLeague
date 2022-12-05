@@ -11,7 +11,9 @@ BackGroundMusic::BackGroundMusic(SDL2pp::Mixer &newmixer): mixer(newmixer),backG
 }
 
 void BackGroundMusic::changeMusic(){
-    actualMusic = (actualMusic+1)/2;
+    std::cout << actualMusic << std::endl;
+    actualMusic = (actualMusic + 1)%2;
+    std::cout << actualMusic << std::endl;
     if(actualMusic == 0){mixer.PlayChannel(channel, backGround0);}
     else if (actualMusic == 1){mixer.PlayChannel(channel, backGround1);}
 }

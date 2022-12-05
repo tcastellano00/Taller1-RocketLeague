@@ -12,6 +12,7 @@ class GameStatusMonitor{
     GameStatus gamestatus;
     std::atomic<bool> clientClosedGame;
     bool isPlayingMusic;
+    bool callNext = false;
 
     public:
     GameStatusMonitor();
@@ -25,6 +26,10 @@ class GameStatusMonitor{
     void setClose();
 
     void toggleMusic();
+
+    void toggleNext();
+
+    bool getCallNext();
 
     bool getIsPlayingMusic();
 };
