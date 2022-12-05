@@ -17,7 +17,7 @@ class GameStatus{
     std::list<PlayerModel> players;
     bool replay;
     bool inExplosion;
-
+    bool carJump;
 
 
     PlayerModel player;
@@ -55,5 +55,11 @@ class GameStatus{
 
     bool isInExplosion();
     void setInExplosion(bool expl);
+
+
+    void setCarJump(bool jump);
+    bool isJumping();
+
+    bool isACarDoingTurbo();
 };
 #endif

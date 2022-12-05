@@ -2,8 +2,10 @@
 
 
 BackGroundMusic::BackGroundMusic(SDL2pp::Mixer &newmixer): mixer(newmixer),backGround0("music/background.ogg"),
-    backGround1("music/background2.ogg"),explosionChunk("music/explosion.ogg"){
+    backGround1("music/background2.ogg"),explosionChunk("music/explosion.ogg"),
+    jumpChunk("music/jumpSound.ogg"), turboChunk("music/turboSound.ogg"){
     this->isPlayingMusic = true;
+    this->isPlayingTurboSound = false;
     this->channel = 1;
     this->actualMusic = 0;
     this->mixer.PlayChannel(channel, backGround0);
@@ -40,4 +42,23 @@ void BackGroundMusic::explosionMusic(bool isInExplosion){
     if(isInExplosion && mixer.IsChannelPlaying(2) == 0){
         mixer.SetVolume(2,10);
         mixer.PlayChannel(2, explosionChunk);}
+}
+
+void BackGroundMusic::jumpSound(){
+    mixer.PlayChannel(-1, jumpChunk);
+}
+
+void BackGroundMusic::turboSound() {
+    turboChannel = mixer.PlayChannel(-1, turboChunk, -1);
+    this->isPlayingTurboSound = true;
+}
+
+bool BackGroundMusic::getIsPlayingTurbo() {
+    return this->isPlayingTurboSound;
+}
+
+
+void BackGroundMusic::stopTurboSound() {
+    mixer.HaltChannel(turboChannel);
+    this->isPlayingTurboSound = false;
 }

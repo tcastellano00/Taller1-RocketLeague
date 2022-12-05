@@ -52,8 +52,9 @@ void Physics::carStopAccelerating(int clientId) {
 }
 
 void Physics::carJump(int clientId) {
+
     CarPhysics* car = this->cars[clientId];
-    car->jump(this->ball); 
+    carJumping = car->jump(this->ball); 
 }
 
 void Physics::flipCarRight(int clientId) {
@@ -123,8 +124,9 @@ GameStatus Physics::getGameStatus(){
 
     newGameStatus.setReplay(this->isInReplay);
     newGameStatus.setInExplosion(this->isInExplosion);
+    newGameStatus.setCarJump(this->carJumping);
 
-
+    this->carJumping = false;
 
     return newGameStatus;
 }

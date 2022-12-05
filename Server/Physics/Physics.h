@@ -36,6 +36,7 @@ class Physics{
 
     bool isInReplay = false;
     bool isInExplosion = false;
+    bool carJumping = false;
     int currentTimeOfReplay = 0;
     int timeExplosion = 50; //frames, 2 segundos.
 

@@ -69,3 +69,19 @@ bool GameStatus::isInExplosion() {
 void GameStatus::setInExplosion(bool expl) {
     this->inExplosion = expl;
 }
+
+void GameStatus::setCarJump(bool jump){
+    this->carJump = jump;
+}
+
+bool GameStatus::isJumping(){
+    return this->carJump;
+}
+
+bool GameStatus::isACarDoingTurbo() {
+    bool doingTurbo = false;
+    for (auto player = players.begin(); player != players.end(); ++player) {
+        doingTurbo = doingTurbo || player->isDoingTurbo();
+    }
+    return doingTurbo;
+}

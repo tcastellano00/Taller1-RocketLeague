@@ -16,6 +16,11 @@ std::string GameStatusSerializer::serialize(GameStatus gameStatus) {
     ScoreModel scoreModel = gameStatus.getScoreModel();
     std::list<PlayerModel> playersModels = gameStatus.getPlayersModels();
 
+
+    if(gameStatus.isJumping()){ss << "jump" << " ";}else{
+        ss << "nojump" << " ";
+    }
+
     if (gameStatus.isInReplay()) {
         ss << "replay" << " ";
     } else {
@@ -65,6 +70,14 @@ std::string GameStatusSerializer::serialize(GameStatus gameStatus) {
 GameStatus GameStatusSerializer::deserialize(std::string gameStatusString) {
     std::stringstream ss(gameStatusString);
     std::list<PlayerModel> playersModels;
+
+    bool carJump;
+    std::string carJumpStr;
+    ss>>carJumpStr;
+
+    if (carJumpStr == "jump"){carJump = true;}else{
+        carJump = false;
+    }
 
     bool isInReplay;
     std::string replayStr;
@@ -142,6 +155,7 @@ GameStatus GameStatusSerializer::deserialize(std::string gameStatusString) {
     GameStatus gm(ballModel, scoreModel, playersModels);
     gm.setReplay(isInReplay);
     gm.setInExplosion(isInExplosion);
+    gm.setCarJump(carJump);
 
     return gm;
 }

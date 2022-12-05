@@ -127,7 +127,7 @@ public:
 
     void turn();
 
-    void jump(BallPhysics* ball);
+    bool jump(BallPhysics* ball);
 
     void rotate(int sideMultiplicator);
     void stopRotate();

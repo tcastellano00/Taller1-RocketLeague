@@ -268,10 +268,10 @@ void CarPhysics::turn() {
     this->swapAcceleratingStatus();
 }
 
-void CarPhysics::jump(BallPhysics* ball) {
+bool CarPhysics::jump(BallPhysics* ball) {
 
     if (airStatus == AIRAFTERFLIP){
-        return;
+        return false;
     }
     int sideMultiplicator = (this->side == LEFTPLAYER) ? 1 : -1;
 
@@ -294,6 +294,7 @@ void CarPhysics::jump(BallPhysics* ball) {
     if (airStatus == AIR) {
         this->setAirStatus(AIRAFTERFLIP);
     }
+    return true;
 }
 
  void CarPhysics::rotate(int sideMultiplicator) {

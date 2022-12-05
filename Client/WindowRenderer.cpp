@@ -152,6 +152,21 @@ void WindowRenderer::launch() {
 
             GameStatus gameStatusSnapshot = gameStatusMonitor.getGameStatus();
 
+
+            //Musica salto
+            if(gameStatusSnapshot.isJumping()){
+                backGroundMusic.jumpSound();
+            }
+
+            //Musica turbo
+            if(gameStatusSnapshot.isACarDoingTurbo()){
+                if (!backGroundMusic.getIsPlayingTurbo()) {
+                    backGroundMusic.turboSound();
+                }
+            } else if (!gameStatusSnapshot.isACarDoingTurbo() && backGroundMusic.getIsPlayingTurbo()) {
+                backGroundMusic.stopTurboSound();
+            }
+
             if (gameStatusSnapshot.isInReplay()) {
                 gameStatusSnapshot = replayList.pop_front();
                 isInReplay = true;
