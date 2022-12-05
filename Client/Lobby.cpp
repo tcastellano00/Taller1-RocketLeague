@@ -9,25 +9,21 @@
 #include <QApplication>
 
 
-Lobby::Lobby(Socket& cnct): conection(cnct) {
+Lobby::Lobby(Socket& clientSocket): clientSocket(clientSocket) {
+
 }
 
 bool Lobby::start() {
 
-    int argc = 1;
-    char w1[] = "";
-    char *argv[] = { w1 };
-    QApplication a(argc, argv);
+    bool result = this->initLobbyForms();
 
-    std::string clientName;
+    std::cout << result << std::endl;
 
-    LobbyForm w(clientName);
-    w.show();
-
-    a.exec();
-
+    return false;
+    
+    /*
     std::cout << "Im in the lobby" << std::endl;
-    Protocol protocol(conection);
+    Protocol protocol(this->clientSocket);
     std::string input;
     bool keepReading;
     do {
@@ -50,5 +46,23 @@ bool Lobby::start() {
         std::cout << reply;
     } while (keepReading);
 
-    return false;
+    return false; */
+}
+
+
+bool Lobby::initLobbyForms() {
+    int argc = 1;
+    char w1[] = "";
+    char *argv[] = { w1 };
+    QApplication qtApplication(argc, argv);
+
+    std::string clientName;
+
+    LobbyForm lobbyForm(this->clientSocket, clientName);
+    lobbyForm.show();
+
+    //Devuelve 0 si salio con un quit();
+    int result = qtApplication.exec();
+
+    return (result == 0);
 }

@@ -2,6 +2,7 @@
 #define LOBBYFORM_H
 
 #include <QMainWindow>
+#include "../../Common/Socket.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class LobbyForm; }
@@ -12,7 +13,10 @@ class LobbyForm : public QMainWindow
     Q_OBJECT
 
 public:
-    LobbyForm(std::string& clientName, QWidget *parent = nullptr);
+    LobbyForm(
+        Socket &clientSocket,
+        std::string& clientName,
+        QWidget *parent = nullptr);
     ~LobbyForm();
 
 private slots:
@@ -20,6 +24,7 @@ private slots:
 
 private:
     Ui::LobbyForm *ui;
+    Socket &clientSocket;
     std::string clientName;
 };
 #endif // LOBBYFORM_H

@@ -1,8 +1,11 @@
 #include "../Common/Socket.h"
 
 class Lobby {
-    Socket& conection;
+    Socket& clientSocket;
+
+    bool initLobbyForms();
+
 public:
-    Lobby(Socket& cnct);
+    Lobby(Socket& clientSocket);
     bool start();
 };

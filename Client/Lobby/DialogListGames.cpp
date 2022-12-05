@@ -4,9 +4,13 @@
 
 #include "../../ui_dialoglistgames.h"
 
-DialogListGames::DialogListGames(std::string clientName, QWidget *parent) :
+DialogListGames::DialogListGames(
+        Socket &clientSocket,
+        std::string clientName, 
+        QWidget *parent) :
     QDialog(parent),
     ui(new Ui::DialogListGames),
+    clientSocket(clientSocket),
     clientName(clientName)
 {
     ui->setupUi(this);
@@ -21,14 +25,14 @@ DialogListGames::~DialogListGames()
 
 void DialogListGames::on_btn_createGame_clicked()
 {
-    DialogCreateGame dialogCreateGame(this);
+    DialogCreateGame dialogCreateGame(this->clientSocket, this);
     dialogCreateGame.setModal(true);
     dialogCreateGame.exec();
 }
 
 void DialogListGames::on_btn_joinGame_clicked()
 {
-    DialogJoinGame dialogJoinGame(this);
+    DialogJoinGame dialogJoinGame(this->clientSocket, this);
     dialogJoinGame.setModal(true);
     dialogJoinGame.exec();
 }
