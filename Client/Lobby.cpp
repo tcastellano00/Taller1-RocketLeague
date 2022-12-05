@@ -1,13 +1,31 @@
 #include "Lobby.h"
 #include <iostream>
-#include "../Common/Protocol.h"
 #include <string>
+
+
+#include "../Common/Protocol.h"
+#include "Lobby/LobbyForm.h"
+
+#include <QApplication>
 
 
 Lobby::Lobby(Socket& cnct): conection(cnct) {
 }
 
 bool Lobby::start() {
+
+    int argc;
+    char w1[] = "";
+    char *argv[] = { w1 };
+    QApplication a(argc, argv);
+
+    std::string clientName;
+
+    LobbyForm w(clientName);
+    w.show();
+
+    a.exec();
+
     std::cout << "Im in the lobby" << std::endl;
     Protocol protocol(conection);
     std::string input;

@@ -23,6 +23,23 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -O0")
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -ggdb -DDEBUG -fno-inline")
 
+#Including QT5
+find_package(Qt5Widgets CONFIG REQUIRED)
+find_package(Qt5Core)
+
+qt5_wrap_ui(UIS_HEADERS
+  UI/dialogcreategame.ui
+  UI/dialogjoingame.ui
+  UI/dialoglistgames.ui
+  UI/lobbyform.ui
+)
+
+# Instruct CMake to run moc automatically when neededcd
+set(CMAKE_AUTOMOC ON)
+# Create code from a list of Qt designer ui files
+set(CMAKE_AUTORCC ON)
+
+message("Headers generados: ${UIS_HEADERS}")
 
 # Including Box2D
 include_directories(./libs/Box2D)
@@ -59,12 +76,12 @@ add_library(rocket_league-common SHARED ${common_src})
 target_link_libraries(rocket_league-common yaml-cpp)
 
 # Client
-add_executable(rocket_league ${client_src})
-target_link_libraries(rocket_league rocket_league-common yaml-cpp ${SDL2PP_LIBRARIES})
+add_executable(rocket_league ${client_src} ${UIS_HEADERS})
+target_link_libraries(rocket_league rocket_league-common Qt5::Core Qt5::Widgets ${SDL2PP_LIBRARIES})
 
 # Server
 add_executable(rocket_league-server ${server_src})
-target_link_libraries(rocket_league-server rocket_league-common libbox2d yaml-cpp)
+target_link_libraries(rocket_league-server rocket_league-common libbox2d)
 
 file(COPY assets DESTINATION ${CMAKE_BINARY_DIR})
 file(COPY config DESTINATION ${CMAKE_BINARY_DIR})

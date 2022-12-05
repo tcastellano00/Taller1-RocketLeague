@@ -1,12 +1,12 @@
 #include <iostream>
 #include <sstream>
 #include <exception>
+
 #include "Client.h"
 
 int main(int argc, char* argv[]) { try {
     int ret = 1;
 
-    std::cout << "Test" << "\n";
     Client clt(argv[1], argv[2]);
     clt.start();
 
