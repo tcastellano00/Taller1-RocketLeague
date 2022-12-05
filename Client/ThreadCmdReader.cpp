@@ -67,12 +67,11 @@ void ThreadCmdReader::pushCommand(const std::string command) {
     if (command == "") return;
 
     if (command == "pause music"){
-        std::cout << "comando M" << std::endl; 
         gameStatusMonitor.toggleMusic();
     }
 
     if (command == "next music"){
-        std::cout << "comando N" << std::endl;
+        gameStatusMonitor.toggleNext();
     }
     
     Command cmd(command);
