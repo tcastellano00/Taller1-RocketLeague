@@ -14,7 +14,7 @@ Lobby::Lobby(Socket& cnct): conection(cnct) {
 
 bool Lobby::start() {
 
-    int argc;
+    int argc = 1;
     char w1[] = "";
     char *argv[] = { w1 };
     QApplication a(argc, argv);

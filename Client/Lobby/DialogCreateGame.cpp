@@ -1,9 +1,11 @@
 #include "DialogCreateGame.h"
+#include "DialogListGames.h"
 #include "../../ui_dialogcreategame.h"
 
-DialogCreateGame::DialogCreateGame(QWidget *parent) :
+DialogCreateGame::DialogCreateGame(DialogListGames *listGames, QWidget *parent) :
     QDialog(parent),
-    ui(new Ui::DialogCreateGame)
+    ui(new Ui::DialogCreateGame),
+    listGames(listGames)
 {
     ui->setupUi(this);
 }
@@ -33,5 +35,9 @@ void DialogCreateGame::on_pushButton_clicked()
     ui->txt_gameMaxPlayers->setDisabled(true);
     ui->pushButton->setDisabled(true);
     ui->infoClientConnected->setText("Conectado, aguardando jugadores..");
+
+    //Cerramos todo.
+    this->listGames->close();
+    this->close();
 }
 
