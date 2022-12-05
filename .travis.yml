@@ -5,6 +5,7 @@ addons:
   apt:
     packages:
       - libusb-1.0-0-dev
+      - qt5-default
       - libsdl2-dev
       - libsdl2-image-dev
       - libsdl2-ttf-dev
