@@ -49,9 +49,7 @@ void WindowRenderer::launch() {
         //SDL2pp::Chunk backGroundsound("music/background.ogg");
         ///std::cout << "pase esto" << std::endl;
 
-        std::cout << "antes bg" << std::endl;
         BackGroundMusic backGroundMusic(mixer);
-        std::cout << "despues bg" << std::endl;
 
         // Usar factory
 
@@ -167,6 +165,7 @@ void WindowRenderer::launch() {
                 CommonConfig::getFrameTimeInMicroseconds(), 
                 gameStatusSnapshot.isInExplosion());
             ball.render(renderer,gameStatusSnapshot.isInExplosion());
+            backGroundMusic.explosionMusic(gameStatusSnapshot.isInExplosion());
 
             auto playerIter = players.begin();
             int i = 0;

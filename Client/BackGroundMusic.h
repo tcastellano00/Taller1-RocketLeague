@@ -13,6 +13,7 @@ class BackGroundMusic{
     int volume;
     SDL2pp::Chunk backGround0;
     SDL2pp::Chunk backGround1;
+    SDL2pp::Chunk explosionChunk;
 
     public:
 
@@ -24,6 +25,9 @@ class BackGroundMusic{
     void togglePause();
     void setVolume(int volume);
     bool getIsPlayingMusic();
+
+
+    void explosionMusic(bool isInExplosion);
     ~BackGroundMusic() = default;
 };
 

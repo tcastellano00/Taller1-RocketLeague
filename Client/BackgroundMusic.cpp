@@ -2,12 +2,12 @@
 
 
 BackGroundMusic::BackGroundMusic(SDL2pp::Mixer &newmixer): mixer(newmixer),backGround0("music/background.ogg"),
-    backGround1("music/background2.ogg"){
+    backGround1("music/background2.ogg"),explosionChunk("music/explosion.ogg"){
     this->isPlayingMusic = true;
     this->channel = 1;
     this->actualMusic = 0;
     this->mixer.PlayChannel(channel, backGround0);
-    this->volume = mixer.SetVolume(1,5);
+    this->volume = mixer.SetVolume(1,1);
 }
 
 void BackGroundMusic::changeMusic(){
@@ -34,4 +34,10 @@ void BackGroundMusic::togglePause(){
 
 bool BackGroundMusic::getIsPlayingMusic(){
     return isPlayingMusic;
+}
+
+void BackGroundMusic::explosionMusic(bool isInExplosion){
+    if(isInExplosion && mixer.IsChannelPlaying(2) == 0){
+        mixer.SetVolume(2,10);
+        mixer.PlayChannel(2, explosionChunk);}
 }
