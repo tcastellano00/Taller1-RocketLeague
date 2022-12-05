@@ -2,6 +2,7 @@
 #define DIALOGLISTGAMES_H
 
 #include <QDialog>
+#include "../../Common/Socket.h"
 
 namespace Ui {
 class DialogListGames;
@@ -12,7 +13,10 @@ class DialogListGames : public QDialog
     Q_OBJECT
 
 public:
-    explicit DialogListGames(std::string clientName, QWidget *parent = nullptr);
+    explicit DialogListGames(
+        Socket &clientSocket,
+        std::string clientName, 
+        QWidget *parent = nullptr);
     ~DialogListGames();
 
 private slots:
@@ -22,6 +26,7 @@ private slots:
 
 private:
     Ui::DialogListGames *ui;
+    Socket &clientSocket;
     std::string clientName;
 };
 

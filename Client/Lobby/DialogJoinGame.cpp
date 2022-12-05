@@ -1,10 +1,15 @@
 #include "DialogJoinGame.h"
 #include "DialogListGames.h"
 #include "../../ui_dialogjoingame.h"
+#include "../../Common/Protocol.h"
 
-DialogJoinGame::DialogJoinGame(DialogListGames *listGames, QWidget *parent) :
+DialogJoinGame::DialogJoinGame(
+        Socket &clientSocket,
+        DialogListGames *listGames, 
+        QWidget *parent) :
     QDialog(parent),
     ui(new Ui::DialogJoinGame),
+    clientSocket(clientSocket),
     listGames(listGames)
 {
     ui->setupUi(this);
@@ -26,10 +31,17 @@ void DialogJoinGame::on_pushButton_clicked()
 
     ui->txt_gameName->setDisabled(true);
     ui->pushButton->setDisabled(true);
+
+    Protocol protocol(this->clientSocket);
+    protocol.sendMessage("UNIR " + qtGameName.toStdString());
+
     ui->infoClientConnected->setText("Conectado, aguardando jugadores..");
+    
+    std::string reply = protocol.reciveMessage();
 
-
-    //Cerramos todo.
-    this->listGames->close();
-    this->close();
+    if (reply == "start!") {
+        //Cerramos todo.
+        this->listGames->close();
+        this->close();
+    }
 }

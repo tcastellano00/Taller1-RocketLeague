@@ -3,9 +3,13 @@
 
 #include "../../ui_lobbyform.h"
 
-LobbyForm::LobbyForm(std::string& clientName, QWidget *parent)
+LobbyForm::LobbyForm(
+    Socket &clientSocket,
+    std::string& clientName, 
+    QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::LobbyForm)
+    , clientSocket(clientSocket)
     , clientName(clientName)
 {
     ui->setupUi(this);
@@ -29,7 +33,7 @@ void LobbyForm::on_pushButton_clicked()
 
     this->hide();
 
-    DialogListGames listGames(this->clientName);
+    DialogListGames listGames(this->clientSocket, this->clientName);
     listGames.setModal(true);
     listGames.exec();
 }
