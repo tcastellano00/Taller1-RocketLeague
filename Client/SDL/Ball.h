@@ -5,6 +5,9 @@
 #include "../../Common/Model/PlayerModel.h"
 #include "../../Common/Model/BallModel.h"
 #include <string>
+#include "CoordsTransformator.h"
+#include "../../Common/Config/ServerConfig.h"
+
 
 
 class Ball{
@@ -18,6 +21,8 @@ class Ball{
     bool finishedExplosion;
     float explosionX;
     float explosionY;
+
+    float BALLRADIUS = CoordsTransformator::transformX(ServerConfig::getBallRadius());
 
 
     public:

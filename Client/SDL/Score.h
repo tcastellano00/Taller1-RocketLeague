@@ -6,6 +6,7 @@
 #include <list>
 #include "../../Common/Model/ScoreModel.h"
 #include <vector>
+#include "../../Common/Config/ClientConfig.h"
 
 class Score {
 private:
@@ -17,6 +18,21 @@ private:
     //Almacena las animacionesd e los numeros del 0 al 9, no acceder mas alla del 9 al vector porque da segfault
     std::vector<Animation> vectorNumberAnimations;
     Animation colon;
+    float SCREENWIDTH = ClientConfig::getScreenWidth();
+    float SCREENHEIGHT = SCREENWIDTH/3;
+    float NUMBERWIDTH = SCREENWIDTH/45;
+    float NUMBERHEIGHT = SCREENHEIGHT/10;
+    float NUMBERSPACE = SCREENWIDTH/360;
+    float FIRSTDIGITLEFTPOSX = SCREENWIDTH/2.3;
+    float FIRSTDIGITRIGHTPOSX = SCREENWIDTH/1.93;
+    float DIGITPOSY = SCREENHEIGHT/22.22;
+    float MINUTESPOSX = SCREENWIDTH/2.2;
+    float SECSPOSX = SCREENWIDTH/1.9;
+    float TIMEPOSY = SCREENHEIGHT/7.2;
+    float TIMEHEIGHT = SCREENHEIGHT/15;
+    float TIMEWIDTH = SCREENWIDTH/75;
+    float COLONPOSX = SCREENWIDTH/2.02;
+    
     
 public:
     Score(

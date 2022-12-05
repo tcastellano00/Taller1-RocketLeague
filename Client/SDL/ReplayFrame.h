@@ -3,12 +3,15 @@
 #include <SDL2pp/SDL2pp.hh>
 #include "Animation.h"
 #include <string>
-#define SCREENWIDTH 1800
-#define SCREENHEIGHT 600
+#include "../../Common/Config/ClientConfig.h"
+
 
 
 class ReplayFrame{
     Animation an;
+
+    float SCREENWIDTH = ClientConfig::getScreenWidth();
+    float SCREENHEIGHT = SCREENWIDTH/3;
 
     public:
     ReplayFrame(SDL2pp::Texture &texture);

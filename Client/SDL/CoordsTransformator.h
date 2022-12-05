@@ -1,3 +1,6 @@
+#ifndef COORDS_TRANSFORMATOR_H
+#define COORDS_TRANSFORMATOR_H
+
 class CoordsTransformator {
 public:
     static float transformX(float x);
@@ -5,3 +8,5 @@ public:
     static float radianToDegree(float angle);
     
 };
+
+#endif

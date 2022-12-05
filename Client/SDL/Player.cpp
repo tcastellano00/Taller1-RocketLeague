@@ -1,5 +1,5 @@
 #include "Player.h"
-#include "CoordsTransformator.h"
+
 #include <iostream>
 
 Player::Player(SDL2pp::Texture &textureCar, SDL2pp::Texture &textureTurbo, SDL2pp::Texture &textureTurboBarEmpty, SDL2pp::Texture &textureTurboBarFull) : 
@@ -50,7 +50,7 @@ void Player::render(SDL2pp::Renderer &renderer, int i) {
     if (not turbo) 
         anCar.render(renderer, SDL2pp::Rect(x, y, CAR_WIDTH, CAR_HEIGHT), flip, angle);
     else
-        anTurbo.render(renderer, SDL2pp::Rect(x - 50, y, CAR_WIDTH + 50, CAR_HEIGHT), flip, angle);
+        anTurbo.render(renderer, SDL2pp::Rect(x - CAR_WIDTH/2, y, CAR_WIDTH + CAR_WIDTH/2, CAR_HEIGHT), flip, angle);
     
     flip = SDL_FLIP_NONE;
     if (i == 0) {

@@ -16,6 +16,7 @@ ClientConfig* ClientConfig::getInstance() {
     return clientConfig;
 }
 
+
 int ClientConfig::getScreenWidth() {
     return getInstance()->rootNode["SCREEN_WIDTH"].as<int>();
 }

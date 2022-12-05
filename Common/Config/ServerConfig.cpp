@@ -16,6 +16,10 @@ ServerConfig* ServerConfig::getInstance() {
     return serverConfig;
 }
 
+float ServerConfig::getMaxTurbo() {
+    return getInstance()->rootNode["MAX_TURBO"].as<float>();
+}
+
 float ServerConfig::getGravity() {
     return getInstance()->rootNode["GRAVITY"].as<float>();
 }

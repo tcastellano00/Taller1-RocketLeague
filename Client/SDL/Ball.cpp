@@ -13,7 +13,7 @@ void Ball::render(SDL2pp::Renderer &renderer, bool isInExplosion){
     if (isInExplosion) {
         
         if (!finishedExplosion) {
-            anExplosion.render(renderer, SDL2pp::Rect(explosionX-50, explosionY-50, 150, 150),flip, angle);
+            anExplosion.render(renderer, SDL2pp::Rect(explosionX-BALLRADIUS, explosionY-BALLRADIUS, BALLRADIUS*3, BALLRADIUS*3),flip, angle);
         }
         
     } else {
@@ -28,7 +28,7 @@ void Ball::render(SDL2pp::Renderer &renderer, bool isInExplosion){
         } else if (colour == "red") {
             anBall.getTexture().SetColorMod(255, 0, 0); 
         }
-        anBall.render(renderer, SDL2pp::Rect(x, y, 100, 100),flip, angle);
+        anBall.render(renderer, SDL2pp::Rect(x, y, BALLRADIUS*2, BALLRADIUS*2),flip, angle);
     }
 
    

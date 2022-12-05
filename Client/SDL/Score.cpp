@@ -1,17 +1,6 @@
 #include "Score.h"
 #include "DigitSeparator.h"
-#define NUMBERWIDTH 40
-#define NUMBERHEIGHT 60
-#define NUMBERSPACE 5
-#define FIRSTDIGITLEFTPOSX 780
-#define FIRSTDIGITRIGHTPOSX 930
-#define DIGITPOSY 27
-#define MINUTESPOSX 810
-#define SECSPOSX 950
-#define TIMEPOSY 83
-#define TIMEHEIGHT 40
-#define TIMEWIDTH 24
-#define COLONPOSX 890
+
 
 
 #include <iostream>

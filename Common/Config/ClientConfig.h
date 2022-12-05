@@ -1,3 +1,6 @@
+#ifndef CLIENT_CONFIG_H
+#define CLIENT_CONFIG_H
+
 #include <string>
 #include <yaml-cpp/yaml.h>
 
@@ -34,3 +37,5 @@ public:
     void operator=(ClientConfig const&) = delete;
     ~ClientConfig() = default;
 };
+
+#endif

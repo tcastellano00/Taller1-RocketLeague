@@ -3,17 +3,13 @@
 
 #include <SDL2pp/SDL2pp.hh>
 #include "Animation.h"
+#include "CoordsTransformator.h"
 #include "../../Common/Model/PlayerModel.h"
+#include "../../Common/Config/ServerConfig.h"
+#include "../../Common/Config/ClientConfig.h"
 
-#define CAR_WIDTH 110
-#define CAR_HEIGHT 30
-#define MAXTURBO 50.0
-#define TURBOBARX 200
-#define TURBOBARY 27
-#define TURBOBARHEIGHT 30
-#define TURBOBARWIDTH  100
-#define SCREENWIDTH 1800
-#define SCREENHEIGHT 600
+
+
 
 class Player {
 public:
@@ -34,6 +30,16 @@ private:
     float angle;
     bool turbo;
     int turboRemaining;
+
+    float SCREENWIDTH = ClientConfig::getScreenWidth();
+    float SCREENHEIGHT = SCREENWIDTH/3;
+    float CAR_WIDTH = CoordsTransformator::transformX(ServerConfig::getCarHalfWidth()*2);
+    float CAR_HEIGHT = CoordsTransformator::transformX(ServerConfig::getCarHalfHeight()*2); 
+    float MAXTURBO = ServerConfig::getMaxTurbo();
+    float TURBOBARX = SCREENWIDTH/9;
+    float TURBOBARY = SCREENHEIGHT/20;
+    float TURBOBARHEIGHT = SCREENHEIGHT/20;
+    float TURBOBARWIDTH  =SCREENWIDTH/18;
 
 };
 

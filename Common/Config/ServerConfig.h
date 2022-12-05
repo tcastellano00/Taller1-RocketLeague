@@ -19,6 +19,7 @@ public:
     ServerConfig(ServerConfig &other) = delete;
     void operator=(ServerConfig const&) = delete;
     
+    static float getMaxTurbo();
     
     static float getGameTime();
     static float getExtraTime();
