@@ -128,3 +128,7 @@ float ServerConfig::getSpecialShotTime() {
 float ServerConfig::getRotationAngularVelocity(){
     return getInstance()->rootNode["ROTATION_ANGULAR_VELOCITY"].as<float>();
 }
+
+float ServerConfig::getPi() {
+    return getInstance()->rootNode["PI"].as<float>();
+}

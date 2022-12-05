@@ -52,6 +52,8 @@ public:
     static float getSpecialShotTime();
     static float getRotationAngularVelocity();
 
+    static float getPi();
+
     ~ServerConfig() = default;
 };
 

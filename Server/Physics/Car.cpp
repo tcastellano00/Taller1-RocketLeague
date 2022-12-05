@@ -2,10 +2,7 @@
 #include <cmath>
 #include "EntityCategory.h"
 #include <iostream>
-#define FLIPIMPULSE 3000
-#define PI  3.14159265358979323846
-#define FLIPANGULARVEL PI*2
-#define MAXTURBO 50 //dos segundos de turbo
+
 
 CarPhysics::CarPhysics(int cltId,b2World& world, int numberOfCar){
     this->clientId = cltId;

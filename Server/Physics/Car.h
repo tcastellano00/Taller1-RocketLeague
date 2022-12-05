@@ -68,6 +68,11 @@ private:
     float TURBOFORCE = ServerConfig::getTurboForce();
     float JUMPIMPULSE = ServerConfig::getJumpImpulse();
     float ROTATIONANGULARVELOCITY = ServerConfig::getRotationAngularVelocity();
+    float FLIPIMPULSE = ServerConfig::getFlipImpulse();
+    float FLIPANGULARVEL = ServerConfig::getFlipAngularVel();
+    float PI = ServerConfig::getPi();
+
+    float MAXTURBO = ServerConfig::getMaxTurbo();
 
 
 public:
