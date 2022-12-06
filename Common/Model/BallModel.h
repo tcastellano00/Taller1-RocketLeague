@@ -8,17 +8,20 @@ private:
     float y;
     float angle;
     std::string colour;
+    bool contactWithBox;
 
 
 public:
     BallModel();
-    BallModel(float xCoord, float yCoord, float ang, std::string colour);
+    BallModel(float xCoord, float yCoord, float ang, std::string colour,bool contactWithBox);
     //void moveRight();
     //void moveLeft();
     float getCoordX();
     float getCoordY();
     float getAngle();
     std::string getColour();
+
+    bool getContactWithBox();
 
     ~BallModel();
 };

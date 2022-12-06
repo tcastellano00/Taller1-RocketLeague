@@ -63,6 +63,28 @@ bool ContactListener::getCarContactWithBox(b2Contact* contact, CarPhysics*& car)
 
 }
 
+bool ContactListener::getBallContactWithBox(b2Contact* contact, BallPhysics*& ball){
+    b2Fixture* fixtureA = contact->GetFixtureA();
+    b2Fixture* fixtureB = contact->GetFixtureB();
+
+    bool match1 =  fixtureA->GetFilterData().categoryBits == BALL && fixtureB->GetFilterData().categoryBits == BOUNDARY;
+    bool match2 = fixtureA->GetFilterData().categoryBits == BOUNDARY && fixtureB->GetFilterData().categoryBits == BALL;
+    
+    if (!(match1 || match2)){
+        return false;
+    }
+
+    BallPhysics* ballEntity;
+    if (fixtureA->GetFilterData().categoryBits == BALL) {//fixtureA is the ball
+        ballEntity = static_cast<BallPhysics*>(fixtureA->GetBody()->GetUserData());
+    } else { //fixtureB is the ball
+        ballEntity = static_cast<BallPhysics*>(fixtureB->GetBody()->GetUserData());
+    }
+
+    ball = ballEntity;
+    return true;
+}
+
 bool ContactListener::getCarSensorContactWithBall(b2Contact* contact, CarPhysics*& car, bool& isFrontSensor){
     b2Fixture* fixtureA = contact->GetFixtureA();
     b2Fixture* fixtureB = contact->GetFixtureB();
@@ -150,6 +172,9 @@ void ContactListener::BeginContact(b2Contact* contact) {
         
         return;
     }
+    if (this->getBallContactWithBox(contact,ball)){
+        ball->setContactWithBox(true);
+    }
     CarPhysics* car;
     if (this->getCarContactWithBox(contact, car)) {
         car->landed();
@@ -172,6 +197,7 @@ void ContactListener::BeginContact(b2Contact* contact) {
     }
 
     if (this->getCarContactWithBall(contact, car, ball)) {
+        ball->setContactWithBox(true);//para el sonido
         if (ball->getLastPlayerContact() == car) {
             return;
         }
@@ -188,6 +214,10 @@ void ContactListener::EndContact(b2Contact* contact) {
     BallPhysics* ball;
     if ( this->getGoalContactWithBall(contact, goal, ball) ) {
         //modelar termina el contacto
+    }
+
+    if(this->getBallContactWithBox(contact,ball)){
+        ball->setContactWithBox(false);
     }
     CarPhysics* car;
     if (this->getCarContactWithBox(contact, car)) {

@@ -3,13 +3,14 @@
 #include <iostream>
 
 Player::Player(SDL2pp::Texture &textureCar, SDL2pp::Texture &textureTurbo, SDL2pp::Texture &textureTurboBarEmpty, 
-    SDL2pp::Texture &textureTurboBarFull,SDL2pp::Texture &turnLeft,SDL2pp::Texture &turnRight) : 
+    SDL2pp::Texture &textureTurboBarFull,SDL2pp::Texture &turnLeft,SDL2pp::Texture &turnRight,SDL2pp::Texture &humo) : 
     anCar(textureCar, 1, 1), 
     anTurbo(textureTurbo, 1, 1),
     anTurboBarEmpty(textureTurboBarEmpty, 1, 1),
     anTurboBarFull(textureTurboBarFull, 1, 1),
     anTurnLeft(turnLeft,2,4),
     anTurnRight(turnRight,2,4),
+    anHumo(humo,5,6),
     facingLeft(false), 
     moving(false),
     turbo(false),
@@ -55,11 +56,17 @@ void Player::render(SDL2pp::Renderer &renderer, int i) {
     }
     
     
-    if (not turbo) 
+    if (not turbo){ 
         anCar.render(renderer, SDL2pp::Rect(x, y, CAR_WIDTH, CAR_HEIGHT), flip, angle);
-    else
+        }
+    else{
         anTurbo.render(renderer, SDL2pp::Rect(x - CAR_WIDTH/2, y, CAR_WIDTH + CAR_WIDTH/2, CAR_HEIGHT), flip, angle);
-
+        if(facingLeft){
+            anHumo.render(renderer,SDL2pp::Rect(x + CAR_WIDTH, y, CAR_WIDTH , CAR_HEIGHT), flip, angle);
+        }else{
+            anHumo.render(renderer,SDL2pp::Rect(x - CAR_WIDTH*2, y, CAR_WIDTH , CAR_HEIGHT), flip, angle);
+        }
+    }
     
     
     flip = SDL_FLIP_NONE;

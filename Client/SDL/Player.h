@@ -14,7 +14,7 @@
 class Player {
 public:
     Player(SDL2pp::Texture &textureCar, SDL2pp::Texture &textureTurbo, SDL2pp::Texture &textureTurboBarEmpty,
-    SDL2pp::Texture &textureTurboBarFull,SDL2pp::Texture &turnLeft,SDL2pp::Texture &turnRight);
+    SDL2pp::Texture &textureTurboBarFull,SDL2pp::Texture &turnLeft,SDL2pp::Texture &turnRight,SDL2pp::Texture &humo);
     ~Player();
     void update(PlayerModel playerModel, int dt);
     void render(SDL2pp::Renderer &renderer, int i);
@@ -26,6 +26,7 @@ private:
     Animation anTurboBarFull;
     Animation anTurnLeft;
     Animation anTurnRight;
+    Animation anHumo;
     bool facingLeft;
     bool moving;
     float x;

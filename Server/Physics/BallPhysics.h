@@ -22,6 +22,7 @@ private:
     void generateImpulse(float impulse);
     SpecialShot shotType;
     int specialShotTimer;
+    bool contactWithBox;
     
 
     //Id del cliente
@@ -61,6 +62,8 @@ public:
     void updateShotStatus();
 
     void updateLastPlayerContact(CarPhysics* newPlayer);
+
+    void setContactWithBox(bool isTouching);
 
     CarPhysics* getLastPlayerContact();
     CarPhysics* getPenultimatePlayerContact();

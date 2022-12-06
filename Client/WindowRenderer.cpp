@@ -102,6 +102,8 @@ void WindowRenderer::launch() {
             SDL2pp::Surface("assets/turnLeft.png").SetColorKey(true, 0));
         SDL2pp::Texture turnRight(renderer, 
             SDL2pp::Surface("assets/turnRight.png").SetColorKey(true, 0));
+        SDL2pp::Texture humoTurbo(renderer, 
+            SDL2pp::Surface("assets/humo.png").SetColorKey(true, 0));
 
 
         //Iniciamos el command reader.
@@ -134,7 +136,7 @@ void WindowRenderer::launch() {
         //Instanciamos a priori cuatro jugadores.
         std::list<Player> players;
         for (int i = 0; i < 4; i++) {
-            players.emplace_back(im, turbo, turboBarEmpty, turboBarFull,turnLeft,turnRight);
+            players.emplace_back(im, turbo, turboBarEmpty, turboBarFull,turnLeft,turnRight,humoTurbo);
         }
         
         std::string lastState("");
@@ -192,6 +194,12 @@ void WindowRenderer::launch() {
                 CommonConfig::getFrameTimeInMicroseconds(), 
                 gameStatusSnapshot.isInExplosion());
             ball.render(renderer,gameStatusSnapshot.isInExplosion());
+
+            if (gameStatusSnapshot.getBallModel().getContactWithBox()) {
+                backGroundMusic.bounceMusic();
+
+            }
+            
             backGroundMusic.explosionMusic(gameStatusSnapshot.isInExplosion());
 
             auto playerIter = players.begin();
@@ -202,7 +210,6 @@ void WindowRenderer::launch() {
                 playerIter->render(renderer, i);
                 ++playerIter;
                 ++i;
-                std::cout <<  playerModel->getName() << "goals: " << playerModel->getGoals() << "assists: " << playerModel->getAssists() << std::endl;
             }
 
             if (isInReplay) {

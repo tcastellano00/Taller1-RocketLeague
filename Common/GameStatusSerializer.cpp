@@ -43,6 +43,9 @@ std::string GameStatusSerializer::serialize(GameStatus gameStatus) {
     ss << scoreModel.getGoalsFirstTeam() << " ";
     ss << scoreModel.getGoalsSecondTeam() << " ";
 
+    if(ballModel.getContactWithBox()){ss << "isTouching" << " ";}else{
+        ss << "notTouching" << " ";
+    }
     ss << ballModel.getCoordX() << " ";
     ss << ballModel.getCoordY() << " ";
     ss << ballModel.getAngle() << " ";
@@ -121,15 +124,24 @@ GameStatus GameStatusSerializer::deserialize(std::string gameStatusString) {
     ss >> goalsSecond;
     ScoreModel scoreModel(min, sec, milisec, goalsFirst, goalsSecond);
 
+
     float xCoordBall;
     float yCoordBall;
     float angleBoard;
     std::string colour;
+
+    bool touchingBox;
+    std::string touchingBoxStr;
+    ss >> touchingBoxStr;
+
+    if(touchingBoxStr == "isTouching"){touchingBox = true;}else{
+        touchingBox = false;
+    }
     ss >> xCoordBall;
     ss >> yCoordBall;
     ss >> angleBoard;
     ss >> colour;
-    BallModel ballModel(xCoordBall, yCoordBall, angleBoard, colour);
+    BallModel ballModel(xCoordBall, yCoordBall, angleBoard, colour,touchingBox);
     
     for (int i = 0; i < numPlayers; ++i) {
         //std::string name;

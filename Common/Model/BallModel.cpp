@@ -2,11 +2,12 @@
 
 BallModel::BallModel() : x(370), y(400), angle(0), colour("") {}
 
-BallModel::BallModel(float xCoord, float yCoord, float ang, std::string col) {
+BallModel::BallModel(float xCoord, float yCoord, float ang, std::string col,bool contact) {
     x = xCoord;
     y = yCoord;
     angle = ang;
     colour = col;
+    contactWithBox = contact;
 }
 
 BallModel::~BallModel(){}
@@ -24,4 +25,7 @@ float BallModel::getAngle() {
 
 std::string BallModel::getColour() {
     return colour;
+}
+bool BallModel::getContactWithBox(){
+    return contactWithBox;
 }

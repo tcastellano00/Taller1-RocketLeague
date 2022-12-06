@@ -21,6 +21,8 @@ class BackGroundMusic{
     SDL2pp::Chunk explosionChunk;
     SDL2pp::Chunk jumpChunk;
     SDL2pp::Chunk turboChunk;
+    SDL2pp::Chunk bounceChunk;
+
 
     public:
 
@@ -53,6 +55,9 @@ class BackGroundMusic{
 
     //Sonido de la explosion.
     void explosionMusic(bool isInExplosion);
+
+    void bounceMusic();
+
     ~BackGroundMusic() = default;
 };
 

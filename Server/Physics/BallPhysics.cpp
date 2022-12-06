@@ -22,6 +22,7 @@ BallPhysics::BallPhysics(b2World &world) {
 
     this->lastPLayerContact = nullptr;
     this->penultimatePlayerContact = nullptr;
+    this->contactWithBox = false;
     // this->lastPLayerContact = 0;
     // this->penultimatePlayerContact = 0;
 }
@@ -117,7 +118,7 @@ BallModel BallPhysics::getModel(){
         }
     }
 
-    BallModel bm(ballCoordX, ballCoordY, this->ballBody->GetAngle() * (-1), colour);
+    BallModel bm(ballCoordX, ballCoordY, this->ballBody->GetAngle() * (-1), colour, this->contactWithBox);
     return bm;
 
 }
@@ -135,4 +136,7 @@ CarPhysics* BallPhysics::getLastPlayerContact(){
 
 CarPhysics* BallPhysics::getPenultimatePlayerContact(){
     return this->penultimatePlayerContact;
+}
+void BallPhysics::setContactWithBox(bool isTouching){
+    this->contactWithBox = isTouching;
 }

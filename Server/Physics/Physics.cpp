@@ -151,6 +151,7 @@ GameStatus Physics::getGameStatus(){
     newGameStatus.setCarJump(this->carJumping);
 
     this->carJumping = false;
+    this->ball->setContactWithBox(false);
 
     return newGameStatus;
 }

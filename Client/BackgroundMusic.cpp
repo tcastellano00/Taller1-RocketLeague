@@ -3,7 +3,7 @@
 
 BackGroundMusic::BackGroundMusic(SDL2pp::Mixer &newmixer): mixer(newmixer),backGround0("music/background.ogg"),
     backGround1("music/background2.ogg"),explosionChunk("music/explosion.ogg"),
-    jumpChunk("music/jump.ogg"), turboChunk("music/turboSound.ogg"){
+    jumpChunk("music/jump.ogg"), turboChunk("music/turboSound.ogg"),bounceChunk("music/bounce.ogg"){
     this->isPlayingMusic = true;
     this->isPlayingTurboSound = false;
     this->channel = 1;
@@ -66,4 +66,8 @@ bool BackGroundMusic::getIsPlayingTurbo() {
 void BackGroundMusic::stopTurboSound() {
     mixer.HaltChannel(turboChannel);
     this->isPlayingTurboSound = false;
+}
+
+void BackGroundMusic::bounceMusic(){
+    mixer.PlayChannel(-1, bounceChunk);
 }
