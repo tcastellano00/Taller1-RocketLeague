@@ -11,16 +11,12 @@
 #include "ThreadClientReceiver.h"
 
 #include <list>
-#include <chrono>
-#include <unistd.h>
-
-#define LIMITOFCOMANDS 10
-#define DELTA CommonConfig::getFrameTimeInMicroseconds()
-
-typedef std::chrono::high_resolution_clock Clock;
 
 
-class Gameloop : public Thread {
+
+
+
+class GameloopRunner : public Thread {
 
 private:
     BlockingQueue<GameStatus> senderQueue;
@@ -28,14 +24,11 @@ private:
     std::list <ThreadClientReceiver> clientThreadReceiver;
     std::list <ClientConnection> connectionList;
     bool isRunning;
+    bool isThreadRunning;
 
-    void synchronizeFrameRate(
-        std::chrono::_V2::system_clock::time_point timeStart,
-        std::chrono::_V2::system_clock::time_point timeFinish
-    );
 
 public:
-    Gameloop();
+    GameloopRunner();
 
     void run() override;
 
@@ -45,7 +38,7 @@ public:
     /*
     * Libera los recursos.
     * */
-    ~Gameloop();
+    ~GameloopRunner();
 };
 
 #endif

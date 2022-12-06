@@ -4,7 +4,7 @@
 #include <list>
 #include <string>
 
-#include "../Threads/Gameloop.h"
+#include "../Threads/GameloopRunner.h"
 #include "../ClientConnection.h"
 
 class Game {
@@ -14,7 +14,7 @@ private:
     int clients;
     std::list<ClientConnection> connections;
     bool started;
-    Gameloop gameLoop;
+    GameloopRunner gameloopRunner;
 
 public:
 

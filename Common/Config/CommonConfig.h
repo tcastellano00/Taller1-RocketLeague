@@ -1,3 +1,6 @@
+#ifndef COMMON_CONFIG_H
+#define COMMON_CONFIG_H
+
 #include <string>
 #include <yaml-cpp/yaml.h>
 
@@ -19,3 +22,5 @@ public:
     void operator=(CommonConfig const&) = delete;
     ~CommonConfig() = default;
 };
+
+#endif
