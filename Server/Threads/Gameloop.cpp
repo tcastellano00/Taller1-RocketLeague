@@ -59,7 +59,7 @@ void Gameloop::run() {
             gamePhysics.simulateTimeStep();
         }
 
-        GameStatus gameStatus = gamePhysics.getGameStatus(); //Creemos que hay que moverlo para despues del simulateTimeStep
+        GameStatus gameStatus = gamePhysics.getGameStatus();
 
         senderQueue.push(gameStatus);
 

@@ -11,10 +11,14 @@ private:
     bool turbo;
     std::string facing;
     int turboRemaining;
+    std::string name;
+    int goals;
+    int assists;
 
 public:
     PlayerModel();
-    PlayerModel(int cltId,float xCoord, float yCoord, float ang, bool turbo, std::string facing, int turboRem);
+    PlayerModel(int cltId,float xCoord, float yCoord, float ang, bool turbo, std::string facing,
+    int turboRem,std::string name,int goals,int assists);
 
     float getCoordX();
     float getCoordY();
@@ -23,6 +27,9 @@ public:
     bool isDoingTurbo();
     int getTurboRemaining();
     int getClientId();
+    std::string getName();
+    int getGoals();
+    int getAssists();
 
     ~PlayerModel();
 };

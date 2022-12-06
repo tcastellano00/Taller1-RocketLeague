@@ -12,6 +12,7 @@ BackGroundMusic::BackGroundMusic(SDL2pp::Mixer &newmixer): mixer(newmixer),backG
     this->volume = mixer.SetVolume(1,1);
 }
 
+
 void BackGroundMusic::changeMusic(){
     std::cout << actualMusic << std::endl;
     actualMusic = (actualMusic + 1)%2;
@@ -38,15 +39,19 @@ bool BackGroundMusic::getIsPlayingMusic(){
     return isPlayingMusic;
 }
 
+
+
 void BackGroundMusic::explosionMusic(bool isInExplosion){
     if(isInExplosion && mixer.IsChannelPlaying(2) == 0){
         mixer.SetVolume(2,10);
         mixer.PlayChannel(2, explosionChunk);}
 }
 
+
 void BackGroundMusic::jumpSound(){
     mixer.PlayChannel(-1, jumpChunk);
 }
+
 
 void BackGroundMusic::turboSound() {
     turboChannel = mixer.PlayChannel(-1, turboChunk, -1);

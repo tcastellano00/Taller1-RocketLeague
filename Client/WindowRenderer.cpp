@@ -202,6 +202,7 @@ void WindowRenderer::launch() {
                 playerIter->render(renderer, i);
                 ++playerIter;
                 ++i;
+                std::cout <<  playerModel->getName() << "goals: " << playerModel->getGoals() << "assists: " << playerModel->getAssists() << std::endl;
             }
 
             if (isInReplay) {

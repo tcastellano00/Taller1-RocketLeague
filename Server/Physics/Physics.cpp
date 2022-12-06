@@ -142,6 +142,8 @@ GameStatus Physics::getGameStatus(){
             newGameStatus.setClose();
         }
     }
+
+
     
 
     newGameStatus.setReplay(this->isInReplay && !this->skipRep);

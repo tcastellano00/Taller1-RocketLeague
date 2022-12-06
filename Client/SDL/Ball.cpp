@@ -12,7 +12,6 @@ void Ball::render(SDL2pp::Renderer &renderer, bool isInExplosion){
     
     if (isInExplosion) {
         if (!finishedExplosion) {
-            contador++;
             anExplosion.render(renderer, SDL2pp::Rect(explosionX-BALLRADIUS, explosionY-BALLRADIUS, BALLRADIUS*3, BALLRADIUS*3),flip, 0);
         }
         
@@ -30,8 +29,6 @@ void Ball::render(SDL2pp::Renderer &renderer, bool isInExplosion){
         }
         anBall.render(renderer, SDL2pp::Rect(x, y, BALLRADIUS*2, BALLRADIUS*2),flip, angle);
     }
-
-    std::cout  << contador << std::endl;
 
    
     
