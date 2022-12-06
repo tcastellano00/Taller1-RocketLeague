@@ -88,6 +88,10 @@ void WindowRenderer::launch() {
             SDL2pp::Surface("assets/Numbers/nine.png").SetColorKey(true, 0));
         SDL2pp::Texture colon(renderer, 
             SDL2pp::Surface("assets/Numbers/colon.png").SetColorKey(true, 0));
+        SDL2pp::Texture scoreTexture(renderer, 
+            SDL2pp::Surface("assets/score.png").SetColorKey(true, 0));
+
+
         SDL2pp::Texture turbo(renderer, 
             SDL2pp::Surface("assets/turbo_car.png").SetColorKey(true, 0));
         SDL2pp::Texture turboBarEmpty(renderer, 
@@ -124,7 +128,8 @@ void WindowRenderer::launch() {
             sevenTexture,
             eightTexture,
             nineTexture,
-            colon
+            colon,
+            scoreTexture
         );
 
         Scene scene(backgroud,wallsAndScore);

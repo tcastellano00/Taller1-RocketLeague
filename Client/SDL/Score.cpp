@@ -16,7 +16,8 @@ Score::Score(
         SDL2pp::Texture &sevenTexture,
         SDL2pp::Texture &eightTexture,
         SDL2pp::Texture &nineTexture,
-        SDL2pp::Texture &colon): colon(colon, 1, 1) {
+        SDL2pp::Texture &colon,
+        SDL2pp::Texture &scoreTexture): colon(colon, 1, 1), anScoreBox(scoreTexture, 1, 1) {
             vectorNumberAnimations.emplace_back(zeroTexture, 1, 1);
             vectorNumberAnimations.emplace_back(oneTexture, 1, 1);
             vectorNumberAnimations.emplace_back(twoTexture, 1, 1);
@@ -44,6 +45,7 @@ void Score::update(ScoreModel scoreModel, int dt) {
         vectorNumberAnimations[i].update(dt);
     }
     colon.update(dt);
+    anScoreBox.update(dt);
 
 }
 
@@ -53,6 +55,9 @@ void Score::render(SDL2pp::Renderer &renderer){
 
     //vectorNumberAnimations[this->numberOfGoalsLeft].render(renderer, SDL2pp::Rect(810, 30, 40, 60),flip, 0);
     //vectorNumberAnimations[this->numberOfGoalsRight].render(renderer, SDL2pp::Rect(960, 30, 40, 60),flip, 0);
+
+
+    anScoreBox.render(renderer, SDL2pp::Rect(FIRSTDIGITLEFTPOSX  - NUMBERWIDTH/4, DIGITPOSY - NUMBERHEIGHT/4, NUMBERWIDTH*7, NUMBERHEIGHT*2), flip, 0);
 
     std::vector<int> digitsGoalsLeft(DigitSeparator::getVectorOfDigits(numberOfGoalsLeft));
     for (int i = 0; i < (int)digitsGoalsLeft.size(); ++i) {

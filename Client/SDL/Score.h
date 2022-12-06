@@ -21,6 +21,7 @@ private:
     //Almacena las animacionesd e los numeros del 0 al 9, no acceder mas alla del 9 al vector porque da segfault
     std::vector<Animation> vectorNumberAnimations;
     Animation colon;
+    Animation anScoreBox;
     float SCREENWIDTH = ClientConfig::getScreenWidth();
     float SCREENHEIGHT = SCREENWIDTH/3;
     float NUMBERWIDTH = SCREENWIDTH/45;
@@ -49,7 +50,9 @@ public:
         SDL2pp::Texture &sevenTexture,
         SDL2pp::Texture &eightTexture,
         SDL2pp::Texture &nineTexture,
-        SDL2pp::Texture &colon
+        SDL2pp::Texture &colon,
+        SDL2pp::Texture &scoreTexture
+
     );
 
     void update(ScoreModel scoreModel, int dt);
