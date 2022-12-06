@@ -1,4 +1,5 @@
 #include "BackGroundMusic.h"
+#include <iostream>
 
 
 BackGroundMusic::BackGroundMusic(SDL2pp::Mixer &newmixer): mixer(newmixer),backGround0("music/background.ogg"),
@@ -49,6 +50,7 @@ void BackGroundMusic::explosionMusic(bool isInExplosion){
 
 
 void BackGroundMusic::jumpSound(){
+    if (mixer.IsChannelPlaying(-1) >= mixer.GetNumChannels()) {return;}
     mixer.PlayChannel(-1, jumpChunk);
 }
 
@@ -69,5 +71,6 @@ void BackGroundMusic::stopTurboSound() {
 }
 
 void BackGroundMusic::bounceMusic(){
+    if (mixer.IsChannelPlaying(-1) >= mixer.GetNumChannels()) {return;}
     mixer.PlayChannel(-1, bounceChunk);
 }

@@ -51,9 +51,6 @@ void Ball::update(BallModel ballModel, int dt,bool isInExplosion) {
         bool endedExplosion = anExplosion.update(dt);
         if (endedExplosion) {
             this->finishedExplosion = true;
-            std::cout << "termino: SI" << std::endl;
-        } else {
-            std::cout << "termino: NO" << std::endl;
         }
     } else {
         this->explosionX = this->x;
