@@ -19,7 +19,7 @@ Physics::Physics(std::list<ClientConnection>& connections): world(b2Vec2(0.0f, G
     int numberOfCar = 0;
     for (auto connection = connections.begin(); connection != connections.end(); ++connection) {
         int clientId = (*connection).getId();
-        cars[clientId] = new CarPhysics(clientId,world, numberOfCar);
+        cars[clientId] = new CarPhysics(clientId, (*connection).getName(), world, numberOfCar);
         numberOfCar++;
     }
     BoxPhysics box(this->world);
@@ -54,7 +54,18 @@ void Physics::carStopAccelerating(int clientId) {
 void Physics::carJump(int clientId) {
 
     CarPhysics* car = this->cars[clientId];
-    carJumping = car->jump(this->ball); 
+    MakeShot makeShot = DONTMAKESHOT;
+    carJumping = car->jump(makeShot);
+
+    int sideMultiplicator = (car->getSide() == LEFTPLAYER) ? 1 : -1;
+
+    if (makeShot == MAKEGOLDSHOT) {
+        ball->goldShot(sideMultiplicator);
+    } else if (makeShot == MAKEREDSHOT) {
+        ball->redShot(sideMultiplicator);
+    } else if (makeShot == MAKEPURPLESHOT) {
+        ball->purpleShot(sideMultiplicator);
+    }
 }
 
 void Physics::flipCarRight(int clientId) {
@@ -86,12 +97,23 @@ GameStatus Physics::getGameStatus(){
     GameStatus newGameStatus;
 
     std::list<PlayerModel> playerModels;
+
+    bool skip = true;
+
     for (std::map<int, CarPhysics*>::iterator it = this->cars.begin(); it != this->cars.end(); ++it) {
         PlayerModel pm = it->second->getPlayerModel();
         playerModels.push_back(pm);
 
+        // std::cout << "Asistencias de " << it->second->getName() << ": " << it->second->getPlayerAssists() << std::endl;
+        // std::cout << "Goles de " << it->second->getName() << ": " << it->second->getGoalsScored() << std::endl;
+
+        skip = skip && it->second->getSkipReplay();
+
 
     }
+
+    this->skipRep = skip;
+
     newGameStatus.setPlayersModels(playerModels);
     newGameStatus.setBallModel(this->ball->getModel());
 
@@ -121,8 +143,14 @@ GameStatus Physics::getGameStatus(){
         }
     }
 
+    if (this->skipRep) {
+        std::cout << "skipRep: true" << std::endl;
+    } else {
+        std::cout << "skipRep: false" << std::endl;
+    }
+    
 
-    newGameStatus.setReplay(this->isInReplay);
+    newGameStatus.setReplay(this->isInReplay && !this->skipRep);
     newGameStatus.setInExplosion(this->isInExplosion);
     newGameStatus.setCarJump(this->carJumping);
 
@@ -180,7 +208,7 @@ void Physics::applyExplosion(){
     for (b2Body* body = world.GetBodyList(); body; body = body->GetNext())
     {
         if (body == this->ball->getBody()){continue;}
-        body->ApplyLinearImpulse( b2Vec2(-1000000000000000,0), body->GetWorldCenter(),true );
+        body->ApplyLinearImpulse( b2Vec2(-1000000000000000,0), body->GetWorldCenter(),true ); //Cambiar esto
     }
 }
 
@@ -236,9 +264,14 @@ void Physics::updateReplayStaus() {
     //Tiempo en milisegundos que demora un frame.
     this->currentTimeOfReplay += 1000.0f / CommonConfig::getFrameRate();
 
-    if (this->currentTimeOfReplay >= REPLAYTIME) {
+    if (this->currentTimeOfReplay >= REPLAYTIME || this->skipRep) {
         this->currentTimeOfReplay = 0;
         this->setIsInReplay(false);
+        this->skipRep = false;
+        for (std::map<int, CarPhysics*>::iterator it = this->cars.begin(); it != this->cars.end(); ++it) {
+            it->second->setSkipReplay(false);
+        }
+        
     }
 }
 
@@ -307,6 +340,11 @@ void Physics::doPurpleShot(int clientId) {
     } else {
         ball->purpleShot(-1);
     }
+}
+
+void Physics::playerSetSkipReplay(int clientId) {
+    CarPhysics* car = this->cars[clientId];
+    car->setSkipReplay(true);
 }
 
 Physics::~Physics() {

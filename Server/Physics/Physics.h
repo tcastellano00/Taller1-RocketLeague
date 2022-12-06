@@ -35,6 +35,7 @@ class Physics{
     GoalSensor* createGoal(SideOfGoal side);
 
     bool isInReplay = false;
+    bool skipRep = false;
     bool isInExplosion = false;
     bool carJumping = false;
     int currentTimeOfReplay = 0;
@@ -104,6 +105,10 @@ class Physics{
 
     void applyExplosion();
     void applyBlastImpulse(b2Body* body, b2Vec2 blastCenter, b2Vec2 applyPoint, float blastPower);
+
+    void playerSetSkipReplay(int clientId);
+
+
 
     ~Physics();
 };
