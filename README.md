@@ -126,18 +126,21 @@ Si te pasa la fisica nos avala para decir que no entro en su totalidad
 | -------------- | ------ |
 | t | Turbo |
 | space | Salto / Doble Salto / Flip  |
-| → | Avanzar a la derecha  |
-| ←	 | Avanzar a la izquierda  |
-| ↑ | Rotar antohorario |
-| ↓ | Rotar horario  |
+| ↑ | Avanzar hacia adelante  |
+| ↓ | Avanzar hacia atras  |
+| ← | Rotar antohorario |
+| → | Rotar horario  |
 | R | Pasar la repeticion |
 | M | Mutear y desmutear la musica de fondo  |
 | N | Reproduce el siguiente tema de fondo  |
+| S | Cambiar direccion  |
 
 ## Acciones especiales
 
 ### Doble salto
 Estando en el aire y sin estar presionando las teclas de avanzar para los costados, tocar space para realizar un segundo impulso hacia arriba.
+
+![](https://github.com/tcastellano00/Taller1-RocketLeague/blob/main/READMEMultimedia/doubleJump.mp4)
 
 ### Flip
 Estando en el aire y mientras se esta presionando una tecla de avanzar hacia algun costado, tocar space para realizar un flip hacia ese lado.
@@ -145,9 +148,19 @@ Estando en el aire y mientras se esta presionando una tecla de avanzar hacia alg
 ### Red Shot
 Estando cerca de la pelota y de frente a ella, realizar un flip en la direccion de la pelota.
 
+![](https://github.com/tcastellano00/Taller1-RocketLeague/blob/main/READMEMultimedia/redShot.mp4)
+
 ### Gold Shot
 Estando cerca de la pelota pero mirando en direccion contraria a ella, realizar un flip en la direccion contraria a la pelota.
 
+![](https://github.com/tcastellano00/Taller1-RocketLeague/blob/main/READMEMultimedia/goldShot.mp4)
+
 ### Purple Shot
 Estando cerca de la pelota, posicionar el auto de tal manera que las ruedas del mismo queden orientadas hacia la pelota. En esa posicion, tocar la tecla space.
+
+![](https://github.com/tcastellano00/Taller1-RocketLeague/blob/main/READMEMultimedia/purpleShot.mp4)
+
+### Turbo
+
+![](https://github.com/tcastellano00/Taller1-RocketLeague/blob/main/READMEMultimedia/turbo.mp4)
 
