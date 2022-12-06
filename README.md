@@ -103,26 +103,32 @@ Una vez los clientes se encuentren en el Lobby, deben ingresar su nombre para en
 ![](https://github.com/tcastellano00/Taller1-RocketLeague/blob/main/READMEMultimedia/lobby4.png)
 ![](https://github.com/tcastellano00/Taller1-RocketLeague/blob/main/READMEMultimedia/lobby5.png)
 ![](https://github.com/tcastellano00/Taller1-RocketLeague/blob/main/READMEMultimedia/lobby6.png)
-![](https://github.com/tcastellano00/Taller1-RocketLeague/blob/main/READMEMultimedia/lobby7.png)
-![](https://github.com/tcastellano00/Taller1-RocketLeague/blob/main/READMEMultimedia/lobby8.png)
+![Inicia el juego](https://github.com/tcastellano00/Taller1-RocketLeague/blob/main/READMEMultimedia/lobby7.png)
+![Estadisticas una vez terminado el partido](https://github.com/tcastellano00/Taller1-RocketLeague/blob/main/READMEMultimedia/lobby8.png)
 
 
 
 ## Reglas de la partida
-* La duracion de la partida es de 3 minutos (en el futuro, tiempo configurable).
+* La duracion de la partida es de 3 minutos por default. Si se desea se puede modificar este tiempo de duracion a gusto.
 * En caso de empatar, se otorgara una prorroga de 30 segundos. En caso de empatar de nuevo, se aplicara esta prorroga indefinidamente hasta que un equipo gane.
 * El ganador es el equipo con mas goles anotados al momento de finalizar la partida.
 * El gol es otorgado cuando la totalidad del esférico entra en el arco.
 
+![Si te pasa la fisica nos avala para decir que no entro en su totalidad](https://github.com/tcastellano00/Taller1-RocketLeague/blob/main/READMEMultimedia/lineaJapon.png)
+
+
 ## Controles
 | Tecla   | Accion |
 | -------------- | ------ |
-| t | turbo |
-| space | salto / doble salto / flip  |
-| → | avanzar a la derecha  |
-| ←	 | avanzar a la izquierda  |
-| ↑ | rotar antohorario |
-| ↓ | rotar horario  |
+| t | Turbo |
+| space | Salto / Doble Salto / Flip  |
+| → | Avanzar a la derecha  |
+| ←	 | Avanzar a la izquierda  |
+| ↑ | Rotar antohorario |
+| ↓ | Rotar horario  |
+| R | Pasar la repeticion |
+| M | Mutear y desmutear la musica de fondo  |
+| N | Reproduce el siguiente tema de fondo  |
 
 ## Acciones especiales
 
