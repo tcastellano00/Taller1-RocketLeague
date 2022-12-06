@@ -9,7 +9,3 @@ sudo rm -rf /usr/lib/librocket_league-common.so
 sudo rm -rf /usr/bin/assets
 sudo rm -rf /usr/bin/config
 sudo rm -rf /usr/bin/music
-
-cd build
-sudo make install -j4
-cd ..
