@@ -34,7 +34,6 @@ apt-get install libsdl2-dev
 apt-get install libsdl2-image-dev
 apt-get install SDL2_ttf-devel
 apt-get install SDL2_mixer-devel
-apt-get install libgtest-dev
 ```
 
 ## Instalación de CMake
@@ -74,22 +73,22 @@ Luego, si la ejecucion fue satisfactoria, ejecute el siguiente script.
 $ sh installer.sh
 ```
 
-Al finalizar la ejecucion, la aplicación se encontrara instalada en la carpeta /usr/local/bin, ingrese a esta carpeta.
+Al finalizar la ejecucion, la aplicación se encontrara instalada en la carpeta /usr/bin, ingrese a esta carpeta.
 
 ## Correr Server
 Una vez posicionado en la carpeta, abra una nueva consola y corra el siguiente comnado
 ```
-./rocket_league-server <Puerto>
+rocket_league-server <Puerto>
 ```
 
 ## Correr Cliente
 Luego, en la misma carpeta, abra otra consola y corra el siguiente comando
 ```
-./rocket_league <Servicio> <Puerto>
+rocket_league <Servicio> <Puerto>
 ```
 En caso de querer correrlo de manera local:
 ```
-./rocket_league localhost <Puerto>
+rocket_league localhost <Puerto>
 ```
 
 # In Game
