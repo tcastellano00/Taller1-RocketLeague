@@ -4,6 +4,11 @@
 #include <string>
 #include <yaml-cpp/yaml.h>
 
+/*
+Esta clase se utiliza para almacenar mediante el patron singleton la
+configuración comun al cliente y servidor. Todos sus atributos parametrizables, deben
+encontrarse aqui.
+*/
 class CommonConfig {
 private:
     static CommonConfig* commonConfig;

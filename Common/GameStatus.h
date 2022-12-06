@@ -8,8 +8,14 @@
 #include "Model/ScoreModel.h"
 #include "Model/BallModel.h"
 
-
+/*
+Esta clase representa el estado del mundo en un determinado instante,
+es muy utilizada tanto por el servidor como por el cliente, ya que el
+server esta continuamente enviado nuevos estados del mundo mientras el cliente
+esta continuamente dibujandolos
+*/
 class GameStatus{
+private:
     ScoreModel score;
     BallModel ball;
     bool closed;
@@ -18,21 +24,17 @@ class GameStatus{
     bool replay;
     bool inExplosion;
     bool carJump;
-
-
     PlayerModel player;
 
-    public:
-
-    std::string identificador;
-
-    
+public:
     GameStatus();
     GameStatus(
         BallModel& ball,
         ScoreModel& score,
         std::list<PlayerModel>& players
     );
+
+    std::string identificador;
 
     BallModel getBallModel();
     void setBallModel(BallModel ballModel);
@@ -55,7 +57,6 @@ class GameStatus{
 
     bool isInExplosion();
     void setInExplosion(bool expl);
-
 
     void setCarJump(bool jump);
     bool isJumping();

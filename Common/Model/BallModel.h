@@ -2,6 +2,11 @@
 #define CLIENT_BALL_MODEL_H
 #include <string>
 
+
+
+//Clase que contiene todos los datos de la pelota
+//cuya informacion es usada para mostrarla por pantalla
+//mientras es actualizada en la fisica del juego.
 class BallModel {
 private:
     float x;

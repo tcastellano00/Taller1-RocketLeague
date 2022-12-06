@@ -2,6 +2,12 @@
 #define CLIENT_PLAYER_MODEL_H
 #include <string>
 
+
+
+//Clase que contiene todos los datos del jugador(posicion,angulo
+//si hace turbo o no,para que lado mira el auto,etc)
+//cuya informacion es usada para mostrarla por pantalla
+//mientras es actualizada en la fisica del juego.
 class PlayerModel {
 private:
     int clientId;

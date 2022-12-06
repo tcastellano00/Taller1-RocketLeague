@@ -1,3 +1,6 @@
+//Constantes que representa el tipo de 
+//accion hecha por el cliente.
+
 #define START_JUMPING "jump"
 #define START_ACCELERATING_FORWARD "right"
 #define START_ACCELERATING_BACKWARDS "left"

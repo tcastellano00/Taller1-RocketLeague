@@ -6,6 +6,9 @@
 #include <iostream>
 #include <condition_variable>
 
+/*
+Esta clase implementa la funcionalidad de una cola bloqueante.
+*/
 template<typename T>
 class BlockingQueue {
 private:
