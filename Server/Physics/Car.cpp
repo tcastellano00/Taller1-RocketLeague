@@ -27,6 +27,9 @@ CarPhysics::CarPhysics(int cltId, std::string newPlayerName, b2World& world, int
     this->goalAssists = 0;
     this->skipReplay = false;
 
+    this->isTouchingBoundary = false;
+    this->isTouchingCorner = false;
+
     
 }
 
@@ -251,9 +254,9 @@ void CarPhysics::applyAcceleration() {
     float32 yForce;
     float force = MOVEMENTFORCE;
 
-    /*if (this->airStatus != GROUND) {
+    if (this->airStatus != GROUND) {
         force /= 10;
-    }*/
+    }
 
     float angle = this->carBody->GetAngle();
     xForce = std::cos(angle)*force;
@@ -424,4 +427,20 @@ void CarPhysics::setSkipReplay(bool skip){
 
 bool CarPhysics::getSkipReplay(){
     return skipReplay;
+}
+
+bool CarPhysics::getIsTouchingBoundary(){
+    return isTouchingBoundary;
+}
+
+bool CarPhysics::getIsTouchingCorner(){
+    return isTouchingCorner;
+}
+
+void CarPhysics::setIsTouchingBoundary(bool touching){
+    this->isTouchingBoundary = touching;
+} 
+    
+void CarPhysics::setIsTouchingCorner(bool touching) {
+    this->isTouchingCorner = touching;
 }

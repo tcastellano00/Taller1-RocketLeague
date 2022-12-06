@@ -1,4 +1,5 @@
 #include <string>
+#include <iostream>
 
 #include "GameStatisticsForm.h"
 #include "../../ui_gamestatisticsform.h"
@@ -16,11 +17,15 @@ GameStatisticsForm::GameStatisticsForm(
 
     std::string statisticsData("");
 
-    for (auto &playerModel : gameStatusMonitor.getGameStatus().getPlayersModels()){
-        statisticsData += "Nombre: " + playerModel.getName() + " \n";
+
+    std::list<PlayerModel> playerModels = gameStatusMonitor.getGameStatus().getPlayersModels();
+
+
+    for (auto playerModel = playerModels.begin(); playerModel != playerModels.end(); ++playerModel){
+        statisticsData += "Nombre: " + playerModel->getName() + " \n";
         statisticsData += "---------------------------------------------------------------- \n";
-        statisticsData += "> Goles: " + std::to_string(playerModel.getGoals()) + " \n";
-        statisticsData += "> Asistencias: " + std::to_string(playerModel.getAssists()) + " \n";
+        statisticsData += "> Goles: " + std::to_string(playerModel->getGoals()) + " \n";
+        statisticsData += "> Asistencias: " + std::to_string(playerModel->getAssists()) + " \n";
         statisticsData += "\n \n \n \n";
     }
 

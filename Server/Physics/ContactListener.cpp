@@ -2,6 +2,29 @@
 #include <iostream>
 #include "Physics.h"
 
+bool ContactListener::getCarContactWithCorner(b2Contact* contact, CarPhysics*& car){
+    b2Fixture* fixtureA = contact->GetFixtureA();
+    b2Fixture* fixtureB = contact->GetFixtureB();
+
+    bool match1 =  fixtureA->GetFilterData().categoryBits == CAR && fixtureB->GetFilterData().categoryBits == CORNER;
+    bool match2 = fixtureA->GetFilterData().categoryBits == CORNER && fixtureB->GetFilterData().categoryBits == CAR;
+    
+    if (!(match1 || match2)){
+        return false;
+    }
+    
+    CarPhysics* carEntity;
+    if (fixtureA->GetFilterData().categoryBits == CAR) {//fixtureA is the car
+        carEntity = static_cast<CarPhysics*>(fixtureA->GetBody()->GetUserData());
+    } else { //fixtureB is the car
+        carEntity = static_cast<CarPhysics*>(fixtureB->GetBody()->GetUserData());
+    }
+
+    car = carEntity;
+    return true;
+
+}
+
 
 bool ContactListener::getGoalContactWithBall(b2Contact* contact, GoalSensor*& goal, BallPhysics*& ball) {
     b2Fixture* fixtureA = contact->GetFixtureA();
@@ -177,6 +200,13 @@ void ContactListener::BeginContact(b2Contact* contact) {
     }
     CarPhysics* car;
     if (this->getCarContactWithBox(contact, car)) {
+        car->setIsTouchingBoundary(true);
+        car->landed();
+        return;
+    }
+
+    if (this->getCarContactWithCorner(contact, car)) {
+        car->setIsTouchingCorner(true);
         car->landed();
         return;
     }
@@ -221,7 +251,17 @@ void ContactListener::EndContact(b2Contact* contact) {
     }
     CarPhysics* car;
     if (this->getCarContactWithBox(contact, car)) {
-        car->jumpedFromTheFloor();
+        car->setIsTouchingBoundary(false);
+        if (!car->getIsTouchingCorner()) {
+            car->jumpedFromTheFloor();
+        }
+        return;
+    }
+    if (this->getCarContactWithCorner(contact, car)) {
+        car->setIsTouchingCorner(false);
+        if(!car->getIsTouchingBoundary()){
+            car->jumpedFromTheFloor();
+        }
         return;
     }
 

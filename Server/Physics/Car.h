@@ -81,6 +81,9 @@ private:
 
     bool skipReplay;
 
+    bool isTouchingBoundary;
+    bool isTouchingCorner;
+
 
 
     float FIELDHALFWIDTH = ServerConfig::getFieldHalfWidth();
@@ -175,6 +178,12 @@ public:
 
     void setSkipReplay(bool skip);
     bool getSkipReplay();
+
+    bool getIsTouchingBoundary();
+    bool getIsTouchingCorner();
+
+    void setIsTouchingBoundary(bool touching);
+    void setIsTouchingCorner(bool touching);
 
 
 };

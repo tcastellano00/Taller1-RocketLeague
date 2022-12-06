@@ -25,6 +25,8 @@ class ContactListener : public b2ContactListener  {
     bool getCarContactWithBall(b2Contact* contact, CarPhysics*& car, BallPhysics*& ball);
 
     bool getBallContactWithBox(b2Contact* contact, BallPhysics*& ball);
+
+    bool getCarContactWithCorner(b2Contact* contact, CarPhysics*& car);
 };
 
 #endif

@@ -104,8 +104,6 @@ GameStatus Physics::getGameStatus(){
         PlayerModel pm = it->second->getPlayerModel();
         playerModels.push_back(pm);
 
-        // std::cout << "Asistencias de " << it->second->getName() << ": " << it->second->getPlayerAssists() << std::endl;
-        // std::cout << "Goles de " << it->second->getName() << ": " << it->second->getGoalsScored() << std::endl;
 
         skip = skip && it->second->getSkipReplay();
 
