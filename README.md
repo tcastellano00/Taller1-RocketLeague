@@ -98,6 +98,14 @@ En caso de querer correrlo de manera local:
 Una vez los clientes se encuentren en el Lobby, deben ingresar su nombre para entrar a la pantalla principal del lobby, en donde pueden crear o unirse a una partida.
 
 ![](https://github.com/tcastellano00/Taller1-RocketLeague/blob/main/READMEMultimedia/lobby1.png)
+![](https://github.com/tcastellano00/Taller1-RocketLeague/blob/main/READMEMultimedia/lobby2.png)
+![](https://github.com/tcastellano00/Taller1-RocketLeague/blob/main/READMEMultimedia/lobby3.png)
+![](https://github.com/tcastellano00/Taller1-RocketLeague/blob/main/READMEMultimedia/lobby4.png)
+![](https://github.com/tcastellano00/Taller1-RocketLeague/blob/main/READMEMultimedia/lobby5.png)
+![](https://github.com/tcastellano00/Taller1-RocketLeague/blob/main/READMEMultimedia/lobby6.png)
+![](https://github.com/tcastellano00/Taller1-RocketLeague/blob/main/READMEMultimedia/lobby7.png)
+![](https://github.com/tcastellano00/Taller1-RocketLeague/blob/main/READMEMultimedia/lobby8.png)
+
 
 
 ## Reglas de la partida
