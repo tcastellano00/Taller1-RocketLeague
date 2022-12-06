@@ -24,8 +24,6 @@ class Ball{
 
     float BALLRADIUS = CoordsTransformator::transformX(ServerConfig::getBallRadius());
 
-    int contador = 0;
-
 
     public:
     Ball(SDL2pp::Texture &textureBall, SDL2pp::Texture &textureExplosion);

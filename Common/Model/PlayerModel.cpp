@@ -2,7 +2,8 @@
 
 PlayerModel::PlayerModel() {}
 
-PlayerModel::PlayerModel(int cltId,float xCoord, float yCoord, float ang, bool nwturbo, std::string face, int turboRem) {
+PlayerModel::PlayerModel(int cltId,float xCoord, float yCoord, float ang, bool nwturbo, std::string face, int turboRem,
+    std::string newName,int newGoals,int newAssists) {
     this->clientId = cltId;
     this->x = xCoord;
     this->y = yCoord;
@@ -10,6 +11,10 @@ PlayerModel::PlayerModel(int cltId,float xCoord, float yCoord, float ang, bool n
     this->turbo = nwturbo;
     this->facing = face;
     this->turboRemaining = turboRem;
+    this->name = newName;
+    this->goals = newGoals;
+    this->assists = newAssists;
+
 }
 
 PlayerModel::~PlayerModel(){}
@@ -40,4 +45,17 @@ int PlayerModel::getTurboRemaining() {
 
 int PlayerModel::getClientId(){
     return this->clientId;
+}
+
+
+std::string PlayerModel::getName(){
+    return this->name;
+}
+
+int PlayerModel::getGoals(){
+    return this->goals;
+}
+
+int PlayerModel::getAssists(){
+    return this->assists;
 }

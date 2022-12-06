@@ -390,7 +390,7 @@ PlayerModel CarPhysics::getPlayerModel() {
     }*/
 
 
-    PlayerModel pm(this->clientId , xCar, yCar, angle, turbo, facing, turboRem);
+    PlayerModel pm(this->clientId , xCar, yCar, angle, turbo, facing, turboRem,this->playerName,this->goals,this->goalAssists);
     return pm;
 }
 

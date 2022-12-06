@@ -51,10 +51,10 @@ void Game::launch() {
         return;
 
     this->started = true;
-    this->gameLoop.init(this->connections);
+    this->gameloopRunner.init(this->connections);
 }
 
 void Game::finish() {
     if(this->started)
-        this->gameLoop.stop();
+        this->gameloopRunner.stop();
 }
