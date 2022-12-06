@@ -19,6 +19,11 @@
 #include "../Common/Config/ClientConfig.h"
 #include "../Common/Config/CommonConfig.h"
 
+#include <chrono>
+#include <unistd.h>
+#define DELTA CommonConfig::getFrameTimeInMicroseconds()
+typedef std::chrono::high_resolution_clock Clock;
+
 WindowRenderer::WindowRenderer(
         BlockingQueue<Command>& commandQueue,
         GameStatusMonitor& gameStatusMonitor) 
@@ -93,6 +98,10 @@ void WindowRenderer::launch() {
             SDL2pp::Surface("assets/replay.png").SetColorKey(true, 0));
         SDL2pp::Texture explosionTexture(renderer, 
             SDL2pp::Surface("assets/explosion.png").SetColorKey(true, 0));
+        SDL2pp::Texture turnLeft(renderer, 
+            SDL2pp::Surface("assets/turnLeft.png").SetColorKey(true, 0));
+        SDL2pp::Texture turnRight(renderer, 
+            SDL2pp::Surface("assets/turnRight.png").SetColorKey(true, 0));
 
 
         //Iniciamos el command reader.
@@ -125,7 +134,7 @@ void WindowRenderer::launch() {
         //Instanciamos a priori cuatro jugadores.
         std::list<Player> players;
         for (int i = 0; i < 4; i++) {
-            players.emplace_back(im, turbo, turboBarEmpty, turboBarFull);
+            players.emplace_back(im, turbo, turboBarEmpty, turboBarFull,turnLeft,turnRight);
         }
         
         std::string lastState("");
@@ -134,6 +143,9 @@ void WindowRenderer::launch() {
         bool isInReplay = false;
         
         while (not gameStatusMonitor.gameIsClosed()) {
+
+            auto timeStart = Clock::now();
+
 
             //Pauso la musica de fondo.
             if(gameStatusMonitor.getIsPlayingMusic() != backGroundMusic.getIsPlayingMusic()){
@@ -205,7 +217,13 @@ void WindowRenderer::launch() {
             // de la cantidad de tiempo que demoró el handleEvents y el render
 
             isInReplay = false;
-            usleep(CommonConfig::getFrameTimeInMicroseconds());
+
+            auto timeFinish = Clock::now();
+            int elapsed = std::chrono::duration_cast<std::chrono::microseconds>(timeFinish - timeStart).count();
+            if (DELTA - elapsed > 0) {
+                usleep(DELTA - elapsed);
+            }
+            //usleep(CommonConfig::getFrameTimeInMicroseconds());
         }
 
         

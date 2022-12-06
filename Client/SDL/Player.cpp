@@ -2,11 +2,14 @@
 
 #include <iostream>
 
-Player::Player(SDL2pp::Texture &textureCar, SDL2pp::Texture &textureTurbo, SDL2pp::Texture &textureTurboBarEmpty, SDL2pp::Texture &textureTurboBarFull) : 
+Player::Player(SDL2pp::Texture &textureCar, SDL2pp::Texture &textureTurbo, SDL2pp::Texture &textureTurboBarEmpty, 
+    SDL2pp::Texture &textureTurboBarFull,SDL2pp::Texture &turnLeft,SDL2pp::Texture &turnRight) : 
     anCar(textureCar, 1, 1), 
     anTurbo(textureTurbo, 1, 1),
     anTurboBarEmpty(textureTurboBarEmpty, 1, 1),
     anTurboBarFull(textureTurboBarFull, 1, 1),
+    anTurnLeft(turnLeft,2,4),
+    anTurnRight(turnRight,2,4),
     facingLeft(false), 
     moving(false),
     turbo(false),
@@ -21,16 +24,6 @@ void Player::update(PlayerModel playerModel, int dt) {
     float newXPosTransformed = CoordsTransformator::transformX(newXPos);
     float newYPosTransformed = CoordsTransformator::transformY(newYpos);
 
-    //std::string facing = playerModel.getFacing();
-    
-    /*
-    if(facing == "left"){
-        facingLeft = true;
-    }
-    else{
-        facingLeft = false;
-    }*/
-
     anCar.update(dt);
     anTurbo.update(dt);
     anTurboBarEmpty.update(dt);
@@ -41,16 +34,33 @@ void Player::update(PlayerModel playerModel, int dt) {
     this->turbo = playerModel.isDoingTurbo();
     this->facingLeft = (playerModel.getFacing() == "left");
     this->turboRemaining = playerModel.getTurboRemaining();
+    this->faceTurned = false;
 
+    if (this->face != "")
+        this->faceTurned = (playerModel.getFacing() != this->face);
+    
+    this->face = playerModel.getFacing();
 }
 
 void Player::render(SDL2pp::Renderer &renderer, int i) {
     SDL_RendererFlip flip = facingLeft ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
+
+
+    if(face == "left" && faceTurned){
+        anTurnRight.render(renderer,SDL2pp::Rect(x, y, CAR_WIDTH, CAR_HEIGHT), flip, angle);
+    }
+
+    if(face != "left" && faceTurned){
+        anTurnLeft.render(renderer,SDL2pp::Rect(x, y, CAR_WIDTH, CAR_HEIGHT), flip, angle);
+    }
+    
     
     if (not turbo) 
         anCar.render(renderer, SDL2pp::Rect(x, y, CAR_WIDTH, CAR_HEIGHT), flip, angle);
     else
         anTurbo.render(renderer, SDL2pp::Rect(x - CAR_WIDTH/2, y, CAR_WIDTH + CAR_WIDTH/2, CAR_HEIGHT), flip, angle);
+
+    
     
     flip = SDL_FLIP_NONE;
     if (i == 0) {

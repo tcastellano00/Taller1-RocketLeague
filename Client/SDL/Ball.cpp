@@ -11,9 +11,9 @@ void Ball::render(SDL2pp::Renderer &renderer, bool isInExplosion){
     SDL_RendererFlip flip = SDL_FLIP_NONE;
     
     if (isInExplosion) {
-        
         if (!finishedExplosion) {
-            anExplosion.render(renderer, SDL2pp::Rect(explosionX-BALLRADIUS, explosionY-BALLRADIUS, BALLRADIUS*3, BALLRADIUS*3),flip, angle);
+            contador++;
+            anExplosion.render(renderer, SDL2pp::Rect(explosionX-BALLRADIUS, explosionY-BALLRADIUS, BALLRADIUS*3, BALLRADIUS*3),flip, 0);
         }
         
     } else {
@@ -30,6 +30,8 @@ void Ball::render(SDL2pp::Renderer &renderer, bool isInExplosion){
         }
         anBall.render(renderer, SDL2pp::Rect(x, y, BALLRADIUS*2, BALLRADIUS*2),flip, angle);
     }
+
+    std::cout  << contador << std::endl;
 
    
     
@@ -48,10 +50,13 @@ void Ball::update(BallModel ballModel, int dt,bool isInExplosion) {
     this->angle = CoordsTransformator::radianToDegree(ballModel.getAngle());
     this->colour = ballModel.getColour();
 
-    if (isInExplosion) {
-        if (anExplosion.update(dt)) {
+    if (isInExplosion && !finishedExplosion) {
+        bool endedExplosion = anExplosion.update(dt);
+        if (endedExplosion) {
             this->finishedExplosion = true;
-            std::cout << "termino la explosion" << std::endl;
+            std::cout << "termino: SI" << std::endl;
+        } else {
+            std::cout << "termino: NO" << std::endl;
         }
     } else {
         this->explosionX = this->x;

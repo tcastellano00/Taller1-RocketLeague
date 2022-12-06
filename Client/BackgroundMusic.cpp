@@ -3,7 +3,7 @@
 
 BackGroundMusic::BackGroundMusic(SDL2pp::Mixer &newmixer): mixer(newmixer),backGround0("music/background.ogg"),
     backGround1("music/background2.ogg"),explosionChunk("music/explosion.ogg"),
-    jumpChunk("music/jumpSound.ogg"), turboChunk("music/turboSound.ogg"){
+    jumpChunk("music/jump.ogg"), turboChunk("music/turboSound.ogg"){
     this->isPlayingMusic = true;
     this->isPlayingTurboSound = false;
     this->channel = 1;
