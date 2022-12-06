@@ -11,7 +11,6 @@
 ThreadLauncher::ThreadLauncher() {}
 
 void ThreadLauncher::start(Socket& connection,GameStatusMonitor& gameStatusMonitor) {
-    std::cout << "Im launching the threads" << std::endl;
     BlockingQueue<Command> queue;
 
     ThreadSender sender(queue, connection, gameStatusMonitor);
@@ -23,5 +22,4 @@ void ThreadLauncher::start(Socket& connection,GameStatusMonitor& gameStatusMonit
     WindowRenderer renderer(queue, gameStatusMonitor);
     renderer.launch();
     
-    std::cout << "Cerramos launcher" << std::endl;
 }

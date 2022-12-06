@@ -10,7 +10,6 @@ ThreadReceiver::ThreadReceiver(Socket& cnct, GameStatusMonitor& newGameStatusMon
     protocol(cnct) {}
 
 void ThreadReceiver::run() {
-    std::cout << "Im running receiver thread" << std::endl;
 
     try
     {
@@ -35,7 +34,6 @@ void ThreadReceiver::run() {
 }
 
 ThreadReceiver::~ThreadReceiver() {
-    std::cout << "Cerramos receiver" << std::endl;
     this->protocol.close();
     this->join();
 }

@@ -17,7 +17,6 @@ ThreadClientLobby::ThreadClientLobby(ClientConnection& clt, GameMonitor& gameMtr
     }
 
 void ThreadClientLobby::run(){
-    std::cout << "ThreadClientLobby: cliente conectado" << std::endl;
     
     client.setGameName("");
     bool clientJoinedGame = false;

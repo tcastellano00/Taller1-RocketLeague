@@ -79,6 +79,5 @@ void ThreadCmdReader::pushCommand(const std::string command) {
 }
 
 ThreadCmdReader::~ThreadCmdReader() {
-    std::cout << "Cerramos cmd reader" << std::endl;
     this->join();
 }

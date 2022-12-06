@@ -12,7 +12,6 @@ ThreadSender::ThreadSender(
       gameStatusMonitor(newGameStatusMonitor) { }
 
 void ThreadSender::run() {
-    std::cout << "Im running sender thread" << std::endl;
     Protocol protocol(connection);
 
     try {
@@ -39,6 +38,5 @@ void ThreadSender::run() {
 }
 
 ThreadSender::~ThreadSender() {
-    std::cout << "Cerramos sender" << std::endl;
     this->join();
 }

@@ -11,7 +11,6 @@ ServerConfig::ServerConfig() {
 
 ServerConfig* ServerConfig::getInstance() {
     if (serverConfig == nullptr) {
-        std::cout << "leo el server config" << std::endl;
         serverConfig = new ServerConfig();
     }
 
@@ -136,7 +135,6 @@ float ServerConfig::getPi() {
 }
 
 void ServerConfig::deleteConfig() {
-    std::cout << "ServerConfig::deleteConfig" << std::endl;
     if (serverConfig != nullptr)
         delete serverConfig;
 }

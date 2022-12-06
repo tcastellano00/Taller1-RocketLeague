@@ -8,7 +8,6 @@ ThreadClientSender::ThreadClientSender(Socket& socket)
     : queue(), protocol(socket), open(true) {}
 
 void ThreadClientSender::run(){
-    std::cout << "ThreadClientSender::run" << std::endl;
 
     GameStatusSerializer gameStatusSerializer;
 

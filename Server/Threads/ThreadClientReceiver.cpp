@@ -16,7 +16,6 @@ ThreadClientReceiver::ThreadClientReceiver(
 }
 
 void ThreadClientReceiver::run(){
-    std::cout << "ThreadClientReceiver::run" << std::endl;
 
     try {
         while (not receiverProtocol.isClosed()) {

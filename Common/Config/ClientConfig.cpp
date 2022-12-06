@@ -83,7 +83,6 @@ std::string ClientConfig::getKeyCommandNextMusic(){
 }
 
 void ClientConfig::deleteConfig() {
-    std::cout << "ClientConfig::deleteConfig" << std::endl;
     if (clientConfig != nullptr)
         delete clientConfig;
 }

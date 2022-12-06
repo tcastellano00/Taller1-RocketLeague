@@ -26,7 +26,6 @@ float CommonConfig::getFrameTimeInMicroseconds() {
 }
 
 void CommonConfig::deleteConfig() {
-    std::cout << "CommonConfig::deleteConfig" << std::endl;
     if (commonConfig != nullptr)
         delete commonConfig;
 }

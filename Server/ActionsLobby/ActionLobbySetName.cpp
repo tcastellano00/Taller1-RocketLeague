@@ -18,7 +18,6 @@ std::string ActionLobbySetName::execute(
 
         args >> clientName;
 
-        std::cout << clientName << std::endl;
         
         client.setName(clientName);
 

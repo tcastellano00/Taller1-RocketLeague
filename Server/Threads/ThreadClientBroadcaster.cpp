@@ -11,7 +11,6 @@ ThreadClientBroadcaster::ThreadClientBroadcaster(
       open(true) { }
 
 void ThreadClientBroadcaster::run(){
-    std::cout << "Broadcaster::run" << std::endl;
     std::list<ThreadClientSender> clientSenderThreads;
     
     try

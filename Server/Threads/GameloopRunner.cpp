@@ -14,7 +14,6 @@ GameloopRunner::GameloopRunner()
       isThreadRunning(false) { }
 
 void GameloopRunner::run() {
-    std::cout << "GameloopRunner::run" << std::endl;
 
     //Inicia el mundo del game.
     Physics gamePhysics(this->connectionList);
@@ -31,8 +30,7 @@ void GameloopRunner::run() {
 
 
 
-    //Iniciamos el GameloopRunner donde procesa los comandos.
-    std::cout << "GameloopRunner::while" << std::endl;
+    //Iniciamos el Gameloop donde procesa los comandos.
     GameLoop gameLoop;
     gameLoop.run(this->isRunning, this->recibingQueue, gamePhysics, this->senderQueue);
 

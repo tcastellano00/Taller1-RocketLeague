@@ -25,7 +25,6 @@ int ClientIdGenerator::getId() {
 }
 
 void ClientIdGenerator::deleteConfig() {
-    std::cout << "ClientIdGenerator::deleteConfig" << std::endl;
     if (clientIdGenerator != nullptr)
         delete clientIdGenerator;
 }
