@@ -142,12 +142,6 @@ GameStatus Physics::getGameStatus(){
             newGameStatus.setClose();
         }
     }
-
-    if (this->skipRep) {
-        std::cout << "skipRep: true" << std::endl;
-    } else {
-        std::cout << "skipRep: false" << std::endl;
-    }
     
 
     newGameStatus.setReplay(this->isInReplay && !this->skipRep);
@@ -221,7 +215,7 @@ void Physics::resetPositionsIfGoal(){
     if (timeExplosion > 1){
         timeExplosion -= 1;
         return; }
-    timeExplosion = 50;
+    timeExplosion = 60;
     isInExplosion = false;
 
 

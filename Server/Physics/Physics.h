@@ -39,7 +39,7 @@ class Physics{
     bool isInExplosion = false;
     bool carJumping = false;
     int currentTimeOfReplay = 0;
-    int timeExplosion = 50; //frames, 2 segundos.
+    int timeExplosion = 60; //frames, 2 segundos.
 
     float FIELDHALFWIDTH = ServerConfig::getFieldHalfWidth();
     float FIELDHEIGHT = ServerConfig::getFieldHeight();

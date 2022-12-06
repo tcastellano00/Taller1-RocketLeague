@@ -28,7 +28,8 @@ Animation::Animation(SDL2pp::Texture &texture, int numberRows, int numberColumns
 Animation::~Animation() {}
 
 bool Animation::update(float dt) {
-    this->elapsed += dt;
+    //int FRAME_TIME = 1;
+    //this->elapsed += FRAME_TIME/2;
     /* checks if the frame should be updated based on the time elapsed since the last update */
     /*bool restart = false;
     while (this->elapsed > FRAME_TIME) {
@@ -36,6 +37,11 @@ bool Animation::update(float dt) {
         this->elapsed -= FRAME_TIME;
     }
     return restart;*/
+    //if(elapsed < FRAME_TIME){return false;}
+
+    //elapsed -= FRAME_TIME;
+
+
     return this->advanceFrame();
 }
 
@@ -58,6 +64,8 @@ void Animation::render(SDL2pp::Renderer &renderer, const SDL2pp::Rect dst, SDL_R
 }
 
 bool Animation::advanceFrame() {
+    //if(currentFrameColumn != 0){std::cout << "columna:" << currentFrameColumn << std::endl;}
+    //if(currentFrameRow != 0){std::cout << "fila:" <<  currentFrameRow << std::endl;}
     this->currentFrameColumn += 1; //Avanzo un frame a la derecha
     if (this->currentFrameColumn == this->numColumns) { //Si estaba en el ultimo de la fila
         this->currentFrameColumn = 0;
