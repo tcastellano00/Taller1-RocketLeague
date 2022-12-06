@@ -75,8 +75,8 @@
   <widget class="QPushButton" name="btn_joinGame">
    <property name="geometry">
     <rect>
-     <x>370</x>
-     <y>200</y>
+     <x>190</x>
+     <y>160</y>
      <width>91</width>
      <height>25</height>
     </rect>
@@ -101,19 +101,6 @@
     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
    </property>
   </widget>
-  <widget class="QPushButton" name="btn_reload">
-   <property name="geometry">
-    <rect>
-     <x>470</x>
-     <y>200</y>
-     <width>91</width>
-     <height>25</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Recargar</string>
-   </property>
-  </widget>
   <widget class="QLabel" name="label_4">
    <property name="geometry">
     <rect>
@@ -125,6 +112,30 @@
    </property>
    <property name="text">
     <string>Listado de partidas:</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="btn_train">
+   <property name="geometry">
+    <rect>
+     <x>520</x>
+     <y>90</y>
+     <width>211</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>15</pointsize>
+     <weight>75</weight>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: qlineargradient(spread:pad, x1:0, y1:1, x2:0, y2:0, stop:0 rgba(0, 0, 0, 255), stop:0.05 rgba(14, 8, 73, 255), stop:0.36 rgba(28, 17, 145, 255), stop:0.6 rgba(126, 14, 81, 255), stop:0.75 rgba(234, 11, 11, 255), stop:0.79 rgba(244, 70, 5, 255), stop:0.86 rgba(255, 136, 0, 255), stop:0.935 rgba(239, 236, 55, 255));
+color: white;</string>
+   </property>
+   <property name="text">
+    <string>Entrenar!</string>
    </property>
   </widget>
  </widget>
