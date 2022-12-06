@@ -9,6 +9,8 @@ void Client::start() {
     Lobby lobby(conection);
     bool close_game = false;
     do {
+        //aca creamos la connection
+        //aca definimos el lobby
         close_game = lobby.start();
         
         if (close_game) {
@@ -18,6 +20,7 @@ void Client::start() {
         
         ThreadLauncher threadlauncher;
         threadlauncher.start(conection,gameStatusMonitor);
+
 
         close_game = true;
 

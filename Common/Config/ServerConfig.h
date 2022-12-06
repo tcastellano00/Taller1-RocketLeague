@@ -54,6 +54,8 @@ public:
 
     static float getPi();
 
+    static void deleteConfig();
+    
     ~ServerConfig() = default;
 };
 

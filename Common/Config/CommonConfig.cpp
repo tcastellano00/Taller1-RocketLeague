@@ -1,4 +1,5 @@
 #include "CommonConfig.h"
+#include <iostream>
 
 CommonConfig* CommonConfig::commonConfig = nullptr;
 
@@ -22,4 +23,10 @@ float CommonConfig::getFrameRate() {
 
 float CommonConfig::getFrameTimeInMicroseconds() {
     return 1000000.0f / CommonConfig::getFrameRate();
+}
+
+void CommonConfig::deleteConfig() {
+    std::cout << "CommonConfig::deleteConfig" << std::endl;
+    if (commonConfig != nullptr)
+        delete commonConfig;
 }

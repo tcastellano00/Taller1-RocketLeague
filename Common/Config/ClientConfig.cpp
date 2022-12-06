@@ -1,4 +1,5 @@
 #include "ClientConfig.h"
+#include <iostream>
 
 ClientConfig* ClientConfig::clientConfig = nullptr;
 
@@ -79,4 +80,10 @@ std::string ClientConfig::getKeyCommandPauseMusic(){
 
 std::string ClientConfig::getKeyCommandNextMusic(){
     return getInstance()->rootNode["KEY_COMMAND_NEXT_MUSIC"].as<std::string>();
+}
+
+void ClientConfig::deleteConfig() {
+    std::cout << "ClientConfig::deleteConfig" << std::endl;
+    if (clientConfig != nullptr)
+        delete clientConfig;
 }

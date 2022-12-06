@@ -2,6 +2,10 @@
 #include <exception>
 #include <arpa/inet.h>
 
+#include "../Common/Config/ServerConfig.h"
+#include "../Common/Config/ClientConfig.h"
+#include "../Common/Config/CommonConfig.h"
+#include "../Server/ClientIdGenerator.h"
 #include "../Server/Server.h"
 
 int main(int argc, char *argv[]) { try {
@@ -20,6 +24,11 @@ int main(int argc, char *argv[]) { try {
     Server server(port);
 
     server.run();
+
+    ServerConfig::deleteConfig();
+    ClientConfig::deleteConfig();
+    CommonConfig::deleteConfig();
+    ClientIdGenerator::deleteConfig();
 
     ret = 0;
     return ret;

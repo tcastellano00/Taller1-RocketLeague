@@ -14,6 +14,7 @@ public:
 
     static int getId();
     static void reset();
+    static void deleteConfig();
 
     ClientIdGenerator(ClientIdGenerator &other) = delete;
     void operator=(ClientIdGenerator const&) = delete;

@@ -18,6 +18,8 @@ public:
     static float getFrameRate();
     static float getFrameTimeInMicroseconds();
 
+    static void deleteConfig();
+
     CommonConfig(CommonConfig &other) = delete;
     void operator=(CommonConfig const&) = delete;
     ~CommonConfig() = default;

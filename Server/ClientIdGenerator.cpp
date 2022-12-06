@@ -1,4 +1,5 @@
 #include "ClientIdGenerator.h"
+#include <iostream>
 
 ClientIdGenerator* ClientIdGenerator::clientIdGenerator = nullptr;
 
@@ -21,4 +22,10 @@ void ClientIdGenerator::reset() {
 int ClientIdGenerator::getId() {
     getInstance()->actualId += 1;
     return getInstance()->actualId;
+}
+
+void ClientIdGenerator::deleteConfig() {
+    std::cout << "ClientIdGenerator::deleteConfig" << std::endl;
+    if (clientIdGenerator != nullptr)
+        delete clientIdGenerator;
 }

@@ -1,3 +1,4 @@
+#include <iostream>
 #include "ServerConfig.h"
 
 ServerConfig* ServerConfig::serverConfig = nullptr;
@@ -10,6 +11,7 @@ ServerConfig::ServerConfig() {
 
 ServerConfig* ServerConfig::getInstance() {
     if (serverConfig == nullptr) {
+        std::cout << "leo el server config" << std::endl;
         serverConfig = new ServerConfig();
     }
 
@@ -131,4 +133,10 @@ float ServerConfig::getRotationAngularVelocity(){
 
 float ServerConfig::getPi() {
     return getInstance()->rootNode["PI"].as<float>();
+}
+
+void ServerConfig::deleteConfig() {
+    std::cout << "ServerConfig::deleteConfig" << std::endl;
+    if (serverConfig != nullptr)
+        delete serverConfig;
 }

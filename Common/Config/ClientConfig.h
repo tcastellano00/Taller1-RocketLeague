@@ -32,6 +32,7 @@ public:
     static std::string getKeyCommandPauseMusic();
     static std::string getKeyCommandNextMusic();
     static std::string getKeyCommandSkipReplay();
+    static void deleteConfig();
 
     ClientConfig(ClientConfig &other) = delete;
     void operator=(ClientConfig const&) = delete;

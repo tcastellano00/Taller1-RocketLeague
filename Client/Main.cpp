@@ -2,6 +2,10 @@
 #include <sstream>
 #include <exception>
 
+#include "../Common/Config/ServerConfig.h"
+#include "../Common/Config/ClientConfig.h"
+#include "../Common/Config/CommonConfig.h"
+
 #include "Client.h"
 
 int main(int argc, char* argv[]) { try {
@@ -9,6 +13,10 @@ int main(int argc, char* argv[]) { try {
 
     Client clt(argv[1], argv[2]);
     clt.start();
+
+    ServerConfig::deleteConfig();
+    ClientConfig::deleteConfig();
+    CommonConfig::deleteConfig();
 
     ret = 0;
     return ret;
