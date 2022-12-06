@@ -35,7 +35,7 @@ Physics::Physics(std::list<ClientConnection>& connections): world(b2Vec2(0.0f, G
     SavingArea* rightSavingArea = new SavingArea(RIGHTAREA,world);
 
     leftSavingArea->getSavingAreaSide();
-    rightSavingArea->getSavingAreaSide();//pq sino
+    rightSavingArea->getSavingAreaSide();//pq sino el compilador nos tira unused variables.
 
     this->world.SetContactListener(&(this->contactListener));
 }
