@@ -23,7 +23,8 @@ class DialogListGames : public QDialog
 public:
     explicit DialogListGames(
         Socket &clientSocket,
-        std::string clientName, 
+        std::string clientName,
+        bool &clientJoinedGame,
         QWidget *parent = nullptr);
     ~DialogListGames();
 
@@ -45,6 +46,7 @@ private:
     bool dialogCreateGameIsOpen;
     Socket &clientSocket;
     std::string clientName;
+    bool &clientJoinedGame;
     ThreadServerStartGame *threadServerStartGame;
 
     void loadGames();

@@ -1,29 +1,33 @@
 #include "Client.h"
-#include "Lobby.h"
+#include "Lobby/Lobby.h"
 #include "ThreadLauncher.h"
 #include "GameStatusMonitor.h"
+#include "../Common/Socket.h"
 
-Client::Client(char* ip, char* port) : conection(ip, port) { }
+Client::Client(char* ip, char* port) : ip(ip), port(port) { }
 
 void Client::start() {
-    Lobby lobby(conection);
-    bool close_game = false;
+    
+    bool continueInApp = false;
+
     do {
-        //aca creamos la connection
-        //aca definimos el lobby
-        close_game = lobby.start();
+        Socket clientConnection(ip, port);
+
+        Lobby lobby(clientConnection);
+        continueInApp = lobby.start();
         
-        if (close_game) {
+        if (not continueInApp)
             break;
-        }
+        
         GameStatusMonitor gameStatusMonitor;
         
         ThreadLauncher threadlauncher;
-        threadlauncher.start(conection,gameStatusMonitor);
+        threadlauncher.start(
+            clientConnection,
+            gameStatusMonitor
+        );
 
+        continueInApp = true;
 
-        close_game = true;
-
-    } while (!close_game);
-
+    } while (continueInApp);
 }
