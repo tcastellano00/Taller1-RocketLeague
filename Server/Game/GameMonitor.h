@@ -9,6 +9,11 @@
 #include "Game.h"
 #include "../ClientConnection.h"
 
+
+/*
+Monitor del mapa de Games del server. Encargado de evitar race conditions al acceder
+a las partidas del mapa desde distintos hilos.
+*/
 class GameMonitor {
 private:
     std::map<std::string, Game> games;

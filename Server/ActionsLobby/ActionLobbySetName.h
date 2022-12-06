@@ -6,6 +6,10 @@
 #include "ActionsLobby.h"
 #include "../Game/GameMonitor.h"
 
+/*
+Esta clase representa la accion de que un cliente esta
+queriendo setear su nombre.
+*/
 class ActionLobbySetName : public ActionsLobby {
 public:
     explicit ActionLobbySetName(const std::string &arguments);

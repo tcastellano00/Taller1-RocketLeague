@@ -12,6 +12,10 @@ typedef std::chrono::high_resolution_clock Clock;
 
 #define DELTA CommonConfig::getFrameTimeInMicroseconds()
 
+/*
+Loop del juego. En el se reciben los nuevos cambios a aplicar al estado actual del juego,
+se aplican, se simula el paso del tiempo y se envia el nuevo estado del juego a los clientes.
+*/
 class GameLoop {
 public:
     void run(bool& isRunning, NonBlockingQueue<std::shared_ptr<ActionsClient>>& recibingQueue, Physics& gamePhysics, BlockingQueue<GameStatus>& senderQueue);

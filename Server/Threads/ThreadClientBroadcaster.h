@@ -9,6 +9,12 @@
 #include "../../Common/GameStatus.h"
 #include "../ClientConnection.h"
 
+
+/*
+Hilo encargado de recibir el estado actual del mundo desde una unica queue
+(en la que pushea los estados actuales el GameLoop) y enviarlo a los distintos hilos
+Senders.
+*/
 class ThreadClientBroadcaster : public Thread{
 
     BlockingQueue<GameStatus>& senderQueue;

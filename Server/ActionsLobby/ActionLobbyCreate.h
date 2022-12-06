@@ -6,6 +6,10 @@
 #include "ActionsLobby.h"
 #include "../Game/GameMonitor.h"
 
+/*
+Esta clase representa la accion de que un cliente esta
+queriendo crear una nueva partida en el lobby. 
+*/
 class ActionLobbyCreate : public ActionsLobby {   
 public:
     explicit ActionLobbyCreate(const std::string &arguments);

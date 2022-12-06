@@ -7,7 +7,9 @@
 #include "BallPhysics.h"
 #include "EntityCategory.h"
 
-
+//Clase que implementa todos los contactos que Box2D registra.
+//En cada tipo de contacto se implementa su logica correspondiente
+//segun el caso.
 class ContactListener : public b2ContactListener  {
 
     void BeginContact(b2Contact* contact);

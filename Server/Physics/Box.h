@@ -4,6 +4,8 @@
 #include "EntityCategory.h"
 #include "../../Common/Config/ServerConfig.h"
 
+//Representa "la cancha" del juego. En ella se imprimen
+//las rampas, los arcos (con su sensor), paredes y techo.
 class BoxPhysics{
     
     float FIELDHALFWIDTH = ServerConfig::getFieldHalfWidth();

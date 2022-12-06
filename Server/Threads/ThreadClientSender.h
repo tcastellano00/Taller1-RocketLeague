@@ -10,7 +10,10 @@
 #include "../../Common/GameStatus.h"
 #include "../ClientConnection.h"
 
-
+/*
+Hilo encargado de recibir el estado actual del mundo por parte del hilo Broadcaster
+y enviarlo al cliente correspondiente.
+*/
 class ThreadClientSender : public Thread{
     BlockingQueue<GameStatus> queue;
     Protocol protocol;

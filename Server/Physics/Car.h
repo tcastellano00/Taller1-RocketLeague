@@ -13,6 +13,7 @@
 //     CarPhisics(b2World * &m_world);
 // };
 
+//Tipo de sensor que posee el auto.
 enum SensorStatus {   
     BALLINFRONTSENSOR,
     BALLINBOTTOMSENSOR,
@@ -20,28 +21,35 @@ enum SensorStatus {
     NOTSENSOR,
 };
 
+//Representa para que lado de la pantalla esta "mirando"
+//el auto.
 enum FacingStatus {
     FACINGFRONT,
     FACINGBACK,
 };
 
+//Estado del auto segun si hizo algun salto
+//o si esta en el suelo.
 enum AirStatus {
     AIR,
     GROUND,
     AIRAFTERFLIP,
 };
 
+//Equipo del jugador.
 enum PlayerSide {
     LEFTPLAYER,
     RIGHTPLAYER,
 };
 
+//Tipo de aceleracion del auto.
 enum AcceleratingStatus {
     ACCELERATINGLEFT,
     ACCELERATINGRIGHT,
     NOTACCELERATING,
 };
 
+//Tipo de tiro especial que haya hecho el jugador.
 enum MakeShot {
     DONTMAKESHOT,
     MAKEGOLDSHOT,
@@ -49,7 +57,10 @@ enum MakeShot {
     MAKEREDSHOT,
 };
 
-
+//Clase que representa al auto de cada jugador en el mundo de Box2D.
+//Esta se encarga de implementar todos los comandos que el cliente
+//quiera realizar en el juego, sean saltos, flips, tiros especiales,
+//turbo, movimientos.
 class CarPhysics {
 private:
     b2Body* carBody;

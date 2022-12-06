@@ -6,6 +6,11 @@
 #include "../Game/GameMonitor.h"
 #include "../ClientConnection.h"
 
+/*
+Hilo que se ejecuta mientras el cliente se encuentra en el Lobby. Se encarga de
+comunicarse con el cliente mediante el Protocol, crear nuevas partidas o unir 
+al cliente a una partida ya existente.
+*/
 class ThreadClientLobby: public Thread {
 private:
     ClientConnection client;

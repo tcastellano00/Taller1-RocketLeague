@@ -7,6 +7,10 @@
 
 #include "../Physics/Physics.h"
 
+/*
+Esta clase abstracta se heredada cuando se quiere representar 
+alguna intencion del cliente durante el juego. 
+*/
 class ActionsClient {
 protected:
     std::string arguments;

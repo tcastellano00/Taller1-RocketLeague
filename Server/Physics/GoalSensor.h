@@ -10,6 +10,11 @@ enum SideOfGoal {
     RIGHT,
 };
 
+
+
+//Sensor que representar al arco. En el momento donde se registra un contacto
+//con la pelota es interpretada como un gol en donde se le suma +1 a una variable
+//interna que representa la cantidad de goles del partido de un equipo.
 class GoalSensor {
 private:
     SideOfGoal side;

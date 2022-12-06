@@ -5,6 +5,11 @@
 
 #include "../Common/Socket.h"
 
+/*
+Esta clase representa la conexion de un cliente con el servidor y
+su estado general, un cliente se considera conectado desde el momento
+en el que ingresa al lobby
+*/
 class ClientConnection {
 private:
     Socket socket;

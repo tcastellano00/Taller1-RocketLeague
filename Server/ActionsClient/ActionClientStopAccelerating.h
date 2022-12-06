@@ -5,6 +5,10 @@
 
 #include "ActionsClient.h"
 
+/*
+Esta clase representa la accion de que un cliente esta
+queriendo parar de acelerar. 
+*/
 class ActionClientStopAccelerating : public ActionsClient {
 private:
     int clientId;

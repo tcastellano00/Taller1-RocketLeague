@@ -14,6 +14,8 @@
 
 
 
+//Clase encargada de ejecutar toda la fisica del juego
+// e implementar el paso del tiempo.
 class Physics{
 	private:
     int numberOfPlayers;

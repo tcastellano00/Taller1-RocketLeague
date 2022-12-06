@@ -8,6 +8,10 @@
 #include "../Game/GameMonitor.h"
 #include "../ClientConnection.h"
 
+/*
+Esta clase abstracta se heredada cuando se quiere representar 
+alguna intencion del cliente durante su estadia en el lobby.
+*/
 class ActionsLobby {
 protected:
     std::string arguments;

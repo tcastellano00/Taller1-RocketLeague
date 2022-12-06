@@ -5,6 +5,10 @@
 
 #include "ActionsClient.h"
 
+/*
+Esta clase representa la accion de que un cliente esta
+queriendo un flip a izquierda
+*/
 class ActionClientFlipLeft : public ActionsClient {
 private:
     int clientId;

@@ -7,6 +7,12 @@
 #include "../Threads/GameloopRunner.h"
 #include "../ClientConnection.h"
 
+
+/*
+Partida del juego. Se encarga de almacenar las distintas conecciones de los clientes a
+medida que los mismos se van sumando a la partida. Una vez que se llena, se inicia la partida y se
+lanza el hilo GameLoopRunner.
+*/
 class Game {
 private:
     std::string name;

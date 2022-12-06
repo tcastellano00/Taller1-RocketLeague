@@ -4,6 +4,10 @@
 
 #include "ActionsClient.h"
 
+/*
+Esta clase representa la accion de que un cliente esta
+queriendo comenzar a acelerar hacia delante. 
+*/
 class ActionClientStartAcceleratingForward : public ActionsClient {   
 private:
     int clientId;

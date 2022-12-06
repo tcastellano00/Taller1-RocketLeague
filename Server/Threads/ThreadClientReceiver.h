@@ -7,6 +7,11 @@
 #include "../../Common/Protocol.h"
 #include "../ActionsClient/ActionsClient.h"
 
+
+/*
+Hilo encargado de recibir la ActionClient actual del cliente correspondiente y pushearlo
+a la unica receivingQueue, de donde el GameLoop los lee.
+*/
 class ThreadClientReceiver : public Thread{
     int clientId;
     Socket& sktConecction;

@@ -15,7 +15,10 @@
 
 
 
-
+/*
+Hilo encargado de instanciar los objetos necesarios para el gameloop e iniciar este ultimo. Estos objetos mencionados
+son la ReceivingQueue, la SenderQueue, los hilos receivers y senders, el hilo broadcaster y el GamePhysics.
+*/
 class GameloopRunner : public Thread {
 
 private:

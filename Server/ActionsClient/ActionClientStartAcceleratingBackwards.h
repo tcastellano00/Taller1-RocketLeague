@@ -5,6 +5,10 @@
 
 #include "ActionsClient.h"
 
+/*
+Esta clase representa la accion de que un cliente esta
+queriendo comenzar a acelerar hacia atras. 
+*/
 class ActionClientStartAcceleratingBackwards : public ActionsClient {
 private:
     int clientId;

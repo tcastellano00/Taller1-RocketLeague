@@ -5,6 +5,10 @@
 
 #include "ActionsClient.h"
 
+/*
+Esta clase representa la accion de que un cliente esta
+queriendo hacer un purple shot 
+*/
 class ActionClientDoPurpleShot : public ActionsClient {
 private:
     int clientId;

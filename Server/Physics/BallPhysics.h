@@ -8,6 +8,8 @@
 #include "../../Common/Model/BallModel.h"
 #include "Car.h"
 
+//Tipo de tiro especial que la pelota va a registrar cuando
+// el jugador la lleve a cabo.
 enum SpecialShot {
     REDSHOT,
     GOLDSHOT,
@@ -16,6 +18,8 @@ enum SpecialShot {
 
 };
 
+//Clase que representa la pelota en Box2D y se le aplican 
+//los tiros especiales que realice el jugador.
 class BallPhysics {
 private:
     b2Body* ballBody;
