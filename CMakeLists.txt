@@ -9,7 +9,7 @@ project(rocket_league)
 
 #------------------------------------------------------------------------------
 # FLAGS DE COMPILACION
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -pthread")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -pthread --coverage")
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 if(APPLE)
@@ -100,10 +100,11 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 
+add_library(rocket_league-serverlib SHARED ${server_src})
 add_executable(
-  tests ${tests_src} 
-  Server/ClientIdGenerator.cpp)
-target_link_libraries(tests rocket_league-common GTest::gtest_main)
+  tests ${tests_src}
+)
+target_link_libraries(tests rocket_league-serverlib rocket_league-common libbox2d GTest::gtest_main)
 include(GoogleTest)
 gtest_discover_tests(tests)
 
