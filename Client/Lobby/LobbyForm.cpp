@@ -33,6 +33,7 @@ void LobbyForm::on_pushButton_clicked()
     }
     
     this->clientName = qtClientName.toStdString();
+    std::replace(clientName.begin(), clientName.end(), ' ', '_');
 
     Protocol protocol(this->clientSocket);
     protocol.sendMessage("GUARDAR_NOMBRE " + this->clientName);
