@@ -94,13 +94,11 @@ En caso de querer correrlo de manera local:
 
 # In Game
 ## Lobby
-Una vez los clientes se encuentren en el Lobby, pueden crear o unirse a una partida mediante los siguientes comandos:
-```
-CREAR <CantidadMaximaDeJugadores> <NombreDePartida>
-UNIR <NombreDePartida>
-```
-#NOTA: el lobby se implementará de manera gráfica en QT, por ahora es en consola.
-Cuando la partida se llene, El jugador saldra del lobby y entrara en la partida.
+
+Una vez los clientes se encuentren en el Lobby, deben ingresar su nombre para entrar a la pantalla principal del lobby, en donde pueden crear o unirse a una partida.
+
+![](https://github.com/tcastellano00/Taller1-RocketLeague/blob/main/READMEMultimedia/lobby1.png)
+
 
 ## Reglas de la partida
 * La duracion de la partida es de 3 minutos (en el futuro, tiempo configurable).
