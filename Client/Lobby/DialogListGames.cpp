@@ -11,17 +11,20 @@
 DialogListGames::DialogListGames(
         Socket &clientSocket,
         std::string clientName, 
+        bool &clientJoinedGame,
         QWidget *parent) :
     QDialog(parent),
     ui(new Ui::DialogListGames),
     dialogJoinGameIsOpen(false),
     dialogCreateGameIsOpen(false),
     clientSocket(clientSocket),
-    clientName(clientName)
+    clientName(clientName),
+    clientJoinedGame(clientJoinedGame)
 {
     ui->setupUi(this);
     ui->label_clientName->setText(QString::fromStdString("Bievenido " + clientName));
 
+    this->clientJoinedGame = false;
     this->loadGames();
 
     this->threadServerStartGame = new ThreadServerStartGame(this->clientSocket, this);
@@ -48,6 +51,7 @@ void DialogListGames::startGame() {
     if (this->dialogJoinGameIsOpen)
         this->dialogJoinGame->hide();
 
+    this->clientJoinedGame = true;
     this->close();
 }
 

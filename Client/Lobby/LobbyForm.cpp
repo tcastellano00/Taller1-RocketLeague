@@ -6,12 +6,14 @@
 
 LobbyForm::LobbyForm(
     Socket &clientSocket,
-    std::string& clientName, 
+    std::string &clientName,
+    bool &clientJoinedGame, 
     QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::LobbyForm)
     , clientSocket(clientSocket)
     , clientName(clientName)
+    , clientJoinedGame(clientJoinedGame)
 {
     ui->setupUi(this);
 }
@@ -37,7 +39,11 @@ void LobbyForm::on_pushButton_clicked()
 
     this->hide();
 
-    DialogListGames listGames(this->clientSocket, this->clientName);
+    DialogListGames listGames(
+        this->clientSocket, 
+        this->clientName, 
+        this->clientJoinedGame
+    );
     listGames.setModal(true);
     listGames.exec();
 }

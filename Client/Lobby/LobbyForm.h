@@ -20,7 +20,8 @@ class LobbyForm : public QMainWindow
 public:
     LobbyForm(
         Socket &clientSocket,
-        std::string& clientName,
+        std::string &clientName,
+        bool &clientJoinedGame,
         QWidget *parent = nullptr);
     ~LobbyForm();
 
@@ -31,5 +32,6 @@ private:
     Ui::LobbyForm *ui;
     Socket &clientSocket;
     std::string clientName;
+    bool &clientJoinedGame;
 };
 #endif // LOBBYFORM_H
