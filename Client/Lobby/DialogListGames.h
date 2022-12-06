@@ -2,6 +2,9 @@
 #define DIALOGLISTGAMES_H
 
 #include <QDialog>
+#include "DialogJoinGame.h"
+#include "DialogCreateGame.h"
+#include "ThreadServerStartGame.h"
 #include "../../Common/Socket.h"
 
 namespace Ui {
@@ -24,10 +27,18 @@ private slots:
 
     void on_btn_joinGame_clicked();
 
+public slots:
+    void startGame();
+
 private:
     Ui::DialogListGames *ui;
+    DialogJoinGame *dialogJoinGame;
+    DialogCreateGame *dialogCreateGame;
+    bool dialogJoinGameIsOpen;
+    bool dialogCreateGameIsOpen;
     Socket &clientSocket;
     std::string clientName;
+    ThreadServerStartGame *threadServerStartGame;
 };
 
 #endif // DIALOGLISTGAMES_H

@@ -5,12 +5,10 @@
 
 DialogJoinGame::DialogJoinGame(
         Socket &clientSocket,
-        DialogListGames *listGames, 
         QWidget *parent) :
     QDialog(parent),
     ui(new Ui::DialogJoinGame),
-    clientSocket(clientSocket),
-    listGames(listGames)
+    clientSocket(clientSocket)
 {
     ui->setupUi(this);
 }
@@ -36,12 +34,4 @@ void DialogJoinGame::on_pushButton_clicked()
     protocol.sendMessage("UNIR " + qtGameName.toStdString());
 
     ui->infoClientConnected->setText("Conectado, aguardando jugadores..");
-    
-    std::string reply = protocol.reciveMessage();
-
-    if (reply == "start!") {
-        //Cerramos todo.
-        this->listGames->close();
-        this->close();
-    }
 }

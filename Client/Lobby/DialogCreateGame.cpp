@@ -7,12 +7,10 @@
 
 DialogCreateGame::DialogCreateGame(
         Socket &clientSocket,
-        DialogListGames *listGames, 
         QWidget *parent) :
     QDialog(parent),
     ui(new Ui::DialogCreateGame),
-    clientSocket(clientSocket),
-    listGames(listGames)
+    clientSocket(clientSocket)
 {
     ui->setupUi(this);
 }
@@ -46,13 +44,5 @@ void DialogCreateGame::on_pushButton_clicked()
     protocol.sendMessage("CREAR " + qtGameMaxPlayers.toStdString() + " " + qtGameName.toStdString());
 
     ui->infoClientConnected->setText("Conectado, aguardando jugadores..");
-    
-    std::string reply = protocol.reciveMessage();
-    
-    if (reply == "start!") {
-        //Cerramos todo.
-        this->listGames->close();
-        this->close();
-    }
 }
 

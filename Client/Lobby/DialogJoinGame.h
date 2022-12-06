@@ -2,7 +2,6 @@
 #define DIALOGJOINGAME_H
 
 #include <QDialog>
-#include "DialogListGames.h"
 #include "../../Common/Socket.h"
 
 namespace Ui {
@@ -16,7 +15,6 @@ class DialogJoinGame : public QDialog
 public:
     explicit DialogJoinGame(
         Socket &clientSocket,
-        DialogListGames *listGames, 
         QWidget *parent = nullptr);
     ~DialogJoinGame();
 
@@ -26,7 +24,6 @@ private slots:
 private:
     Ui::DialogJoinGame *ui;
     Socket &clientSocket;
-    DialogListGames *listGames;
 };
 
 #endif // DIALOGJOINGAME_H
