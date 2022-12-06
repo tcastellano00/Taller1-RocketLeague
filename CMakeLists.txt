@@ -32,6 +32,7 @@ qt5_wrap_ui(UIS_HEADERS
   UI/dialogjoingame.ui
   UI/dialoglistgames.ui
   UI/lobbyform.ui
+  UI/gamestatisticsform.ui
 )
 
 # Instruct CMake to run moc automatically when neededcd

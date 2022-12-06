@@ -1,5 +1,6 @@
 #include "Client.h"
 #include "Lobby/Lobby.h"
+#include "Lobby/GameStatistics.h"
 #include "ThreadLauncher.h"
 #include "GameStatusMonitor.h"
 #include "../Common/Socket.h"
@@ -27,7 +28,8 @@ void Client::start() {
             gameStatusMonitor
         );
 
-        continueInApp = true;
+        GameStatistics gameStatistics(gameStatusMonitor);
+        continueInApp = gameStatistics.start();
 
     } while (continueInApp);
 }
