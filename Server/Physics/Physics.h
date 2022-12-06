@@ -10,6 +10,7 @@
 #include "ContactListener.h"
 #include "Car.h"
 #include "BallPhysics.h"
+#include "SavingArea.h"
 #include "../../Common/Config/ServerConfig.h"
 
 
@@ -24,6 +25,8 @@ class Physics{
     int32 positionIterations = 2;
     GoalSensor* leftGoal;
     GoalSensor* rightGoal;
+    SavingArea* leftSavingArea;
+    SavingArea* rightSavingArea;
     b2Timer timer;
     int liquidNitrogen = 50; //Cantidad de combustible para el Turbo
     int gameTime; //milisegundos

@@ -78,12 +78,13 @@ private:
 
     int goals;
     int goalAssists;
+    int saves;
 
     bool skipReplay;
 
     bool isTouchingBoundary;
     bool isTouchingCorner;
-
+    bool isInSavingArea;
 
 
     float FIELDHALFWIDTH = ServerConfig::getFieldHalfWidth();
@@ -169,9 +170,11 @@ public:
 
     void scoreAGoal();
     void assistAGoal();
+    void makeASave();
 
     int getGoalsScored();
     int getPlayerAssists();
+    int getPlayerSaves();
 
     int getId();
     std::string getName();
@@ -184,6 +187,9 @@ public:
 
     void setIsTouchingBoundary(bool touching);
     void setIsTouchingCorner(bool touching);
+
+    void setIsInSavingArea(bool isInArea);
+    bool getIsInSavingArea();
 
 
 };

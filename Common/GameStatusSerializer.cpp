@@ -57,6 +57,7 @@ std::string GameStatusSerializer::serialize(GameStatus gameStatus) {
                 ss <<(*playerModel).getName() << " ";
                 ss <<(*playerModel).getGoals() << " ";
                 ss <<(*playerModel).getAssists() << " ";
+                ss <<(*playerModel).getSaves() << " ";
 
                 ss << (*playerModel).getClientId() << " ";
                 ss << (*playerModel).getTurboRemaining() << " ";
@@ -147,6 +148,7 @@ GameStatus GameStatusSerializer::deserialize(std::string gameStatusString) {
         std::string name;
         int goals;
         int assists;
+        int saves;
 
         int clientId;
         int turboRem;
@@ -160,6 +162,7 @@ GameStatus GameStatusSerializer::deserialize(std::string gameStatusString) {
         ss >> name;
         ss >> goals;
         ss >> assists;
+        ss >> saves;
         
         ss >> clientId;
         ss >> turboRem;
@@ -175,7 +178,7 @@ GameStatus GameStatusSerializer::deserialize(std::string gameStatusString) {
             turbo = false;
         }
 
-        playersModels.emplace_back(clientId,xCoordPlayer, yCoordPlayer, anglePlayer, turbo, facing, turboRem,name,goals,assists);
+        playersModels.emplace_back(clientId,xCoordPlayer, yCoordPlayer, anglePlayer, turbo, facing, turboRem,name,goals,assists,saves);
     }
 
     GameStatus gm(ballModel, scoreModel, playersModels);

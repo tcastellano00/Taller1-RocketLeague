@@ -2,6 +2,33 @@
 #include <iostream>
 #include "Physics.h"
 
+
+bool ContactListener::getCarContactWithSavingArea(b2Contact* contact, CarPhysics*& car, SavingArea*& savingArea) {
+    b2Fixture* fixtureA = contact->GetFixtureA();
+    b2Fixture* fixtureB = contact->GetFixtureB();
+
+    bool match1 =  fixtureA->GetFilterData().categoryBits == CAR && fixtureB->GetFilterData().categoryBits == SAVING_AREA_SENSOR;
+    bool match2 = fixtureA->GetFilterData().categoryBits == SAVING_AREA_SENSOR && fixtureB->GetFilterData().categoryBits == CAR;
+    
+    if (!(match1 || match2)){
+        return false;
+    }
+    
+    CarPhysics* carEntity;
+    SavingArea* savingAreaEntity;
+    if (fixtureA->GetFilterData().categoryBits == CAR) {//fixtureA is the car
+        carEntity = static_cast<CarPhysics*>(fixtureA->GetBody()->GetUserData());
+        savingAreaEntity = static_cast<SavingArea*>(fixtureB->GetBody()->GetUserData());
+    } else { //fixtureB is the car
+        carEntity = static_cast<CarPhysics*>(fixtureB->GetBody()->GetUserData());
+        savingAreaEntity = static_cast<SavingArea*>(fixtureA->GetBody()->GetUserData());
+    }
+
+    car = carEntity;
+    savingArea = savingAreaEntity;
+    return true;
+}
+
 bool ContactListener::getCarContactWithCorner(b2Contact* contact, CarPhysics*& car){
     b2Fixture* fixtureA = contact->GetFixtureA();
     b2Fixture* fixtureB = contact->GetFixtureB();
@@ -228,12 +255,28 @@ void ContactListener::BeginContact(b2Contact* contact) {
 
     if (this->getCarContactWithBall(contact, car, ball)) {
         ball->setContactWithBox(true);//para el sonido
-        if (ball->getLastPlayerContact() == car) {
-            return;
+        
+        if (ball->getLastPlayerContact() != car) {
+            ball->updateLastPlayerContact(car);
         }
 
-        ball->updateLastPlayerContact(car);
+        if((ball->getLastPlayerContact()->getSide() != car->getSide()) && car->getIsInSavingArea()){
+            car->makeASave();
+        }
 
+        
+
+        
+
+    }
+
+    SavingArea* savingArea;
+
+    if (this->getCarContactWithSavingArea(contact, car, savingArea)) {
+        if ((car->getSide() == LEFTPLAYER && savingArea->getSavingAreaSide() == LEFTAREA)|| 
+            (car->getSide() == RIGHTPLAYER && savingArea->getSavingAreaSide() == RIGHTAREA)) {
+                car->setIsInSavingArea(true);
+            }
     }
 
 }
@@ -270,4 +313,13 @@ void ContactListener::EndContact(b2Contact* contact) {
         car->setSensorStatus(NOTSENSOR);
         return;
     }
+
+    SavingArea* savingArea;
+
+    if (this->getCarContactWithSavingArea(contact, car, savingArea)) {
+        if ((car->getSide() == LEFTPLAYER && savingArea->getSavingAreaSide() == LEFTAREA)|| 
+            (car->getSide() == RIGHTPLAYER && savingArea->getSavingAreaSide() == RIGHTAREA)) {
+                car->setIsInSavingArea(false);
+            }
     }
+}

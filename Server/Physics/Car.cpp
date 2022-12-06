@@ -25,6 +25,7 @@ CarPhysics::CarPhysics(int cltId, std::string newPlayerName, b2World& world, int
     this->playerName = newPlayerName;
     this->goals = 0;
     this->goalAssists = 0;
+    this->saves = 0;
     this->skipReplay = false;
 
     this->isTouchingBoundary = false;
@@ -393,7 +394,7 @@ PlayerModel CarPhysics::getPlayerModel() {
     }*/
 
 
-    PlayerModel pm(this->clientId , xCar, yCar, angle, turbo, facing, turboRem,this->playerName,this->goals,this->goalAssists);
+    PlayerModel pm(this->clientId , xCar, yCar, angle, turbo, facing, turboRem,this->playerName,this->goals,this->goalAssists, this->saves);
     return pm;
 }
 
@@ -443,4 +444,22 @@ void CarPhysics::setIsTouchingBoundary(bool touching){
     
 void CarPhysics::setIsTouchingCorner(bool touching) {
     this->isTouchingCorner = touching;
+}
+
+
+void CarPhysics::setIsInSavingArea(bool InSavingArea){
+    this->isInSavingArea = InSavingArea;
+}
+
+bool CarPhysics::getIsInSavingArea() {
+    return this->isInSavingArea;
+}
+
+
+void CarPhysics::makeASave(){
+    this->saves++;
+}
+
+int CarPhysics::getPlayerSaves(){
+    return this->saves;
 }

@@ -6,6 +6,7 @@
 #include "Car.h"
 #include "BallPhysics.h"
 #include "EntityCategory.h"
+#include "SavingArea.h"
 
 //Clase que implementa todos los contactos que Box2D registra.
 //En cada tipo de contacto se implementa su logica correspondiente
@@ -27,6 +28,8 @@ class ContactListener : public b2ContactListener  {
     bool getBallContactWithBox(b2Contact* contact, BallPhysics*& ball);
 
     bool getCarContactWithCorner(b2Contact* contact, CarPhysics*& car);
+
+    bool getCarContactWithSavingArea(b2Contact* contact, CarPhysics*& car, SavingArea*& savingArea);
 };
 
 #endif

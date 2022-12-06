@@ -20,11 +20,12 @@ private:
     std::string name;
     int goals;
     int assists;
+    int saves;
 
 public:
     PlayerModel();
     PlayerModel(int cltId,float xCoord, float yCoord, float ang, bool turbo, std::string facing,
-    int turboRem,std::string name,int goals,int assists);
+    int turboRem,std::string name,int goals,int assists, int saves);
 
     float getCoordX();
     float getCoordY();
@@ -36,6 +37,7 @@ public:
     std::string getName();
     int getGoals();
     int getAssists();
+    int getSaves();
 
     ~PlayerModel();
 };

@@ -29,6 +29,13 @@ Physics::Physics(std::list<ClientConnection>& connections): world(b2Vec2(0.0f, G
     //this->createBall();
     this->leftGoal = new GoalSensor(LEFT, world);
     this->rightGoal = new GoalSensor(RIGHT, world);
+    
+
+    SavingArea* leftSavingArea = new SavingArea(LEFTAREA,world);
+    SavingArea* rightSavingArea = new SavingArea(RIGHTAREA,world);
+
+    leftSavingArea->getSavingAreaSide();
+    rightSavingArea->getSavingAreaSide();//pq sino
 
     this->world.SetContactListener(&(this->contactListener));
 }
@@ -352,6 +359,9 @@ void Physics::playerSetSkipReplay(int clientId) {
 Physics::~Physics() {
     delete leftGoal;
     delete rightGoal;
+
+    delete leftSavingArea;
+    delete rightSavingArea;
     for (std::map<int, CarPhysics*>::iterator it = this->cars.begin(); it != this->cars.end(); ++it) {
         delete it->second;
     }

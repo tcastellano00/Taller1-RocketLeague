@@ -15,6 +15,7 @@ enum _entityCategory {
   CAR_FRONT_SENSOR = 0x0010,
   CAR_BOTTOM_SENSOR = 0x0020,
   CORNER = 0x0040,
+  SAVING_AREA_SENSOR = 0x0080
 };
 
 #endif
