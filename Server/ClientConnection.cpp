@@ -14,8 +14,8 @@ ClientConnection::ClientConnection(
     socket(std::move(socket)) {
         this->id = ClientIdGenerator::getId();
         this->gameName = "";
-        this->clientName = "";
         this->clientName = clientName;
+        this->inAGame = false;
     }
 
 int ClientConnection::getId() {
@@ -35,8 +35,10 @@ Socket& ClientConnection::getSocketReference() {
 }
 
 void ClientConnection::setGameName(std::string newGameName) {
-    this->gameName = newGameName;
-    this->inAGame = true;
+    if (newGameName != "") {
+        this->gameName = newGameName;
+        this->inAGame = true;
+    }
 }
 
 std::string ClientConnection::getGameName() {

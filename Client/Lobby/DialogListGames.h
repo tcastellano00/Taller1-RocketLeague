@@ -6,6 +6,7 @@
 #include "DialogCreateGame.h"
 #include "ThreadServerStartGame.h"
 #include "../../Common/Socket.h"
+#include "../../Common/Protocol.h"
 
 namespace Ui {
 class DialogListGames;
@@ -27,6 +28,8 @@ private slots:
 
     void on_btn_joinGame_clicked();
 
+    //void on_btn_reload_clicked();
+
 public slots:
     void startGame();
 
@@ -39,6 +42,8 @@ private:
     Socket &clientSocket;
     std::string clientName;
     ThreadServerStartGame *threadServerStartGame;
+
+    void loadGames();
 };
 
 #endif // DIALOGLISTGAMES_H

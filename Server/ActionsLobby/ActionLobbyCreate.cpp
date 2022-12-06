@@ -15,9 +15,13 @@ std::string ActionLobbyCreate::execute(
 
         int max_players;
         std::string game_name;
+        std::string game_name_word;
 
         args >> max_players;
         args >> game_name;
+
+        while(args >> game_name_word)
+            game_name += " " + game_name_word;
 
         bool result = game_monitor.createGame(game_name, max_players, client);
 

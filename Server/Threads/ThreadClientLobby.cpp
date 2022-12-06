@@ -32,7 +32,7 @@ void ThreadClientLobby::run(){
                 response = command->execute(gameMonitor, client);
                 
             clientJoinedGame = client.getInAGame();
-            
+
             /*
              Cuando el client se une al juego, la conexion
              pasa a estar en el juego y deja de estar en el

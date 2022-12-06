@@ -67,3 +67,69 @@ TEST(ProtocoloTest, sendAndReciveMessage_ClientShouldReciveWhatServerSend) {
     //assert
     EXPECT_EQ (sentMessage, recivedMessage);
 }
+
+TEST(ProtocoloTest, sendAndReciveMessage_OKMessage) {
+    const char* ip = "localhost";
+    const char* port = "8080";
+
+    Socket accepter(port);
+    Socket client(ip, port);
+    Socket server = accepter.accept();
+
+    Protocol protocolClient(client);
+    Protocol protocolServer(server);
+
+    std::string sentMessage = "OK";
+    protocolServer.sendMessage(sentMessage);
+    std::string recivedMessage = protocolClient.reciveMessage();
+
+    protocolClient.close();
+    protocolServer.close();
+
+    //assert
+    EXPECT_EQ (sentMessage, recivedMessage);
+}
+
+TEST(ProtocoloTest, sendAndReciveMessage_ERRORMessage) {
+    const char* ip = "localhost";
+    const char* port = "8080";
+
+    Socket accepter(port);
+    Socket client(ip, port);
+    Socket server = accepter.accept();
+
+    Protocol protocolClient(client);
+    Protocol protocolServer(server);
+
+    std::string sentMessage = "ERROR";
+    protocolServer.sendMessage(sentMessage);
+    std::string recivedMessage = protocolClient.reciveMessage();
+
+    protocolClient.close();
+    protocolServer.close();
+
+    //assert
+    EXPECT_EQ (sentMessage, recivedMessage);
+}
+
+TEST(ProtocoloTest, sendAndReciveMessage_EmptyMessage) {
+    const char* ip = "localhost";
+    const char* port = "8080";
+
+    Socket accepter(port);
+    Socket client(ip, port);
+    Socket server = accepter.accept();
+
+    Protocol protocolClient(client);
+    Protocol protocolServer(server);
+
+    std::string sentMessage = "";
+    protocolServer.sendMessage(sentMessage);
+    std::string recivedMessage = protocolClient.reciveMessage();
+
+    protocolClient.close();
+    protocolServer.close();
+
+    //assert
+    EXPECT_EQ (sentMessage, recivedMessage);
+}

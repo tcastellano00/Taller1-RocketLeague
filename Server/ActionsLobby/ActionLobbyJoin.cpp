@@ -15,8 +15,12 @@ std::string ActionLobbyJoin::execute(
         std::stringstream args(arguments);
 
         std::string game_name;
+        std::string game_name_word;
 
         args >> game_name;
+
+        while(args >> game_name_word)
+            game_name += " " + game_name_word;
 
         bool result = game_monitor.addPlayerIfNotFull(game_name, client);
 

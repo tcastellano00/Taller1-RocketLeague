@@ -20,6 +20,8 @@ private slots:
 
     void on_btn_joinGame_clicked();
 
+    void on_btn_reload_clicked();
+
 private:
     Ui::DialogListGames *ui;
     std::string clientName;
