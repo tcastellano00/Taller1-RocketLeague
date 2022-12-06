@@ -2,6 +2,7 @@
 #include "ActionLobbyCreate.h"
 #include "ActionLobbyJoin.h"
 #include "ActionLobbyList.h"
+#include "ActionLobbySetName.h"
 
 #include "../../Common/Constants/ActionsLobby.h"
 
@@ -14,6 +15,8 @@ std::unique_ptr<ActionsLobby> ActionsLobby::get_command_ptr(
         return std::unique_ptr<ActionsLobby>(new ActionLobbyList(arguments));
     else if (name == CREATE_GAME)
         return std::unique_ptr<ActionsLobby>(new ActionLobbyCreate(arguments));
+    else if (name == SET_NAME)
+        return std::unique_ptr<ActionsLobby>(new ActionLobbySetName(arguments));
 
     return NULL;
 }

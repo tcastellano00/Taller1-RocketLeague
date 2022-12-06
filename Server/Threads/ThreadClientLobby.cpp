@@ -42,7 +42,8 @@ void ThreadClientLobby::run(){
                 std::string gameName = client.getGameName();
                 gameMonitor.startIfLastPlayer(gameName);
             } else {
-                protocol.sendMessage(response);
+                if (response != "")
+                    protocol.sendMessage(response);
             }
         }
     } catch(const LibError &e) { 

@@ -1,5 +1,6 @@
 #include "LobbyForm.h"
 #include "DialogListGames.h"
+#include "../../Common/Protocol.h"
 
 #include "../../ui_lobbyform.h"
 
@@ -28,8 +29,11 @@ void LobbyForm::on_pushButton_clicked()
         ui->errorMsg->setText("Todo campeón necesita un nombre, ingresalo!");
         return;
     }
-
+    
     this->clientName = qtClientName.toStdString();
+
+    Protocol protocol(this->clientSocket);
+    protocol.sendMessage("GUARDAR_NOMBRE " + this->clientName);
 
     this->hide();
 
