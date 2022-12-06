@@ -103,8 +103,10 @@ Una vez los clientes se encuentren en el Lobby, deben ingresar su nombre para en
 ![](https://github.com/tcastellano00/Taller1-RocketLeague/blob/main/READMEMultimedia/lobby4.png)
 ![](https://github.com/tcastellano00/Taller1-RocketLeague/blob/main/READMEMultimedia/lobby5.png)
 ![](https://github.com/tcastellano00/Taller1-RocketLeague/blob/main/READMEMultimedia/lobby6.png)
-![Inicia el juego](https://github.com/tcastellano00/Taller1-RocketLeague/blob/main/READMEMultimedia/lobby7.png)
-![Estadisticas una vez terminado el partido](https://github.com/tcastellano00/Taller1-RocketLeague/blob/main/READMEMultimedia/lobby8.png)
+Inicia el juego
+![](https://github.com/tcastellano00/Taller1-RocketLeague/blob/main/READMEMultimedia/lobby7.png)
+Estadisticas una vez terminado el partido
+![](https://github.com/tcastellano00/Taller1-RocketLeague/blob/main/READMEMultimedia/lobby8.png)
 
 
 
@@ -114,7 +116,9 @@ Una vez los clientes se encuentren en el Lobby, deben ingresar su nombre para en
 * El ganador es el equipo con mas goles anotados al momento de finalizar la partida.
 * El gol es otorgado cuando la totalidad del esférico entra en el arco.
 
-![Si te pasa la fisica nos avala para decir que no entro en su totalidad](https://github.com/tcastellano00/Taller1-RocketLeague/blob/main/READMEMultimedia/lineaJapon.png)
+![](https://github.com/tcastellano00/Taller1-RocketLeague/blob/main/READMEMultimedia/lineaJapon.png)
+
+Si te pasa la fisica nos avala para decir que no entro en su totalidad
 
 
 ## Controles
