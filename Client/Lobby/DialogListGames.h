@@ -12,6 +12,10 @@ namespace Ui {
 class DialogListGames;
 }
 
+/*
+Esta clase de QT representa el dialog donde se listan todas
+las partidas del servidor.
+*/
 class DialogListGames : public QDialog
 {
     Q_OBJECT

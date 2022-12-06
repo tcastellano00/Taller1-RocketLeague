@@ -9,7 +9,9 @@
 #include "../../Common/Config/ServerConfig.h"
 
 
-
+/*
+Encargada de imprimir en la ventana de SDL a la pelota.
+*/
 class Ball{
     Animation anBall;
     Animation anExplosion;

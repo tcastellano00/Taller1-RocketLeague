@@ -6,7 +6,9 @@
 #include "../../Common/Config/ClientConfig.h"
 
 
-
+/*
+Encargada de imprimir en la ventana de SDL al simbolo de Replay.
+*/
 class ReplayFrame{
     Animation an;
 

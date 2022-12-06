@@ -5,6 +5,11 @@
 #include <QThread>
 #include "../../Common/Socket.h"
 
+/*
+Esta clase es utilizada para no bloquear el hilo principal de QT
+mientras se esta esperando que el servidor le informe al cliente
+que se tiene que unir a una partida.
+*/
 class ThreadServerStartGame : public QThread
 {
     Q_OBJECT

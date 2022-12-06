@@ -4,6 +4,9 @@
 #include <QDialog>
 #include "../../Common/Socket.h"
 
+/*
+Esta clase de QT representa el dialog para crear un juego
+*/
 namespace Ui {
 class DialogCreateGame;
 }

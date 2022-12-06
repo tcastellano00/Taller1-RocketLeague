@@ -4,7 +4,9 @@
 #include "Animation.h"
 #include "../../Common/Config/ClientConfig.h"
 
-
+/*
+Encargada de imprimir en la ventana de SDL a la imagen de fondo y a las paredes de la cancha.
+*/
 class Scene {
 private:
     Animation background;

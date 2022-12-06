@@ -1,5 +1,7 @@
 #include "../Common/Socket.h"
 
+/*  Encapsula logica del cliente
+*/
 class Client {
 private:
     Socket conection;

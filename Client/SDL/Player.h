@@ -10,7 +10,9 @@
 
 
 
-
+/*
+Encargada de imprimir en la ventana de SDL a un auto.
+*/
 class Player {
 public:
     Player(SDL2pp::Texture &textureCar, SDL2pp::Texture &textureTurbo, SDL2pp::Texture &textureTurboBarEmpty,

@@ -6,6 +6,11 @@
 class SdlTexture;
 class Area;
 
+
+/*
+Guarda a la textura correspondiente y encapsula el comportamiento de "avanzar" cuadros de
+un sprite compuesto por varios cuadros, que al imprimirlos secuencialmente se forma la animacion.
+*/
 class Animation {
    public:
     Animation(SDL2pp::Texture &texture, int numberRows, int numberColumns);

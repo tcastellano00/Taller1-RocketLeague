@@ -4,6 +4,10 @@
 #include "../Common/Socket.h"
 #include "GameStatusMonitor.h"
 
+/*
+Hilo encargado de enviar la informacion (popeando
+desde la cola de eventos) que ingrese el cliente al servidor.
+*/
 class ThreadSender: public Thread {
 private:
     BlockingQueue<Command>& queue;

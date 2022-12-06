@@ -10,7 +10,10 @@
 #include <SDL2/SDL.h>
 #include "SDL/KeyboardEvent/KeyBoardMapper.h"
 
-
+/*
+Clase que registra todos los comandos ingresados por el usuario
+para luego ingresarlos a una cola de eventos.
+*/
 class ThreadCmdReader: public Thread {
 private:
     BlockingQueue<Command>& queue;

@@ -8,6 +8,9 @@
 #include <vector>
 #include "../../Common/Config/ClientConfig.h"
 
+/*
+Encargada de imprimir en la ventana de SDL al marcador.
+*/
 class Score {
 private:
     int numberOfGoalsLeft;

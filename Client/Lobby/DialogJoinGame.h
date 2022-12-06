@@ -8,6 +8,9 @@ namespace Ui {
 class DialogJoinGame;
 }
 
+/*
+Esta clase de QT representa el dialog para unirse a un juego
+*/
 class DialogJoinGame : public QDialog
 {
     Q_OBJECT

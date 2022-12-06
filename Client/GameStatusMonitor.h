@@ -7,6 +7,11 @@
 #include "../Common/GameStatus.h"
 #include "../Common/Model/PlayerModel.h"
 
+
+/*
+Monitor del estado actual de la partida que posee el cliente. Evita posibles race conditions
+ya que este estado es accedido por el hilo CmdReader, Sender, Receiver y opr el Renderer.
+*/
 class GameStatusMonitor{
     std::mutex gameMutex;
     GameStatus gamestatus;
