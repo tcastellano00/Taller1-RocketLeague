@@ -10,8 +10,8 @@
 class Command {
     std::string type;
 
-    public:
-    Command(const std::string type);
+public:
+    explicit Command(const std::string &type);
     
     std::string getType();
 };

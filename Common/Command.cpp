@@ -1,6 +1,6 @@
 #include "Command.h"
 
-Command::Command(const std::string newType):
+Command::Command(const std::string &newType):
     type(newType){}
 
 

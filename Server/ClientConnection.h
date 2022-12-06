@@ -31,7 +31,7 @@ public:
     int getId();
     Socket& getSocketReference();
 
-    void setGameName(std::string newGameName);
+    void setGameName(const std::string &newGameName);
 
     std::string getGameName();
 
@@ -42,7 +42,7 @@ public:
     * */
     std::string getName();
 
-    void setName(std::string name);
+    void setName(const std::string &name);
 
     ClientConnection(const ClientConnection&) = delete;
     ClientConnection& operator=(const ClientConnection&) = delete;

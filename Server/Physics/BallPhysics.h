@@ -43,7 +43,7 @@ private:
     
 
 public:
-    BallPhysics(b2World &world);
+    explicit BallPhysics(b2World &world);
     BallPhysics();
     b2Body* getBody();
 

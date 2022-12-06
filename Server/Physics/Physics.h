@@ -56,7 +56,7 @@ class Physics{
   public:
 
     b2World world;
-    Physics(std::list<ClientConnection>& connections);
+    explicit Physics(std::list<ClientConnection>& connections);
 
     void flipCarRight(int clientId);
 
