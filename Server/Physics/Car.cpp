@@ -44,7 +44,7 @@ b2Body* CarPhysics::createBody(b2World& world, int numberOfCar) {
     dynamicBox.SetAsBox(CARHALFWIDTH, CARHALFHEIGHT);
     b2FixtureDef fixtureDef;
     fixtureDef.filter.categoryBits = CAR;
-    fixtureDef.filter.maskBits = BOUNDARY | BALL;
+    fixtureDef.filter.maskBits = BOUNDARY | BALL | CORNER;
     fixtureDef.shape = &dynamicBox;
     fixtureDef.density = 0.15f;
     fixtureDef.friction = CARFRICTION;

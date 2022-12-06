@@ -38,7 +38,7 @@ BallPhysics::BallPhysics(b2World &world) {
     circleBall.m_radius = BALLRADIUS;
     b2FixtureDef fixtureDef;
     fixtureDef.filter.categoryBits = BALL;
-    fixtureDef.filter.maskBits = BOUNDARY | CAR | GOALSENSOR | CAR_FRONT_SENSOR | CAR_BOTTOM_SENSOR;
+    fixtureDef.filter.maskBits = BOUNDARY | CAR | GOALSENSOR | CAR_FRONT_SENSOR | CAR_BOTTOM_SENSOR | CORNER;
     fixtureDef.shape = &circleBall;
     fixtureDef.density = 0.000001f;
     fixtureDef.restitution = 0.9f;

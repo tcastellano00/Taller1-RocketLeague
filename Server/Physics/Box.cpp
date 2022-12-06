@@ -48,6 +48,7 @@ BoxPhysics::BoxPhysics(b2World &world){
 
      //Rampas
 
+    b2FixtureDef myFixtureDef2;
 
     //Rampa arco inferior izquierdo
     b2ChainShape chain;
@@ -76,11 +77,15 @@ BoxPhysics::BoxPhysics(b2World &world){
     surface[20] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +20  ,  mitadAltoParedesArco*2 - 16);
     
     chain.CreateChain(surface, 21);
-    box->CreateFixture(&chain,1);
+
+    myFixtureDef2.shape = &chain;
+    myFixtureDef2.filter.categoryBits = CORNER;
+    myFixtureDef2.filter.maskBits = CAR | BALL;
 
 
+    box->CreateFixture(&myFixtureDef2);
 
-    
+
 
     //Rampa arco inferior derecho
     b2ChainShape chain2;
@@ -109,7 +114,10 @@ BoxPhysics::BoxPhysics(b2World &world){
     surface2[20] = b2Vec2(FIELDHALFWIDTH - GOALTOPHALFWIDTH*2 -20  ,  mitadAltoParedesArco*2 - 16);
 
     chain2.CreateChain(surface2, 21);
-    box->CreateFixture(&chain2,1);
+
+    myFixtureDef2.shape = &chain2;
+
+    box->CreateFixture(&myFixtureDef2);
 
     //Rampa arco superior izquierdo
     b2ChainShape chain3;
@@ -138,7 +146,9 @@ BoxPhysics::BoxPhysics(b2World &world){
     surface3[20] = b2Vec2(-FIELDHALFWIDTH + GOALTOPHALFWIDTH*2 +20  , FIELDHEIGHT - mitadAltoParedesArco*2 +  16);
     
     chain3.CreateChain(surface3, 21);
-    box->CreateFixture(&chain3,1);
+
+    myFixtureDef2.shape = &chain3;
+    box->CreateFixture(&myFixtureDef2);
 
     //Rampa arco superior derecho
     b2ChainShape chain4;
@@ -167,5 +177,8 @@ BoxPhysics::BoxPhysics(b2World &world){
     surface4[20] = b2Vec2(FIELDHALFWIDTH - GOALTOPHALFWIDTH*2 -20  , FIELDHEIGHT - mitadAltoParedesArco*2 +  16);
     
     chain4.CreateChain(surface4, 21);
-    box->CreateFixture(&chain4,1);
+
+    myFixtureDef2.shape = &chain4;
+    box->CreateFixture(&myFixtureDef2);
+
 }

@@ -6,8 +6,8 @@ SCREEN_WIDTH: 1800
 # "W", "S", "D", "M", "A", "1", "2", "3", "4", "SpaceBar";
 KEY_COMMAND_MOVE_RIGHT: "FlechitaArriba"
 KEY_COMMAND_MOVE_LEFT: "FlechitaAbajo"
-KEY_COMMAND_MOVE_UP: "FlechitaDerecha"
-KEY_COMMAND_MOVE_DOWN: "FlechitaIzquierda"
+KEY_COMMAND_MOVE_UP: "FlechitaIzquierda"
+KEY_COMMAND_MOVE_DOWN: "FlechitaDerecha"
 KEY_COMMAND_TURBO: "T"
 KEY_COMMAND_JUMP: "SpaceBar"
 KEY_COMMAND_TURN: "S"

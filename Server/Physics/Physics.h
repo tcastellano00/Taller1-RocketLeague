@@ -105,7 +105,7 @@ class Physics{
     void doGoldenShot(int clientId);
     void doPurpleShot(int clientId);
 
-    void applyExplosion();
+    void applyExplosion(int sign);
     void applyBlastImpulse(b2Body* body, b2Vec2 blastCenter, b2Vec2 applyPoint, float blastPower);
 
     void playerSetSkipReplay(int clientId);

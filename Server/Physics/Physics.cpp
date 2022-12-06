@@ -198,14 +198,15 @@ GameStatus Physics::getGameStatus(){
 
 
 
-void Physics::applyExplosion(){
+void Physics::applyExplosion(int sign){
     if (isInExplosion){return;}
 
     isInExplosion = true;
+
     for (b2Body* body = world.GetBodyList(); body; body = body->GetNext())
     {
         if (body == this->ball->getBody()){continue;}
-        body->ApplyLinearImpulse( b2Vec2(-1000000000000000,0), body->GetWorldCenter(),true ); //Cambiar esto
+        body->ApplyLinearImpulse( b2Vec2(1000000*sign,0), body->GetWorldCenter(),true ); //Cambiar esto
     }
 }
 
@@ -214,12 +215,18 @@ void Physics::resetPositionsIfGoal(){
         return;
     }
 
-    this->applyExplosion();
+    if(leftGoal->getGoalScored()){
+        this->applyExplosion(1);
+    } else {
+       this->applyExplosion(-1); 
+    }
+    if(isInExplosion){this->world.SetGravity(b2Vec2(0,0));}
     if (timeExplosion > 1){
         timeExplosion -= 1;
         return; }
     timeExplosion = 60;
     isInExplosion = false;
+    this->world.SetGravity(b2Vec2(0.0f, GRAVITY));
 
 
     leftGoal->setGoalScored(false);
