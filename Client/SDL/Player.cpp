@@ -47,13 +47,13 @@ void Player::render(SDL2pp::Renderer &renderer, int i) {
     SDL_RendererFlip flip = facingLeft ? SDL_FLIP_HORIZONTAL : SDL_FLIP_NONE;
 
 
-    if(face == "left" && faceTurned){
-        anTurnRight.render(renderer,SDL2pp::Rect(x, y, CAR_WIDTH, CAR_HEIGHT), flip, angle);
-    }
+    // if(face == "left" && faceTurned){
+    //     anTurnRight.render(renderer,SDL2pp::Rect(x, y, CAR_WIDTH, CAR_HEIGHT), flip, angle);
+    // }
 
-    if(face != "left" && faceTurned){
-        anTurnLeft.render(renderer,SDL2pp::Rect(x, y, CAR_WIDTH, CAR_HEIGHT), flip, angle);
-    }
+    // if(face != "left" && faceTurned){
+    //     anTurnLeft.render(renderer,SDL2pp::Rect(x, y, CAR_WIDTH, CAR_HEIGHT), flip, angle);
+    // }
     
     
     if (not turbo){ 
@@ -70,16 +70,31 @@ void Player::render(SDL2pp::Renderer &renderer, int i) {
     
     
     flip = SDL_FLIP_NONE;
-    if (i == 0) {
+    if (i % 2 == 0) {
         anCar.getTexture().SetColorMod(255, 0, 0);
+        anTurbo.getTexture().SetColorMod(255, 0, 0);
         float barPercentage = turboRemaining/MAXTURBO;
-        anTurboBarFull.render(renderer, SDL2pp::Rect(TURBOBARX, TURBOBARY, TURBOBARWIDTH * barPercentage, TURBOBARHEIGHT), flip, 0);
-        anTurboBarEmpty.render(renderer, SDL2pp::Rect(TURBOBARX, TURBOBARY, TURBOBARWIDTH, TURBOBARHEIGHT), flip, 0);
-    } else if (i == 1) {
+        if ( i== 0) {
+            anTurboBarFull.render(renderer, SDL2pp::Rect(TURBOBARX, TURBOBARY, TURBOBARWIDTH * barPercentage, TURBOBARHEIGHT), flip, 0);
+            anTurboBarEmpty.render(renderer, SDL2pp::Rect(TURBOBARX, TURBOBARY, TURBOBARWIDTH, TURBOBARHEIGHT), flip, 0);
+        } else if (i == 2) {
+            anTurboBarFull.render(renderer, SDL2pp::Rect(TURBOBARX, TURBOBARY + 3*TURBOBARHEIGHT/2, TURBOBARWIDTH * barPercentage, TURBOBARHEIGHT), flip, 0);
+            anTurboBarEmpty.render(renderer, SDL2pp::Rect(TURBOBARX, TURBOBARY+ 3*TURBOBARHEIGHT/2, TURBOBARWIDTH, TURBOBARHEIGHT), flip, 0);
+        }
+        
+    } else if (i % 2 == 1) {
         anCar.getTexture().SetColorMod(0, 0, 255);
+        anTurbo.getTexture().SetColorMod(0, 0, 255);
         float barPercentage = turboRemaining/MAXTURBO;
-        anTurboBarFull.render(renderer, SDL2pp::Rect(SCREENWIDTH - TURBOBARX - TURBOBARWIDTH * barPercentage, TURBOBARY, TURBOBARWIDTH * barPercentage, TURBOBARHEIGHT), flip, 0);
-        anTurboBarEmpty.render(renderer, SDL2pp::Rect(SCREENWIDTH - TURBOBARX - TURBOBARWIDTH, TURBOBARY, TURBOBARWIDTH, TURBOBARHEIGHT), flip, 0);
+        if (i == 1) {
+            anTurboBarFull.render(renderer, SDL2pp::Rect(SCREENWIDTH - TURBOBARX - TURBOBARWIDTH * barPercentage, TURBOBARY, TURBOBARWIDTH * barPercentage, TURBOBARHEIGHT), flip, 0);
+            anTurboBarEmpty.render(renderer, SDL2pp::Rect(SCREENWIDTH - TURBOBARX - TURBOBARWIDTH, TURBOBARY, TURBOBARWIDTH, TURBOBARHEIGHT), flip, 0);
+        } else if (i == 3) {
+            anTurboBarFull.render(renderer, SDL2pp::Rect(SCREENWIDTH - TURBOBARX - TURBOBARWIDTH * barPercentage, TURBOBARY+ 3*TURBOBARHEIGHT/2, TURBOBARWIDTH * barPercentage, TURBOBARHEIGHT), flip, 0);
+            anTurboBarEmpty.render(renderer, SDL2pp::Rect(SCREENWIDTH - TURBOBARX - TURBOBARWIDTH, TURBOBARY+ 3*TURBOBARHEIGHT/2, TURBOBARWIDTH, TURBOBARHEIGHT), flip, 0);
+        }
+
+        
     }
 
     /*
