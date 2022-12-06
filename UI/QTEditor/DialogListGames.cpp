@@ -33,8 +33,7 @@ void DialogListGames::on_btn_joinGame_clicked()
     dialogJoinGame.exec();
 }
 
-
-void DialogListGames::on_btn_reload_clicked()
+void DialogListGames::on_btn_train_clicked()
 {
 
 }

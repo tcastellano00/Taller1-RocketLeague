@@ -67,12 +67,11 @@ void DialogListGames::on_btn_joinGame_clicked()
     this->dialogJoinGameIsOpen = true;
 }
 
-/*
-void DialogListGames::on_btn_reload_clicked()
+void DialogListGames::on_btn_train_clicked()
 {
-    this->loadGames();
+    Protocol protocol(this->clientSocket);
+    protocol.sendMessage("CREAR 1 Entrenamiento de " + clientName);
 }
-*/
 
 DialogListGames::~DialogListGames()
 {

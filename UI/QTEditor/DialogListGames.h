@@ -20,7 +20,7 @@ private slots:
 
     void on_btn_joinGame_clicked();
 
-    void on_btn_reload_clicked();
+    void on_btn_train_clicked();
 
 private:
     Ui::DialogListGames *ui;
